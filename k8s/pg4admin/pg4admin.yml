@@ -1,0 +1,76 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: pg4admin-config
+data:
+  config_server.py: |
+    import sqlite3, os
+    conn = sqlite3.connect("/var/lib/pgadmin/pgadmin4.db")
+    c= conn.cursor()
+
+    def insert_env_var(s):
+      ss = s
+      for k, v in os.environ.items():
+        ss = ss.replace("<"+k+">",v)
+      return ss
+
+    st= "INSERT INTO server (id, user_id, servergroup_id, name, host, port, maintenance_db, username, ssl_mode, hostaddr, db_res, sslcert, sslkey, sslcompression, use_ssh_tunnel, tunnel_port, tunnel_authentication, connect_timeout) values (1, 1, 1, 'Data Ware House', '<POSTGRES_SERVICE>', '<POSTGRES_PORT>', '<POSTGRES_USER>', '<POSTGRES_PASSWORD>', 'prefer', '', '', '<STORAGE_DIR>/.postgresql/postgresql.crt', '<STORAGE_DIR>/.postgresql/postgresql.key', 0, 0, '22', 0, 0);"
+    statement = insert_env_var(st)
+    try:
+      c.execute(statement)
+      conn.commit()
+    except Exception as e:
+      conn.rollback()
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: pg4admin-wh
+  labels:
+    app: pg4admin-wh
+spec:
+  selector:
+    matchLabels:
+      app: pg4admin-wh
+  template:
+    metadata:
+      name: pg4admin-wh
+      labels:
+        app: pg4admin-wh
+    spec:
+      containers:
+      - name: pg4admin
+        image: dpage/pgadmin4
+        env:
+          - name: PGADMIN_DEFAULT_EMAIL
+            value: youremail@yourdomain.com
+          - name: PGADMIN_DEFAULT_PASSWORD
+            value: admin
+        envFrom:
+          - configMapRef:
+              name: postgres-config
+        volumeMounts:
+          - name: config-vol
+            mountPath: /pgadmin-script
+      volumes:
+        - name: config-vol
+          configMap:
+            name: pg4admin-config
+            items:
+              - key: config_server.py
+                path: config_server.py
+      initContainers:
+      - name: init-pg4admin
+        image: busybox
+        command: ['sh', '-c', 'until nslookup postgres-wh; do echo waiting for myservice; sleep 2; done;']
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: pg4admin-wh
+spec:
+  selector:
+    app: pg4admin-wh
+  ports:
+    - port: 80
+  type: NodePort
