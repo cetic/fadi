@@ -1,8 +1,12 @@
-# Big Data Platform
+# FADI - Framework d'Analyse de Données Industriel - Industrial Data Analysis Framework
 
-## Goal
+FADI is a Cloud Native platform for Big Data based on mature opensource tools.
 
-FADI - Framework d'Analyse de Données Industriel - Industrial Data Analysis Framework
+## What is FADI?
+
+The FADI project is dedicated to making deployments of Big Data tools on Kubernetes simple, portable and scalable. 
+The goal is not to recreate other services, but to provide a straightforward way to deploy open-source systems for Big Data to diverse infrastructures. 
+Anywhere you are running Kubernetes, you should be able to run FADI.
 
 ### 0. Getting started
 
@@ -13,7 +17,7 @@ FADI - Framework d'Analyse de Données Industriel - Industrial Data Analysis Fra
 * Install Minikube: https://github.com/kubernetes/minikube/releases (At least v0.32 of Minikube)
 * Install Helm: https://helm.sh/docs/using_helm/#installing-helm
 
-#### 0.2. Local development
+#### 0.2. Local deployment
 
 Start Minikube:
 
