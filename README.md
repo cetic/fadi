@@ -23,13 +23,13 @@ Anywhere you are running Kubernetes, you should be able to run FADI.
 
 Start Minikube:
 
-Delete any previous Minikube created :
+Delete any previous Minikube created:
 
 ```
 minikube delete
 ```
 
-Start Minikube :
+Start Minikube:
 
 ```
 minikube start --cpus 6 --memory 12288 --disk-size=40GB
@@ -44,7 +44,7 @@ minikube dashboard
 Clone this repository.
 
 ```
-git clone git@git.cetic.be:grinding/bdf-setup.git bdf-setup
+git clone https://github.com/cetic/fadi.git fadi
 ```
 
 **For Mac users :** you need to change the network interface in the Minikube vm:
@@ -66,8 +66,6 @@ To access a service in your browser, you can just type, for instance:
 ```
 minikube service -n bdf nifi
 ```
-
-To configure Nifi, See this [issue](https://git.cetic.be/grinding/bdf-setup/issues/3)
 
 To update the bdf stack, re-type:
 ```
