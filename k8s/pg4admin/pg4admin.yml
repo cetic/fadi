@@ -1,6 +1,16 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
+  name: postgres-config
+data:
+  POSTGRES_USER: postgres
+  POSTGRES_PASSWORD: postgres
+  POSTGRES_SERVICE: bdf-postgres-postgresql
+  POSTGRES_PORT: "5432"
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
   name: pg4admin-config
 data:
   config_server.py: |
@@ -22,36 +32,61 @@ data:
     except Exception as e:
       conn.rollback()
 ---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: servers-config
+data:
+  servers.json: |
+    {
+        "Servers": {
+            "1": {
+                "Name": "Data Ware House",
+                "Group": "Server Group 1",
+                "Port": 5432,
+                "Username": "postgres",
+                "Host": "bdf-postgres-postgresql",
+                "SSLMode": "prefer",
+                "MaintenanceDB": "postgres"
+             }
+         }
+    }
+---
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
-  name: pg4admin-wh
+  name: pg4admin
   labels:
-    app: pg4admin-wh
+    app: pg4admin
 spec:
   selector:
     matchLabels:
-      app: pg4admin-wh
+      app: pg4admin
   template:
     metadata:
-      name: pg4admin-wh
+      name: pg4admin
       labels:
-        app: pg4admin-wh
+        app: pg4admin
     spec:
       containers:
       - name: pg4admin
         image: dpage/pgadmin4
         env:
           - name: PGADMIN_DEFAULT_EMAIL
-            value: youremail@yourdomain.com
+            value: admin@fadi.com
           - name: PGADMIN_DEFAULT_PASSWORD
-            value: admin
+            value: password
         envFrom:
           - configMapRef:
               name: postgres-config
+          - configMapRef:
+              name: servers-config
         volumeMounts:
           - name: config-vol
             mountPath: /pgadmin-script
+          - name: servers-config
+            mountPath: /pgadmin4/servers.json
+            subPath: servers.json
       volumes:
         - name: config-vol
           configMap:
@@ -59,18 +94,21 @@ spec:
             items:
               - key: config_server.py
                 path: config_server.py
+        - name: servers-config
+          configMap:
+            name: servers-config
       initContainers:
       - name: init-pg4admin
         image: busybox
-        command: ['sh', '-c', 'until nslookup postgres-wh; do echo waiting for myservice; sleep 2; done;']
+        command: ['sh', '-c', 'until nslookup bdf-postgres-postgresql; do echo waiting for myservice; sleep 2; done;']
 ---
 kind: Service
 apiVersion: v1
 metadata:
-  name: pg4admin-wh
+  name: pg4admin
 spec:
   selector:
-    app: pg4admin-wh
+    app: pg4admin
   ports:
     - port: 80
-  type: NodePort
+  type: LoadBalancer
