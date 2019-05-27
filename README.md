@@ -1,14 +1,14 @@
-# FADI - Framework d'Analyse de Données Industriel - Industrial Data Analysis Framework
+# FADI - A framework for big data analytics
 
 ![](doc/logo.png)
 
-FADI is a Cloud Native platform for Big Data based on mature opensource tools.
+FADI is a Cloud Native platform for Big Data based on mature open source tools.
 
 ## What is FADI?
 
-The FADI project is dedicated to making the deployment of Big Data tools on Kubernetes simple, portable and scalable. 
+The FADI project is dedicated to making the deployment of Big Data tools on [Kubernetes](https://kubernetes.io/) simple, portable and scalable. 
 The goal is to provide a straightforward way to deploy open-source systems for Big Data to diverse infrastructures (private and public clouds). 
-Anywhere you are running Kubernetes, you should be able to run FADI.
+Anywhere you can run Kubernetes, you should be able to run FADI.
 
 ### 0. Getting started
 
