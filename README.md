@@ -7,7 +7,7 @@ FADI is a Cloud Native platform for Big Data based on mature open source tools.
 ## What is FADI?
 
 The FADI project is dedicated to making the deployment of Big Data tools on [Kubernetes](https://kubernetes.io/) simple, portable and scalable. 
-The goal is to provide a straightforward way to deploy open-source systems for Big Data to diverse infrastructures (private and public clouds). 
+The goal is to provide a straightforward way to deploy open-source systems for Big Data to various infrastructures (private and public clouds). 
 Anywhere you can run Kubernetes, you should be able to run FADI.
 
 ### 0. Getting started
