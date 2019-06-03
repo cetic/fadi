@@ -76,6 +76,8 @@ spec:
             value: admin@fadi.com
           - name: PGADMIN_DEFAULT_PASSWORD
             value: password
+         # - name: PGADMIN_ENABLE_TLS
+         #   value: "True"
         envFrom:
           - configMapRef:
               name: postgres-config

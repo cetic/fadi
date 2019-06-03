@@ -8,12 +8,10 @@ helm delete --purge bdf-postgres --tiller-namespace tiller
 helm delete --purge bdf-superset --tiller-namespace tiller
 helm delete --purge bdf-minio --tiller-namespace tiller
 helm delete --purge bdf-grafana --tiller-namespace tiller
+helm delete --purge bdf-pgadmin --tiller-namespace tiller
 
 # Delete nifi
 kubectl delete -f ../k8s/nifi/nifi.yml -n bdf
-
-# Delete pg4admin
-kubectl delete -f ../k8s/pg4admin/pg4admin.yml -n bdf
 
 # Delete sa for tiller
 kubectl delete -f ./tiller/rbac-config.yaml

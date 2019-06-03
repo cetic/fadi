@@ -101,7 +101,7 @@ helm init
 |-----------|:----------------:|-----------:|--------------:|------------------------:|
 | **Superset** | 0.28.1 | https://github.com/helm/charts/tree/master/stable/superset | More informations about configurations of superset [here](helm/superset/README.md) | Persistant: 8Gi
 | **PostgreSQL** | 10.7.0 | https://github.com/helm/charts/tree/master/stable/postgresql | More informations about configurations of PostgreSQL [here](helm/postgresql/README.md). | Persistant: 8Gi
-| **PgAdmin** | *** | Not for the moment, the old Kubernetes scripts are used. Should be converted in Helm scripts. | See [here](k8s/pg4admin/). | /
+| **PgAdmin** | 4.7 | https://github.com/cetic/helm-pgadmin | More informations about configurations of pgadmin [here](helm/pgadmin/README.md) | /
 | **Minio** | RELEASE.2018-12-06T01-27-43Z |  https://github.com/helm/charts/tree/master/stable/minio | More informations about configurations of minio [here](helm/minio/README.md). |  Persistant: 10Gi
 | **Jupyter Hub** | 0.8.2 | https://github.com/jupyterhub/zero-to-jupyterhub-k8s | More informations about configurations of JupyterHub [here](helm/jupyterhub/README.md). | Not persistant, to change , https://z2jh.jupyter.org/en/latest/
 | **Nifi** | *** | Not for the moment, the old Kubernetes scripts are used. Should be converted in Helm scripts. | See [here](k8s/nifi/). | Not persistant, to change

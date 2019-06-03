@@ -16,6 +16,7 @@ kubectl rollout status deployment tiller-deploy --namespace tiller
 # add helm repos
 helm repo add stable https://kubernetes-charts.storage.googleapis.com/
 helm repo add jupyterhub https://jupyterhub.github.io/helm-chart/
+helm repo add cetic https://cetic.github.io/helm-charts/
 helm repo update
 
 #dashboard (already there with minikube and gke)
@@ -36,6 +37,5 @@ helm upgrade --install bdf-jhub jupyterhub/jupyterhub --version=0.8.2 -f ./jupyt
 kubectl get services nifi -n bdf 2> /dev/null || kubectl apply -f ../k8s/nifi/nifi.yml -n bdf
 # grafana
 helm upgrade --install bdf-grafana stable/grafana -f ./grafana/config.yml --namespace bdf --tiller-namespace tiller
-# pg4admin: TODO Helm
-# Don't update pg4admin at this time
-kubectl get services pg4admin -n bdf 2> /dev/null || kubectl apply -f ../k8s/pg4admin/pg4admin.yml -n bdf
+# pg4admin: 
+helm upgrade --install bdf-pgadmin cetic/pgadmin -f ./pgadmin/config.yml --namespace bdf --tiller-namespace tiller
