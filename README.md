@@ -67,13 +67,14 @@ To access a service in your browser, you can just type, for instance:
 minikube service -n bdf nifi
 ```
 
-To update the bdf stack, re-type:
+To update the FADI stack, re-type:
+
 ```
 cd helm
 ./deploy.sh
 ```
 
-To delete the bdf stack, type:
+To delete the FADI stack, type:
 
 ```
 cd helm
@@ -82,16 +83,55 @@ cd helm
 
 #### 0.3. Deployment with Helm and Kubernetes
 
+The deployment of the FADI stack is achieved with:
+
 * [Helm](https://helm.sh/).
 * [Kubernetes](https://kubernetes.io/).
 
 ![](doc/architecture/helm-architecture.png)
 
-* To setup helm and tiller, type:
+First, clone this repository.
 
 ```
-helm init
+git clone https://github.com/cetic/fadi.git fadi
 ```
+
+Then, to deploy FADI on your Kubernetes cluster, you can follow this [deployment script](/helm/deploy.sh).
+
+You will need to modify the first line by your Kubernetes context:
+
+```
+kubectl config set-context <your-k8s-context>
+```
+
+Finally, you can deploy the FADI stack by typing:
+
+```
+cd helm
+./deploy.sh
+```
+
+#### 0.4. Deployment on GKE
+
+[GKE](https://cloud.google.com/kubernetes-engine/) is a managed Kubernetes offer by the Google Cloud Platform (GCP).
+
+> "Kubernetes Engine is a managed, production-ready environment for deploying containerized applications. It brings our latest innovations in developer productivity, resource efficiency, automated operations, and open source flexibility to accelerate your time to market."
+
+* The creation of a GKE environment can be done with [Terraform](https://www.terraform.io/) or manually. 
+See the [Terraform](https://www.terraform.io/) scripts for the creation of the Kubernetes cluster [here](/terraform) and its documentation.
+
+To manually create a Kubernetes cluster (GKE):
+
+You can access the console of GCP [here](https://console.cloud.google.com).
+
+* 1- Visit the Google Kubernetes Engine menu in GCP Console. ...
+* 2- Click Create cluster.
+* 3- Choose the Standard cluster template or choose an appropriate template for your workload.
+* 4- From the Cluster Version drop-down menu, select the desired GKE version to run in the cluster.
+
+It's also possible to create the Kubernetes cluster in command lines, see: https://cloud.google.com/kubernetes-engine/docs/how-to/creating-a-cluster
+
+* The deployment of the FADI stack is achieved with [Helm](https://helm.sh/) and [Kubernetes](https://kubernetes.io/). See the Section 0.3.
 
 ### 1. BDF technology Stack
 
@@ -110,18 +150,15 @@ helm init
 
 #### 1.2. not available for the moment
 
-* **airflow**
+* **airflow**: https://github.com/helm/charts/tree/master/stable/airflow
 
-* **zeppelin**: https://github.com/helm/charts/tree/master/stable/zeppelin (not persistant, to change!)
-helm upgrade --install bdf-zeppelin stable/zeppelin -f helm/zeppelin/config.yml 
-Zeppelin is integrated in the Spark Helm Chart.
+* **zeppelin**: https://github.com/helm/charts/tree/master/stable/zeppelin (Zeppelin is already integrated in the Spark Helm Chart.)
 
 * **OpenLDAP**: https://github.com/helm/charts/tree/master/stable/openldap
 
 * **Prometheus**: https://github.com/helm/charts/tree/master/stable/prometheus
 
-* **Vault**: https://github.com/helm/charts/tree/master/stable/vault-operator
-https://github.com/helm/charts/tree/master/incubator/vault
+* **Vault**: https://github.com/helm/charts/tree/master/stable/vault-operator, https://github.com/helm/charts/tree/master/incubator/vault
 
 * **Istio**: https://github.com/helm/charts/tree/master/incubator/istio
 
@@ -129,28 +166,23 @@ https://github.com/helm/charts/tree/master/incubator/vault
 
 * **Zookeeper**: https://github.com/helm/charts/tree/master/incubator/zookeeper
 
-* **Kubernetes Dashboard**:
-https://github.com/helm/charts/tree/master/stable/kubernetes-dashboard
+* **Kubernetes Dashboard**: https://github.com/helm/charts/tree/master/stable/kubernetes-dashboard
 
-#### 2. Automation
+### 2. Technical specifications
 
-TODO
-
-### 3. Technical specifications
-
-### 3.1. Logical View
+### 2.1. Logical View
 
 ![](doc/architecture/BigDataArchitecture-LogicalView.png)
 
-### 3.2. Implementation View
+### 2.2. Implementation View
 
 ![](doc/architecture/BigDataArchitecture-ImplementationView.png)
 
-### 3.3. Deployment View - GKE
+### 2.3. Deployment View - GKE
 
 ![](doc/architecture/BigDataArchitecture-DeploymentView-GKE.png)
 
-### 3.4. Deployment View - Kubernetes On-Premise
+### 2.4. Deployment View - Kubernetes On-Premise
 
 ![](doc/architecture/BigDataArchitecture-DeploymentView-OnPremise.png)
 
