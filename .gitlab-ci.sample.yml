@@ -1,0 +1,128 @@
+stages:
+- tf_validate
+- tf_plan
+- tf_apply
+- deployWithHelm
+
+variables:
+  KUBECONFIG: /etc/deploy/config
+
+.provision: &provision
+  image:
+    name: hashicorp/terraform:light
+    entrypoint:
+      - '/usr/bin/env'
+      - 'PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin'
+  before_script:
+  - cd terraform/
+  - rm -rf .terraform
+  - terraform --version
+  - echo $SA_GKE | base64 -d > sa_gke.json
+  - terraform init -backend=true -get=true -input=false
+  tags:
+  - docker
+  only:
+  - master
+
+validate:
+  <<: *provision
+  stage: tf_validate
+  script:
+    - terraform validate
+
+plan:
+  <<: *provision
+  stage: tf_plan
+  script:
+    - terraform plan -out "planfile"
+  dependencies:
+    - validate
+  artifacts:
+    paths:
+      - terraform/planfile
+
+apply:
+  <<: *provision
+  stage: tf_apply
+  script:
+    - terraform apply -input=false "planfile"
+  dependencies:
+    - plan
+  # Should be manual for production infrastructure with tag manuel
+  # when: manual
+
+.deploy: &deploy
+  image: google/cloud-sdk
+  before_script:
+  - echo $SA_GKE | base64 -d > "$SA_FILE"
+  # install kubectl
+  - apt-get install kubectl
+  - gcloud auth activate-service-account --key-file="$SA_FILE"
+  - gcloud config set project "$GCP_PROJECT"
+  - gcloud container clusters list
+  - gcloud container clusters get-credentials "$GKE_PROJECT" --zone "$GCP_ZONE"
+  # get static ips
+  - IP_STATIC_MINIO="$(gcloud compute addresses describe ipv4-address-minio --region "$GCP_REGION" --format="value(address)")"
+  - IP_STATIC_SUPERSET="$(gcloud compute addresses describe ipv4-address-superset --region "$GCP_REGION" --format="value(address)")"
+  - IP_STATIC_JUPYTERHUB="$(gcloud compute addresses describe ipv4-address-jupyterhub --region "$GCP_REGION" --format="value(address)")"
+  - IP_STATIC_GRAFANA="$(gcloud compute addresses describe ipv4-address-grafana --region "$GCP_REGION" --format="value(address)")"
+  - IP_STATIC_NIFI="$(gcloud compute addresses describe ipv4-address-nifi --region "$GCP_REGION" --format="value(address)")"
+  - IP_STATIC_PGADMIN="$(gcloud compute addresses describe ipv4-address-pgadmin --region "$GCP_REGION" --format="value(address)")"
+  # - IP_STATIC_SPARKUI="$(gcloud compute addresses describe ipv4-address-sparkui --region "$GCP_REGION" --format="value(address)")"
+  - kubectl cluster-info
+  # clone FADI repo
+  - git clone https://github.com/cetic/fadi.git setup
+  - cd setup/helm/
+  # install helm
+  - curl https://raw.githubusercontent.com/kubernetes/helm/master/scripts/get | bash
+  # create namespaces
+  - kubectl get namespace "$TILLER"  2> /dev/null || kubectl create namespace "$TILLER"
+  - kubectl get namespace "$PROJECT"  2> /dev/null || kubectl create namespace "$PROJECT"
+  - kubectl get configmap config-nifi-bootstrap -n "$PROJECT" 2> /dev/null || kubectl create configmap config-nifi-bootstrap --from-file=../k8s/nifi/bootstrap.conf -n "$PROJECT"
+  # create sa for tiller
+  - kubectl get sa tiller -n "$TILLER" 2> /dev/null || kubectl create -f ./tiller/rbac-config.yaml
+  - helm init --history-max 200 --tiller-namespace "$TILLER" --service-account tiller --upgrade
+  # wait that tiller is deployed
+  - kubectl rollout status deployment tiller-deploy --namespace "$TILLER"
+  # add helm repos
+  - helm repo add stable https://kubernetes-charts.storage.googleapis.com/
+  - helm repo add jupyterhub https://jupyterhub.github.io/helm-chart/
+  - helm repo add cetic https://cetic.github.io/helm-charts/
+  - helm repo update
+  script:
+  # spark (+ zeppelin, set to 0 for the moment)
+  # - helm upgrade --install bdf-spark stable/spark -f ./spark/config.yml --namespace "$PROJECT" --tiller-namespace "$TILLER"
+  # superset
+  - helm upgrade --install bdf-superset stable/superset -f ./superset/config.yml --namespace "$PROJECT" --tiller-namespace "$TILLER" --set service.loadBalancerIP="$IP_STATIC_SUPERSET"
+  # postgres
+  - helm upgrade --install bdf-postgres stable/postgresql -f ./postgresql/config.yml --namespace "$PROJECT" --tiller-namespace "$TILLER"
+  # minio
+  - helm upgrade --install bdf-minio stable/minio -f ./minio/config.yml --namespace "$PROJECT" --tiller-namespace "$TILLER" --set service.loadBalancerIP="$IP_STATIC_MINIO"
+  # jupyter-hub
+  - helm upgrade --install bdf-jhub jupyterhub/jupyterhub --version=0.8.2 -f ./jupyterhub/config.yml --namespace "$PROJECT" --tiller-namespace "$TILLER" --set proxy.service.loadBalancerIP="$IP_STATIC_JUPYTERHUB"
+  # nifi TODO
+  - kubectl get services nifi -n "$PROJECT" 2> /dev/null ||sed -i '/LoadBalancer/a \ \ loadBalancerIP:\ '"$IP_STATIC_NIFI"'' ../k8s/nifi/nifi.yml
+  - kubectl get services nifi -n "$PROJECT" 2> /dev/null || kubectl apply -f ../k8s/nifi/nifi.yml -n "$PROJECT"
+  # grafana
+  - helm upgrade --install bdf-grafana stable/grafana -f ./grafana/config.yml --namespace "$PROJECT" --tiller-namespace "$TILLER" --set service.loadBalancerIP="$IP_STATIC_GRAFANA"
+  # pgadmin 
+  - helm upgrade --install bdf-pgadmin cetic/pgadmin -f ./pgadmin/config.yml --namespace "$PROJECT" --tiller-namespace "$TILLER" --set service.loadBalancerIP="$IP_STATIC_PGADMIN"
+  tags:
+  - docker
+
+deployWithHelm:
+  <<: *deploy
+  stage: deployWithHelm
+  variables:
+    GCP_PROJECT: <your-project-id>
+    GCP_ZONE: europe-west1-d
+    GCP_REGION: europe-west1
+    GKE_PROJECT: gke-bdf-dev
+    SA_FILE: sa_gke.json
+    PROJECT: bdf
+    TILLER: tiller
+  environment:
+    name: dev
+    url: http://$PROJECT
+  only:
+  - master
