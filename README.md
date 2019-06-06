@@ -133,6 +133,10 @@ It's also possible to create the Kubernetes cluster in command lines, see: https
 
 * The deployment of the FADI stack is achieved with [Helm](https://helm.sh/) and [Kubernetes](https://kubernetes.io/). See the Section 0.3.
 
+#### 0.5. Continuous integration and deployment
+
+See [.gitlab-ci.sample.yml](.gitlab-ci.sample.yml) for an example CI setup with [Gitlab-CI](https://about.gitlab.com/product/continuous-integration/).
+
 ### 1. BDF technology Stack
 
 #### 1.1. available or in-progress
