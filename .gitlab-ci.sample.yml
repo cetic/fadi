@@ -1,3 +1,9 @@
+# This is a sample gitlab-ci configuration file that can be used to deploy FADI on GKE using gitlab-ci
+# 1. rename this file to .gitlab-ci.yml
+# 2. change the variables to match your setup (at least the GCP_PROJECT name)
+# 3. let gitlab-ci do its magic
+# more info on gitlab-ci: https://about.gitlab.com/product/continuous-integration/
+
 stages:
 - tf_validate
 - tf_plan
