@@ -3,7 +3,7 @@ FADI User guide
 
 This page provides documentation on how to use the FADI big data framework.
 
-To install the FADI framework locally, see https://github.com/cetic/fadi/SETUP.md
+To install the FADI framework locally, see https://github.com/cetic/fadi/INSTALL.md
 
 TODO: Insert simplified logical view here
 
