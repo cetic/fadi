@@ -15,7 +15,7 @@ Anywhere you can run [Kubernetes](https://kubernetes.io/), you should be able to
 
 #### 1.1. available or in-progress
 
-| BDF Tools | Current version  | Helm Chart | Configuration | Additional Informations |
+| FADI Tools | Current version  | Helm Chart | Configuration | Additional Informations |
 |-----------|:----------------:|-----------:|--------------:|------------------------:|
 | **Superset** | 0.28.1 | https://github.com/helm/charts/tree/master/stable/superset | More informations about configurations of superset [here](helm/superset/README.md) | Persistant: 8Gi
 | **PostgreSQL** | 10.7.0 | https://github.com/helm/charts/tree/master/stable/postgresql | More informations about configurations of PostgreSQL [here](helm/postgresql/README.md). | Persistant: 8Gi

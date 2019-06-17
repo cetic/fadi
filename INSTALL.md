@@ -3,55 +3,57 @@ FADI - Installation
 
 This page describes how to install the FADI platform:
 
-* on any laptop using Minikube
-* on a generic Kubernetes cluster
-* on GKE 
+1. on a laptop/workstation, using [Minikube](https://github.com/kubernetes/minikube)
+2. on a generic Kubernetes cluster
+3. on GKE 
 
-## 0. Getting started
+The last section describes how to automate the deployment using Gitlab-CI.
 
-### 0.1. Prerequisites
+## 1. Local installation
 
-* Install VirtualBox: https://www.virtualbox.org/wiki/Downloads
-* Install Kubectl: https://kubernetes.io/docs/tasks/tools/install-kubectl/
-* Install Minikube: https://github.com/kubernetes/minikube/releases (At least v0.32 of Minikube)
-* Install Helm: https://helm.sh/docs/using_helm/#installing-helm
+This type of installation provides a quick way to test the platform, and also to adapt it to your needs.
 
-### 0.2. Local deployment
+### 1.1. Prerequisites
 
-Start Minikube:
+* Install your virtualisation solution of choice (for example [VirtualBox](https://www.virtualbox.org/wiki/Downloads) or KVM)
+* Install [Kubectl](https://kubernetes.io/docs/tasks/tools/install-kubectl/), the Kubernetes CLI
+* Install [Minikube](https://github.com/kubernetes/minikube/releases)
+* Install the [Helm client](https://helm.sh/docs/using_helm/#installing-helm)
 
-Delete any previous Minikube created:
+Make sure that the computer you are installing FADI to is powerful enough (currently, 6vcpu's and 12GB RAM are needed for comfortable use).
 
-```
+### 1.2. Local deployment
+
+Delete any previously created Minikube installation:
+
+```bash
 minikube delete
 ```
 
 Start Minikube:
 
-```
+```bash
 minikube start --cpus 6 --memory 12288 --disk-size=40GB
 ```
 
+Note: the vm driver can be specified as such: `--vm-driver kvm2` or `--vm-driver virtualbox`
+
 To get the Kubernetes dashboard, type:
 
-```
+```bash
 minikube dashboard
 ```
 
 Clone this repository.
 
-```
+```bash
 git clone https://github.com/cetic/fadi.git fadi
+cd fadi
 ```
 
-**For Mac users :** you need to change the network interface in the Minikube vm:
+**For Mac users :** you need to change the network interface in the Minikube vm: in the VirtualBox GUI, go to `minikube->Configuration->Network->Interface 1->advanced` and change `Interface Type` to `PCnet-FAST III` (the minikube vm should be shut down in order to be able to change the network interface: `minikube stop`
 
-```
-- in Virtual box go to minikube->Configuration->Network(Réseau)->Interface 1->advanced(avancé).
---> change Interface Type to PCnet-FAST III (the minikube vm should be shut down in order to be able to change the network interface -> you can use the command "minikube stop")
-```
-
-Launch the script:
+Launch the Helm script, this will deploy all the FADI services on the Minikube cluster (and may take some time).
 
 ```
 cd helm
@@ -78,7 +80,7 @@ cd helm
 ./teardown.sh
 ```
 
-### 0.3. Deployment with Helm and Kubernetes
+## 2. Deployment on a generic Kubernetes cluster
 
 The deployment of the FADI stack is achieved with:
 
@@ -89,26 +91,25 @@ The deployment of the FADI stack is achieved with:
 
 First, clone this repository.
 
-```
+```bash
 git clone https://github.com/cetic/fadi.git fadi
+cd fadi
 ```
 
-Then, to deploy FADI on your Kubernetes cluster, you can follow this [deployment script](/helm/deploy.sh).
+You will need to modify the first line of the [deployment script](/helm/deploy.sh) with your Kubernetes context:
 
-You will need to modify the first line by your Kubernetes context:
-
-```
+```bash
 kubectl config set-context <your-k8s-context>
 ```
 
 Finally, you can deploy the FADI stack by typing:
 
-```
+```bash
 cd helm
 ./deploy.sh
 ```
 
-### 0.4. Deployment on GKE
+### 3. Deployment on GKE
 
 [GKE](https://cloud.google.com/kubernetes-engine/) is a managed Kubernetes offer by the Google Cloud Platform (GCP).
 
@@ -122,14 +123,14 @@ To manually create a Kubernetes cluster (GKE):
 You can access the console of GCP [here](https://console.cloud.google.com).
 
 * 1- Visit the Google Kubernetes Engine menu in GCP Console. ...
-* 2- Click Create cluster.
+* 2- Click `Create cluster`.
 * 3- Choose the Standard cluster template or choose an appropriate template for your workload.
 * 4- From the Cluster Version drop-down menu, select the desired GKE version to run in the cluster.
 
-It's also possible to create the Kubernetes cluster in command lines, see: https://cloud.google.com/kubernetes-engine/docs/how-to/creating-a-cluster
+It's also possible to create the Kubernetes cluster in command line, see: https://cloud.google.com/kubernetes-engine/docs/how-to/creating-a-cluster
 
-* The deployment of the FADI stack is achieved with [Helm](https://helm.sh/) and [Kubernetes](https://kubernetes.io/). See the Section 0.3.
+* The deployment of the FADI stack is achieved with [Helm](https://helm.sh/) and [Kubernetes](https://kubernetes.io/).
 
-### 0.5. Continuous integration and deployment
+### 4. Continuous integration (CI) and deployment (CD)
 
 See [.gitlab-ci.sample.yml](.gitlab-ci.sample.yml) for an example CI setup with [Gitlab-CI](https://about.gitlab.com/product/continuous-integration/).
