@@ -10,10 +10,10 @@ To install or upgrade Jupyter Hub:
 ```
 helm repo add jupyterhub https://jupyterhub.github.io/helm-chart/
 helm repo update
-helm upgrade --install bdf-jhub jupyterhub/jupyterhub --version=0.8.0 -f helm/jupyterhub/config.yml --tiller-namespace tiller
+helm upgrade --install fadi-jhub jupyterhub/jupyterhub --version=0.8.0 -f helm/jupyterhub/config.yml --tiller-namespace tiller
 ```
 
-To get the service in minikube: minikube service -n bdf --url proxy-public
+To get the service in minikube: minikube service -n fadi --url proxy-public
 
 ### Jupyter Hub Modifications
 
@@ -32,7 +32,7 @@ TODO:
 
 Jupyter needs to launch itself containers:
 
-oc adm policy add-scc-to-user privileged "system:serviceaccount:bdf-helm:hub"
+oc adm policy add-scc-to-user privileged "system:serviceaccount:fadi-helm:hub"
 
 Not the best option, see:
 

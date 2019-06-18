@@ -3,7 +3,7 @@
 To install or upgrade superset:
 
 ```
-helm upgrade --install bdf-superset stable/superset -f helm/superset/config.yml --namespace bdf --tiller-namespace tiller
+helm upgrade --install fadi-superset stable/superset -f helm/superset/config.yml --namespace fadi --tiller-namespace tiller
 ```
 
 ## Config

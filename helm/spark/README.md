@@ -3,7 +3,7 @@
 To install or upgrade spark:
 
 ```
-helm upgrade --install bdf-spark stable/spark -f ./spark/config.yml --namespace bdf --tiller-namespace tiller
+helm upgrade --install fadi-spark stable/spark -f ./spark/config.yml --namespace fadi --tiller-namespace tiller
 ```
 ### Configuration
 

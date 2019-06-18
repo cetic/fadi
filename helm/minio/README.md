@@ -3,7 +3,7 @@
 To install or upgrade minio:
 
 ```
-helm upgrade --install bdf-minio stable/minio -f helm/minio/config.yml --namespace bdf --tiller-namespace tiller
+helm upgrade --install fadi-minio stable/minio -f helm/minio/config.yml --namespace fadi --tiller-namespace tiller
 ```
 
 #### Configuration

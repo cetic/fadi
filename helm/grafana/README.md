@@ -3,7 +3,7 @@
 To install or upgrade grafana:
 
 ```
-helm upgrade --install bdf-grafana stable/grafana -f helm/grafana/config.yml --namespace bdf --tiller-namespace tiller
+helm upgrade --install fadi-grafana stable/grafana -f helm/grafana/config.yml --namespace fadi --tiller-namespace tiller
 ```
 
 ## Config
