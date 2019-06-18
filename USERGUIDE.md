@@ -3,11 +3,14 @@ FADI User guide
 
 This page provides documentation on how to use the FADI big data framework.
 
+![FADI logical view](doc/architecture/FADI-logical-simplified.png)
+
+1. Install FADI
+--------
+
 To install the FADI framework locally, see https://github.com/cetic/fadi/INSTALL.md
 
-TODO: Insert simplified logical view here
-
-Ingest data with Apache Nifi
+2. Ingest data and store it into the datalake
 -------
 
 <a href="http://nifi.apache.org/" alt="Apache Nifi"><img src="https://nifi.apache.org/assets/images/apache-nifi-logo.svg" width="100px" /></a>

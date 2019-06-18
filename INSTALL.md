@@ -44,26 +44,36 @@ To get the Kubernetes dashboard, type:
 minikube dashboard
 ```
 
-Clone this repository.
+This will open a browser window with the [Kubernetes Dashboard]( http://127.0.0.1:40053/api/v1/namespaces/kube-system/services/http:kubernetes-dashboard:/proxy/), it should look like this:
+
+![Minikube initial dashboard](doc/tutorials/minikube_dashboard.png)
+
+Clone this repository:
 
 ```bash
 git clone https://github.com/cetic/fadi.git fadi
 cd fadi
 ```
 
-**For Mac users :** you need to change the network interface in the Minikube vm: in the VirtualBox GUI, go to `minikube->Configuration->Network->Interface 1->advanced` and change `Interface Type` to `PCnet-FAST III` (the minikube vm should be shut down in order to be able to change the network interface: `minikube stop`
+**Note for Mac users :** you need to change the network interface in the Minikube vm: in the VirtualBox GUI, go to `minikube->Configuration->Network->Interface 1->advanced` and change `Interface Type` to `PCnet-FAST III` (the minikube vm should be shut down in order to be able to change the network interface: `minikube stop`
 
 Launch the Helm script, this will deploy all the FADI services on the Minikube cluster (and may take some time).
 
 ```
+kubectl config set-context minikube
 cd helm
 ./deploy.sh
 ```
 
+You can check everything is deploying/-ed in the Kubernetes dashboard:
+
+![Kubernetes FADI dashboard](doc/tutorials/minikube_fadi_dashboard.png)
+
+
 To access a service in your browser, you can just type, for instance:
 
 ```
-minikube service -n bdf nifi
+minikube service -n fadi nifi
 ```
 
 To update the FADI stack, re-type:
@@ -131,6 +141,11 @@ It's also possible to create the Kubernetes cluster in command line, see: https:
 
 * The deployment of the FADI stack is achieved with [Helm](https://helm.sh/) and [Kubernetes](https://kubernetes.io/).
 
-### 4. Continuous integration (CI) and deployment (CD)
+### 4. Troubleshooting
+
+* Installation logs are located in the `helm/deploy.log` file.
+* Enable local monitoring in minikube: `minikube addons enable metrics-server`
+
+### 5. Continuous integration (CI) and deployment (CD)
 
 See [.gitlab-ci.sample.yml](.gitlab-ci.sample.yml) for an example CI setup with [Gitlab-CI](https://about.gitlab.com/product/continuous-integration/).
