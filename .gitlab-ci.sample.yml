@@ -97,22 +97,22 @@ apply:
   - helm repo update
   script:
   # spark (+ zeppelin, set to 0 for the moment)
-  # - helm upgrade --install bdf-spark stable/spark -f ./spark/config.yml --namespace "$PROJECT" --tiller-namespace "$TILLER"
+  # - helm upgrade --install "$PROJECT"-spark stable/spark -f ./spark/config.yml --namespace "$PROJECT" --tiller-namespace "$TILLER"
   # superset
-  - helm upgrade --install bdf-superset stable/superset -f ./superset/config.yml --namespace "$PROJECT" --tiller-namespace "$TILLER" --set service.loadBalancerIP="$IP_STATIC_SUPERSET"
+  - helm upgrade --install "$PROJECT"-superset stable/superset -f ./superset/config.yml --namespace "$PROJECT" --tiller-namespace "$TILLER" --set service.loadBalancerIP="$IP_STATIC_SUPERSET"
   # postgres
-  - helm upgrade --install bdf-postgres stable/postgresql -f ./postgresql/config.yml --namespace "$PROJECT" --tiller-namespace "$TILLER"
+  - helm upgrade --install "$PROJECT"-postgres stable/postgresql -f ./postgresql/config.yml --namespace "$PROJECT" --tiller-namespace "$TILLER"
   # minio
-  - helm upgrade --install bdf-minio stable/minio -f ./minio/config.yml --namespace "$PROJECT" --tiller-namespace "$TILLER" --set service.loadBalancerIP="$IP_STATIC_MINIO"
+  - helm upgrade --install "$PROJECT"-minio stable/minio -f ./minio/config.yml --namespace "$PROJECT" --tiller-namespace "$TILLER" --set service.loadBalancerIP="$IP_STATIC_MINIO"
   # jupyter-hub
-  - helm upgrade --install bdf-jhub jupyterhub/jupyterhub --version=0.8.2 -f ./jupyterhub/config.yml --namespace "$PROJECT" --tiller-namespace "$TILLER" --set proxy.service.loadBalancerIP="$IP_STATIC_JUPYTERHUB"
+  - helm upgrade --install "$PROJECT"-jhub jupyterhub/jupyterhub --version=0.8.2 -f ./jupyterhub/config.yml --namespace "$PROJECT" --tiller-namespace "$TILLER" --set proxy.service.loadBalancerIP="$IP_STATIC_JUPYTERHUB"
   # nifi TODO
   - kubectl get services nifi -n "$PROJECT" 2> /dev/null ||sed -i '/LoadBalancer/a \ \ loadBalancerIP:\ '"$IP_STATIC_NIFI"'' ../k8s/nifi/nifi.yml
   - kubectl get services nifi -n "$PROJECT" 2> /dev/null || kubectl apply -f ../k8s/nifi/nifi.yml -n "$PROJECT"
   # grafana
-  - helm upgrade --install bdf-grafana stable/grafana -f ./grafana/config.yml --namespace "$PROJECT" --tiller-namespace "$TILLER" --set service.loadBalancerIP="$IP_STATIC_GRAFANA"
+  - helm upgrade --install "$PROJECT"-grafana stable/grafana -f ./grafana/config.yml --namespace "$PROJECT" --tiller-namespace "$TILLER" --set service.loadBalancerIP="$IP_STATIC_GRAFANA"
   # pgadmin 
-  - helm upgrade --install bdf-pgadmin cetic/pgadmin -f ./pgadmin/config.yml --namespace "$PROJECT" --tiller-namespace "$TILLER" --set service.loadBalancerIP="$IP_STATIC_PGADMIN"
+  - helm upgrade --install "$PROJECT"-pgadmin cetic/pgadmin -f ./pgadmin/config.yml --namespace "$PROJECT" --tiller-namespace "$TILLER" --set service.loadBalancerIP="$IP_STATIC_PGADMIN"
   tags:
   - docker
 
@@ -123,9 +123,9 @@ deployWithHelm:
     GCP_PROJECT: <your-project-id>
     GCP_ZONE: europe-west1-d
     GCP_REGION: europe-west1
-    GKE_PROJECT: gke-bdf-dev
+    GKE_PROJECT: gke-"$PROJECT"-dev
     SA_FILE: sa_gke.json
-    PROJECT: bdf
+    PROJECT: FADI
     TILLER: tiller
   environment:
     name: dev
