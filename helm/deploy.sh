@@ -1,17 +1,32 @@
-# Script for local env (minikube)
-kubectl config set-context minikube
+#!/usr/bin/env bash
+# this script will deploy the various FADI services on a Kubernetes cluster using Helm and kubectl
+# usage: ./deploy.sh [namespace]
+set -o errexit
+
+LOG_FILE="deploy.log"
+[ -e ${LOG_FILE} ] && rm ${LOG_FILE}
+exec > >(tee -a ${LOG_FILE} )
+exec 2> >(tee -a ${LOG_FILE} >&2)
+
+# default namespace is fadi
+NAMESPACE=${1:-fadi}
+
+printf "\n\nCreating namespaces...\n"
 
 kubectl get namespace tiller  2> /dev/null || kubectl create namespace tiller
-kubectl get namespace bdf  2> /dev/null || kubectl create namespace bdf
+kubectl get namespace ${NAMESPACE}  2> /dev/null || kubectl create namespace ${NAMESPACE}
 
-kubectl get configmap config-nifi-bootstrap -n bdf 2> /dev/null || kubectl create configmap config-nifi-bootstrap --from-file=../k8s/nifi/bootstrap.conf -n bdf
+kubectl get configmap config-nifi-bootstrap -n ${NAMESPACE} 2> /dev/null || kubectl create configmap config-nifi-bootstrap --from-file=../k8s/nifi/bootstrap.conf -n ${NAMESPACE}
 
+printf "\n\nSetup Tiller...\n"
 # create sa for tiller
 kubectl get sa tiller -n tiller 2> /dev/null || kubectl create -f ./tiller/rbac-config.yaml
 
 helm init --history-max 200 --tiller-namespace tiller --service-account tiller --upgrade
-#wait that tiller is deployed
+# wait for tiller to be deployed
 kubectl rollout status deployment tiller-deploy --namespace tiller
+
+printf "\n\nHelm all the things!...\n"
 
 # add helm repos
 helm repo add stable https://kubernetes-charts.storage.googleapis.com/
@@ -23,19 +38,21 @@ helm repo update
 #helm upgrade --install k8s-dashboard stable/kubernetes-dashboard -f ./k8s-dashboard/config.yml --tiller-namespace tiller
 
 # spark (+ zeppelin, set to 0 for the moment)
-helm upgrade --install bdf-spark stable/spark -f ./spark/config.yml --namespace bdf --tiller-namespace tiller
+helm upgrade --install ${NAMESPACE}-spark stable/spark -f ./spark/config.yml --namespace ${NAMESPACE} --tiller-namespace tiller
 # superset
-helm upgrade --install bdf-superset stable/superset -f ./superset/config.yml --namespace bdf --tiller-namespace tiller
+helm upgrade --install ${NAMESPACE}-superset stable/superset -f ./superset/config.yml --namespace ${NAMESPACE} --tiller-namespace tiller
 # postgres
-helm upgrade --install bdf-postgres stable/postgresql -f ./postgresql/config.yml --namespace bdf --tiller-namespace tiller
+helm upgrade --install ${NAMESPACE}-postgres stable/postgresql -f ./postgresql/config.yml --namespace ${NAMESPACE} --tiller-namespace tiller
 # minio
-helm upgrade --install bdf-minio stable/minio -f ./minio/config.yml --namespace bdf --tiller-namespace tiller
+helm upgrade --install ${NAMESPACE}-minio stable/minio -f ./minio/config.yml --namespace ${NAMESPACE} --tiller-namespace tiller
 # jupyter-hub:
-helm upgrade --install bdf-jhub jupyterhub/jupyterhub --version=0.8.2 -f ./jupyterhub/config.yml --namespace bdf --tiller-namespace tiller
+helm upgrade --install ${NAMESPACE}-jhub jupyterhub/jupyterhub --version=0.8.2 -f ./jupyterhub/config.yml --namespace ${NAMESPACE} --tiller-namespace tiller
 # nifi: TODO Helm
 # Don't update nifi at this time
-kubectl get services nifi -n bdf 2> /dev/null || kubectl apply -f ../k8s/nifi/nifi.yml -n bdf
+kubectl get services nifi -n ${NAMESPACE} 2> /dev/null || kubectl apply -f ../k8s/nifi/nifi.yml -n ${NAMESPACE}
 # grafana
-helm upgrade --install bdf-grafana stable/grafana -f ./grafana/config.yml --namespace bdf --tiller-namespace tiller
+helm upgrade --install ${NAMESPACE}-grafana stable/grafana -f ./grafana/config.yml --namespace ${NAMESPACE} --tiller-namespace tiller
 # pg4admin: 
-helm upgrade --install bdf-pgadmin cetic/pgadmin -f ./pgadmin/config.yml --namespace bdf --tiller-namespace tiller
+helm upgrade --install ${NAMESPACE}-pgadmin cetic/pgadmin -f ./pgadmin/config.yml --namespace ${NAMESPACE} --tiller-namespace tiller
+
+printf "\n\nInstallation successful!\n"

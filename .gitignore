@@ -36,3 +36,6 @@ override.tf.json
 
 sa_gke.json
 
+# Log files
+deploy.log
+teardown.log
