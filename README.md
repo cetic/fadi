@@ -22,7 +22,7 @@ Anywhere you can run [Kubernetes](https://kubernetes.io/), you should be able to
 | **PgAdmin** | 4.7 | https://github.com/cetic/helm-pgadmin | [&#8505;](helm/pgadmin/README.md) | /
 | **Minio** | RELEASE.2018-12-06T01-27-43Z |  https://github.com/helm/charts/tree/master/stable/minio | [&#8505;](helm/minio/README.md) |  Persistent: 10Gi
 | **Jupyter Hub** | 0.8.2 | https://github.com/jupyterhub/zero-to-jupyterhub-k8s | [&#8505;](helm/jupyterhub/README.md) | Not persistent, to change , https://z2jh.jupyter.org/en/latest/
-| **Nifi** | *** | Not for the moment, the old Kubernetes scripts are used. Should be converted in Helm scripts. | [&#8505;](k8s/nifi/) | Not persistent, to change
+| **Nifi** | 1.9.2 | https://github.com/cetic/helm-nifi | [&#8505;](helm/nifi/README.md) | Pesistant: 
 | **Grafana** | 6.1.4 | https://github.com/helm/charts/tree/master/stable/grafana | [&#8505;](helm/grafana/README.md) | Persistent: 10Gi
 | **Spark** | 1.5.1_v3 | https://github.com/helm/charts/tree/master/stable/spark | [&#8505;](helm/spark/README.md) | The Helm Chart includes Zeppelin.
 

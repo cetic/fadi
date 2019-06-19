@@ -44,7 +44,7 @@ To get the Kubernetes dashboard, type:
 minikube dashboard
 ```
 
-This will open a browser window with the [Kubernetes Dashboard]( http://127.0.0.1:40053/api/v1/namespaces/kube-system/services/http:kubernetes-dashboard:/proxy/), it should look like this:
+This will open a browser window with the [Kubernetes Dashboard](http://127.0.0.1:40053/api/v1/namespaces/kube-system/services/http:kubernetes-dashboard:/proxy/), it should look like this:
 
 ![Minikube initial dashboard](doc/tutorials/minikube_dashboard.png)
 
