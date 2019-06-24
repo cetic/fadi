@@ -16,8 +16,6 @@ printf "\n\nCreating namespaces...\n"
 kubectl get namespace tiller  2> /dev/null || kubectl create namespace tiller
 kubectl get namespace ${NAMESPACE}  2> /dev/null || kubectl create namespace ${NAMESPACE}
 
-kubectl get configmap config-nifi-bootstrap -n ${NAMESPACE} 2> /dev/null || kubectl create configmap config-nifi-bootstrap --from-file=../k8s/nifi/bootstrap.conf -n ${NAMESPACE}
-
 printf "\n\nSetup Tiller...\n"
 # create sa for tiller
 kubectl get sa tiller -n tiller 2> /dev/null || kubectl create -f ./tiller/rbac-config.yaml
@@ -34,9 +32,6 @@ helm repo add jupyterhub https://jupyterhub.github.io/helm-chart/
 helm repo add cetic https://cetic.github.io/helm-charts/
 helm repo update
 
-#dashboard (already there with minikube and gke)
-#helm upgrade --install k8s-dashboard stable/kubernetes-dashboard -f ./k8s-dashboard/config.yml --tiller-namespace tiller
-
 # spark (+ zeppelin, set to 0 for the moment)
 helm upgrade --install ${NAMESPACE}-spark stable/spark -f ./spark/config.yml --namespace ${NAMESPACE} --tiller-namespace tiller
 # superset
@@ -47,9 +42,8 @@ helm upgrade --install ${NAMESPACE}-postgres stable/postgresql -f ./postgresql/c
 helm upgrade --install ${NAMESPACE}-minio stable/minio -f ./minio/config.yml --namespace ${NAMESPACE} --tiller-namespace tiller
 # jupyter-hub:
 helm upgrade --install ${NAMESPACE}-jhub jupyterhub/jupyterhub --version=0.8.2 -f ./jupyterhub/config.yml --namespace ${NAMESPACE} --tiller-namespace tiller
-# nifi: TODO Helm
-# Don't update nifi at this time
-kubectl get services nifi -n ${NAMESPACE} 2> /dev/null || kubectl apply -f ../k8s/nifi/nifi.yml -n ${NAMESPACE}
+# nifi
+helm upgrade --install ${NAMESPACE}-nifi cetic/nifi -f ./nifi/config.yml --namespace ${NAMESPACE} --tiller-namespace tiller
 # grafana
 helm upgrade --install ${NAMESPACE}-grafana stable/grafana -f ./grafana/config.yml --namespace ${NAMESPACE} --tiller-namespace tiller
 # pg4admin: 

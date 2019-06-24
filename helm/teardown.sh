@@ -22,6 +22,7 @@ helm delete --purge ${NAMESPACE}-jhub --tiller-namespace tiller
 helm delete --purge ${NAMESPACE}-postgres --tiller-namespace tiller
 helm delete --purge ${NAMESPACE}-superset --tiller-namespace tiller
 helm delete --purge ${NAMESPACE}-minio --tiller-namespace tiller
+helm delete --purge ${NAMESPACE}-nifi --tiller-namespace tiller
 helm delete --purge ${NAMESPACE}-grafana --tiller-namespace tiller
 helm delete --purge ${NAMESPACE}-pgadmin --tiller-namespace tiller
 
@@ -32,9 +33,6 @@ printf "\n\nDeleting Tiller and namespaces...\n"
 
 # Delete sa for tiller
 kubectl delete -f ./tiller/rbac-config.yaml
-
-# Delete configmaps
-kubectl delete configmap config-nifi-bootstrap -n ${NAMESPACE}
 
 # Delete namespaces
 kubectl delete namespace tiller
