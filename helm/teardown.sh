@@ -11,20 +11,18 @@ exec 2> >(tee -a ${LOG_FILE} >&2)
 # default namespace is fadi
 NAMESPACE=${1:-fadi}
 
-# Script for local env (minikube)
-
-## Delete releases
+# Delete releases
 
 printf "\n\nDeleting releases...\n"
 
-helm delete --purge ${NAMESPACE}-spark --tiller-namespace tiller
-helm delete --purge ${NAMESPACE}-jhub --tiller-namespace tiller
-helm delete --purge ${NAMESPACE}-postgres --tiller-namespace tiller
-helm delete --purge ${NAMESPACE}-superset --tiller-namespace tiller
-helm delete --purge ${NAMESPACE}-minio --tiller-namespace tiller
-helm delete --purge ${NAMESPACE}-nifi --tiller-namespace tiller
-helm delete --purge ${NAMESPACE}-grafana --tiller-namespace tiller
-helm delete --purge ${NAMESPACE}-pgadmin --tiller-namespace tiller
+helm delete --purge ${NAMESPACE}-spark --tiller-namespace tiller || true
+helm delete --purge ${NAMESPACE}-jhub --tiller-namespace tiller || true
+helm delete --purge ${NAMESPACE}-postgres --tiller-namespace tiller || true
+helm delete --purge ${NAMESPACE}-superset --tiller-namespace tiller || true
+helm delete --purge ${NAMESPACE}-minio --tiller-namespace tiller || true
+helm delete --purge ${NAMESPACE}-nifi --tiller-namespace tiller || true
+helm delete --purge ${NAMESPACE}-grafana --tiller-namespace tiller || true
+helm delete --purge ${NAMESPACE}-pgadmin --tiller-namespace tiller || true
 
 # Delete nifi
 kubectl delete -f ../k8s/nifi/nifi.yml -n ${NAMESPACE}

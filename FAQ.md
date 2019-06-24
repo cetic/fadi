@@ -9,4 +9,7 @@ FAQ - Frequently asked questions
 ## How can I get help on how tu use FADI
 
 In case you encounter an issue with FADI, have a feature request or any other question, feel free to [open an issue](https://github.com/cetic/fadi/issues/new/choose).
- 
+
+## Why "FADI"?
+
+FADI is the acronym for "Framework d'Analyse de Données Industrielles" ("A Framework for Industrial Data Analysis"))
