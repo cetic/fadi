@@ -1,9 +1,18 @@
 # FADI - A framework for big data analytics
 
-|  | ![FADI](doc/logo.png)  |  |
-|:-----------:|:----------------:|:-----------:|
-| [Installation](INSTALL.md) | [User guide](USERGUIDE.md)  | [Presentation](https://fadi.presentations.cetic.be) |
 
+
+<p align="center">
+  <p align="center" style="width: 50%; height: 200px;">
+    <img src="doc/logo.png" height="200"/>
+  </p>
+  <p align="center" style="margin-top: 16px">
+    <a href="INSTALL.md"><img alt="Installation guide" src="doc/install.svg" height="50"></a>
+    <a href="USERGUIDE.md"><img alt="User guide" src="doc/userguide.svg" height="50"></a>
+    <a href="https://fadi.presentations.cetic.be"><img alt="Presentation slides" src="doc/presentation.svg" height="50"></a>
+  </p>
+</p>
+ 
 ## What is FADI?
 
 FADI is a Cloud Native platform for Big Data based on mature open source tools.
