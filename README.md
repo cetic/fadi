@@ -1,5 +1,6 @@
 # FADI - A framework for big data analytics
 
+[![CircleCI](https://circleci.com/gh/cetic/fadi.svg?style=svg)](https://circleci.com/gh/cetic/fadi/tree/master)
 
 <p align="center">
   <p align="center" style="width: 50%; height: 200px;">

@@ -1,0 +1,43 @@
+---
+# Default values for FADI.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+spark:
+  enabled: true
+
+{{- $v := $Files.get "helm/spark/config.yml" | fromYaml }}
+
+superset:
+  enabled: true
+
+{{- $v := $Files.get "helm/superset/config.yml" | fromYaml }}
+
+postgresql:
+  enabled: true
+
+{{- $v := $Files.get "helm/postgresql/config.yml" | fromYaml }}
+
+minio:
+  enabled: true
+
+{{- $v := $Files.get "helm/minio/config.yml" | fromYaml }}
+
+grafana:
+  enabled: true
+
+{{- $v := $Files.get "helm/grafana/config.yml" | fromYaml }}
+
+jupyterhub:
+  enabled: true
+
+{{- $v := $Files.get "helm/jupyterhub/config.yml" | fromYaml }}
+
+nifi:
+  enabled: true
+
+{{- $v := $Files.get "helm/nifi/config.yml" | fromYaml }}
+
+pgadmin:
+  enabled: true
+
+{{- $v := $Files.get "helm/pgadmin/config.yml" | fromYaml }}

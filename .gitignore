@@ -39,3 +39,10 @@ sa_gke.json
 # Log files
 deploy.log
 teardown.log
+
+# Helm Charts dependencies
+/charts
+*.lock
+
+# Artifacts
+*.tgz

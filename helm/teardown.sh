@@ -24,9 +24,6 @@ helm delete --purge ${NAMESPACE}-nifi --tiller-namespace tiller || true
 helm delete --purge ${NAMESPACE}-grafana --tiller-namespace tiller || true
 helm delete --purge ${NAMESPACE}-pgadmin --tiller-namespace tiller || true
 
-# Delete nifi
-kubectl delete -f ../k8s/nifi/nifi.yml -n ${NAMESPACE}
-
 printf "\n\nDeleting Tiller and namespaces...\n"
 
 # Delete sa for tiller
