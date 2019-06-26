@@ -5,39 +5,26 @@
 spark:
   enabled: true
 
-{{- $v := $Files.get "helm/spark/config.yml" | fromYaml }}
-
 superset:
   enabled: true
-
-{{- $v := $Files.get "helm/superset/config.yml" | fromYaml }}
 
 postgresql:
   enabled: true
 
-{{- $v := $Files.get "helm/postgresql/config.yml" | fromYaml }}
-
 minio:
   enabled: true
-
-{{- $v := $Files.get "helm/minio/config.yml" | fromYaml }}
 
 grafana:
   enabled: true
 
-{{- $v := $Files.get "helm/grafana/config.yml" | fromYaml }}
-
 jupyterhub:
   enabled: true
-
-{{- $v := $Files.get "helm/jupyterhub/config.yml" | fromYaml }}
+  proxy:
+    secretToken: 'af83775ec3bfaf0507ce596df51d491e7ed54450adc454038fa7405495465f19'
 
 nifi:
   enabled: true
 
-{{- $v := $Files.get "helm/nifi/config.yml" | fromYaml }}
-
 pgadmin:
   enabled: true
 
-{{- $v := $Files.get "helm/pgadmin/config.yml" | fromYaml }}

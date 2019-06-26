@@ -21,7 +21,7 @@ dependencies:
   repository: https://kubernetes-charts.storage.googleapis.com/
   condition: grafana.enabled
 - name: jupyterhub
-  version: ~0.8.1
+  version: ~0.8.0
   repository: https://jupyterhub.github.io/helm-chart/
   condition: jupyterhub.enabled
 - name: nifi
