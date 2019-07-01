@@ -9,7 +9,7 @@ keywords:
   - spark
   - grafana
 home: https://github.com/cetic/fadi
-icon: https://github.com/cetic/fadi/blob/feature/fadi-helm-chart/doc/logo.png
+icon: https://github.com/cetic/fadi/blob/master/doc/logo.png
 source:
   - https://github.com/cetic/fadi
 maintainers:

@@ -10,4 +10,4 @@ jobs:
           environment:
             - GITHUB_PAGES_REPO: cetic/helm-charts
             - HELM_CHART: fadi
-          command: wget -O - https://raw.githubusercontent.com/cetic/fadi/develop/publish.sh | sh
+          command: wget -O - https://raw.githubusercontent.com/cetic/fadi/feature/fadi-helm-chart/publish.sh | sh
