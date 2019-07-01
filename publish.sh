@@ -60,7 +60,10 @@ ssh-keyscan -H github.com >> "$HOME/.ssh/known_hosts"
 git clone -b "$GITHUB_PAGES_BRANCH" "git@github.com:$GITHUB_PAGES_REPO.git" .
 
 echo '>> Add helm repos...'
+helm repo add stable https://kubernetes-charts.storage.googleapis.com/
 helm repo add incubator https://kubernetes-charts-incubator.storage.googleapis.com
+helm repo add cetic https://cetic.github.io/helm-charts
+helm repo add jupyterhub https://jupyterhub.github.io/helm-chart/
 helm repo update
 
 echo '>> Building chart...'
