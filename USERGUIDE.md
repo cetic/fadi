@@ -20,12 +20,35 @@ To install the FADI framework on your workstation or on a cloud, see https://git
 
 > "An easy to use, powerful, and reliable system to process and distribute data."
 
-[Apache Nifi](http://nifi.apache.org/) provides ingestion mechanism (to e.g. connect a database or API for ingestion): in this case we want to read the temperature sensors data from our HVAC system and store it in a database.
+[Apache Nifi](http://nifi.apache.org/) provides ingestion mechanism (to e.g. connect a database, REST API, csv files on a FTP, ... for ingestion): in this case we want to read the temperature sensors data from our HVAC system and store it in a database.
 
-In the following video, temperature measurements from the last 5 days (see [HVAC sample temperatures extract](doc/usecases/usecase1.csv)) are ingested:
+Temperature measurements from the last 5 days (see [HVAC sample temperatures extract](doc/usecases/usecase1.csv)) are ingested:
 
-
+```csv
+(...)
+23.5,1561467513.503
+23.5,1561467543.504
+23.5,1561467573.503
+23.5,1561467603.504
+23.5,1561467633.504
+23.5,1561467663.503
+23.5,1561467693.503
+23,1561467723.504
+23,1561467753.503
+23,1561467783.504
+23,1561467813.504
+23,1561467843.503
+23.5,1561467873.503
+23.5,1561467903.504
+23.5,1561467933.503
+23.5,1561467963.503
+23.5,1561467993.504
+(...)
+```
 
 For more information on how to use Apache Nifi, see the [Nifi user guide](https://nifi.apache.org/docs/nifi-docs/html/user-guide.html)
+
+
+
 
 ### 3. Display 

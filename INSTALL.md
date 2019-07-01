@@ -119,6 +119,8 @@ cd helm
 ./deploy.sh
 ```
 
+Now that you have a sandbox with FADI on your workstation, you can try it with a [simple use case](USERGUIDE.md)
+
 ### 3. Deployment on GKE
 
 [GKE](https://cloud.google.com/kubernetes-engine/) is a managed Kubernetes offer by the Google Cloud Platform (GCP).

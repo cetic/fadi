@@ -1,17 +1,3 @@
-Prometheus
-Alerts
-Graph
-Status 
-Help
-building_room_canteen_temp_degrees[5d]
-Load time: 231ms 
-Resolution: 14s 
-Total time series: 1
-  
-Graph
-Console
-Element	Value
-building_room_canteen_temp_degrees{instance="monitoring.int.cetic.be:8000",job="cetic"}	22.5,1561298673.504
 22.5,1561298703.503
 22.5,1561298733.504
 22.5,1561298763.504
