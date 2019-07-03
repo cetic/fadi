@@ -128,8 +128,11 @@ For more information on how to use Superset, see the [official Superset user gui
 
 > "BI tool with a simple interface, feature-rich when it comes to views, that allows the user to create and share dashboards. This tool is simple and doesn’t require programming, and allows the user to explore, filter and organise data."
 
+<a href="https://spark.apache.org/" alt="Apache Spark"><img src="doc/logos/spark.png" width="100px" /></a>
 
-[Jupyter](https://jupyter.org/) notebooks provide an easy interface to the Spark processing engine that runs on your cluster.
+> "Apache Spark™ is a unified analytics engine for large-scale data processing."
+
+[Jupyter](https://jupyter.org/) notebooks provide an easy interface to the [Spark](https://spark.apache.org/) processing engine that runs on your cluster.
 
 In this simple use case, we will try to access the data that is stored in the data lake.
 
