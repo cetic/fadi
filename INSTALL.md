@@ -9,6 +9,8 @@ This page describes how to install the FADI platform:
 
 The last section describes how to automate the deployment using Gitlab-CI.
 
+Once FADI is installed, head to the user guide
+
 ## 1. Local installation
 
 This type of installation provides a quick way to test the platform, and also to adapt it to your needs.
@@ -46,7 +48,7 @@ minikube dashboard
 
 This will open a browser window with the [Kubernetes Dashboard](http://127.0.0.1:40053/api/v1/namespaces/kube-system/services/http:kubernetes-dashboard:/proxy/), it should look like this:
 
-![Minikube initial dashboard](doc/tutorials/minikube_dashboard.png)
+![Minikube initial dashboard](doc/minikube_dashboard.png)
 
 Clone this repository:
 
@@ -67,7 +69,7 @@ cd helm
 
 You can check everything is deploying/-ed in the Kubernetes dashboard:
 
-![Kubernetes FADI dashboard](doc/tutorials/minikube_fadi_dashboard.png)
+![Kubernetes FADI dashboard](doc/minikube_fadi_dashboard.png)
 
 
 To access a service in your browser, you can just type, for instance:
