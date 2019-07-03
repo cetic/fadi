@@ -106,18 +106,20 @@ git clone https://github.com/cetic/fadi.git fadi
 cd fadi
 ```
 
-You will need to modify the first line of the [deployment script](/helm/deploy.sh) with your Kubernetes context:
+You will need to modify the first line of the [deployment script](helm/deploy.sh) with your Kubernetes context:
 
 ```bash
 kubectl config set-context <your-k8s-context>
 ```
 
-Finally, you can deploy the FADI stack by typing:
+Finally, you can deploy the full FADI stack by typing:
 
 ```bash
 cd helm
 ./deploy.sh
 ```
+
+Note that depending on your workstation size and network connection, this could take some time (at least 5 minutes)
 
 Now that you have a sandbox with FADI on your workstation, you can try it with a [simple use case](USERGUIDE.md)
 

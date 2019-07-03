@@ -30,20 +30,18 @@ The FADI project is dedicated to making the deployment of Big Data tools simple,
 The goal is to provide a straightforward way to deploy open-source systems for Big Data to various infrastructures (private and public clouds). 
 Anywhere you can run [Kubernetes](https://kubernetes.io/), you should be able to run FADI.
 
-### FADI technology Stack
+### Quick start
+
+1. [Install the framework on your workstation](INSTALL.md)
+2. Try [a simple use case](USERGUIDE.md)
+
+### FADI architecture
+
+The figure below presents the various components of the architecture, with implementation choices.
+
+You can find a more detailed explanation of the various components in the [architecture presentation](https://fadi.presentations.cetic.be)
 
 ![FADI stack](doc/architecture/implementation_view.svg)
-
-| FADI Tools | Current version  | Helm Chart | Configuration | Additional Information |
-|-----------|:----------------:|-----------:|--------------:|------------------------:|
-| **Superset** | 0.28.1 | https://github.com/helm/charts/tree/master/stable/superset | [&#8505;](helm/superset/README.md) | Persistent: 8Gi
-| **PostgreSQL** | 10.7.0 | https://github.com/helm/charts/tree/master/stable/postgresql | [&#8505;](helm/postgresql/README.md) | Persistent: 8Gi
-| **PgAdmin** | 4.7 | https://github.com/cetic/helm-pgadmin | [&#8505;](helm/pgadmin/README.md) | /
-| **Minio** | RELEASE.2018-12-06T01-27-43Z |  https://github.com/helm/charts/tree/master/stable/minio | [&#8505;](helm/minio/README.md) |  Persistent: 10Gi
-| **Jupyter Hub** | 0.8.2 | https://github.com/jupyterhub/zero-to-jupyterhub-k8s | [&#8505;](helm/jupyterhub/README.md) | Not persistent, to change , https://z2jh.jupyter.org/en/latest/
-| **Nifi** | 1.9.2 | https://github.com/cetic/helm-nifi | [&#8505;](helm/nifi/README.md) | Pesistant: 
-| **Grafana** | 6.2.4 | https://github.com/helm/charts/tree/master/stable/grafana | [&#8505;](helm/grafana/README.md) | Persistent: 10Gi
-| **Spark** | 1.5.1_v3 | https://github.com/helm/charts/tree/master/stable/spark | [&#8505;](helm/spark/README.md) | The Helm Chart includes Zeppelin.
 
 ### Support
 
