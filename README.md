@@ -1,7 +1,5 @@
 # FADI - A framework for big data analytics
 
-[![CircleCI](https://circleci.com/gh/cetic/fadi.svg?style=svg)](https://circleci.com/gh/cetic/fadi/tree/master)
-
 <p align="center">
   <p align="center" style="width: 50%; height: 200px;">
     <img src="doc/logo.png" height="200"/>
@@ -31,20 +29,11 @@ The FADI project is dedicated to making the deployment of Big Data tools simple,
 The goal is to provide a straightforward way to deploy open-source systems for Big Data to various infrastructures (private and public clouds). 
 Anywhere you can run [Kubernetes](https://kubernetes.io/), you should be able to run FADI.
 
-### FADI technology Stack
+### FADI Helm Chart
 
-![FADI stack](doc/architecture/implementation_view.svg)
+[![CircleCI](https://circleci.com/gh/cetic/helm-fadi.svg?style=svg)](https://circleci.com/gh/cetic/helm-fadi/tree/master)
 
-| FADI Tools | Current version  | Helm Chart | Configuration | Additional Information |
-|-----------|:----------------:|-----------:|--------------:|------------------------:|
-| **Superset** | 0.28.1 | https://github.com/helm/charts/tree/master/stable/superset | [&#8505;](helm/superset/README.md) | Persistent: 8Gi
-| **PostgreSQL** | 10.7.0 | https://github.com/helm/charts/tree/master/stable/postgresql | [&#8505;](helm/postgresql/README.md) | Persistent: 8Gi
-| **PgAdmin** | 4.7 | https://github.com/cetic/helm-pgadmin | [&#8505;](helm/pgadmin/README.md) | /
-| **Minio** | RELEASE.2018-12-06T01-27-43Z |  https://github.com/helm/charts/tree/master/stable/minio | [&#8505;](helm/minio/README.md) |  Persistent: 10Gi
-| **Jupyter Hub** | 0.8.2 | https://github.com/jupyterhub/zero-to-jupyterhub-k8s | [&#8505;](helm/jupyterhub/README.md) | Not persistent, to change , https://z2jh.jupyter.org/en/latest/
-| **Nifi** | 1.9.2 | https://github.com/cetic/helm-nifi | [&#8505;](helm/nifi/README.md) | Pesistant: 
-| **Grafana** | 6.2.4 | https://github.com/helm/charts/tree/master/stable/grafana | [&#8505;](helm/grafana/README.md) | Persistent: 10Gi
-| **Spark** | 1.5.1_v3 | https://github.com/helm/charts/tree/master/stable/spark | [&#8505;](helm/spark/README.md) | The Helm Chart includes Zeppelin.
+This [repository](https://github.com/cetic/helm-fadi) contains the Helm chart to install FADI in a Kubernetes cluster. 
 
 ### Support
 

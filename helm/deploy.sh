@@ -26,14 +26,9 @@ kubectl rollout status deployment tiller-deploy --namespace tiller
 
 printf "\n\nHelm all the things!...\n"
 
-# add helm repos
-helm repo add stable https://kubernetes-charts.storage.googleapis.com/
-helm repo add jupyterhub https://jupyterhub.github.io/helm-chart/
+# add cetic helm repo
 helm repo add cetic https://cetic.github.io/helm-charts/
 helm repo update
-
-# update helm dependencies
-helm dep up
 
 # install/upgrade FADI
 helm upgrade --install ${NAMESPACE} cetic/fadi -f ./values.yaml --namespace ${NAMESPACE} --tiller-namespace tiller
