@@ -20,7 +20,7 @@ The components needed for this use case are the following:
 * PostgreSQL as both a datawarehouse and datalake
 * Gafana as a dashboard tool to display graphs from the data ingested and stored in the datalake
 
-Those components are configured in the following sample config file, once the mini
+Those components are configured in the following [sample config file](heml/deploy.sh), once the platform is ready, you can start working with it:
 
 ### 2. Ingest and store measurements 
 
@@ -54,13 +54,19 @@ Temperature measurements from the last 5 days (see [HVAC sample temperatures csv
 (...)
 ```
 
-For more information on how to use Apache Nifi, see the [Nifi user guide](https://nifi.apache.org/docs/nifi-docs/html/user-guide.html)
+First, head to the Nifi web interface, if you are using the local installation with Minikube you can run the following command:
 
-First, head to the Nifi web interface, if you are using the local installation with Minikube you can run the command `minikube service fadi-nifi-load-balancer -n fadi` that will open the interface in your browser:
+ ```
+ minikube service fadi-nifi-load-balancer -n fadi
+ ```
 
-![Step 0- Nifi web interface](doc/usecases/basic/step0.svg)
+![Nifi web interface](doc/usecases/basic/nifi_interface.svg)
 
 Now we need to tell Nifi to read the csv file and store the measurements in the data lake:
+
+![Nifi Ingest CSV and store in PostgreSQL](doc/usecases/basic/nifi_csv_to_postgresql.mp4)
+
+For more information on how to use Apache Nifi, see the [official Nifi user guide](https://nifi.apache.org/docs/nifi-docs/html/user-guide.html)
 
 ### 3. Display dashboards and configure alerts
 
@@ -68,12 +74,21 @@ Once the measurements are stored in the database, we will want to display the re
 
 Head to the Grafana interface: `minikube service grafana`
 
+![Grafana web interface](doc/usecases/basic/grafana_interface.svg)
+
 First we will define the datasource:
+
+![Grafana datasource](doc/usecases/basic/grafana_datasource.svg)
 
 Then we will configure a simple dashboard that shows the temperatures over the last week:
 
+![Grafana dashboard](doc/usecases/basic/grafana_dashboard.svg)
+
 And finally we will configure some alerts using very simple rules:
 
+![Grafana alert](doc/usecases/basic/grafana_alert.svg)
+
+For more information on how to use Grafana, see the [official Grafana user guide](https://grafana.com/docs/guides/getting_started/)
 
 ### 4. Explore
 
@@ -81,11 +96,17 @@ Superset provides some interesting features to explore your data and build basic
 
 Head to the Superset interface: `minikube service superset`
 
+![Superset web interface](doc/usecases/basic/superset_interface.svg)
+
 First we will define the datasource:
 
+![Superset datasource](doc/usecases/basic/superset_datasource.svg)
 
+Then we will explore our data and build a simple dashboard with the data that is inside the database:
 
-Then we will build a simple dashboard with the data that is inside the data source:
+![Superset dashboard](doc/usecases/basic/superset_datasource.mp4)
+
+For more information on how to use Superset, see the [official Superset user guide](https://superset.incubator.apache.org/tutorial.html)
 
 ### 5. Process
 
@@ -93,7 +114,15 @@ Jupyter notebooks provide an easy interface to the Spark processing engine that 
 
 In this simple use case, we will try to access the data that is stored in the data lake.
 
-Head to the Jupyter interface: `minikube service jupyterhub`
+Head to the Jupyter notebook interface: `minikube service jupyterhub`
+
+![Jupyter web interface](doc/usecases/basic/jupyter_interface.svg)
+
+Do some processing in the notebook
+
+![Jupyter web interface](doc/usecases/basic/jupyter_processing.mp4)
+
+For more information on how to use Superset, see the [official Jupyter documentation](https://jupyter.readthedocs.io/en/latest/)
 
 ### 6. Summary
 

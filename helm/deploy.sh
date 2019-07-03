@@ -33,7 +33,7 @@ helm repo add cetic https://cetic.github.io/helm-charts/
 helm repo update
 
 # spark (+ zeppelin, set to 0 for the moment)
-helm upgrade --install ${NAMESPACE}-spark stable/spark -f ./spark/config.yml --namespace ${NAMESPACE} --tiller-namespace tiller
+#helm upgrade --install ${NAMESPACE}-spark stable/spark -f ./spark/config.yml --namespace ${NAMESPACE} --tiller-namespace tiller
 # superset
 helm upgrade --install ${NAMESPACE}-superset stable/superset -f ./superset/config.yml --namespace ${NAMESPACE} --tiller-namespace tiller
 # postgres
