@@ -24,7 +24,7 @@ Those components are configured in the following [sample config file](helm/deplo
 
 ### 2. Ingest and store measurements 
 
-<a href="http://nifi.apache.org/" alt="Apache Nifi"><img src="doc/logos/nifi.png" width="100px" /></a>
+<a href="http://nifi.apache.org/" alt="Apache Nifi"><img src="doc/images/logos/nifi.png" width="100px" /></a>
 
 > "An easy to use, powerful, and reliable system to process and distribute data."
 
