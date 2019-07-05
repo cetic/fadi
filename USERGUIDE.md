@@ -72,7 +72,7 @@ For more information on how to use Apache Nifi, see the [official Nifi user guid
 
 Once the measurements are stored in the database, we will want to display the results in a dashboard.
 
-<a href="https://grafana.com/" alt="Grafana"><img src="doc/logos/grafana.png" width="100px" /></a>
+<a href="https://grafana.com/" alt="Grafana"><img src="doc/images/logos/grafana.png" width="100px" /></a>
 
 > "Grafana allows you to query, visualize, alert on and understand your metrics no matter where they are stored. Create, explore, and share dashboards with your team and foster a data driven culture."
 
@@ -100,7 +100,7 @@ For more information on how to use Grafana, see the [official Grafana user guide
 
 ### 4. Explore
 
-<a href="https://superset.incubator.apache.org/" alt="Superset"><img src="doc/logos/superset.png" width="100px" /></a>
+<a href="https://superset.incubator.apache.org/" alt="Superset"><img src="doc/images/logos/superset.png" width="100px" /></a>
 
 > "BI tool with a simple interface, feature-rich when it comes to views, that allows the user to create and share dashboards. This tool is simple and doesn’t require programming, and allows the user to explore, filter and organise data."
 
