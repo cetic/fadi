@@ -4,7 +4,7 @@
 
 <p align="center">
   <p align="center" style="width: 50%; height: 200px;">
-    <img src="doc/logo.png" height="200"/>
+    <img src="doc/images/logo.png" height="200"/>
   </p>
   <p align="center" style="margin-top: 16px">
       <table style="border:none;">
