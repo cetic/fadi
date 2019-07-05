@@ -1,6 +1,6 @@
 # Terraform
 
-![](/doc/logos/terraform.svg)
+![](/doc/images/logos/terraform.svg)
 
 ## GKE provisioning
 

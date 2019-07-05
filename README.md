@@ -42,7 +42,7 @@ The figure below presents the various components of the architecture, with imple
 
 You can find a more detailed explanation of the various components in the [architecture presentation](https://fadi.presentations.cetic.be)
 
-![FADI stack](doc/architecture/implementation_view.svg)
+![FADI stack](doc/images/architecture/implementation_view.svg)
 
 ### Support
 

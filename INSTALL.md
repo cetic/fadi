@@ -1,15 +1,15 @@
 FADI - Installation
 =======
 
-This page describes how to install the FADI platform:
+This page describes how to install the FADI platform on a laptop/workstation, using [Minikube](https://github.com/kubernetes/minikube)
 
-1. on a laptop/workstation, using [Minikube](https://github.com/kubernetes/minikube)
+
 2. on a generic Kubernetes cluster
 3. on GKE 
 
 The last section describes how to automate the deployment using Gitlab-CI.
 
-Once FADI is installed, head to the user guide
+Once FADI is installed, head to the [user guide](USERGUIDE.md)
 
 ## 1. Local installation
 
@@ -48,7 +48,7 @@ minikube dashboard
 
 This will open a browser window with the [Kubernetes Dashboard](http://127.0.0.1:40053/api/v1/namespaces/kube-system/services/http:kubernetes-dashboard:/proxy/), it should look like this:
 
-![Minikube initial dashboard](doc/minikube_dashboard.png)
+![Minikube initial dashboard](doc/images/installation/minikube_dashboard.png)
 
 Clone this repository:
 
@@ -69,7 +69,7 @@ cd helm
 
 You can check everything is deploying/-ed in the Kubernetes dashboard:
 
-![Kubernetes FADI dashboard](doc/minikube_fadi_dashboard.png)
+![Kubernetes FADI dashboard](doc/images/installation/minikube_fadi_dashboard.png)
 
 
 To access a service in your browser, you can just type, for instance:
@@ -99,7 +99,7 @@ The deployment of the FADI stack is achieved with:
 * [Helm](https://helm.sh/).
 * [Kubernetes](https://kubernetes.io/).
 
-![](doc/architecture/helm-architecture.png)
+![](doc/images/architecture/helm-architecture.png)
 
 First, clone this repository.
 
@@ -132,7 +132,7 @@ Now that you have a sandbox with FADI on your workstation, you can try it with a
 > "Kubernetes Engine is a managed, production-ready environment for deploying containerized applications. It brings our latest innovations in developer productivity, resource efficiency, automated operations, and open source flexibility to accelerate your time to market."
 
 * The creation of a GKE environment can be done with [Terraform](https://www.terraform.io/) or manually. 
-See the [Terraform](https://www.terraform.io/) scripts for the creation of the Kubernetes cluster [here](/terraform) and its documentation.
+See the [Terraform](https://www.terraform.io/) scripts for the creation of the Kubernetes cluster [here](/terraform) and its documentation [here](/terraform/README.md).
 
 To manually create a Kubernetes cluster (GKE):
 
