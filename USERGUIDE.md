@@ -124,11 +124,11 @@ For more information on how to use Superset, see the [official Superset user gui
 
 ### 5. Process
 
-<a href="https://superset.incubator.apache.org/" alt="Superset"><img src="doc/logos/superset.png" width="100px" /></a>
+<a href="https://superset.incubator.apache.org/" alt="Superset"><img src="doc/images/logos/superset.png" width="100px" /></a>
 
 > "BI tool with a simple interface, feature-rich when it comes to views, that allows the user to create and share dashboards. This tool is simple and doesn’t require programming, and allows the user to explore, filter and organise data."
 
-<a href="https://spark.apache.org/" alt="Apache Spark"><img src="doc/logos/spark.png" width="100px" /></a>
+<a href="https://spark.apache.org/" alt="Apache Spark"><img src="doc/images/logos/spark.png" width="100px" /></a>
 
 > "Apache Spark™ is a unified analytics engine for large-scale data processing."
 
@@ -140,7 +140,7 @@ Head to the Jupyter notebook interface (the default credentials are `admin`/`pas
 
 ```minikube service proxy-public -n fadi```
 
-![Jupyter web interface](examples/basic/jupyter_interface.png)
+![Jupyter web interface](examples/basic/images/jupyter_interface.png)
 
 Do some data exploration in the notebook, load the [sample code](examples/basic/jupyter_exporation.ipynb):
 
