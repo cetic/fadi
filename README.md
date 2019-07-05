@@ -9,10 +9,10 @@
   <p align="center" style="margin-top: 16px">
       <table style="border:none;">
         <tr>
-          <td style="text-align: center; vertical-align: middle;"><a href="INSTALL.md"><img alt="Installation guide" src="doc/install.svg" height="50"></a></td>
-          <td style="text-align: center; vertical-align: middle;"><a href="USERGUIDE.md"><img alt="User guide" src="doc/userguide.svg" height="50"></a></td>
-          <td style="text-align: center; vertical-align: middle;"><a href="https://fadi.presentations.cetic.be"><img alt="Presentation slides" src="doc/presentation.svg" height="50"></a></td>
-          <td style="text-align: center; vertical-align: middle;"><a href="FAQ.md"><img alt="FAQ" src="doc/faq.svg" height="50"></a></td>
+          <td style="text-align: center; vertical-align: middle;"><a href="INSTALL.md"><img alt="Installation guide" src="doc/images/install.svg" height="50"></a></td>
+          <td style="text-align: center; vertical-align: middle;"><a href="USERGUIDE.md"><img alt="User guide" src="doc/images/userguide.svg" height="50"></a></td>
+          <td style="text-align: center; vertical-align: middle;"><a href="https://fadi.presentations.cetic.be"><img alt="Presentation slides" src="doc/images/presentation.svg" height="50"></a></td>
+          <td style="text-align: center; vertical-align: middle;"><a href="FAQ.md"><img alt="FAQ" src="doc/images/faq.svg" height="50"></a></td>
         </tr>
         <tr>
           <td style="text-align: center; vertical-align: middle;">Installation</td>
