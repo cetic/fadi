@@ -44,6 +44,12 @@ You can find a more detailed explanation of the various components in the [archi
 
 ![FADI stack](doc/images/architecture/implementation_view.svg)
 
+### FADI Helm Chart
+
+[![CircleCI](https://circleci.com/gh/cetic/helm-fadi.svg?style=svg)](https://circleci.com/gh/cetic/helm-fadi/tree/master)
+
+This [repository](https://github.com/cetic/helm-fadi) contains the Helm chart to install FADI in a Kubernetes cluster. 
+
 ### Support
 
 In case you encounter an issue with FADI, have a feature request or any other question, feel free to [open an issue](https://github.com/cetic/fadi/issues/new/choose).
