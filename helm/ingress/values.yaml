@@ -1,0 +1,140 @@
+---
+# Default values for FADI.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+spark:
+  enabled: false
+  Master:
+    Name: spark-master
+  WebUi:
+    Name: spark-webui
+  Worker:
+    Name: spark-worker
+  Zeppelin:
+    Name: spark-zeppelin
+    Replicas: 0
+
+superset:
+  enabled: true
+  persistence:
+    enabled: true
+  service:
+    type: ClusterIP
+  ingress:
+    enabled: true
+    path: /superset
+    hosts: [fadi.minikube]
+
+postgresql:
+  enabled: false
+  persistence:
+    enabled: true
+
+minio:
+  enabled: true
+  persistence:
+    enabled: true
+  service:
+    type: ClusterIP
+  ingress:
+    enabled: true
+    path: /minio
+    hosts: [fadi.minikube]
+
+grafana:
+  enabled: true
+  #LoadBalancer service
+  service:
+    type: ClusterIP
+  ingress:
+    enabled: true
+    path: /grafana
+    hosts: [fadi.minikube]
+  # Enable persistence
+  grafana.ini:
+    server:
+      root_url: https://fadi.minikube/grafana
+  persistence:
+    enabled: true
+  # Administrator credentials when not using an existing secret (see below)
+  adminUser: admin
+  adminPassword: password
+
+jupyterhub:
+  enabled: true
+  proxy:
+    secretToken: 'af83775ec3bfaf0507ce596df51d491e7ed54450adc454038fa7405495465f19'
+  hub:
+    db:
+      type: sqlite-memory
+  rbac:
+    enabled: true
+  singleuser:
+    storage:
+      type: none
+  # Defines the default image
+    image:
+      name: jupyter/minimal-notebook
+      tag: 7d427e7a4dde
+    profileList:
+      - display_name: "Minimal environment"
+        description: "To avoid too much bells and whistles: Python."
+        default: true
+      - display_name: "Datascience environment"
+        description: "If you want the additional bells and whistles: Python, R, and Julia."
+        kubespawner_override:
+          image: jupyter/datascience-notebook:7d427e7a4dde
+      - display_name: "Spark environment"
+        description: "The Jupyter Stacks spark image"
+        kubespawner_override:
+          image: jupyter/all-spark-notebook:latest
+  auth:
+    type: dummy
+    whitelist:
+      users:
+    admin:
+      access: true
+      users:
+        - admin
+    dummy:
+      password: 'password'
+    ldap:
+      dn:
+        search: {}
+        user: {}
+      user: {}
+    state:
+      enabled: false
+      cryptoKey:
+  prePuller:
+    hook:
+      enabled: false
+
+  ingress:
+    enabled: true
+    hosts: [fadi.minikube]
+    pathSuffix: '/jupyterhub'
+    tls: []
+
+nifi:
+  enabled: true
+  ingress: 
+    enabled: true
+    host: fadi.minikube
+  ingress:
+    enabled: true
+    annotations: {}
+    tls: []
+    hosts: [fadi.minikube]
+    path: /nifi
+
+pgadmin:
+  enabled: true
+  service:
+    type: ClusterIP
+  ingress:
+    enabled: true
+    annotations: {}
+    path: /
+    hosts: [fadi.minikube]
+    tls: []
