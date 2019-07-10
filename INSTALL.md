@@ -61,10 +61,12 @@ cd fadi
 
 Launch the Helm script, this will deploy all the FADI services on the Minikube cluster (and may take some time).
 
-```
+```bash
 kubectl config set-context minikube
 cd helm
+# you can edit values.yaml file to customise the stack
 ./deploy.sh
+# see deploy.log for connection information to the various services
 ```
 
 You can check everything is deploying/-ed in the Kubernetes dashboard:
@@ -74,8 +76,9 @@ You can check everything is deploying/-ed in the Kubernetes dashboard:
 
 To access a service in your browser, you can just type, for instance:
 
-```
-minikube service -n fadi nifi
+```bash
+minikube service list
+minikube service -n fadi fadi-nifi
 ```
 
 To update the FADI stack, re-type:
