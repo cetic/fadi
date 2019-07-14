@@ -1,6 +1,6 @@
-# Terraform
+# FADI Terraform scripts
 
-![](/doc/images/logos/terraform.svg)
+![](/doc/images/logos/terraform.png)
 
 ## GKE provisioning
 
@@ -22,18 +22,17 @@ Install:
 * [kubernetes-cli](https://kubernetes.io/docs/tasks/tools/install-kubectl/)
 
 1. Terraform and kubectl are installed on the machine where Terraform is executed.
-2. The Service Account you execute the module with has the right permissions. [Create a service account](https://console.developers.google.com/iam-admin/serviceaccounts).
-
-    * Add `Kubernetes Engine Admin` role.
-    * Add [Service Account User](https://cloud.google.com/kubernetes-engine/docs/how-to/iam#service_account_user).
-    * Add the `Editor` role.
-    * Add the `Storage Object Admin` role (for Terraform `tfstate` bucket).
-
+2. The Service Account you execute the module with has the right permissions: 
+    * [Create a service account](https://console.developers.google.com/iam-admin/serviceaccounts) with the following roles:
+        * Add `Kubernetes Engine Admin` role.
+        * Add [Service Account User](https://cloud.google.com/kubernetes-engine/docs/how-to/iam#service_account_user) role
+        * Add the `Editor` role.
+        * Add the `Storage Object Admin` role (for Terraform `tfstate` bucket).
+        * download the json key
+    * Activate the service account to be used for auth:
     ```
     gcloud auth activate-service-account --key-file sa_gke.json
     ```
-
-    Activate the service account to be used for auth.
 
 3. The Compute Engine and Kubernetes Engine APIs are active on the project you will launch the cluster in. [Enable the GKE API](https://console.developers.google.com/apis/).
 4. If using a Shared VPC, the APIs must also be activated on the Shared VPC host project and your service account needs the proper permissions there.
@@ -42,6 +41,9 @@ Install:
     ```
     gsutil mb -c regional -l europe-west1 gs://<your-project-id>-tfstate
     ```
+
+**Important note**: The settings above are "loose", you will need to fine tune permissions and setup security measures depending on your deployment.
+
 
 #### Usage
 
