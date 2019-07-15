@@ -50,6 +50,7 @@ Install:
 Then perform the following commands on the [root folder](/terraform):
 
 1. Fill in your project id and change configuration to your liking in the [terraform config file](/terraform/main.tf)
+1. Make sure the SA json key `sa_gke.json` is in this folder
 1. `terraform init` to fetch the relevant plug-ins,
 2. `terraform plan` to see the infrastructure plan
 2. `terraform apply` to build the cluster,

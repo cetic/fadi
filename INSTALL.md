@@ -113,7 +113,7 @@ git clone https://github.com/cetic/fadi.git fadi
 cd fadi
 ```
 
-You will need to modify the first line of the [deployment script](helm/deploy.sh) with your Kubernetes context:
+Set your Kubernetes context:
 
 ```bash
 kubectl config set-context <your-k8s-context>
