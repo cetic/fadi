@@ -33,28 +33,55 @@ Those components are configured in the following [sample config file](helm/deplo
 Temperature measurements from the last 5 days (see [HVAC sample temperatures csv extract](examples/basic/sample_data.csv)) are ingested:
 
 ```csv
-(...)
-23.5,1561467513.503
-23.5,1561467543.504
-23.5,1561467573.503
-23.5,1561467603.504
-23.5,1561467633.504
-23.5,1561467663.503
-23.5,1561467693.503
-23,1561467723.504
-23,1561467753.503
-23,1561467783.504
-23,1561467813.504
-23,1561467843.503
-23.5,1561467873.503
-23.5,1561467903.504
-23.5,1561467933.503
-23.5,1561467963.503
-23.5,1561467993.504
+measure_ts,temperature
+2019-06-23 14:05:03.503,22.5
+2019-06-23 14:05:33.504,22.5
+2019-06-23 14:06:03.504,22.5
+2019-06-23 14:06:33.504,22.5
+2019-06-23 14:07:03.504,22.5
+2019-06-23 14:07:33.503,22.5
+2019-06-23 14:08:03.504,22.5
+2019-06-23 14:08:33.504,22.5
+2019-06-23 14:09:03.503,22.5
+2019-06-23 14:09:33.503,22.5
+2019-06-23 14:10:03.503,22.5
+2019-06-23 14:10:33.504,22.5
+2019-06-23 14:11:03.503,22.5
+2019-06-23 14:11:33.503,22.5
+2019-06-23 14:12:03.503,22.5
+2019-06-23 14:12:33.504,22.5
+2019-06-23 14:13:03.504,22.5
+2019-06-23 14:13:33.504,22.5
+2019-06-23 14:14:03.504,22.5
 (...)
 ```
 
-First, head to the Nifi web interface, if you are using the local installation with Minikube you can run the following command:
+First, setup the datalake by creating a table in the postgresql database. 
+
+Head to the pgadmin interface and execute the [table creation script](examples/basic/create_datalake_tables.sql).
+
+```
+minikube service fadi-pgadmin -n fadi
+```
+
+(the default credentials are `pgadmin4@pgadmin.org`/`admin`):
+
+Get the database password:
+
+```
+export POSTGRES_PASSWORD=$(kubectl get secret --namespace fadi fadi-postgresql -o jsonpath="{.data.postgresql-password}" | base64 --decode)
+echo $POSTGRES_PASSWORD
+```
+
+Add the JDBC connector to the nifi service:
+
+```bash
+wget https://jdbc.postgresql.org/download/postgresql-42.2.6.jar
+kubectl cp ./postgresql-42.2.6.jar fadi/fadi-nifi-0:/opt/nifi/postgresql-42.2.6.jar
+rm postgresql-42.2.6.jar
+```
+
+Then head to the Nifi web interface, if you are using the local installation with Minikube you can run the following command:
 
  ```
  minikube service fadi-nifi-load-balancer -n fadi
@@ -65,6 +92,21 @@ First, head to the Nifi web interface, if you are using the local installation w
 Now we need to tell Nifi to read the csv file and store the measurements in the data lake:
 
 ![Nifi Ingest CSV and store in PostgreSQL](examples/basic/images/nifi_csv_to_sql.png)
+
+* InvokeHTTP processor:
+    * Settings > `Automatically Terminate Relationships` : all except `Response`
+    * Properties > Remote url: `https://raw.githubusercontent.com/cetic/fadi/master/examples/basic/sample_data.csv`
+* PutDatabaseRecord processor:
+    * Settings > `Automatically Terminate Relationships` : all
+    * Properties > Record Reader: `CSV Reader`
+    * Properties > Database Connection Pooling Service > DBCPConnectionPool
+        * Database Connection URL: `jdbc:postgresql://fadi-postgresql:5432/postgres?stringtype=unspecified`
+        * Database Driver Class Name: `org.postgresql.Driver`
+        * Database Driver Location(s): `/opt/nifi/postgresql-42.2.6.jar`
+        * Database User: `postgres`
+        * Password: set to the postgresql password obtained above
+
+See also [the nifi template](/examples/basic/nifi_template.xml) that corresponds to this example.
 
 For more information on how to use Apache Nifi, see the [official Nifi user guide](https://nifi.apache.org/docs/nifi-docs/html/user-guide.html) and this [Awesome Nifi](https://github.com/jfrazee/awesome-nifi) resources.
 
@@ -84,9 +126,15 @@ Head to the Grafana interface (the default credentials are `admin`/`password`):
 
 ![Grafana web interface](examples/basic/images/grafana_interface.png)
 
-First we will define the datasource:
+First we will define the postgresql datasource:
 
 ![Grafana datasource](examples/basic/images/grafana_datasource.gif)
+
+* host: fadi-postgresql:5432
+* database: postgres
+* user: postgres
+* password: set to the postgresql password obtained above
+* disable ssl
 
 Then we will configure a simple dashboard that shows the temperatures over the last week:
 
@@ -106,27 +154,35 @@ For more information on how to use Grafana, see the [official Grafana user guide
 
 [Apache Superset](https://superset.incubator.apache.org) provides some interesting features to explore your data and build basic dashboards.
 
-Head to the Superset interface (the default credentials are `admin`/`admintest`): 
+Head to the Superset interface (the default credentials are `admin`/`admin`): 
 
 ```minikube service fadi-superset -n fadi```
-
-![Superset web interface](examples/basic/images/superset_interface.png)
 
 First we will define the datasource:
 
 ![Superset datasource](examples/basic/images/superset_datasource.png)
 
+* SQLAlchemy URI: `postgresql://postgres:<your_password>@fadi-postgresql:5432/postgres`
+
+![Superset table](examples/basic/images/superset_table.gif)
+
+* Sources > Tables > "+"
+  * Database: example_basic
+  * Edit measure_ts 
+    * Select Sources --> Tables from the top-level menu.
+    * Click on the "Edit" icon for the example_basic table.
+    * Click on the "List Columns" tab.
+    * Scroll down to the "measure_ts" column.
+    * Click on the "Edit" icon for the "date" column.
+    * In the "Expression" box, enter `measure_ts ::timestamptz`.
+
 Then we will explore our data and build a simple dashboard with the data that is inside the database:
 
-![Superset dashboard](examples/basic/superset_dashboard.gif)
+![Superset dashboard](examples/basic/images/superset_dashboard.gif)
 
 For more information on how to use Superset, see the [official Superset user guide](https://superset.incubator.apache.org/tutorial.html)
 
 ### 5. Process
-
-<a href="https://superset.incubator.apache.org/" alt="Superset"><img src="doc/images/logos/superset.png" width="100px" /></a>
-
-> "BI tool with a simple interface, feature-rich when it comes to views, that allows the user to create and share dashboards. This tool is simple and doesn’t require programming, and allows the user to explore, filter and organise data."
 
 <a href="https://spark.apache.org/" alt="Apache Spark"><img src="doc/images/logos/spark.png" width="100px" /></a>
 
