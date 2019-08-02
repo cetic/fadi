@@ -1,6 +1,7 @@
 dashboard:
   enabled: true
   domain: traefik-ui.minikube
+  serviceType: NodePort
 kubernetes:
   namespaces:
     - default

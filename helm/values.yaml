@@ -19,8 +19,13 @@ superset:
   persistence:
     enabled: true
   service:
-    type: LoadBalancer
-
+    type: ClusterIP
+  ingress:
+    enabled: true
+    annotations: {}
+    path: /
+    hosts: [fadi-superset.minikube]
+    
 postgresql:
   enabled: true
   persistence:
@@ -31,13 +36,28 @@ minio:
   persistence:
     enabled: true
   service:
-    type: LoadBalancer
+    type: ClusterIP
+  ingress:
+    enabled: true
+    path: /minio
+    hosts: [fadi.minikube]
 
 grafana:
   enabled: true
+  image:
+    tag: 6.3.0-beta2
   #LoadBalancer service
   service:
-    type: LoadBalancer
+    type: ClusterIP
+  ingress:
+    enabled: true
+    path: /grafana/
+    hosts:
+      - fadi.minikube
+  grafana.ini:
+    server:
+      root_url: http://fadi.minikube/grafana/
+      serve_from_sub_path: true
   # Enable persistence
   persistence:
     enabled: true
@@ -50,6 +70,7 @@ jupyterhub:
   proxy:
     secretToken: 'af83775ec3bfaf0507ce596df51d491e7ed54450adc454038fa7405495465f19'
   hub:
+    baseUrl: /jupyterhub
     db:
       type: sqlite-memory
   rbac:
@@ -94,10 +115,34 @@ jupyterhub:
   prePuller:
     hook:
       enabled: false
-
+  ingress:
+    enabled: true
+    hosts: [fadi.minikube]
+    pathSuffix: ''
 
 nifi:
   enabled: true
+  service:
+    loadBalancer:
+      enabled: true
+      type: ClusterIP
+  ingress:
+    enabled: true
+    annotations: {}
+    tls: []
+    hosts: 
+      - fadi.minikube
+    path: /nifi
 
 pgadmin:
   enabled: true
+  service:
+    type: ClusterIP
+  ingress:
+    enabled: true
+    annotations: {traefik.ingress.kubernetes.io/rule-type: Path}
+    path: /pgadmin
+    hosts:
+      - fadi.minikube
+  pgadmin:
+    scriptname: /pgadmin
