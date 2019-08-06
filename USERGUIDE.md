@@ -58,7 +58,7 @@ measure_ts,temperature
 
 First, setup the datalake by creating a table in the postgresql database. 
 
-Head to the pgadmin interface (`fadi.minikube/pgadmin`) and execute the [table creation script](examples/basic/create_datalake_tables.sql).
+Head to the pgadmin interface ([http://fadi.minikube/pgadmin]) and execute the [table creation script](examples/basic/create_datalake_tables.sql).
 
 (the default credentials are `pgadmin4@pgadmin.org`/`admin`):
 
@@ -77,7 +77,7 @@ kubectl cp ./postgresql-42.2.6.jar fadi/fadi-nifi-0:/opt/nifi/postgresql-42.2.6.
 rm postgresql-42.2.6.jar
 ```
 
-Then head to the Nifi web interface (`fadi.minikube/nifi`), if you are using the local installation with Minikube).
+Then head to the Nifi web interface ([http://fadi.minikube/nifi]), if you are using the local installation with Minikube).
 
 ![Nifi web interface](examples/basic/images/nifi_interface.png)
 
@@ -112,7 +112,7 @@ Once the measurements are stored in the database, we will want to display the re
 
 [Grafana](http://grafana.com/) provides a dashboard and alerting interface.
 
-Head to the Grafana interface at `fadi.minikube/grafana` (the default credentials are `admin`/`password`): 
+Head to the Grafana interface at [http://fadi.minikube/grafana] (the default credentials are `admin`/`password`): 
 
 ![Grafana web interface](examples/basic/images/grafana_interface.png)
 
@@ -144,7 +144,7 @@ For more information on how to use Grafana, see the [official Grafana user guide
 
 [Apache Superset](https://superset.incubator.apache.org) provides some interesting features to explore your data and build basic dashboards.
 
-Head to the Superset interface at `fadi-superset.minikube` (the default credentials are `admin`/`admin`): 
+Head to the Superset interface at [http://fadi-superset.minikube] (the default credentials are `admin`/`admin`): 
 
 First we will define the datasource:
 
@@ -180,7 +180,7 @@ For more information on how to use Superset, see the [official Superset user gui
 
 In this simple use case, we will try to access the data that is stored in the data lake.
 
-Head to the Jupyter notebook interface at `fadi.minikube/jupyterhub` (the default credentials are `admin`/`password`):
+Head to the Jupyter notebook interface at [http://fadi.minikube/jupyterhub] (the default credentials are `admin`/`password`):
 
 ![Jupyter web interface](examples/basic/images/jupyter_interface.png)
 
