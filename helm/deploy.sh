@@ -30,6 +30,12 @@ printf "\n\nHelm all the things!...\n"
 helm repo add cetic https://cetic.github.io/helm-charts/
 helm repo update
 
+# create clusterrole for traefik
+kubectl get clusterrole traefik-ingress-controller 2> /dev/null || kubectl create -f ./traefik/rbac-config.yaml
+
+# install/upgrade traefik
+helm upgrade --install traefik stable/traefik -f ./traefik/values.yaml --namespace ${NAMESPACE} --tiller-namespace tiller
+
 # install/upgrade FADI
 helm upgrade --install ${NAMESPACE} cetic/fadi -f ./values.yaml --namespace ${NAMESPACE} --tiller-namespace tiller
 

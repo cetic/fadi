@@ -1,0 +1,9 @@
+dashboard:
+  enabled: true
+  domain: fadi.minikube
+  serviceType: NodePort
+kubernetes:
+  namespaces:
+    - default
+    - kube-system
+
