@@ -47,7 +47,10 @@ Start Minikube:
 minikube start --cpus 6 --memory 12288 --disk-size=40GB
 ```
 
-Note: the vm driver can be specified as such: `--vm-driver kvm2` or `--vm-driver virtualbox`
+Notes: 
+
+* the vm driver can be specified as such: `--vm-driver kvm2` or `--vm-driver virtualbox`
+* a partial FADI stack would need less ressources, edit [the config file](/helm/values.yaml) accordingly to disable services that are not needed.
 
 To get the Kubernetes dashboard, type:
 
