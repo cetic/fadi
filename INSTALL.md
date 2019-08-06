@@ -72,6 +72,7 @@ Launch the Helm script, this will deploy all the FADI services on the Minikube c
 
 ```bash
 kubectl config set-context minikube
+minikube addons enable ingress
 cd helm
 # you can edit values.yaml file to customise the stack
 ./deploy.sh
