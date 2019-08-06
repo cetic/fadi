@@ -3,7 +3,7 @@
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 spark:
-  enabled: false
+  enabled: true
   Master:
     Name: spark-master
   WebUi:
@@ -207,10 +207,10 @@ jupyterhub:
   # ---- auth ----
 
 nifi:
-  enabled: false
+  enabled: true
 
 pgadmin:
-  enabled: false
+  enabled: true
 
 openldap:
   enabled: true
