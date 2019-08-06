@@ -208,6 +208,34 @@ Do some Spark processing in the notebook, load the [sample code](examples/basic/
 
 For more information on how to use Superset, see the [official Jupyter documentation](https://jupyter.readthedocs.io/en/latest/)
 
+## User Management
+
+For user management we're using [Openldap](https://www.openldap.org) to assure the [LDAP user authentication](https://en.wikipedia.org/wiki/Lightweight_Directory_Access_Protocol) fors the platfrom services.
+
+### 1. Create the ldap server
+<img src="doc/images/logos/OpenLDAP.png" width="100px" /></a>
+
+The **openldap** service creates an empty ldap server for the company Example Inc. and the domain example.org by default, which we will overwrite via the environment variables in the helm chart. 
+Once created we either add the users/groups manually through phpLdapadmin, or you can pass an [LDIF file](https://en.wikipedia.org/wiki/LDAP_Data_Interchange_Format). 
+
+for further use it's recommended to use [phpLdapadmin](#2.-manage-your-ldap-server) 
+
+### 2. manage your ldap server
+<img src="doc/images/logos/phpldapadmin.jpg" width="100px" /></a>
+
+[phpLDAPadmin](http://phpldapadmin.sourceforge.net/wiki/index.php/Main_Page) is a web app for administering LDAP servers.
+
+In order to use it you have to pass the configuration for your ldap server through the environmental variable *_PHPLDAPADMIN_LDAP_HOSTS_* , to connect this service with the openldap server you need to pass **the name of the service** (fadi-openldap). to connect to the web app you simply run the command 
+
+```bash
+minikube service fadi-phpldap-admin -n fadi
+```
+The main page for phpldapadmin will open in your default browser, the next step is you connect to your ldap server.
+
+<img src="doc/images/phpldapadmin.gif"  /></a>
+
+for more information about how to use phpLDAPadmin => [phpLDAPadmin Documentation](http://phpldapadmin.sourceforge.net/function-ref/1.2/)
+
 ### 6. Summary
 
 In this use case, we have demonstrated a simple configuration for FADI, where we use various services to ingest, store, analyse, explore and provide dashboards and alerts 
