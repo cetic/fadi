@@ -47,7 +47,10 @@ Start Minikube:
 minikube start --cpus 6 --memory 12288 --disk-size=40GB
 ```
 
-Note: the vm driver can be specified as such: `--vm-driver kvm2` or `--vm-driver virtualbox`
+Notes: 
+
+* the vm driver can be specified as such: `--vm-driver kvm2` or `--vm-driver virtualbox`
+* a partial FADI stack would need less ressources, edit [the config file](/helm/values.yaml) accordingly to disable services that are not needed.
 
 To get the Kubernetes dashboard, type:
 
@@ -72,6 +75,7 @@ Launch the Helm script, this will deploy all the FADI services on the Minikube c
 
 ```bash
 kubectl config set-context minikube
+minikube addons enable ingress
 cd helm
 # you can edit values.yaml file to customise the stack
 ./deploy.sh
