@@ -24,6 +24,47 @@ postgresql:
   enabled: false
   persistence:
     enabled: true
+  configFile: |-
+  
+    from flask_appbuilder.security.manager import AUTH_DB,AUTH_LDAP
+
+    #---------------------------------------------------------
+    # Superset specific config
+    #---------------------------------------------------------
+
+    ROW_LIMIT = 5000
+    SUPERSET_WORKERS = 2
+    SUPERSET_WEBSERVER_PORT = 8088
+    #---------------------------------------------------------
+    #---------------------------------------------------------
+    # Flask App Builder configuration
+    #---------------------------------------------------------
+    # Your App secret key
+    SECRET_KEY = '\2\1thisismyscretkey\1\2\e\y\y\h'
+    # The SQLAlchemy connection string to your database backend
+    # This connection defines the path to the database that stores your
+    # superset metadata (slices, connections, tables, dashboards, ...).
+    # Note that the connection information to connect to the datasources
+    # you want to explore are managed directly in the web UI
+    SQLALCHEMY_DATABASE_URI = 'sqlite:////var/lib/superset/superset.db'
+    # Flask-WTF flag for CSRF
+    WTF_CSRF_ENABLED = True
+    # Add endpoints that need to be exempt from CSRF protection
+    WTF_CSRF_EXEMPT_LIST = []
+    # Set this API key to enable Mapbox visualizations
+    MAPBOX_API_KEY = ''
+
+    DEBUG=True
+    LOG_FORMAT = '%(asctime)s:%(levelname)s:%(name)s:%(message)s'
+    LOG_LEVEL = 'DEBUG'
+    
+    AUTH_TYPE = AUTH_LDAP
+    AUTH_LDAP_SERVER = "ldap://fadi-openldap:389"
+    AUTH_LDAP_USE_TLS = False
+    AUTH_USER_REGISTRATION = True 
+    AUTH_LDAP_SEARCH = "dc=ldap,dc=cetic,dc=be"
+    AUTH_LDAP_BIND_USER = "cn=admin,dc=ldap,dc=cetic,dc=be"
+    AUTH_LDAP_BIND_PASSWORD = "password1"
 
 minio:
   enabled: false
@@ -102,10 +143,7 @@ ldap:
     ##bind_password = 'password1'
     search_filter = "(cn=%s)"
     search_base_dns = ["DC=ldap,DC=cetic,DC=be"]
-  
   # ----- auth -----
-
-
 jupyterhub:
   enabled: true
   proxy:
@@ -135,35 +173,16 @@ jupyterhub:
         description: "The Jupyter Stacks spark image"
         kubespawner_override:
           image: jupyter/all-spark-notebook:latest
-  
-
-  # ---- auth ----
-  
-  # auth:
-  #   type: dummy
-  #   whitelist:
-  #     users:
-  #   admin:
-  #     access: true
-  #     users:
-  #       - admin
-  #   dummy:
-  #     password: 'password'
-  #   ldap:
-  #     dn:
-  #       search: {}
-  #       user: {}
-  #     user: {}
-  #   state:
-  #     enabled: false
-  #     cryptoKey:
-  # prePuller:
-  #   hook:
-  #     enabled: false
-
+  # ---- auth ----  
   auth:
-
-
+    type: ldap
+    ldap:
+      server:
+        address: fadi-openldap
+      dn:
+        templates:
+          - 'cn={username},cn=admin,dc=ldap,dc=cetic,dc=be'
+          - 'uid={username},cn=admin,dc=ldap,dc=cetic,dc=be'
 nifi:
   enabled: true
   service:
@@ -180,3 +199,22 @@ nifi:
 
 pgadmin:
   enabled: true
+openldap:
+  enabled: true
+  env:
+    LDAP_ORGANISATION: "Cetic"
+    LDAP_DOMAIN: "ldap.cetic.be"
+    LDAP_BASE_DN: "cn=admin,dc=ldap,dc=cetic,dc=be"
+    LDAP_BACKEND: "hdb"
+    LDAP_TLS: "true"
+    LDAP_TLS_ENFORCE: "false"
+    LDAP_REMOVE_CONFIG_AFTER_SETUP: "false"
+  customLdifFiles:
+    1-default-users.ldif: |-
+      
+      # You can find an example ldif file.
+
+phpldapadmin:
+  enabled: true
+  env:
+    PHPLDAPADMIN_LDAP_HOSTS: "fadi-openldap"
