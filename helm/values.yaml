@@ -193,6 +193,9 @@ jupyterhub:
           - 'uid={username},cn=admin,dc=ldap,dc=cetic,dc=be'
   # ---- auth ----  
 
+  prePuller:
+    hook:
+      enabled: false
   ingress:
     enabled: true
     hosts: [fadi.minikube]
