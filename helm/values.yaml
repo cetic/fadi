@@ -66,6 +66,7 @@ superset:
     AUTH_LDAP_SEARCH = "dc=ldap,dc=cetic,dc=be"
     AUTH_LDAP_BIND_USER = "cn=admin,dc=ldap,dc=cetic,dc=be"
     AUTH_LDAP_BIND_PASSWORD = "password1"
+    AUTH_LDAP_UID_FIELD = "cn"
 
 postgresql:
   enabled: true
