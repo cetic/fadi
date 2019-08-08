@@ -19,11 +19,13 @@ superset:
   persistence:
     enabled: true
   service:
-
-postgresql:
-  enabled: false
-  persistence:
+    type: ClusterIP
+  ingress:
     enabled: true
+    annotations: {}
+    path: /
+    hosts: [fadi-superset.minikube]
+
   configFile: |-
   
     from flask_appbuilder.security.manager import AUTH_DB,AUTH_LDAP
@@ -66,8 +68,13 @@ postgresql:
     AUTH_LDAP_BIND_USER = "cn=admin,dc=ldap,dc=cetic,dc=be"
     AUTH_LDAP_BIND_PASSWORD = "password1"
 
+postgresql:
+  enabled: true
+  persistence:
+    enabled: true
+
 minio:
-  enabled: false
+  enabled: true
   persistence:
     enabled: true
   service:
@@ -99,7 +106,6 @@ grafana:
   # Administrator credentials when not using an existing secret (see below)
   adminUser: admin
   adminPassword: password
-  # ----- auth -------
   grafana.ini:
   paths:
     data: /var/lib/grafana/data
@@ -114,6 +120,8 @@ grafana:
     url: https://grafana.net
 ## LDAP Authentication can be enabled with the following values on grafana.ini
 ## NOTE: Grafana will fail to start if the value for ldap.toml is invalid
+  
+  # ----- auth -------
   auth.ldap:
     enabled: true
     allow_sign_up: true
@@ -183,6 +191,13 @@ jupyterhub:
         templates:
           - 'cn={username},cn=admin,dc=ldap,dc=cetic,dc=be'
           - 'uid={username},cn=admin,dc=ldap,dc=cetic,dc=be'
+  # ---- auth ----  
+
+  ingress:
+    enabled: true
+    hosts: [fadi.minikube]
+    pathSuffix: ''
+
 nifi:
   enabled: true
   service:
@@ -199,6 +214,17 @@ nifi:
 
 pgadmin:
   enabled: true
+  service:
+    type: ClusterIP
+  ingress:
+    enabled: true
+    annotations: {traefik.ingress.kubernetes.io/rule-type: Path}
+    path: /pgadmin
+    hosts:
+      - fadi.minikube
+  pgadmin:
+    scriptname: /pgadmin
+  
 openldap:
   enabled: true
   env:
@@ -209,6 +235,9 @@ openldap:
     LDAP_TLS: "true"
     LDAP_TLS_ENFORCE: "false"
     LDAP_REMOVE_CONFIG_AFTER_SETUP: "false"
+  adminPassword: password1
+  configPassword: password2
+
   customLdifFiles:
     1-default-users.ldif: |-
       
