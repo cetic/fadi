@@ -25,7 +25,49 @@ superset:
     annotations: {}
     path: /
     hosts: [fadi-superset.minikube]
+  configFile: |-
+
+    from flask_appbuilder.security.manager import AUTH_DB,AUTH_LDAP
+
+    #---------------------------------------------------------
+    # Superset specific config
+    #---------------------------------------------------------
+
+    ROW_LIMIT = 5000
+    SUPERSET_WORKERS = 2
+    SUPERSET_WEBSERVER_PORT = 8088
+    #---------------------------------------------------------
+    #---------------------------------------------------------
+    # Flask App Builder configuration
+    #---------------------------------------------------------
+    # Your App secret key
+    SECRET_KEY = '\2\1thisismyscretkey\1\2\e\y\y\h'
+    # The SQLAlchemy connection string to your database backend
+    # This connection defines the path to the database that stores your
+    # superset metadata (slices, connections, tables, dashboards, ...).
+    # Note that the connection information to connect to the datasources
+    # you want to explore are managed directly in the web UI
+    SQLALCHEMY_DATABASE_URI = 'sqlite:////var/lib/superset/superset.db'
+    # Flask-WTF flag for CSRF
+    WTF_CSRF_ENABLED = True
+    # Add endpoints that need to be exempt from CSRF protection
+    WTF_CSRF_EXEMPT_LIST = []
+    # Set this API key to enable Mapbox visualizations
+    MAPBOX_API_KEY = ''
+
+    DEBUG=True
+    LOG_FORMAT = '%(asctime)s:%(levelname)s:%(name)s:%(message)s'
+    LOG_LEVEL = 'DEBUG'
     
+    AUTH_TYPE = AUTH_LDAP
+    AUTH_LDAP_SERVER = "ldap://fadi-openldap:389"
+    AUTH_LDAP_USE_TLS = False
+    AUTH_USER_REGISTRATION = True 
+    AUTH_LDAP_SEARCH = "dc=ldap,dc=cetic,dc=be"
+    AUTH_LDAP_BIND_USER = "cn=admin,dc=ldap,dc=cetic,dc=be"
+    AUTH_LDAP_BIND_PASSWORD = "password1"
+    AUTH_LDAP_UID_FIELD = "cn"
+
 postgresql:
   enabled: true
   persistence:
@@ -46,24 +88,66 @@ grafana:
   enabled: true
   image:
     tag: 6.3.0-beta2
-  #LoadBalancer service
   service:
     type: ClusterIP
   ingress:
     enabled: true
-    path: /grafana/
+    path: /grafana
     hosts:
       - fadi.minikube
   grafana.ini:
     server:
-      root_url: http://fadi.minikube/grafana/
+      root_url: http://fadi.minikube/grafana
       serve_from_sub_path: true
+    paths:
+      data: /var/lib/grafana/data
+      logs: /var/log/grafana
+      plugins: /var/lib/grafana/plugins
+      provisioning: /etc/grafana/provisioning  
+    analytics:
+      check_for_updates: true
+    log:
+      mode: console
+    grafana_net:
+      url: https://grafana.net
+    ## LDAP Authentication can be enabled with the following values on grafana.ini
+    ## NOTE: Grafana will fail to start if the value for ldap.toml is invalid
+    # ----- auth -------
+    auth.ldap:
+      enabled: true
+      allow_sign_up: true
+      config_file: /etc/grafana/ldap.toml  
   # Enable persistence
   persistence:
     enabled: true
   # Administrator credentials when not using an existing secret (see below)
   adminUser: admin
-  adminPassword: password
+
+  ## Grafana's LDAP configuration
+  ## Templated by the template in _helpers.tpl
+  ## NOTE: To enable the grafana.ini must be configured with auth.ldap.enabled
+  ## ref: http://docs.grafana.org/installation/configuration/#auth-ldap
+  ## ref: http://docs.grafana.org/installation/ldap/#configuration
+  ldap:
+    # `existingSecret` is a reference to an existing secret containing the ldap configuration
+    # for Grafana in a key `ldap-toml`.
+    existingSecret: ""
+    # `config` is the content of `ldap.toml` that will be stored in the created secret
+    config: |-
+      verbose_logging = true
+
+      [[servers]]
+
+      host = "fadi-openldap"
+      port = 389
+      use_ssl = false
+      start_tls = false
+      ssl_skip_verify = false
+      bind_dn = "CN=admin,DC=ldap,DC=cetic,DC=be"
+      bind_password = 'password1'
+      search_filter = "(cn=%s)"
+      search_base_dns = ["DC=ldap,DC=cetic,DC=be"]
+   # ----- auth -----
 
 jupyterhub:
   enabled: true
@@ -94,24 +178,18 @@ jupyterhub:
         description: "The Jupyter Stacks spark image"
         kubespawner_override:
           image: jupyter/all-spark-notebook:latest
+  # ---- auth ----  
   auth:
-    type: dummy
-    whitelist:
-      users:
-    admin:
-      access: true
-      users:
-        - admin
-    dummy:
-      password: 'password'
+    type: ldap
     ldap:
+      server:
+        address: fadi-openldap
       dn:
-        search: {}
-        user: {}
-      user: {}
-    state:
-      enabled: false
-      cryptoKey:
+        templates:
+          - 'cn={username},cn=admin,dc=ldap,dc=cetic,dc=be'
+          - 'uid={username},cn=admin,dc=ldap,dc=cetic,dc=be'
+          - 'cn=admin,dc=ldap,dc=cetic,dc=be'
+  # ---- auth ----  
   prePuller:
     hook:
       enabled: false
@@ -146,3 +224,26 @@ pgadmin:
       - fadi.minikube
   pgadmin:
     scriptname: /pgadmin
+  
+openldap:
+  enabled: true
+  env:
+    LDAP_ORGANISATION: "Cetic"
+    LDAP_DOMAIN: "ldap.cetic.be"
+    LDAP_BASE_DN: "cn=admin,dc=ldap,dc=cetic,dc=be"
+    LDAP_BACKEND: "hdb"
+    LDAP_TLS: "true"
+    LDAP_TLS_ENFORCE: "false"
+    LDAP_REMOVE_CONFIG_AFTER_SETUP: "false"
+  adminPassword: password1
+  configPassword: password2
+
+  customLdifFiles:
+    1-default-users.ldif: |-
+      
+      # You can find an example ldif file.
+
+phpldapadmin:
+  enabled: true
+  env:
+    PHPLDAPADMIN_LDAP_HOSTS: "fadi-openldap"

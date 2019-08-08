@@ -112,7 +112,7 @@ Once the measurements are stored in the database, we will want to display the re
 
 [Grafana](http://grafana.com/) provides a dashboard and alerting interface.
 
-Head to the Grafana interface at [http://fadi.minikube/grafana](http://fadi.minikube/grafana) (the default credentials are `admin`/`password`): 
+Head to the Grafana interface at [http://fadi.minikube/grafana](http://fadi.minikube/grafana) (the default credentials are `admin`/`password1`): 
 
 ![Grafana web interface](examples/basic/images/grafana_interface.png)
 
@@ -144,7 +144,7 @@ For more information on how to use Grafana, see the [official Grafana user guide
 
 [Apache Superset](https://superset.incubator.apache.org) provides some interesting features to explore your data and build basic dashboards.
 
-Head to the Superset interface at [http://fadi-superset.minikube](http://fadi-superset.minikube) (the default credentials are `admin`/`admin`): 
+Head to the Superset interface at [http://fadi-superset.minikube](http://fadi-superset.minikube) (the default credentials are `admin`/`password1`): 
 
 First we will define the datasource:
 
@@ -180,7 +180,7 @@ For more information on how to use Superset, see the [official Superset user gui
 
 In this simple use case, we will try to access the data that is stored in the data lake.
 
-Head to the Jupyter notebook interface at [http://fadi.minikube/jupyterhub](http://fadi.minikube/jupyterhub) (the default credentials are `admin`/`password`):
+Head to the Jupyter notebook interface at [http://fadi.minikube/jupyterhub](http://fadi.minikube/jupyterhub) (the default credentials are `admin`/`password1`):
 
 ![Jupyter web interface](examples/basic/images/jupyter_interface.png)
 
@@ -193,6 +193,53 @@ Do some Spark processing in the notebook, load the [sample code](examples/basic/
 ![Jupyter processing](examples/basic/images/jupyter_spark.png)
 
 For more information on how to use Superset, see the [official Jupyter documentation](https://jupyter.readthedocs.io/en/latest/)
+
+## User Management
+
+For user management we're using [Openldap](https://www.openldap.org) to assure the [LDAP user authentication](https://en.wikipedia.org/wiki/Lightweight_Directory_Access_Protocol) fors the platfrom services.
+
+### 1. Create the ldap server
+<img src="doc/images/logos/OpenLDAP.png" width="100px" /></a>
+
+The **openldap** service creates an empty ldap server for the company Example Inc. and the domain example.org by default, which we will overwrite via the environment variables in the helm chart. 
+
+The first entry that will be created is for the admin and the password is initiated to " password1 ", to initally connect to any of the services you can use the credentials 
+
+```
+Username: admin
+Password: password1
+```
+
+
+
+Once created we either add the users/groups manually through phpLdapadmin, or you can pass an [LDIF file](https://en.wikipedia.org/wiki/LDAP_Data_Interchange_Format). 
+
+for further use it's recommended to use [phpLdapadmin](#2.-manage-your-ldap-server) 
+
+### 2. manage your ldap server
+<img src="doc/images/logos/phpldapadmin.jpg" width="100px" /></a>
+
+[phpLDAPadmin](http://phpldapadmin.sourceforge.net/wiki/index.php/Main_Page) is a web app for administering LDAP servers.
+
+In order to use it you have to pass the configuration for your ldap server through the environmental variable *_PHPLDAPADMIN_LDAP_HOSTS_* , to connect this service with the openldap server you need to pass **the name of the service** (fadi-openldap). to connect to the web app you simply run the command 
+
+```bash
+minikube service fadi-phpldap-admin -n fadi
+```
+The main page for phpldapadmin will open in your default browser, the next step is you connect to your ldap server.
+
+<img src="doc/images/phpldapadmin.gif"  /></a>
+
+The first entry that will be created is for the admin and the password is initiated to " password1 " which makes the credentials to use to connect to this server in phpldapadmin the following:
+
+```
+Login DN: cn=admin,dc=ldap,dc=cetic,dc=be
+Password: password1
+```
+
+
+
+for more information about how to use phpLDAPadmin => [phpLDAPadmin Documentation](http://phpldapadmin.sourceforge.net/function-ref/1.2/)
 
 ### 6. Summary
 
