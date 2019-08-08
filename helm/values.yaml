@@ -143,7 +143,7 @@ grafana:
       start_tls = false
       ssl_skip_verify = false
       bind_dn = "CN=admin,DC=ldap,DC=cetic,DC=be"
-      ##bind_password = 'password1'
+      bind_password = 'password1'
       search_filter = "(cn=%s)"
       search_base_dns = ["DC=ldap,DC=cetic,DC=be"]
    # ----- auth -----
