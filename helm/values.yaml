@@ -224,7 +224,7 @@ pgadmin:
       - fadi.minikube
   pgadmin:
     scriptname: /pgadmin
-  
+
 openldap:
   enabled: true
   env:

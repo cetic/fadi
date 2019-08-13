@@ -34,6 +34,7 @@ helm repo update
 kubectl get clusterrole traefik-ingress-controller 2> /dev/null || kubectl create -f ./traefik/rbac-config.yaml
 
 # install/upgrade traefik
+
 helm upgrade --install traefik stable/traefik -f ./traefik/values.yaml --namespace kube-system --tiller-namespace tiller
 
 # install/upgrade FADI
