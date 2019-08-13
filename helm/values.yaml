@@ -22,9 +22,9 @@ superset:
     type: ClusterIP
   ingress:
     enabled: true
-    annotations: {}
+    annotations: {kubernetes.io/ingress.class: traefik}
     path: /
-    hosts: [fadi-superset.minikube]
+    hosts: [superset.fadi.minikube]
   configFile: |-
 
     from flask_appbuilder.security.manager import AUTH_DB,AUTH_LDAP
@@ -81,24 +81,20 @@ minio:
     type: ClusterIP
   ingress:
     enabled: true
-    path: /minio
-    hosts: [fadi.minikube]
+    annotations: {}
+    path: /
+    hosts: [minio.fadi.minikube]
 
 grafana:
   enabled: true
-  image:
-    tag: 6.3.0-beta2
   service:
     type: ClusterIP
   ingress:
     enabled: true
-    path: /grafana
-    hosts:
-      - fadi.minikube
+    annotations: {}
+    path: /
+    hosts: [grafana.fadi.minikube]
   grafana.ini:
-    server:
-      root_url: http://fadi.minikube/grafana
-      serve_from_sub_path: true
     paths:
       data: /var/lib/grafana/data
       logs: /var/log/grafana
@@ -153,8 +149,6 @@ jupyterhub:
   enabled: true
   proxy:
     secretToken: 'af83775ec3bfaf0507ce596df51d491e7ed54450adc454038fa7405495465f19'
-  hub:
-    baseUrl: /jupyterhub
     db:
       type: sqlite-memory
   rbac:
@@ -195,7 +189,8 @@ jupyterhub:
       enabled: false
   ingress:
     enabled: true
-    hosts: [fadi.minikube]
+    annotations: {}
+    hosts: [jupyterhub.fadi.minikube]
     pathSuffix: ''
 
 nifi:
@@ -208,9 +203,8 @@ nifi:
     enabled: true
     annotations: {}
     tls: []
-    hosts: 
-      - fadi.minikube
-    path: /nifi
+    hosts: [nifi.fadi.minikube]
+    path: /
 
 pgadmin:
   enabled: true
@@ -219,11 +213,8 @@ pgadmin:
   ingress:
     enabled: true
     annotations: {traefik.ingress.kubernetes.io/rule-type: Path}
-    path: /pgadmin
-    hosts:
-      - fadi.minikube
-  pgadmin:
-    scriptname: /pgadmin
+    path: /
+    hosts: [pgadmin.fadi.minikube]
   
 openldap:
   enabled: true
@@ -247,3 +238,8 @@ phpldapadmin:
   enabled: true
   env:
     PHPLDAPADMIN_LDAP_HOSTS: "fadi-openldap"
+  ingress:
+    enabled: true
+    annotations: {}
+    path: /
+    hosts: [phpldapadmin.fadi.minikube]
