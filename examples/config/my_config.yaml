@@ -36,7 +36,7 @@ pg_connection:
   host:
   dbname: dbname-goes-here # the db name is usually "postgres"
   user: username-goes-here #the user name is usually "postgres"
-  password: password-goes-here #kubectl get secret --namespace fadi bitnami-postgres-postgresql -o jsonpath="{.data.postgresql-password}" | base64 --decode
+  password: password-goes-here #kubectl get secret --namespace fadi <pod_name> -o jsonpath="{.data.postgresql-password}" | base64 --decode
 pg_users:
           # Filter for identifying LDAP generated users in the database.
           #   # It's the WHERE-condition to "SELECT rolname, oid FROM pg_roles"
