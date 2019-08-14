@@ -198,8 +198,10 @@ For more information on how to use Superset, see the [official Jupyter documenta
 
 For user management we're using [Openldap](https://www.openldap.org) to assure the [LDAP user authentication](https://en.wikipedia.org/wiki/Lightweight_Directory_Access_Protocol) fors the platfrom services.
 
-### 1. Create the ldap server
+### 6. Create the ldap server
 <img src="doc/images/logos/OpenLDAP.png" width="100px" /></a>
+> " OpenLDAP Software is an open source implementation of the Lightweight Directory Access Protocol."
+
 
 The **openldap** service creates an empty ldap server for the company Example Inc. and the domain example.org by default, which we will overwrite via the environment variables in the helm chart. 
 
@@ -216,17 +218,16 @@ Once created we either add the users/groups manually through phpLdapadmin, or yo
 
 for further use it's recommended to use [phpLdapadmin](#2.-manage-your-ldap-server) 
 
-### 2. manage your ldap server
+### 7. manage your ldap server
 <img src="doc/images/logos/phpldapadmin.jpg" width="100px" /></a>
+> " phpLDAPadmin is a web app for administering Lightweight Directory Access Protocol (LDAP) servers.."
 
-[phpLDAPadmin](http://phpldapadmin.sourceforge.net/wiki/index.php/Main_Page) is a web app for administering LDAP servers.
-
-In order to use it you have to pass the configuration for your ldap server through the environmental variable *_PHPLDAPADMIN_LDAP_HOSTS_* , to connect this service with the openldap server you need to pass **the name of the service** (fadi-openldap). to connect to the web app you simply run the command 
+In order to use [phpLDAPadmin](http://phpldapadmin.sourceforge.net/wiki/index.php/Main_Page) you have to pass the configuration for your ldap server through the environmental variable *_PHPLDAPADMIN_LDAP_HOSTS_* , to connect this service with the openldap server you need to pass **the name of the service** (fadi-openldap). to connect to the web app you simply run the command 
 
 ```bash
 minikube service fadi-phpldap-admin -n fadi
 ```
-The main page for phpldapadmin will open in your default browser, the next step is you connect to your ldap server.
+The main page for phpldapadmin will open in your default browser, next you simply connect to your ldap server and manage it.
 
 <img src="doc/images/phpldapadmin.gif"  /></a>
 
@@ -238,9 +239,66 @@ Password: password1
 ```
 
 
+
 for more information about how to use phpLDAPadmin => [phpLDAPadmin Documentation](http://phpldapadmin.sourceforge.net/function-ref/1.2/)
 
-### 6. Summary
+#### postgres user management
+
+LDAP authentication method in postgresql uses LDAP as the password verification method. LDAP is used only to validate the user name/password pairs. Therefore the user must already exist in the database before LDAP can be used for authentication. Thus a synchronisation tool has to be used to synchronise  users, groups and their memberships from LDAP to PostgreSQL. for that we're using [pg-ldap-sync](https://github.com/larskanis/pg-ldap-sync).
+
+to use **pg-ldap-sync** you need to install it inside the postgres container:
+
+Connect to the container as root
+
+
+
+```
+kubectl ssh -u root -p <pod_name>
+```
+Once connected as root, install the following
+ 
+```
+1. apt update
+2. apt-get install ruby libpq-dev
+3. apt-get install gcc ruby-dev rubygems
+4. apt install gem
+5. apt install make
+6. gem install pg-ldap-sync
+```
+Once installed you can run it using your own yaml config file [" example config file "](https://github.com/larskanis/pg-ldap-sync/blob/master/config/sample-config.yaml) or you can use this tested [config file](https://github.com/cetic/fadi/blob/master/examples/config/my_config.yaml) .
+
+**important note** : you need to enter the dbname, username and the password in the config file before using it, to get the password you can use this command:
+
+
+```
+kubectl get secret --namespace fadi <pod_name> -o jsonpath="{.data.postgresql-password}" | base64 --decode
+```
+Once **pg-ldap-sync** is installed and your config file is in place you can copy the users from your ldap server using this command:
+
+```
+pg_ldap_sync -c my_config.yaml -vv
+```
+
+That will copy all the users from your ldap server to you postgres db, to assign a password to each user,
+connect to the db ( both the db and user usually have the name postgres ) :
+
+```
+psql postgres postgres
+or 
+psql -d postgres -U postgres
+```
+to assign a new password for the user admin, run this:
+
+```
+postgres=> \password admin
+```
+then a prompt for the password will appear and you can assign the new password for that that user.
+
+<img src="doc/images/postgres-password.gif" width="300px" /></a>
+
+for more information about pg-ldap-sync: [Use LDAP permissions in PostgreSQL](https://github.com/larskanis/pg-ldap-sync)
+
+### 8. Summary
 
 In this use case, we have demonstrated a simple configuration for FADI, where we use various services to ingest, store, analyse, explore and provide dashboards and alerts 
 
