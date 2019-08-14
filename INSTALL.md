@@ -7,7 +7,7 @@ This page describes how to install the FADI platform
 2. on a generic Kubernetes cluster
 3. on Google Kubernetes Engine (GKE) 
 
-The last section describes how to automate the deployment using Gitlab-CI.
+The last sections describes how to automate the deployment using Gitlab-CI.
 
 Once FADI is installed, head to the [user guide](USERGUIDE.md)
 
@@ -142,7 +142,7 @@ Note that depending on your workstation size and network connection, this could 
 
 Now that you have a sandbox with FADI on your workstation, you can try it with a [simple use case](USERGUIDE.md)
 
-### 3. Deployment on GKE
+## 3. Deployment on GKE
 
 [GKE](https://cloud.google.com/kubernetes-engine/) is a managed Kubernetes offer by the Google Cloud Platform (GCP).
 
@@ -161,11 +161,11 @@ To manually create a Kubernetes cluster (GKE):
 
 It is also possible to create the Kubernetes cluster in command line, see: https://cloud.google.com/kubernetes-engine/docs/how-to/creating-a-cluster
 
-### 4. Troubleshooting
+## 4. Troubleshooting
 
 * Installation logs are located in the `helm/deploy.log` file.
 * Enable local monitoring in minikube: `minikube addons enable metrics-server`
 
-### 5. Continuous integration (CI) and deployment (CD)
+## 5. Continuous integration (CI) and deployment (CD)
 
 See [.gitlab-ci.sample.yml](.gitlab-ci.sample.yml) for an example CI setup with [Gitlab-CI](https://about.gitlab.com/product/continuous-integration/).

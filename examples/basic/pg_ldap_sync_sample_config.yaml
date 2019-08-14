@@ -1,10 +1,13 @@
 # With this sample config the distinction between LDAP-synchronized
 # # groups/users from is done by the membership to ldap_user and
-# # ldap_group. These two roles has to be defined manally before
+# # ldap_group. These two roles has to be defined manually before
 # # pg_ldap_sync can run.
 #
-# # Connection parameters to LDAP server
-# # This example uses FADI ldapserver created by default
+
+# Reference: https://github.com/larskanis/pg-ldap-sync/blob/master/config/sample-config.yaml
+
+# Connection parameters to LDAP server
+# This example uses the FADI ldap server created by default
 ldap_connection:
   host: fadi-openldap
   port: 389
@@ -26,27 +29,27 @@ ldap_users:
 ldap_groups:
     base: ou=Groups,dc=ldap,dc=cetic,dc=be
     filter: (|(cn=group1)(cn=group2)(cn=group3))
-                # this attribute is used as PG role name
+    # this attribute is used as PG role name
     name_attribute: cn
-                #     # this attribute must reference to all member DN's of the given group
+    # this attribute must reference to all member DN's of the given group
     member_attribute: member
-#Connection parameters to PostgreSQL server
+# Connection parameters to PostgreSQL server
 # see also: http://rubydoc.info/gems/pg/PG/Connection#initialize-instance_method
 pg_connection:
   host:
   dbname: dbname-goes-here # the db name is usually "postgres"
-  user: username-goes-here #the user name is usually "postgres"
-  password: password-goes-here #kubectl get secret --namespace fadi <pod_name> -o jsonpath="{.data.postgresql-password}" | base64 --decode
+  user: username-goes-here # the user name is usually "postgres"
+  password: password-goes-here # kubectl get secret --namespace fadi <pod_name> -o jsonpath="{.data.postgresql-password}" | base64 --decode
 pg_users:
-          # Filter for identifying LDAP generated users in the database.
-          #   # It's the WHERE-condition to "SELECT rolname, oid FROM pg_roles"
+  # Filter for identifying LDAP generated users in the database.
+  # It's the WHERE-condition to "SELECT rolname, oid FROM pg_roles"
   filter: rolcanlogin AND NOT rolsuper
-          #       # Options for CREATE RULE statements
+  # Options for CREATE RULE statements
   create_options: LOGIN
 pg_groups:
-            # Filter for identifying LDAP generated groups in the database.
-            #   # It's the WHERE-condition to "SELECT rolname, oid FROM pg_roles"
+  # Filter for identifying LDAP generated groups in the database.
+  # It's the WHERE-condition to "SELECT rolname, oid FROM pg_roles"
   filter: NOT rolcanlogin AND NOT rolsuper
-            #       # Options for CREATE RULE statements
+  # Options for CREATE RULE statements
   create_options: NOLOGIN
   grant_options:
