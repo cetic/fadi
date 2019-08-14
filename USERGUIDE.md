@@ -212,7 +212,7 @@ The first entry that will be created is for the administrator user ; to initiall
 * Password: `password1`
 
 
-Once created we either add the users/groups manually through phpLDAPadmin, or you can pass a [LDIF file](https://en.wikipedia.org/wiki/LDAP_Data_Interchange_Format), here you can find a [sample ldif file](https://github.com/cetic/fadi/blob/develop/examples/basic/example.ldif).
+Once created we either add the users/groups manually through phpLDAPadmin, or you can pass a [LDIF file](https://en.wikipedia.org/wiki/LDAP_Data_Interchange_Format), here you can find a [sample ldif file](examples/basic/example.ldif).
 
 ### 7. Manage your LDAP server
 
