@@ -1,0 +1,99 @@
+# Server: fadi-openldap (fadi-openldap)
+# Total Entries: 10
+
+version: 1
+
+# Entry 1: dc=ldap,dc=cetic,dc=be
+dn: dc=ldap,dc=cetic,dc=be
+dc: ldap
+o: Cetic
+objectclass: top
+objectclass: dcObject
+objectclass: organization
+
+# Entry 2: c=be,dc=ldap,dc=cetic,dc=be
+dn: c=be,dc=ldap,dc=cetic,dc=be
+c: be
+objectclass: country
+objectclass: top
+
+# Entry 3: o=cetic,c=be,dc=ldap,dc=cetic,dc=be
+dn: o=cetic,c=be,dc=ldap,dc=cetic,dc=be
+o: cetic
+objectclass: organization
+objectclass: top
+
+# Entry 4: cn=admin,dc=ldap,dc=cetic,dc=be
+dn: cn=admin,dc=ldap,dc=cetic,dc=be
+cn: admin
+description: LDAP administrator
+objectclass: simpleSecurityObject
+objectclass: organizationalRole
+userpassword: password1
+
+# Entry 5: cn=John,cn=admin,dc=ldap,dc=cetic,dc=be
+dn: cn=John,cn=admin,dc=ldap,dc=cetic,dc=be
+cn: John
+givenname: John
+mail: john@mail.com
+objectclass: inetOrgPerson
+objectclass: top
+sn: Doe
+uid: John Doe
+userpassword: Johnldap
+
+# Entry 6: cn=walid walid,cn=admin,dc=ldap,dc=cetic,dc=be
+dn: cn=walid walid,cn=admin,dc=ldap,dc=cetic,dc=be
+cn: walid walid
+givenname: walid
+mail: walid@mail.com
+objectclass: inetOrgPerson
+objectclass: top
+sn: walid
+uid: walid
+userpassword: Walidldap
+
+# Entry 7: uid=david,cn=admin,dc=ldap,dc=cetic,dc=be
+dn: uid=david,cn=admin,dc=ldap,dc=cetic,dc=be
+cn: David Doe
+displayname: David Doe
+gecos: DavidDoe
+gidnumber: 50012
+givenname: David
+homedirectory: /home/
+loginshell: /bin/bash
+objectclass: inetOrgPerson
+objectclass: posixAccount
+objectclass: top
+sn: Doe
+uid: david
+uidnumber: 100012
+userpassword: Davidldap
+
+# Entry 8: ou=Groups,dc=ldap,dc=cetic,dc=be
+dn: ou=Groups,dc=ldap,dc=cetic,dc=be
+objectclass: organizationalUnit
+objectclass: top
+ou: Groups
+
+# Entry 9: cn=aria stark,ou=Groups,dc=ldap,dc=cetic,dc=be
+dn: cn=aria stark,ou=Groups,dc=ldap,dc=cetic,dc=be
+cn: aria stark
+givenname: aria
+mail: aria@mail.com
+objectclass: inetOrgPerson
+objectclass: top
+sn: stark
+uid: Aria
+userpassword: Arialdap
+
+# Entry 10: cn=Sansa Stark,ou=Groups,dc=ldap,dc=cetic,dc=be
+dn: cn=Sansa Stark,ou=Groups,dc=ldap,dc=cetic,dc=be
+cn: Sansa Stark
+givenname: Sansa
+mail: sansa@mail.com
+objectclass: inetOrgPerson
+objectclass: top
+sn: Stark
+uid: Sansa Stark
+userpassword: {MD5}gZsGQ9a4ncm1ef38kJTyjg==

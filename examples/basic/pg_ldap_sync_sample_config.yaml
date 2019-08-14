@@ -1,9 +1,3 @@
-# With this sample config the distinction between LDAP-synchronized
-# # groups/users from is done by the membership to ldap_user and
-# # ldap_group. These two roles has to be defined manually before
-# # pg_ldap_sync can run.
-#
-
 # Reference: https://github.com/larskanis/pg-ldap-sync/blob/master/config/sample-config.yaml
 
 # Connection parameters to LDAP server
