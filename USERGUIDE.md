@@ -238,7 +238,6 @@ Password: password1
 ```
 
 
-
 for more information about how to use phpLDAPadmin => [phpLDAPadmin Documentation](http://phpldapadmin.sourceforge.net/function-ref/1.2/)
 
 ### 6. Summary

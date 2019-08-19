@@ -215,7 +215,7 @@ pgadmin:
     annotations: {traefik.ingress.kubernetes.io/rule-type: Path}
     path: /
     hosts: [pgadmin.fadi.minikube]
-  
+
 openldap:
   enabled: true
   env:
