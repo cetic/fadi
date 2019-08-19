@@ -19,7 +19,7 @@ superset:
   persistence:
     enabled: true
   service:
-    type: ClusterIP
+    type: NodePort
   ingress:
     enabled: true
     annotations: {kubernetes.io/ingress.class: traefik}
@@ -78,7 +78,7 @@ minio:
   persistence:
     enabled: true
   service:
-    type: ClusterIP
+    type: NodePort
   ingress:
     enabled: true
     annotations: {}
@@ -88,7 +88,7 @@ minio:
 grafana:
   enabled: true
   service:
-    type: ClusterIP
+    type: NodePort
   ingress:
     enabled: true
     annotations: {}
@@ -198,7 +198,7 @@ nifi:
   service:
     loadBalancer:
       enabled: true
-      type: ClusterIP
+      type: NodePort
   ingress:
     enabled: true
     annotations: {}
@@ -209,7 +209,7 @@ nifi:
 pgadmin:
   enabled: true
   service:
-    type: ClusterIP
+    type: NodePort
   ingress:
     enabled: true
     annotations: {traefik.ingress.kubernetes.io/rule-type: Path}
@@ -236,6 +236,8 @@ openldap:
 
 phpldapadmin:
   enabled: true
+  service:
+    type: NodePort
   env:
     PHPLDAPADMIN_LDAP_HOSTS: "fadi-openldap"
   ingress:
