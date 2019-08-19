@@ -101,7 +101,7 @@ In production you would want to set up real DNS entries. You can get the IP addr
 echo "$(minikube ip) fadi.minikube" | sudo tee -a /etc/hosts
 ```
 
-Reply this operation for all the different services. For instance for [superset](https://superset.incubator.apache.org/):
+Reply this operation for all the different services. For instance, for [superset](https://superset.incubator.apache.org/):
 
 ```
 echo "$(minikube ip) superset.fadi.minikube" | sudo tee -a /etc/hosts
@@ -113,7 +113,7 @@ You can list all the addresses by typing:
 kubectl get ingress -n fadi
 ```
 
-We should now be able to visit the different services behind [http://fadi.minikube](http://fadi.minikube). For instance, you can access Grafana in the browser at [http://fadi.minikube/grafana](http://fadi.minikube/grafana).
+We should now be able to visit the different services behind [http://fadi.minikube](http://fadi.minikube). For instance, you can access Grafana in the browser at [http://grafana.fadi.minikube](http://grafana.fadi.minikube).
 
 To update the FADI stack, re-type:
 
