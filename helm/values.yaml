@@ -245,3 +245,6 @@ phpldapadmin:
     annotations: {}
     path: /
     hosts: [phpldapadmin.fadi.minikube]
+
+elasticstack:
+  enabled: false
