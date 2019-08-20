@@ -203,14 +203,12 @@ For user management FADI uses [OpenLDAP](https://www.openldap.org) to ensure the
 
 > "OpenLDAP Software is an open source implementation of the Lightweight Directory Access Protocol."
 
-
 The **OpenLDAP** service creates an empty LDAP server for the company `Example Inc.` and the domain `example.org` by default, which we will overwrite via the environment variables in the Helm chart. 
 
 The first entry that will be created is for the administrator user ; to initially connect to any of the services you can use the following credentials:
 
 * Username: `admin`
 * Password: `password1`
-
 
 Once created we either add the users/groups manually through phpLDAPadmin, or you can pass a [LDIF file](https://en.wikipedia.org/wiki/LDAP_Data_Interchange_Format), here you can find a [sample ldif file](examples/basic/example.ldif).
 
