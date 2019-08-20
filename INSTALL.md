@@ -86,7 +86,14 @@ You can check everything is deploying/-ed in the Kubernetes dashboard:
 
 ![Kubernetes FADI dashboard](doc/images/installation/minikube_fadi_dashboard.png)
 
-To access a service in your browser, you need to setup entries in your /etc/hosts file to route [http://fadi.minikube](http://fadi.minikube) to our cluster.
+To access a service in your browser, type for instance:
+
+```
+minikube service list
+minikube service -n fadi fadi-nifi
+```
+
+To access a service in your browser, you can also setup entries in your /etc/hosts file to route [http://fadi.minikube](http://fadi.minikube) to our cluster.
 
 In production you would want to set up real DNS entries. You can get the IP address of your minikube instance by running minikube ip:
 
@@ -94,13 +101,19 @@ In production you would want to set up real DNS entries. You can get the IP addr
 echo "$(minikube ip) fadi.minikube" | sudo tee -a /etc/hosts
 ```
 
-Reply this operation for [superset](https://superset.incubator.apache.org/).
+Reply this operation for all the different services. For instance, for [superset](https://superset.incubator.apache.org/):
 
 ```
-echo "$(minikube ip) fadi-superset.minikube" | sudo tee -a /etc/hosts
+echo "$(minikube ip) superset.fadi.minikube" | sudo tee -a /etc/hosts
 ```
 
-We should now be able to visit the different services behind [http://fadi.minikube](http://fadi.minikube). For instance, you can access Grafana in the browser at [http://fadi.minikube/grafana](http://fadi.minikube/grafana).
+You can list all the addresses by typing:
+
+```
+kubectl get ingress -n fadi
+```
+
+We should now be able to visit the different services behind [http://fadi.minikube](http://fadi.minikube). For instance, you can access Grafana in the browser at [http://grafana.fadi.minikube](http://grafana.fadi.minikube).
 
 To update the FADI stack, re-type:
 

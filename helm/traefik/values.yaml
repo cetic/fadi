@@ -1,4 +1,7 @@
+#loadBalancerIP: "your CloudProvider LoadBalancer IP"
 dashboard:
   enabled: true
-  domain: fadi.minikube
   serviceType: NodePort
+  ingress:
+    annotations: {}
+  domain: fadi.minikube
