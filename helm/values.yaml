@@ -22,7 +22,7 @@ superset:
     type: NodePort
   ingress:
     enabled: true
-    annotations: {kubernetes.io/ingress.class: traefik}
+    annotations: {}
     path: /
     hosts: [superset.fadi.minikube]
   configFile: |-
