@@ -212,6 +212,45 @@ The first entry that will be created is for the administrator user ; to initiall
 
 Once created we either add the users/groups manually through phpLDAPadmin, or you can pass a [LDIF file](https://en.wikipedia.org/wiki/LDAP_Data_Interchange_Format), here you can find a [sample ldif file](examples/basic/example.ldif).
 
+#### User's roles management 
+
+
+
+##### Grafana
+
+Grafana has 3 roles by default: **Admin** , **Editor** and **Viewer**, to assign these roles to the different groups of ldap users you to pass that in configuration. Let's assume you have a group of developpers in your ldap server with the entry "cn=developpers,ou=groups,dc=ldap,dc=cetic,dc=be" that you want to give the role of **Editor**. you can add these 3 lines of configuration under the default ldap configuration that FADI already provides:
+
+```
+[[servers.group_mappings]]
+group_dn = "cn=developpers,ou=groups,dc=ldap,dc=cetic,dc=be"
+org_role = "Editor"
+```
+For more information [grafana ldap configuration](https://grafana.com/docs/auth/ldap/#configuration-examples) is very well documented.
+
+##### Jupyterhub
+
+Jupyterhub configartion allows you to give access to users/groups through templates, the templates usually follow this syntaxe:
+
+* 'uid={username},cn=admin,dc=ldap,dc=cetic,dc=be'
+* 'uid={username},ou=developpers,dc=ldap,dc=cetic,dc=be'
+
+where **{username}** will be overwrought by the value the user passes as username in authentication screen. Let's suppose we only have those two templates, when the user david passes his name for authentifaction, for him to successfully sign on, his entry should be one of the following:
+
+* 'uid=david,ou=admins,dc=ldap,dc=cetic,dc=be'
+* 'uid=david,ou=developpers,dc=ldap,dc=cetic,dc=be'
+
+which means if david isn't in the developpers group nor the admins group he can't sign on.
+
+##### superset
+
+Superset uses **Flask-AppBuilder** Security for the ldap authentication, in order to activate we need to pass the configuration inside python config **configFile.py**.
+
+For more information about how to configure your superset with ldap: the official documentation for the [flask-appbuilder authentication-ldap](https://flask-appbuilder.readthedocs.io/en/latest/security.html#authentication-ldap).
+
+ For more information about the different options you can use to configure your superset ldap authentication: the official documentation for the [Base Configuration](https://flask-appbuilder.readthedocs.io/en/latest/config.html).
+
+
+
 ### 7. Manage your LDAP server
 
 <a href="http://phpldapadmin.sourceforge.net/wiki/index.php/Main_Page" alt="phpLDAPadmin"><img src="doc/images/logos/phpldapadmin.jpg" width="100px" /></a>
