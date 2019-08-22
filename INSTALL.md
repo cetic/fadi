@@ -7,7 +7,7 @@ This page describes how to install the FADI platform
 2. on a generic Kubernetes cluster
 3. on Google Kubernetes Engine (GKE) 
 
-The last sections describes how to automate the deployment using Gitlab-CI.
+The last sections describes how to automate the deployment using Gitlab-CI, and configure various parts of FADI (user management, ...).
 
 Once FADI is installed, head to the [user guide](USERGUIDE.md)
 
@@ -182,3 +182,7 @@ It is also possible to create the Kubernetes cluster in command line, see: https
 ## 5. Continuous integration (CI) and deployment (CD)
 
 See [.gitlab-ci.sample.yml](.gitlab-ci.sample.yml) for an example CI setup with [Gitlab-CI](https://about.gitlab.com/product/continuous-integration/).
+
+## 6. Additional configuration
+
+See the [user management documentation](doc/USERMANAGEMENT.md) for additional information on how to configure FADI user identification and authorization (LDAP, RBAC, ...).
