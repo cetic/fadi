@@ -1,6 +1,16 @@
 FADI - Installation
 =======
 
+* [1. Local installation](#1-local-installation)
+    * [1.1. Prerequisites](#11-prerequisites)
+    * [1.2. Local deployment](#12-local-deployment)
+* [2. Deployment on a generic Kubernetes cluster](#2-deployment-on-a-generic-kubernetes-cluster)
+* [3. Deployment on GKE](#3-deployment-on-gke)
+* [4. Troubleshooting](#4-troubleshooting)
+* [5. Continuous integration (CI) and deployment (CD)](#5-continuous-integration-ci-and-deployment-cd)
+* [6. Additional configuration](#6-additional-configuration)
+
+
 This page describes how to install the FADI platform 
 
 1. on a laptop/workstation, using [Minikube](https://github.com/kubernetes/minikube)

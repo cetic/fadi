@@ -1,16 +1,20 @@
 FADI User guide
 =========
 
-This page provides documentation on how to use the FADI big data framework.
+This page provides documentation on how to use the FADI big data framework using a sample use case: monitoring CETIC offices building.
 
-A sample use case - Building monitoring at CETIC offices
----------------
+ * [1. Install FADI](#1-install-fadi)
+ * [2. Ingest and store measurements](#2-ingest-and-store-measurements)
+ * [3. Display dashboards and configure alerts](#3-display-dashboards-and-configure-alerts)
+ * [4. Explore](#4-explore)
+ * [5. Process](#5-process)
+ * [6. Summary](#6-summary)
 
 ![FADI sample use case - building monitoring](examples/basic/images/uc.svg)
 
 In this simple example, we will ingest temperature measurements from sensors, store them and display them in a simple dashboard.
 
-### 1. Install FADI
+## 1. Install FADI
 
 To install the FADI framework on your workstation or on a cloud, see the [installation instructions](INSTALL.md). 
 
@@ -22,7 +26,7 @@ The components needed for this use case are the following:
 
 Those components are configured in the following [sample config file](helm/deploy.sh), once the platform is ready, you can start working with it. The following instructions assume that you deployed FADI on your workstation inside minikube.
 
-### 2. Ingest and store measurements 
+## 2. Ingest and store measurements 
 
 <a href="http://nifi.apache.org/" alt="Apache Nifi"><img src="doc/images/logos/nifi.png" width="100px" /></a>
 
@@ -102,7 +106,7 @@ See also [the nifi template](/examples/basic/nifi_template.xml) that corresponds
 
 For more information on how to use Apache Nifi, see the [official Nifi user guide](https://nifi.apache.org/docs/nifi-docs/html/user-guide.html) and this [Awesome Nifi](https://github.com/jfrazee/awesome-nifi) resources.
 
-### 3. Display dashboards and configure alerts
+## 3. Display dashboards and configure alerts
 
 Once the measurements are stored in the database, we will want to display the results in a dashboard.
 
@@ -136,7 +140,7 @@ And finally we will configure some alerts using very simple rules:
 
 For more information on how to use Grafana, see the [official Grafana user guide](https://grafana.com/docs/guides/getting_started/)
 
-### 4. Explore
+## 4. Explore
 
 <a href="https://superset.incubator.apache.org/" alt="Superset"><img src="doc/images/logos/superset.png" width="100px" /></a>
 
@@ -170,7 +174,7 @@ Then we will explore our data and build a simple dashboard with the data that is
 
 For more information on how to use Superset, see the [official Superset user guide](https://superset.incubator.apache.org/tutorial.html)
 
-### 5. Process
+## 5. Process
 
 <a href="https://spark.apache.org/" alt="Apache Spark"><img src="doc/images/logos/spark.png" width="100px" /></a>
 
@@ -194,7 +198,7 @@ Do some Spark processing in the notebook, load the [sample code](examples/basic/
 
 For more information on how to use Superset, see the [official Jupyter documentation](https://jupyter.readthedocs.io/en/latest/)
 
-### 8. Summary
+## 6. Summary
 
 In this use case, we have demonstrated a simple configuration for FADI, where we use various services to ingest, store, analyse, explore and provide dashboards and alerts 
 

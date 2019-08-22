@@ -1,6 +1,15 @@
 User Management
 =============
 
+* [1. Create the LDAP server](#1-create-the-ldap-server)
+* [2. Configure the various services](#2-configure-the-various-services)
+     * [Grafana](#grafana)
+     * [JupyterHub](#jupyterhub)
+     * [Superset](#superset)
+     * [PostgreSQL](#postgresql)
+* [3. Manage your LDAP server](#3-manage-your-ldap-server)
+
+
 This page provides information on how to configure FADI user identification and authorization (LDAP, RBAC, ...).
 
 For user management FADI uses [OpenLDAP](https://www.openldap.org) to ensure the [LDAP user authentication](https://en.wikipedia.org/wiki/Lightweight_Directory_Access_Protocol) for the platform services.
