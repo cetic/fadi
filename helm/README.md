@@ -4,7 +4,7 @@
 
 This folder contains the installation scripts for FADI.
 
-See the FADI helm chart for more information.
+See the [FADI helm chart](https://github.com/cetic/helm-fadi) for more information.
 
 Using a custom Helm chart
 -------
