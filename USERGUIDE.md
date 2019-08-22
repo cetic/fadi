@@ -1,16 +1,20 @@
 FADI User guide
 =========
 
-This page provides documentation on how to use the FADI big data framework.
+This page provides documentation on how to use the FADI big data framework using a sample use case: monitoring CETIC offices building.
 
-A sample use case - Building monitoring at CETIC offices
----------------
+ * [1. Install FADI](#1-install-fadi)
+ * [2. Ingest and store measurements](#2-ingest-and-store-measurements)
+ * [3. Display dashboards and configure alerts](#3-display-dashboards-and-configure-alerts)
+ * [4. Explore](#4-explore)
+ * [5. Process](#5-process)
+ * [6. Summary](#6-summary)
 
 ![FADI sample use case - building monitoring](examples/basic/images/uc.svg)
 
 In this simple example, we will ingest temperature measurements from sensors, store them and display them in a simple dashboard.
 
-### 1. Install FADI
+## 1. Install FADI
 
 To install the FADI framework on your workstation or on a cloud, see the [installation instructions](INSTALL.md). 
 
@@ -22,7 +26,7 @@ The components needed for this use case are the following:
 
 Those components are configured in the following [sample config file](helm/deploy.sh), once the platform is ready, you can start working with it. The following instructions assume that you deployed FADI on your workstation inside minikube.
 
-### 2. Ingest and store measurements 
+## 2. Ingest and store measurements 
 
 <a href="http://nifi.apache.org/" alt="Apache Nifi"><img src="doc/images/logos/nifi.png" width="100px" /></a>
 
@@ -102,7 +106,7 @@ See also [the nifi template](/examples/basic/nifi_template.xml) that corresponds
 
 For more information on how to use Apache Nifi, see the [official Nifi user guide](https://nifi.apache.org/docs/nifi-docs/html/user-guide.html) and this [Awesome Nifi](https://github.com/jfrazee/awesome-nifi) resources.
 
-### 3. Display dashboards and configure alerts
+## 3. Display dashboards and configure alerts
 
 Once the measurements are stored in the database, we will want to display the results in a dashboard.
 
@@ -136,7 +140,7 @@ And finally we will configure some alerts using very simple rules:
 
 For more information on how to use Grafana, see the [official Grafana user guide](https://grafana.com/docs/guides/getting_started/)
 
-### 4. Explore
+## 4. Explore
 
 <a href="https://superset.incubator.apache.org/" alt="Superset"><img src="doc/images/logos/superset.png" width="100px" /></a>
 
@@ -170,7 +174,7 @@ Then we will explore our data and build a simple dashboard with the data that is
 
 For more information on how to use Superset, see the [official Superset user guide](https://superset.incubator.apache.org/tutorial.html)
 
-### 5. Process
+## 5. Process
 
 <a href="https://spark.apache.org/" alt="Apache Spark"><img src="doc/images/logos/spark.png" width="100px" /></a>
 
@@ -194,105 +198,7 @@ Do some Spark processing in the notebook, load the [sample code](examples/basic/
 
 For more information on how to use Superset, see the [official Jupyter documentation](https://jupyter.readthedocs.io/en/latest/)
 
-## User Management
-
-For user management FADI uses [OpenLDAP](https://www.openldap.org) to ensure the [LDAP user authentication](https://en.wikipedia.org/wiki/Lightweight_Directory_Access_Protocol) for the platform services.
-
-### 6. Create the LDAP server
-<a href="https://www.openldap.org/" alt="OpenLDAP"> <img src="doc/images/logos/OpenLDAP.png" width="100px" /></a>
-
-> "OpenLDAP Software is an open source implementation of the Lightweight Directory Access Protocol."
-
-The **OpenLDAP** service creates an empty LDAP server for the company `Example Inc.` and the domain `example.org` by default, which we will overwrite via the environment variables in the Helm chart. 
-
-The first entry that will be created is for the administrator user ; to initially connect to any of the services you can use the following credentials:
-
-* Username: `admin`
-* Password: `password1`
-
-Once created we either add the users/groups manually through phpLDAPadmin, or you can pass a [LDIF file](https://en.wikipedia.org/wiki/LDAP_Data_Interchange_Format), here you can find a [sample ldif file](examples/basic/example.ldif).
-
-### 7. Manage your LDAP server
-
-<a href="http://phpldapadmin.sourceforge.net/wiki/index.php/Main_Page" alt="phpLDAPadmin"><img src="doc/images/logos/phpldapadmin.jpg" width="100px" /></a>
-
-> " phpLDAPadmin is a web app for administering Lightweight Directory Access Protocol (LDAP) servers.."
-
-In order to use [phpLDAPadmin](http://phpldapadmin.sourceforge.net/wiki/index.php/Main_Page) you have to pass the configuration for your LDAP server through the environmental variable *_PHPLDAPADMIN_LDAP_HOSTS_*. To connect this service with the OpenLDAP server, you need to pass **the name of the service** (`fadi-openldap`). To connect to the web app, simply run the following command: (or access it at [http://phpldapadmin.fadi.minikube](http://phpldapadmin.fadi.minikube))
-
-```bash
-minikube service fadi-phpldapadmin -n fadi
-```
-
-The main page for phpLDAPadmin will open in your default browser where you can connect to your LDAP server and manage it.
-
-<img src="doc/images/phpldapadmin.gif" />
-
-The first entry that will be created is for the administrator and the password is initialized to `password1` which makes the credentials to use to connect to this server in phpLDAPadmin the following:
-
-* Login DN: `cn=admin,dc=ldap,dc=cetic,dc=be`
-* Password: `password1`
-
-For more information on how to use phpLDAPadmin, see the [phpLDAPadmin Documentation](http://phpldapadmin.sourceforge.net/function-ref/1.2/)
-
-#### PostgreSQL user management
-
-LDAP authentication method in PostgreSQL uses LDAP as the password verification method. LDAP is used only to validate the username/password pairs. Therefore the user must already exist in the database before LDAP can be used for authentication. Thus a synchronisation tool has to be used to synchronise  users, groups and their memberships from LDAP to PostgreSQL. For that we are using [pg-ldap-sync](https://github.com/larskanis/pg-ldap-sync).
-
-To use **pg-ldap-sync** you need to install it inside the postgres container:
-
-Connect to the PostgreSQL container as root
-
-```
-kubectl ssh -u root -p <pod_name>
-```
-
-Install the following packages
- 
-```bash
-apt update
-apt install ruby libpq-dev
-apt install gcc ruby-dev rubygems
-apt install gem
-apt install make
-gem install pg-ldap-sync
-```
-
-Once the sync tool has been installed, you can run it using your own yaml config file. See the [FADI sample config file](examples/basic/pg_ldap_sync_sample_config.yaml) or the [original pg-ldap-sync example config file](https://github.com/larskanis/pg-ldap-sync/blob/master/config/sample-config.yaml) or you can use this tested  .
-
-**important note** : you need to enter the dbname, username and the password in the config file before using it, to get the password you can use this command:
-
-```bash
-kubectl get secret --namespace fadi <pod_name> -o jsonpath="{.data.postgresql-password}" | base64 --decode
-```
-
-Once **pg-ldap-sync** is installed and your config file is in place you can copy the users from your LDAP server using this command:
-
-```
-pg_ldap_sync -c my_config.yaml -vv
-```
-
-This will copy all the users from your LDAP server to you PostgreSQL database. To assign a password to each user, connect to the database (in this case using the default database and user) :
-
-```
-psql postgres postgres
-or 
-psql -d postgres -U postgres
-```
-
-To assign a new password for the user `admin`, run this:
-
-```
-postgres=> \password admin
-```
-
-A prompt for the password will appear and you can assign the new password for that that user.
-
-<img src="doc/images/postgres-password.gif" width="300px" />
-
-For more information about pg-ldap-sync: [Use LDAP permissions in PostgreSQL](https://github.com/larskanis/pg-ldap-sync)
-
-### 8. Summary
+## 6. Summary
 
 In this use case, we have demonstrated a simple configuration for FADI, where we use various services to ingest, store, analyse, explore and provide dashboards and alerts 
 

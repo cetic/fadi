@@ -46,3 +46,6 @@ teardown.log
 
 # Artifacts
 *.tgz
+
+# https://github.com/ekalinin/github-markdown-toc
+gh-md-toc
