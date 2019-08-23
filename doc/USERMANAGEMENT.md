@@ -16,7 +16,7 @@ For user management FADI uses [OpenLDAP](https://www.openldap.org) to ensure the
 
 ## 1. Create the LDAP server
 
-<a href="https://www.openldap.org/" alt="OpenLDAP"> <img src="doc/images/logos/OpenLDAP.png" width="100px" /></a>
+<a href="https://www.openldap.org/" alt="OpenLDAP"> <img src="/doc/images/logos/OpenLDAP.png" width="100px" /></a>
 
 > "OpenLDAP Software is an open source implementation of the Lightweight Directory Access Protocol."
 
@@ -118,14 +118,14 @@ postgres=> \password admin
 
 A prompt for the password will appear and you can assign the new password for that that user.
 
-<img src="doc/images/postgres-password.gif" width="300px" />
+<img src="/doc/images/postgres-password.gif" width="300px" />
 
 For more information about pg-ldap-sync: [Use LDAP permissions in PostgreSQL](https://github.com/larskanis/pg-ldap-sync)
 
 
 ## 3. Manage your LDAP server
 
-<a href="http://phpldapadmin.sourceforge.net/wiki/index.php/Main_Page" alt="phpLDAPadmin"><img src="doc/images/logos/phpldapadmin.jpg" width="100px" /></a>
+<a href="http://phpldapadmin.sourceforge.net/wiki/index.php/Main_Page" alt="phpLDAPadmin"><img src="/doc/images/logos/phpldapadmin.jpg" width="100px" /></a>
 
 > " phpLDAPadmin is a web app for administering Lightweight Directory Access Protocol (LDAP) servers.."
 
@@ -137,7 +137,7 @@ minikube service fadi-phpldapadmin -n fadi
 
 The main page for phpLDAPadmin will open in your default browser where you can connect to your LDAP server and manage it.
 
-<img src="doc/images/phpldapadmin.gif" />
+<img src="/doc/images/phpldapadmin.gif" />
 
 The first entry that will be created is for the administrator and the password is initialized to `password1` which makes the credentials to use to connect to this server in phpLDAPadmin the following:
 
