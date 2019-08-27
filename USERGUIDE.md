@@ -73,14 +73,6 @@ export POSTGRES_PASSWORD=$(kubectl get secret --namespace fadi fadi-postgresql -
 echo $POSTGRES_PASSWORD
 ```
 
-Add the JDBC connector to the nifi service:
-
-```bash
-wget https://jdbc.postgresql.org/download/postgresql-42.2.6.jar
-kubectl cp ./postgresql-42.2.6.jar fadi/fadi-nifi-0:/opt/nifi/postgresql-42.2.6.jar
-rm postgresql-42.2.6.jar
-```
-
 Then head to the Nifi web interface ([http://nifi.fadi.minikube](http://nifi.fadi.minikube)), if you are using the local installation with Minikube).
 
 ![Nifi web interface](examples/basic/images/nifi_interface.png)
