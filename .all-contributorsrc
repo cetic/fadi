@@ -1,0 +1,24 @@
+{
+  "files": [
+    "README.md"
+  ],
+  "imageSize": 100,
+  "commit": false,
+  "contributors": [
+    {
+      "login": "fzalila",
+      "name": "Faiez Zalila",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/2330030?v=4",
+      "profile": "https://sites.google.com/site/faiezzalila/",
+      "contributions": [
+        "code",
+        "test"
+      ]
+    }
+  ],
+  "contributorsPerLine": 7,
+  "projectName": "fadi",
+  "projectOwner": "cetic",
+  "repoType": "github",
+  "repoHost": "https://github.com"
+}
