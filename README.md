@@ -3,7 +3,7 @@
 
 <p align="center">
   <p align="center" style="width: 50%; height: 200px;">
-    <a href="https://fadi.cetic.be" /><img src="doc/images/logo.png" height="200"/></a>
+    <a href="https://fadi.cetic.be"><img src="doc/images/logo.png" height="200"/></a>
   </p>
   <p align="center" style="margin-top: 16px">
       <table style="border:none;">
