@@ -51,12 +51,13 @@ echo $POSTGRES_PASSWORD
 
 * In pgadmin Browser, create a server on pgadmin by right-click on `Servers` -> `Create a Server`
 
-* Configure the server as shown in the following screeshot. 
-
+* Configure the server as shown in the following screenshot. 
+    * The `password` field should be completed by the one shown previously (with the `echo` command).
 ![Postgres Server](examples/basic/images/pgadmin_create_server.png)
 
-* Launch the Query tool 
-![Postgres Server](examples/basic/images/pgadmin_query_tool.png)
+* Launch the Query tool.
+
+![Postgres Server]<img src="examples/basic/images/pgadmin_query_tool.png" width="300">
 
 
 * Copy/Paste the [table creation script](examples/basic/create_datalake_tables.sql) in the Query Editor. 
