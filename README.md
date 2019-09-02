@@ -1,4 +1,5 @@
 # FADI - A framework for big data analytics
+[![All Contributors](https://img.shields.io/badge/all_contributors-1-orange.svg?style=flat-square)](#contributors)
 
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0) ![version](https://img.shields.io/github/tag/cetic/fadi.svg?label=release)
 
@@ -53,3 +54,19 @@ This [repository](https://github.com/cetic/helm-fadi) contains the Helm chart to
 ### Support
 
 In case you encounter an issue with FADI, have a feature request or any other question, feel free to [open an issue](https://github.com/cetic/fadi/issues/new/choose).
+
+## Contributors ✨
+
+Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/docs/en/emoji-key)):
+
+<!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
+<!-- prettier-ignore -->
+<table>
+  <tr>
+    <td align="center"><a href="https://github.com/AyadiAmen"><img src="https://avatars1.githubusercontent.com/u/37482206?v=4" width="100px;" alt="Amen"/><br /><sub><b>Amen</b></sub></a><br /><a href="https://github.com/cetic/fadi/commits?author=AyadiAmen" title="Code">💻</a></td>
+  </tr>
+</table>
+
+<!-- ALL-CONTRIBUTORS-LIST:END -->
+
+This project follows the [all-contributors](https://github.com/all-contributors/all-contributors) specification. Contributions of any kind welcome!
