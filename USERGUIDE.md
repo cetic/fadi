@@ -102,7 +102,9 @@ measure_ts,temperature
 (...)
 ```
 
-Add the JDBC connector to the nifi service:
+To start, we need to connect the Nifi service to the postgres one.
+
+To achieve that, we need to add the JDBC connector to the nifi service by executing the following commands:
 
 ```bash
 wget https://jdbc.postgresql.org/download/postgresql-42.2.6.jar
@@ -110,29 +112,30 @@ kubectl cp ./postgresql-42.2.6.jar fadi/fadi-nifi-0:/opt/nifi/postgresql-42.2.6.
 rm postgresql-42.2.6.jar
 ```
 
-Then head to the Nifi web interface ([http://nifi.fadi.minikube](http://nifi.fadi.minikube)), if you are using the local installation with Minikube).
+Then, head to the Nifi web interface ([http://nifi.fadi.minikube](http://nifi.fadi.minikube)), if you are using the local installation with Minikube).
 
 ![Nifi web interface](examples/basic/images/nifi_interface.png)
 
-Now we need to tell Nifi to read the csv file and store the measurements in the data lake:
+Now we need to tell Nifi to read the csv file and store the measurements in the data lake. 
 
-![Nifi Ingest CSV and store in PostgreSQL](examples/basic/images/nifi_csv_to_sql.png)
+So, create the following components : 
 
 * InvokeHTTP processor:
-    * Settings > `Automatically Terminate Relationships` : all except `Response`
-    * Properties > Remote url: `https://raw.githubusercontent.com/cetic/fadi/master/examples/basic/sample_data.csv`
+    * right-click > `Configure` > `Settings` tab > `Automatically Terminate Relationships` : all except `Response`
+    *  right-click > `Configure` > `Properties` tab > Remote url: `https://raw.githubusercontent.com/cetic/fadi/master/examples/basic/sample_data.csv`
 * PutDatabaseRecord processor:
-    * Settings > `Automatically Terminate Relationships` : all
-    * Properties > Record Reader: `CSV Reader`
-    * Properties > Database Connection Pooling Service > DBCPConnectionPool
-        * Database Connection URL: `jdbc:postgresql://fadi-postgresql:5432/postgres?stringtype=unspecified`
-        * Database Driver Class Name: `org.postgresql.Driver`
-        * Database Driver Location(s): `/opt/nifi/postgresql-42.2.6.jar`
-        * Database User: `postgres`
-        * Password: set to the postgresql password obtained above
-    * Properties > Schema Name > `public`
-    * Properties > Table Name > `example_basic`
-    * Properties > Translate Field Names > `false`
+    * right-click > `Configure` > `Settings` tab > `Automatically Terminate Relationships` : all
+    * right-click > `Configure` > `Properties` tab  > Record Reader: `CSV Reader`
+    * right-click > `Configure` > `Properties` tab  > Database Connection Pooling Service > DBCPConnectionPool
+        * `Go To` > `Configure` > 
+            * Database Connection URL: `jdbc:postgresql://fadi-postgresql:5432/postgres?stringtype=unspecified`
+            * Database Driver Class Name: `org.postgresql.Driver`
+            * Database Driver Location(s): `/opt/nifi/postgresql-42.2.6.jar`
+            * Database User: `postgres`
+            * Password: set to the postgresql password obtained above
+    * right-click > `Configure` > `Properties` tab  > Schema Name > `public`
+    * right-click > `Configure` > `Properties` tab  > Table Name > `example_basic`
+    * right-click > `Configure` > `Properties` tab  > Translate Field Names > `false`
 * Response Connection:
     * For relationships > : `Response`
     
@@ -154,7 +157,9 @@ Now we need to tell Nifi to read the csv file and store the measurements in the 
     * For relationships > : `retry`   
 
 
-See also [the nifi template](/examples/basic/nifi_template.xml) that corresponds to this example. 
+![Nifi Ingest CSV and store in PostgreSQL](examples/basic/images/nifi_csv_to_sql_2.png)
+
+See also [the nifi template](/examples/basic/basic_example_final_template.xml) that corresponds to this example. 
 
 For more information on how to use Apache Nifi, see the [official Nifi user guide](https://nifi.apache.org/docs/nifi-docs/html/user-guide.html) and this [Awesome Nifi](https://github.com/jfrazee/awesome-nifi) resources.
 
