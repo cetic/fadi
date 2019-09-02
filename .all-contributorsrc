@@ -1,0 +1,23 @@
+{
+  "files": [
+    "README.md"
+  ],
+  "imageSize": 100,
+  "commit": false,
+  "contributors": [
+    {
+      "login": "AyadiAmen",
+      "name": "Amen",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/37482206?v=4",
+      "profile": "https://github.com/AyadiAmen",
+      "contributions": [
+        "code"
+      ]
+    }
+  ],
+  "contributorsPerLine": 7,
+  "projectName": "fadi",
+  "projectOwner": "cetic",
+  "repoType": "github",
+  "repoHost": "https://github.com"
+}
