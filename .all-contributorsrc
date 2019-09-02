@@ -1,0 +1,25 @@
+{
+  "files": [
+    "README.md"
+  ],
+  "imageSize": 100,
+  "commit": false,
+  "contributors": [
+    {
+      "login": "alexnuttinck",
+      "name": "Alexandre Nuttinck",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/17699324?v=4",
+      "profile": "https://www.linkedin.com/in/alexandre-nuttinck/",
+      "contributions": [
+        "code",
+        "review",
+        "infra"
+      ]
+    }
+  ],
+  "contributorsPerLine": 7,
+  "projectName": "fadi",
+  "projectOwner": "cetic",
+  "repoType": "github",
+  "repoHost": "https://github.com"
+}
