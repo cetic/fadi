@@ -1,5 +1,5 @@
 # FADI - A framework for big data analytics
-[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0) ![version](https://img.shields.io/github/tag/cetic/fadi.svg?label=release) [![All Contributors](https://img.shields.io/badge/all_contributors-3-orange.svg?style=flat-square)](#contributors)
+[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0) ![version](https://img.shields.io/github/tag/cetic/fadi.svg?label=release) [![All Contributors](https://img.shields.io/badge/all_contributors-4-orange.svg?style=flat-square)](#contributors)
 
 <p align="center">
   <p align="center" style="width: 50%; height: 200px;">
@@ -64,6 +64,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
     <td align="center"><a href="https://github.com/banzo"><img src="https://avatars1.githubusercontent.com/u/2684865?v=4" width="100px;" alt="banzo"/><br /><sub><b>banzo</b></sub></a><br /><a href="https://github.com/cetic/fadi/commits?author=banzo" title="Code">💻</a> <a href="#review-banzo" title="Reviewed Pull Requests">👀</a></td>
     <td align="center"><a href="https://www.linkedin.com/in/alexandre-nuttinck/"><img src="https://avatars1.githubusercontent.com/u/17699324?v=4" width="100px;" alt="Alexandre Nuttinck"/><br /><sub><b>Alexandre Nuttinck</b></sub></a><br /><a href="https://github.com/cetic/fadi/commits?author=alexnuttinck" title="Code">💻</a> <a href="#review-alexnuttinck" title="Reviewed Pull Requests">👀</a> <a href="#infra-alexnuttinck" title="Infrastructure (Hosting, Build-Tools, etc)">🚇</a></td>
     <td align="center"><a href="https://github.com/AyadiAmen"><img src="https://avatars1.githubusercontent.com/u/37482206?v=4" width="100px;" alt="Amen"/><br /><sub><b>Amen</b></sub></a><br /><a href="https://github.com/cetic/fadi/commits?author=AyadiAmen" title="Code">💻</a></td>
+    <td align="center"><a href="https://sites.google.com/site/faiezzalila/"><img src="https://avatars2.githubusercontent.com/u/2330030?v=4" width="100px;" alt="Faiez Zalila"/><br /><sub><b>Faiez Zalila</b></sub></a><br /><a href="https://github.com/cetic/fadi/commits?author=fzalila" title="Code">💻</a> <a href="https://github.com/cetic/fadi/commits?author=fzalila" title="Tests">⚠️</a></td>
   </tr>
 </table>
 
