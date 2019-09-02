@@ -57,13 +57,13 @@ echo $POSTGRES_PASSWORD
 
 * Launch the Query tool.
 
-![Postgres Server]<img src="examples/basic/images/pgadmin_query_tool.png" width="300">
+<img src="examples/basic/images/pgadmin_query_tool.png" width="300">
 
 
 * Copy/Paste the [table creation script](examples/basic/create_datalake_tables.sql) in the Query Editor. 
 ![Postgres Server](examples/basic/images/pgadmin_create_table.png)
 
-* Execute the creation query by clicking on the Execute/Refresh command. 
+* Execute the creation query by clicking on the `Execute/Refresh` command. 
 ![Postgres Server](examples/basic/images/pgadmin_execute_table.png)
 
 * Once the previous steps are finished, you can detect that a new table `example_basic` is created in the `Tables` field of pgadmin Browser. 
