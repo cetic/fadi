@@ -102,17 +102,7 @@ measure_ts,temperature
 (...)
 ```
 
-To start, we need to connect the Nifi service to the postgres one.
-
-To achieve that, we need to add the JDBC connector to the nifi service by executing the following commands:
-
-```bash
-wget https://jdbc.postgresql.org/download/postgresql-42.2.6.jar
-kubectl cp ./postgresql-42.2.6.jar fadi/fadi-nifi-0:/opt/nifi/postgresql-42.2.6.jar
-rm postgresql-42.2.6.jar
-```
-
-Then, head to the Nifi web interface ([http://nifi.fadi.minikube](http://nifi.fadi.minikube)), if you are using the local installation with Minikube).
+To start, head to the Nifi web interface ([http://nifi.fadi.minikube](http://nifi.fadi.minikube)), if you are using the local installation with Minikube).
 
 ![Nifi web interface](examples/basic/images/nifi_interface.png)
 
