@@ -1,50 +1,17 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <template encoding-version="1.2">
     <description></description>
-    <groupId>d2fdd620-016c-1000-8fc3-f692ce0d4d28</groupId>
+    <groupId>f674d493-016c-1000-13bb-e0e40402cd82</groupId>
     <name>basic_example_final_template</name>
     <snippet>
         <connections>
-            <id>007f0e55-5b4f-345e-0000-000000000000</id>
-            <parentGroupId>e523f60e-807b-3f82-0000-000000000000</parentGroupId>
-            <backPressureDataSizeThreshold>1 GB</backPressureDataSizeThreshold>
-            <backPressureObjectThreshold>10000</backPressureObjectThreshold>
-            <bends>
-                <x>737.0754089355469</x>
-                <y>243.4955109152943</y>
-            </bends>
-            <bends>
-                <x>737.0754089355469</x>
-                <y>293.4955109152943</y>
-            </bends>
-            <destination>
-                <groupId>e523f60e-807b-3f82-0000-000000000000</groupId>
-                <id>51760986-ca13-39c5-0000-000000000000</id>
-                <type>PROCESSOR</type>
-            </destination>
-            <flowFileExpiration>0 sec</flowFileExpiration>
-            <labelIndex>1</labelIndex>
-            <loadBalanceCompression>DO_NOT_COMPRESS</loadBalanceCompression>
-            <loadBalancePartitionAttribute></loadBalancePartitionAttribute>
-            <loadBalanceStatus>LOAD_BALANCE_NOT_CONFIGURED</loadBalanceStatus>
-            <loadBalanceStrategy>DO_NOT_LOAD_BALANCE</loadBalanceStrategy>
-            <name></name>
-            <selectedRelationships>retry</selectedRelationships>
-            <source>
-                <groupId>e523f60e-807b-3f82-0000-000000000000</groupId>
-                <id>51760986-ca13-39c5-0000-000000000000</id>
-                <type>PROCESSOR</type>
-            </source>
-            <zIndex>0</zIndex>
-        </connections>
-        <connections>
-            <id>3644682a-4cac-33b5-0000-000000000000</id>
-            <parentGroupId>e523f60e-807b-3f82-0000-000000000000</parentGroupId>
+            <id>58b58be1-838d-3c12-0000-000000000000</id>
+            <parentGroupId>b9fd61f0-b042-3a32-0000-000000000000</parentGroupId>
             <backPressureDataSizeThreshold>1 GB</backPressureDataSizeThreshold>
             <backPressureObjectThreshold>10000</backPressureObjectThreshold>
             <destination>
-                <groupId>e523f60e-807b-3f82-0000-000000000000</groupId>
-                <id>142b7389-4996-3ce9-0000-000000000000</id>
+                <groupId>b9fd61f0-b042-3a32-0000-000000000000</groupId>
+                <id>967b0b50-7658-3c1e-0000-000000000000</id>
                 <type>OUTPUT_PORT</type>
             </destination>
             <flowFileExpiration>0 sec</flowFileExpiration>
@@ -56,45 +23,20 @@
             <name></name>
             <selectedRelationships>success</selectedRelationships>
             <source>
-                <groupId>e523f60e-807b-3f82-0000-000000000000</groupId>
-                <id>51760986-ca13-39c5-0000-000000000000</id>
+                <groupId>b9fd61f0-b042-3a32-0000-000000000000</groupId>
+                <id>cb365a49-4caa-3df4-0000-000000000000</id>
                 <type>PROCESSOR</type>
             </source>
             <zIndex>0</zIndex>
         </connections>
         <connections>
-            <id>9dedec96-a8d7-33c8-0000-000000000000</id>
-            <parentGroupId>e523f60e-807b-3f82-0000-000000000000</parentGroupId>
+            <id>7318c535-fc80-3849-0000-000000000000</id>
+            <parentGroupId>b9fd61f0-b042-3a32-0000-000000000000</parentGroupId>
             <backPressureDataSizeThreshold>1 GB</backPressureDataSizeThreshold>
             <backPressureObjectThreshold>10000</backPressureObjectThreshold>
             <destination>
-                <groupId>e523f60e-807b-3f82-0000-000000000000</groupId>
-                <id>a066fb6d-0dd2-373a-0000-000000000000</id>
-                <type>OUTPUT_PORT</type>
-            </destination>
-            <flowFileExpiration>0 sec</flowFileExpiration>
-            <labelIndex>1</labelIndex>
-            <loadBalanceCompression>DO_NOT_COMPRESS</loadBalanceCompression>
-            <loadBalancePartitionAttribute></loadBalancePartitionAttribute>
-            <loadBalanceStatus>LOAD_BALANCE_NOT_CONFIGURED</loadBalanceStatus>
-            <loadBalanceStrategy>DO_NOT_LOAD_BALANCE</loadBalanceStrategy>
-            <name></name>
-            <selectedRelationships>failure</selectedRelationships>
-            <source>
-                <groupId>e523f60e-807b-3f82-0000-000000000000</groupId>
-                <id>51760986-ca13-39c5-0000-000000000000</id>
-                <type>PROCESSOR</type>
-            </source>
-            <zIndex>0</zIndex>
-        </connections>
-        <connections>
-            <id>c1c85612-0f38-331f-0000-000000000000</id>
-            <parentGroupId>e523f60e-807b-3f82-0000-000000000000</parentGroupId>
-            <backPressureDataSizeThreshold>1 GB</backPressureDataSizeThreshold>
-            <backPressureObjectThreshold>10000</backPressureObjectThreshold>
-            <destination>
-                <groupId>e523f60e-807b-3f82-0000-000000000000</groupId>
-                <id>51760986-ca13-39c5-0000-000000000000</id>
+                <groupId>b9fd61f0-b042-3a32-0000-000000000000</groupId>
+                <id>cb365a49-4caa-3df4-0000-000000000000</id>
                 <type>PROCESSOR</type>
             </destination>
             <flowFileExpiration>0 sec</flowFileExpiration>
@@ -106,173 +48,73 @@
             <name></name>
             <selectedRelationships>Response</selectedRelationships>
             <source>
-                <groupId>e523f60e-807b-3f82-0000-000000000000</groupId>
-                <id>06fa146e-223a-3275-0000-000000000000</id>
+                <groupId>b9fd61f0-b042-3a32-0000-000000000000</groupId>
+                <id>5c6aad9b-30fc-30bc-0000-000000000000</id>
+                <type>PROCESSOR</type>
+            </source>
+            <zIndex>0</zIndex>
+        </connections>
+        <connections>
+            <id>b87639ca-2df1-3f50-0000-000000000000</id>
+            <parentGroupId>b9fd61f0-b042-3a32-0000-000000000000</parentGroupId>
+            <backPressureDataSizeThreshold>1 GB</backPressureDataSizeThreshold>
+            <backPressureObjectThreshold>10000</backPressureObjectThreshold>
+            <bends>
+                <x>640.0</x>
+                <y>318.0</y>
+            </bends>
+            <bends>
+                <x>640.0</x>
+                <y>368.0</y>
+            </bends>
+            <destination>
+                <groupId>b9fd61f0-b042-3a32-0000-000000000000</groupId>
+                <id>cb365a49-4caa-3df4-0000-000000000000</id>
+                <type>PROCESSOR</type>
+            </destination>
+            <flowFileExpiration>0 sec</flowFileExpiration>
+            <labelIndex>1</labelIndex>
+            <loadBalanceCompression>DO_NOT_COMPRESS</loadBalanceCompression>
+            <loadBalancePartitionAttribute></loadBalancePartitionAttribute>
+            <loadBalanceStatus>LOAD_BALANCE_NOT_CONFIGURED</loadBalanceStatus>
+            <loadBalanceStrategy>DO_NOT_LOAD_BALANCE</loadBalanceStrategy>
+            <name></name>
+            <selectedRelationships>retry</selectedRelationships>
+            <source>
+                <groupId>b9fd61f0-b042-3a32-0000-000000000000</groupId>
+                <id>cb365a49-4caa-3df4-0000-000000000000</id>
+                <type>PROCESSOR</type>
+            </source>
+            <zIndex>0</zIndex>
+        </connections>
+        <connections>
+            <id>bbc56d4c-ec35-3b35-0000-000000000000</id>
+            <parentGroupId>b9fd61f0-b042-3a32-0000-000000000000</parentGroupId>
+            <backPressureDataSizeThreshold>1 GB</backPressureDataSizeThreshold>
+            <backPressureObjectThreshold>10000</backPressureObjectThreshold>
+            <destination>
+                <groupId>b9fd61f0-b042-3a32-0000-000000000000</groupId>
+                <id>59df7ac7-3e33-3f96-0000-000000000000</id>
+                <type>OUTPUT_PORT</type>
+            </destination>
+            <flowFileExpiration>0 sec</flowFileExpiration>
+            <labelIndex>1</labelIndex>
+            <loadBalanceCompression>DO_NOT_COMPRESS</loadBalanceCompression>
+            <loadBalancePartitionAttribute></loadBalancePartitionAttribute>
+            <loadBalanceStatus>LOAD_BALANCE_NOT_CONFIGURED</loadBalanceStatus>
+            <loadBalanceStrategy>DO_NOT_LOAD_BALANCE</loadBalanceStrategy>
+            <name></name>
+            <selectedRelationships>failure</selectedRelationships>
+            <source>
+                <groupId>b9fd61f0-b042-3a32-0000-000000000000</groupId>
+                <id>cb365a49-4caa-3df4-0000-000000000000</id>
                 <type>PROCESSOR</type>
             </source>
             <zIndex>0</zIndex>
         </connections>
         <controllerServices>
-            <id>92933eb0-01f1-3ff0-0000-000000000000</id>
-            <parentGroupId>e523f60e-807b-3f82-0000-000000000000</parentGroupId>
-            <bundle>
-                <artifact>nifi-dbcp-service-nar</artifact>
-                <group>org.apache.nifi</group>
-                <version>1.9.2</version>
-            </bundle>
-            <comments></comments>
-            <descriptors>
-                <entry>
-                    <key>Database Connection URL</key>
-                    <value>
-                        <name>Database Connection URL</name>
-                    </value>
-                </entry>
-                <entry>
-                    <key>Database Driver Class Name</key>
-                    <value>
-                        <name>Database Driver Class Name</name>
-                    </value>
-                </entry>
-                <entry>
-                    <key>database-driver-locations</key>
-                    <value>
-                        <name>database-driver-locations</name>
-                    </value>
-                </entry>
-                <entry>
-                    <key>kerberos-credentials-service</key>
-                    <value>
-                        <identifiesControllerService>org.apache.nifi.kerberos.KerberosCredentialsService</identifiesControllerService>
-                        <name>kerberos-credentials-service</name>
-                    </value>
-                </entry>
-                <entry>
-                    <key>Database User</key>
-                    <value>
-                        <name>Database User</name>
-                    </value>
-                </entry>
-                <entry>
-                    <key>Password</key>
-                    <value>
-                        <name>Password</name>
-                    </value>
-                </entry>
-                <entry>
-                    <key>Max Wait Time</key>
-                    <value>
-                        <name>Max Wait Time</name>
-                    </value>
-                </entry>
-                <entry>
-                    <key>Max Total Connections</key>
-                    <value>
-                        <name>Max Total Connections</name>
-                    </value>
-                </entry>
-                <entry>
-                    <key>Validation-query</key>
-                    <value>
-                        <name>Validation-query</name>
-                    </value>
-                </entry>
-                <entry>
-                    <key>dbcp-min-idle-conns</key>
-                    <value>
-                        <name>dbcp-min-idle-conns</name>
-                    </value>
-                </entry>
-                <entry>
-                    <key>dbcp-max-idle-conns</key>
-                    <value>
-                        <name>dbcp-max-idle-conns</name>
-                    </value>
-                </entry>
-                <entry>
-                    <key>dbcp-max-conn-lifetime</key>
-                    <value>
-                        <name>dbcp-max-conn-lifetime</name>
-                    </value>
-                </entry>
-                <entry>
-                    <key>dbcp-time-between-eviction-runs</key>
-                    <value>
-                        <name>dbcp-time-between-eviction-runs</name>
-                    </value>
-                </entry>
-                <entry>
-                    <key>dbcp-min-evictable-idle-time</key>
-                    <value>
-                        <name>dbcp-min-evictable-idle-time</name>
-                    </value>
-                </entry>
-                <entry>
-                    <key>dbcp-soft-min-evictable-idle-time</key>
-                    <value>
-                        <name>dbcp-soft-min-evictable-idle-time</name>
-                    </value>
-                </entry>
-            </descriptors>
-            <name>DBCPConnectionPool</name>
-            <persistsState>false</persistsState>
-            <properties>
-                <entry>
-                    <key>Database Connection URL</key>
-                    <value>jdbc:postgresql://fadi-postgresql:5432/postgres?stringtype=unspecified</value>
-                </entry>
-                <entry>
-                    <key>Database Driver Class Name</key>
-                    <value>org.postgresql.Driver</value>
-                </entry>
-                <entry>
-                    <key>database-driver-locations</key>
-                    <value>/opt/nifi/postgresql-42.2.6.jar</value>
-                </entry>
-                <entry>
-                    <key>kerberos-credentials-service</key>
-                </entry>
-                <entry>
-                    <key>Database User</key>
-                    <value>postgres</value>
-                </entry>
-                <entry>
-                    <key>Password</key>
-                </entry>
-                <entry>
-                    <key>Max Wait Time</key>
-                </entry>
-                <entry>
-                    <key>Max Total Connections</key>
-                </entry>
-                <entry>
-                    <key>Validation-query</key>
-                </entry>
-                <entry>
-                    <key>dbcp-min-idle-conns</key>
-                </entry>
-                <entry>
-                    <key>dbcp-max-idle-conns</key>
-                </entry>
-                <entry>
-                    <key>dbcp-max-conn-lifetime</key>
-                </entry>
-                <entry>
-                    <key>dbcp-time-between-eviction-runs</key>
-                </entry>
-                <entry>
-                    <key>dbcp-min-evictable-idle-time</key>
-                </entry>
-                <entry>
-                    <key>dbcp-soft-min-evictable-idle-time</key>
-                </entry>
-            </properties>
-            <state>ENABLED</state>
-            <type>org.apache.nifi.dbcp.DBCPConnectionPool</type>
-        </controllerServices>
-        <controllerServices>
-            <id>faa35539-e9da-3022-0000-000000000000</id>
-            <parentGroupId>e523f60e-807b-3f82-0000-000000000000</parentGroupId>
+            <id>009846c9-b4a7-315d-0000-000000000000</id>
+            <parentGroupId>b9fd61f0-b042-3a32-0000-000000000000</parentGroupId>
             <bundle>
                 <artifact>nifi-record-serialization-services-nar</artifact>
                 <group>org.apache.nifi</group>
@@ -470,37 +312,195 @@
             <state>ENABLED</state>
             <type>org.apache.nifi.csv.CSVReader</type>
         </controllerServices>
+        <controllerServices>
+            <id>ffafcc56-a5a0-3993-0000-000000000000</id>
+            <parentGroupId>b9fd61f0-b042-3a32-0000-000000000000</parentGroupId>
+            <bundle>
+                <artifact>nifi-dbcp-service-nar</artifact>
+                <group>org.apache.nifi</group>
+                <version>1.9.2</version>
+            </bundle>
+            <comments></comments>
+            <descriptors>
+                <entry>
+                    <key>Database Connection URL</key>
+                    <value>
+                        <name>Database Connection URL</name>
+                    </value>
+                </entry>
+                <entry>
+                    <key>Database Driver Class Name</key>
+                    <value>
+                        <name>Database Driver Class Name</name>
+                    </value>
+                </entry>
+                <entry>
+                    <key>database-driver-locations</key>
+                    <value>
+                        <name>database-driver-locations</name>
+                    </value>
+                </entry>
+                <entry>
+                    <key>kerberos-credentials-service</key>
+                    <value>
+                        <identifiesControllerService>org.apache.nifi.kerberos.KerberosCredentialsService</identifiesControllerService>
+                        <name>kerberos-credentials-service</name>
+                    </value>
+                </entry>
+                <entry>
+                    <key>Database User</key>
+                    <value>
+                        <name>Database User</name>
+                    </value>
+                </entry>
+                <entry>
+                    <key>Password</key>
+                    <value>
+                        <name>Password</name>
+                    </value>
+                </entry>
+                <entry>
+                    <key>Max Wait Time</key>
+                    <value>
+                        <name>Max Wait Time</name>
+                    </value>
+                </entry>
+                <entry>
+                    <key>Max Total Connections</key>
+                    <value>
+                        <name>Max Total Connections</name>
+                    </value>
+                </entry>
+                <entry>
+                    <key>Validation-query</key>
+                    <value>
+                        <name>Validation-query</name>
+                    </value>
+                </entry>
+                <entry>
+                    <key>dbcp-min-idle-conns</key>
+                    <value>
+                        <name>dbcp-min-idle-conns</name>
+                    </value>
+                </entry>
+                <entry>
+                    <key>dbcp-max-idle-conns</key>
+                    <value>
+                        <name>dbcp-max-idle-conns</name>
+                    </value>
+                </entry>
+                <entry>
+                    <key>dbcp-max-conn-lifetime</key>
+                    <value>
+                        <name>dbcp-max-conn-lifetime</name>
+                    </value>
+                </entry>
+                <entry>
+                    <key>dbcp-time-between-eviction-runs</key>
+                    <value>
+                        <name>dbcp-time-between-eviction-runs</name>
+                    </value>
+                </entry>
+                <entry>
+                    <key>dbcp-min-evictable-idle-time</key>
+                    <value>
+                        <name>dbcp-min-evictable-idle-time</name>
+                    </value>
+                </entry>
+                <entry>
+                    <key>dbcp-soft-min-evictable-idle-time</key>
+                    <value>
+                        <name>dbcp-soft-min-evictable-idle-time</name>
+                    </value>
+                </entry>
+            </descriptors>
+            <name>DBCPConnectionPool</name>
+            <persistsState>false</persistsState>
+            <properties>
+                <entry>
+                    <key>Database Connection URL</key>
+                    <value>jdbc:postgresql://fadi-postgresql:5432/postgres?stringtype=unspecified</value>
+                </entry>
+                <entry>
+                    <key>Database Driver Class Name</key>
+                    <value>org.postgresql.Driver</value>
+                </entry>
+                <entry>
+                    <key>database-driver-locations</key>
+                    <value>/opt/nifi/psql/postgresql-42.2.6.jar</value>
+                </entry>
+                <entry>
+                    <key>kerberos-credentials-service</key>
+                </entry>
+                <entry>
+                    <key>Database User</key>
+                    <value>postgres</value>
+                </entry>
+                <entry>
+                    <key>Password</key>
+                </entry>
+                <entry>
+                    <key>Max Wait Time</key>
+                </entry>
+                <entry>
+                    <key>Max Total Connections</key>
+                </entry>
+                <entry>
+                    <key>Validation-query</key>
+                </entry>
+                <entry>
+                    <key>dbcp-min-idle-conns</key>
+                </entry>
+                <entry>
+                    <key>dbcp-max-idle-conns</key>
+                </entry>
+                <entry>
+                    <key>dbcp-max-conn-lifetime</key>
+                </entry>
+                <entry>
+                    <key>dbcp-time-between-eviction-runs</key>
+                </entry>
+                <entry>
+                    <key>dbcp-min-evictable-idle-time</key>
+                </entry>
+                <entry>
+                    <key>dbcp-soft-min-evictable-idle-time</key>
+                </entry>
+            </properties>
+            <state>ENABLED</state>
+            <type>org.apache.nifi.dbcp.DBCPConnectionPool</type>
+        </controllerServices>
         <outputPorts>
-            <id>142b7389-4996-3ce9-0000-000000000000</id>
-            <parentGroupId>e523f60e-807b-3f82-0000-000000000000</parentGroupId>
+            <id>59df7ac7-3e33-3f96-0000-000000000000</id>
+            <parentGroupId>b9fd61f0-b042-3a32-0000-000000000000</parentGroupId>
             <position>
-                <x>217.07540893554688</x>
-                <y>444.9955109152943</y>
+                <x>461.0</x>
+                <y>510.0</y>
             </position>
             <concurrentlySchedulableTaskCount>1</concurrentlySchedulableTaskCount>
-            <name>sucess_port</name>
+            <name>failure_port</name>
             <state>STOPPED</state>
             <transmitting>false</transmitting>
             <type>OUTPUT_PORT</type>
         </outputPorts>
         <outputPorts>
-            <id>a066fb6d-0dd2-373a-0000-000000000000</id>
-            <parentGroupId>e523f60e-807b-3f82-0000-000000000000</parentGroupId>
+            <id>967b0b50-7658-3c1e-0000-000000000000</id>
+            <parentGroupId>b9fd61f0-b042-3a32-0000-000000000000</parentGroupId>
             <position>
-                <x>756.0754089355469</x>
-                <y>439.9955109152943</y>
+                <x>0.0</x>
+                <y>515.0</y>
             </position>
             <concurrentlySchedulableTaskCount>1</concurrentlySchedulableTaskCount>
-            <name>error_port</name>
+            <name>success_port</name>
             <state>STOPPED</state>
             <transmitting>false</transmitting>
             <type>OUTPUT_PORT</type>
         </outputPorts>
         <processors>
-            <id>06fa146e-223a-3275-0000-000000000000</id>
-            <parentGroupId>e523f60e-807b-3f82-0000-000000000000</parentGroupId>
+            <id>5c6aad9b-30fc-30bc-0000-000000000000</id>
+            <parentGroupId>b9fd61f0-b042-3a32-0000-000000000000</parentGroupId>
             <position>
-                <x>0.0</x>
+                <x>83.0</x>
                 <y>0.0</y>
             </position>
             <bundle>
@@ -791,7 +791,7 @@
                     </entry>
                 </properties>
                 <runDurationMillis>0</runDurationMillis>
-                <schedulingPeriod>5 sec</schedulingPeriod>
+                <schedulingPeriod>0 sec</schedulingPeriod>
                 <schedulingStrategy>TIMER_DRIVEN</schedulingStrategy>
                 <yieldDuration>1 sec</yieldDuration>
             </config>
@@ -822,11 +822,11 @@
             <type>org.apache.nifi.processors.standard.InvokeHTTP</type>
         </processors>
         <processors>
-            <id>51760986-ca13-39c5-0000-000000000000</id>
-            <parentGroupId>e523f60e-807b-3f82-0000-000000000000</parentGroupId>
+            <id>cb365a49-4caa-3df4-0000-000000000000</id>
+            <parentGroupId>b9fd61f0-b042-3a32-0000-000000000000</parentGroupId>
             <position>
-                <x>274.0754089355469</x>
-                <y>203.4955109152943</y>
+                <x>177.0</x>
+                <y>278.0</y>
             </position>
             <bundle>
                 <artifact>nifi-standard-nar</artifact>
@@ -949,7 +949,7 @@
                 <properties>
                     <entry>
                         <key>put-db-record-record-reader</key>
-                        <value>faa35539-e9da-3022-0000-000000000000</value>
+                        <value>009846c9-b4a7-315d-0000-000000000000</value>
                     </entry>
                     <entry>
                         <key>put-db-record-statement-type</key>
@@ -957,7 +957,7 @@
                     </entry>
                     <entry>
                         <key>put-db-record-dcbp-service</key>
-                        <value>92933eb0-01f1-3ff0-0000-000000000000</value>
+                        <value>ffafcc56-a5a0-3993-0000-000000000000</value>
                     </entry>
                     <entry>
                         <key>put-db-record-catalog-name</key>
@@ -1037,5 +1037,5 @@
             <type>org.apache.nifi.processors.standard.PutDatabaseRecord</type>
         </processors>
     </snippet>
-    <timestamp>08/27/2019 15:22:34 UTC</timestamp>
+    <timestamp>09/03/2019 12:06:26 UTC</timestamp>
 </template>
