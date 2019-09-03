@@ -154,7 +154,7 @@ So, create the following components :
 ![Nifi Ingest CSV and store in PostgreSQL](examples/basic/images/nifi_csv_to_sql_2.png)
 
 See also [the nifi template](/examples/basic/basic_example_final_template.xml) that corresponds to this example. 
-    * Do not forget to update the `password` field in the imported template.
+* Do not forget to update the `password` field in the imported template.
 
 For more information on how to use Apache Nifi, see the [official Nifi user guide](https://nifi.apache.org/docs/nifi-docs/html/user-guide.html) and this [Awesome Nifi](https://github.com/jfrazee/awesome-nifi) resources.
 
