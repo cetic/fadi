@@ -116,18 +116,22 @@ So, create the following components :
 * PutDatabaseRecord processor:
     * right-click > `Configure` > `Settings` tab > `Automatically Terminate Relationships` : all
     * right-click > `Configure` > `Properties` tab  > Record Reader: `CSV Reader`
+            * `Go To` > `Configure` > `Properties` > 
+            * Treat First Line as Header: `true`
+    * right-click > `Configure` > `Properties` tab  > Statement Type: `INSERT`
     * right-click > `Configure` > `Properties` tab  > Database Connection Pooling Service > DBCPConnectionPool
-        * `Go To` > `Configure` > 
+        * `Go To` > `Configure` > `Properties` > 
             * Database Connection URL: `jdbc:postgresql://fadi-postgresql:5432/postgres?stringtype=unspecified`
             * Database Driver Class Name: `org.postgresql.Driver`
-            * Database Driver Location(s): `/opt/nifi/postgresql-42.2.6.jar`
+            * Database Driver Location(s): `/opt/nifi/psql/postgresql-42.2.6.jar`
             * Database User: `postgres`
             * Password: set to the postgresql password obtained above
     * right-click > `Configure` > `Properties` tab  > Schema Name > `public`
     * right-click > `Configure` > `Properties` tab  > Table Name > `example_basic`
     * right-click > `Configure` > `Properties` tab  > Translate Field Names > `false`
 * Response Connection:
-    * For relationships > : `Response`
+    * Create an edge from `InvokeHTTP` processor to `PutDatabaseRecord`
+    * Details > For relationships > `Response`
     
 * Output Port:
     * Port Name > : `success_port`     
@@ -135,16 +139,16 @@ So, create the following components :
 * Output Port:
     * Port Name > : `failure_port`   
 
-* Success Connection:
-    * From `PutDatabaseRecord` to `Output Success Port`  
-    * For relationships > : `success`    
+* `Success` Connection:
+    * Create an edge from `PutDatabaseRecord` to `Output Success Port`  
+    * Details > relationships > only `success`    
     
-* Failure Connection:
+* `Failure` Connection:
     * From `PutDatabaseRecord` to `Output Failure Port`
-    * For relationships > : `failure`   
+    * Details > relationships > : only `failure`   
     
 * Recursive Connection on `DatabaseRecord`:
-    * For relationships > : `retry`   
+    * Details > relationships > only `retry`   
 
 
 ![Nifi Ingest CSV and store in PostgreSQL](examples/basic/images/nifi_csv_to_sql_2.png)
