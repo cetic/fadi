@@ -14,6 +14,36 @@
         "code",
         "review"
       ]
+    },
+    {
+      "login": "alexnuttinck",
+      "name": "Alexandre Nuttinck",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/17699324?v=4",
+      "profile": "https://www.linkedin.com/in/alexandre-nuttinck/",
+      "contributions": [
+        "code",
+        "review",
+        "infra"
+      ]
+    },
+    {
+      "login": "AyadiAmen",
+      "name": "Amen",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/37482206?v=4",
+      "profile": "https://github.com/AyadiAmen",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "fzalila",
+      "name": "Faiez Zalila",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/2330030?v=4",
+      "profile": "https://sites.google.com/site/faiezzalila/",
+      "contributions": [
+        "code",
+        "test"
+      ]
     }
   ],
   "contributorsPerLine": 7,
