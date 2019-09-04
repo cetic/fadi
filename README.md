@@ -5,7 +5,7 @@
   <p align="center" style="width: 50%; height: 200px;">
     <a href="https://fadi.cetic.be"><img src="doc/images/logo.png" height="200"/></a>
   </p>
-  <p align="center" style="margin-top: 16px">
+  <p align="center" style="margin-top: 16px; width: 50%;">
       <table style="border:none;">
         <tr>
           <td style="text-align: center; vertical-align: middle;" align="center"><a href="INSTALL.md"><img alt="Installation guide" src="doc/images/install.svg" height="50"></a></td>
@@ -37,11 +37,10 @@ Anywhere you can run [Kubernetes](https://kubernetes.io/), you should be able to
 
 ## FADI architecture
 
-The figure below presents the various components of the architecture, with implementation choices.
 
 You can find a more detailed explanation of the various components in the [architecture presentation](https://fadi.presentations.cetic.be)
 
-![FADI stack](doc/images/architecture/implementation_view.svg)
+![FADI stack](doc/images/carousel.gif)
 
 ## FADI Helm Chart
 
