@@ -9,4 +9,5 @@ Please send a Pull Request with a clear description of what you have done (read 
 ## Tools
 
 * Screen casts were made using https://nimbusweb.me/screenshot.php and converted to .gif using https://cloudconvert.com/mp4-to-gif
+* Carousel was done with https://ezgif.com/maker
 * Architecture diagrams are made with https://draw.io
