@@ -204,24 +204,52 @@ Head to the Superset interface at [http://superset.fadi.minikube](http://superse
 
 First we will define the datasource:
 
+* On the top menu of Superset, click on `Sources` -> `Databases`
+
+* Then, on the right, click on (+) (`add a new record` button).
+    * Database: `example_basic`
+    * SQLAlchemy URI: `postgresql://postgres:<your_password>@fadi-postgresql:5432/postgres`
+
+* Finally, you can click on `Test Connection` to check to connection to the database.
+
 ![Superset datasource](examples/basic/images/superset_datasource.png)
 
-* SQLAlchemy URI: `postgresql://postgres:<your_password>@fadi-postgresql:5432/postgres`
+* Once the database is created, we can now create a table. 
+    * On the top menu of Superset, click on `Sources` -> `Tables`
+    * Click on (+) (`add a new record` button).
+    * Database: select `example_basic`. 
+    * Table name: `example_basic`.
+    * Click `Save`.
+    * On the table `example_basic`, click `Edit record` button.
+    * On the `List Columns` tab, in the `measure_ts`, click on the `Edit record` button. 
+    * In the "Expression" box, enter `measure_ts ::timestamptz`.
+    * Click `Save`.
 
 ![Superset table](examples/basic/images/superset_table.gif)
-
-* Sources > Tables > "+"
-  * Database: example_basic
-  * Edit measure_ts 
-    * Select Sources --> Tables from the top-level menu.
-    * Click on the "Edit" icon for the example_basic table.
-    * Click on the "List Columns" tab.
-    * Scroll down to the "measure_ts" column.
-    * Click on the "Edit" icon for the "date" column.
-    * In the "Expression" box, enter `measure_ts ::timestamptz`.
-
+  
 Then we will explore our data and build a simple dashboard with the data that is inside the database:
 
+* On the top menu of Superset, click on `Charts` 
+* Click on (+) (`add a new record` button).
+* Choose a datasource: select `example_basic`. 
+* Choose a visualization type: `Time Series - Line Chart`.
+* Click `Create new chart`.
+* In the `Data` tab 
+    * in `Time` section, 
+       * Time Grain: `hour`.
+       * Time range: `Last quarter`
+    * in `Query` section
+       * Metrics: `AVG(temperature)`
+       * Click `Save`
+* Then, in the main window of the dashboad, click on `Run Query`.
+
+A diagram will be shown.
+
+* We can now save the dashboard, by clicking on `Save`.
+   * Save as: `Basic example`
+   * Add to new dashboard: `Basic example dashboard`
+   * Click on `Save & go to bashboard`.
+    
 ![Superset dashboard](examples/basic/images/superset_dashboard.gif)
 
 For more information on how to use Superset, see the [official Superset user guide](https://superset.incubator.apache.org/tutorial.html)
