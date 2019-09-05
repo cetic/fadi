@@ -35,7 +35,10 @@ First, setup the datalake by creating a table in the postgresql database.
 
 To achieve this you need to: 
 
-* Head to the pgadmin interface ([http://pgadmin.fadi.minikube](http://pgadmin.fadi.minikube)) 
+* Head to the pgadmin interface, if you are using **minikube**, you can use the following command :
+```
+minikube service -n fadi fadi-pgadmin 
+```
 
 * Access to the pgadmin service using the following credentials:
     * login: `pgadmin4@pgadmin.org`
@@ -102,7 +105,10 @@ measure_ts,temperature
 (...)
 ```
 
-To start, head to the Nifi web interface ([http://nifi.fadi.minikube](http://nifi.fadi.minikube)), if you are using the local installation with Minikube).
+To start, head to the Nifi web interface, if you are using **minikube**, you can use the following command :
+```
+minikube service -n fadi fadi-nifi
+```
 
 ![Nifi web interface](examples/basic/images/nifi_interface.png)
 
@@ -116,8 +122,9 @@ So, create the following components :
 * PutDatabaseRecord processor:
     * right-click > `Configure` > `Settings` tab > `Automatically Terminate Relationships` : all
     * right-click > `Configure` > `Properties` tab  > Record Reader: `CSV Reader`
-            * `Go To` > `Configure` > `Properties` > 
+        * `Go To` > `Configure` > `Properties` > 
             * Treat First Line as Header: `true`
+            * Enable service by clicking on the lightning icon.
     * right-click > `Configure` > `Properties` tab  > Statement Type: `INSERT`
     * right-click > `Configure` > `Properties` tab  > Database Connection Pooling Service > DBCPConnectionPool
         * `Go To` > `Configure` > `Properties` > 
@@ -126,6 +133,7 @@ So, create the following components :
             * Database Driver Location(s): `/opt/nifi/psql/postgresql-42.2.6.jar`
             * Database User: `postgres`
             * Password: set to the postgresql password obtained above
+            * Enable service by clicking on the lightning icon.
     * right-click > `Configure` > `Properties` tab  > Schema Name > `public`
     * right-click > `Configure` > `Properties` tab  > Table Name > `example_basic`
     * right-click > `Configure` > `Properties` tab  > Translate Field Names > `false`
@@ -158,6 +166,10 @@ See also [the nifi template](/examples/basic/basic_example_final_template.xml) t
 
 For more information on how to use Apache Nifi, see the [official Nifi user guide](https://nifi.apache.org/docs/nifi-docs/html/user-guide.html) and this [Awesome Nifi](https://github.com/jfrazee/awesome-nifi) resources.
 
+finally, **start** the nifi flow in the **operate** window. 
+
+nb : Don't forget to stop the flow after few secondes, else you will end up with a huge amount of data and this is not essential in this use case.
+
 ## 4. Display dashboards and configure alerts
 
 Once the measurements are stored in the database, we will want to display the results in a dashboard.
@@ -168,7 +180,11 @@ Once the measurements are stored in the database, we will want to display the re
 
 [Grafana](http://grafana.com/) provides a dashboard and alerting interface.
 
-Head to the Grafana interface at [http://grafana.fadi.minikube](http://grafana.fadi.minikube) (the default credentials are `admin`/`password1`): 
+Head to the Grafana interface, if you are using **minikube**, you can use the following command :
+```
+minikube service -n fadi fadi-grafana
+``` 
+(the default credentials are `admin`/`password1`)
 
 ![Grafana web interface](examples/basic/images/grafana_interface.png)
 
@@ -200,7 +216,11 @@ For more information on how to use Grafana, see the [official Grafana user guide
 
 [Apache Superset](https://superset.incubator.apache.org) provides some interesting features to explore your data and build basic dashboards.
 
-Head to the Superset interface at [http://superset.fadi.minikube](http://superset.fadi.minikube) (the default credentials are `admin`/`password1`): 
+Head to the Superset interface,  if you are using **minikube**, you can use the following command :
+```
+minikube service -n fadi fadi-superset
+``` 
+(the default credentials are `admin`/`password1`): 
 
 First we will define the datasource:
 
@@ -264,7 +284,11 @@ For more information on how to use Superset, see the [official Superset user gui
 
 In this simple use case, we will try to access the data that is stored in the data lake.
 
-Head to the Jupyter notebook interface at [http://jupyterhub.fadi.minikube](http://jupyterhub.fadi.minikube) (the default credentials are `admin`/`password1`):
+Head to the Jupyter notebook interface,  if you are using **minikube**, you can use the following command : 
+```
+minikube service -n fadi proxy-public
+```  
+(the default credentials are `admin`/`password1`):
 
 ![Jupyter web interface](examples/basic/images/jupyter_interface.png)
 
