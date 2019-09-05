@@ -116,8 +116,8 @@ So, create the following components :
 * PutDatabaseRecord processor:
     * right-click > `Configure` > `Settings` tab > `Automatically Terminate Relationships` : all
     * right-click > `Configure` > `Properties` tab  > Record Reader > `Create a new service` > `CSV Reader`
-            * `Go To` > `Configure` > `Properties` > 
-            * Treat First Line as Header: `true`
+         * `Go To` > `Configure` > `Properties` > 
+         * Treat First Line as Header: `true`
     * right-click > `Configure` > `Properties` tab  > Statement Type: `INSERT`
     * right-click > `Configure` > `Properties` tab  > Database Connection Pooling Service > DBCPConnectionPool
         * `Go To` > `Configure` > `Properties` > 
