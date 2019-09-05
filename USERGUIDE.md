@@ -115,7 +115,7 @@ So, create the following components :
     *  right-click > `Configure` > `Properties` tab > Remote url: `https://raw.githubusercontent.com/cetic/fadi/master/examples/basic/sample_data.csv`
 * PutDatabaseRecord processor:
     * right-click > `Configure` > `Settings` tab > `Automatically Terminate Relationships` : all
-    * right-click > `Configure` > `Properties` tab  > Record Reader: `CSV Reader`
+    * right-click > `Configure` > `Properties` tab  > Record Reader > `Create a new service` > `CSV Reader`
             * `Go To` > `Configure` > `Properties` > 
             * Treat First Line as Header: `true`
     * right-click > `Configure` > `Properties` tab  > Statement Type: `INSERT`
@@ -129,6 +129,11 @@ So, create the following components :
     * right-click > `Configure` > `Properties` tab  > Schema Name > `public`
     * right-click > `Configure` > `Properties` tab  > Table Name > `example_basic`
     * right-click > `Configure` > `Properties` tab  > Translate Field Names > `false`
+    * Now we need to enable the controller services:
+        * Click anywhere on the Nifi workbench. 
+        * Click on the `configuration` button. 
+        * Enable both controller services.
+        
 * Response Connection:
     * Create an edge from `InvokeHTTP` processor to `PutDatabaseRecord`
     * Details > For relationships > `Response`
