@@ -124,8 +124,8 @@ So, create the following components :
             * Database Connection URL: `jdbc:postgresql://fadi-postgresql:5432/postgres?stringtype=unspecified`
             * Database Driver Class Name: `org.postgresql.Driver`
             * Database Driver Location(s): `/opt/nifi/psql/postgresql-42.2.6.jar`
-            * Database User: `postgres`
-            * Password: set to the postgresql password obtained above
+            * Database User: `admin`
+            * Password: password1
     * right-click > `Configure` > `Properties` tab  > Schema Name > `public`
     * right-click > `Configure` > `Properties` tab  > Table Name > `example_basic`
     * right-click > `Configure` > `Properties` tab  > Translate Field Names > `false`
@@ -178,8 +178,8 @@ First we will define the postgresql datasource:
 
 * host: fadi-postgresql:5432
 * database: postgres
-* user: postgres
-* password: set to the postgresql password obtained above
+* user: admin
+* password: password1
 * disable ssl
 
 Then we will configure a simple dashboard that shows the temperatures over the last week:
@@ -206,7 +206,7 @@ First we will define the datasource:
 
 ![Superset datasource](examples/basic/images/superset_datasource.png)
 
-* SQLAlchemy URI: `postgresql://postgres:<your_password>@fadi-postgresql:5432/postgres`
+* SQLAlchemy URI: `postgresql://admin:<your_password>@fadi-postgresql:5432/postgres`
 
 ![Superset table](examples/basic/images/superset_table.gif)
 
