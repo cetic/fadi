@@ -10,7 +10,7 @@ User Management
 * [3. Manage your LDAP server](#3-manage-your-ldap-server)
 
 
-This page provides information on how to configure FADI user identification and authorization (LDAP, RBAC, ...).
+This page provides information on how to configure FADI user authentication and authorization (LDAP, RBAC, ...).
 
 For user management FADI uses [OpenLDAP](https://www.openldap.org) to ensure the [LDAP user authentication](https://en.wikipedia.org/wiki/Lightweight_Directory_Access_Protocol) for the platform services.
 
@@ -55,23 +55,23 @@ where `{username}` will be overwrought by the value the user passes as username 
 * `uid=david,ou=admins,dc=ldap,dc=cetic,dc=be`
 * `uid=david,ou=developers,dc=ldap,dc=cetic,dc=be`
 
-which means if david isn't in the developers group or the admins group, he will not be able to sign on.
+which means if david isn't in the developers group or the admins group, he will not be able to sign in.
 
 ### Superset
 
 Superset uses **Flask-AppBuilder** Security for the LDAP authentication, in order to activate we need to pass the configuration inside python config `configFile.py`.
 
-For more information about how to configure your superset with ldap: the official documentation for the [flask-appbuilder authentication-ldap](https://flask-appbuilder.readthedocs.io/en/latest/security.html#authentication-ldap).
+For more information on how to configure Superset with LDAP: the official documentation for the [flask-appbuilder authentication-ldap](https://flask-appbuilder.readthedocs.io/en/latest/security.html#authentication-ldap).
 
 For more information about the different options you can use to configure your Superset LDAP authentication: the official documentation for the [Base Configuration](https://flask-appbuilder.readthedocs.io/en/latest/config.html).
 
 ### PostgreSQL
 
-LDAP authentication method in PostgreSQL uses LDAP as the password verification method. LDAP is used only to validate the username/password pairs. Therefore there's a CronJob that executes the tool [pg-ldap-sync](https://github.com/larskanis/pg-ldap-sync) to synchronise the users between the ldap server and the database.
+LDAP authentication method in PostgreSQL uses LDAP as the password verification method. LDAP is used only to validate the username/password pairs. Therefore there's a Cron job that executes the tool [pg-ldap-sync](https://github.com/larskanis/pg-ldap-sync) to synchronise the users between the LDAP server and the database.
 
-Client authentication is controlled by a configuration file called pg_hba.conf, you can pass your authentication config through the variable **pghba** in the **values.yaml** file.
+Client authentication is controlled by a configuration file called `pg_hba.conf`, you can pass your authentication config through the variable `pghba` in the `values.yaml` file.
 
-the most common formats of authentication configuration are :
+The most common formats of authentication configuration are :
 
 
 ```
@@ -79,16 +79,15 @@ local      database  user  auth-method  [auth-options]
 host       database  user  address  auth-method  [auth-options]
 ```
 
-for example to use ldap authentication for local users, your configuration should look something like this :
+For example, to use LDAP authentication for local users, your configuration should look something like this :
 
 
 ```
 local      all  all  ldap  ldapserver=example.com  ldapport=389 [other-ldap-options]
-
 ```
 
 
-For more information about how to add ldap authentication to postgres: [Use LDAP permissions in PostgreSQL](https://www.postgresql.org/docs/11/auth-ldap.html)
+For more information about how to add LDAP authentication to PostgreSQL: [LDAP authentication in PostgreSQL](https://www.postgresql.org/docs/11/auth-ldap.html)
 
 For more information about pg-ldap-sync: [Use LDAP permissions in PostgreSQL](https://github.com/larskanis/pg-ldap-sync)
 
@@ -99,7 +98,7 @@ For more information about pg-ldap-sync: [Use LDAP permissions in PostgreSQL](ht
 
 > " phpLDAPadmin is a web app for administering Lightweight Directory Access Protocol (LDAP) servers.."
 
-In order to use [phpLDAPadmin](http://phpldapadmin.sourceforge.net/wiki/index.php/Main_Page) you have to pass the configuration for your LDAP server through the environmental variable *_PHPLDAPADMIN_LDAP_HOSTS_*. To connect this service with the OpenLDAP server, you need to pass **the name of the service** (`fadi-openldap`). To connect to the web app, simply run the following command: (or access it at [http://phpldapadmin.fadi.minikube](http://phpldapadmin.fadi.minikube))
+In order to use [phpLDAPadmin](http://phpldapadmin.sourceforge.net/wiki/index.php/Main_Page) you have to pass the configuration for your LDAP server through the environmental variable `_PHPLDAPADMIN_LDAP_HOSTS_`. To connect this service with the OpenLDAP server, you need to pass **the name of the service** (`fadi-openldap`). To connect to the web application, simply run the following command:
 
 ```bash
 minikube service fadi-phpldapadmin -n fadi
