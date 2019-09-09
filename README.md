@@ -1,5 +1,5 @@
 # FADI - A framework for big data analytics
-[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0) ![version](https://img.shields.io/github/tag/cetic/fadi.svg?label=release) [![All Contributors](https://img.shields.io/badge/all_contributors-7-orange.svg?style=flat-square)](#contributors)
+[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0) ![version](https://img.shields.io/github/tag/cetic/fadi.svg?label=release) [![All Contributors](https://img.shields.io/badge/all_contributors-8-orange.svg?style=flat-square)](#contributors)
 
 <p align="center">
   <p align="center" style="width: 50%; height: 200px;">
@@ -67,6 +67,9 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
     <td align="center"><a href="https://github.com/FabianSteels"><img src="https://avatars3.githubusercontent.com/u/6490581?v=4" width="100px;" alt="Fabian Steels"/><br /><sub><b>Fabian Steels</b></sub></a><br /><a href="#ideas-FabianSteels" title="Ideas, Planning, & Feedback">🤔</a></td>
     <td align="center"><a href="https://github.com/smouton-cetic"><img src="https://avatars3.githubusercontent.com/u/52540999?v=4" width="100px;" alt="smouton-cetic"/><br /><sub><b>smouton-cetic</b></sub></a><br /><a href="#projectManagement-smouton-cetic" title="Project Management">📆</a></td>
     <td align="center"><a href="https://github.com/nikosmtsk"><img src="https://avatars1.githubusercontent.com/u/36480172?v=4" width="100px;" alt="nikosmtsk"/><br /><sub><b>nikosmtsk</b></sub></a><br /><a href="#projectManagement-nikosmtsk" title="Project Management">📆</a></td>
+  </tr>
+  <tr>
+    <td align="center"><a href="https://github.com/Sellto"><img src="https://avatars1.githubusercontent.com/u/17011743?v=4" width="100px;" alt="Sellto"/><br /><sub><b>Sellto</b></sub></a><br /><a href="https://github.com/cetic/fadi/commits?author=Sellto" title="Documentation">📖</a></td>
   </tr>
 </table>
 
