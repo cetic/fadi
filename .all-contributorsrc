@@ -45,6 +45,15 @@
         "code",
         "test"
       ]
+    },
+    {
+      "login": "FabianSteels",
+      "name": "Fabian Steels",
+      "avatar_url": "https://avatars3.githubusercontent.com/u/6490581?v=4",
+      "profile": "https://github.com/FabianSteels",
+      "contributions": [
+        "ideas"
+      ]
     }
   ],
   "contributorsPerLine": 7,
