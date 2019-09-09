@@ -81,6 +81,15 @@
       "contributions": [
         "doc"
       ]
+    },
+    {
+      "login": "terence-bigtt",
+      "name": "terence-bigtt",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/15094829?v=4",
+      "profile": "https://github.com/terence-bigtt",
+      "contributions": [
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 7,
