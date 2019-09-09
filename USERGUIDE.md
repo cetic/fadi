@@ -187,23 +187,40 @@ Head to the Grafana interface at [http://grafana.fadi.minikube](http://grafana.f
 
 ![Grafana web interface](examples/basic/images/grafana_interface.png)
 
-First we will define the postgresql datasource:
+First we will define the postgresql datasource. To do that, in the Grafana Home Dashboard
+
+* Select `Create your first data source`,
+* Choose data source type: `PostgreSQL`,
+* Complete the seeting as:
+    * Host: `fadi-postgresql:5432`
+    * database: `postgres`
+    * user: `admin`
+    * password: `password1`
+    * SSL Mode: `disable`
+    * Version: `10`
 
 ![Grafana datasource](examples/basic/images/grafana_datasource.gif)
 
-* host: fadi-postgresql:5432
-* database: postgres
-* user: postgres
-* password: set to the postgresql password obtained above
-* disable ssl
+Then we will configure a simple dashboard that shows the temperatures over captured in the PostgreSQL database:
 
-Then we will configure a simple dashboard that shows the temperatures over the last week:
+* Select `Create your first data source`,
+* Select `Choose Visualization`
+
+A pre-filled SQL query is provided and shown in the **Queries** tab.
+
+To shown the dashboard, It is necessary to specify a time frame between `23/06/2016` and `28/06/2019`.
+
+![Grafana dashboard](examples/basic/images/grafana_time_frame.png)
+
+Then, a diagram is shown in the Grafana dashboard. 
 
 ![Grafana dashboard](examples/basic/images/grafana_dashboard.png)
 
 And finally we will configure some alerts using very simple rules:
-
-![Grafana alert](examples/basic/images/grafana_alerting.gif)
+* Select `Alert` tab.
+* Click on `Create Alert`
+* Specify the alert threshold.
+![Grafana alert](examples/basic/images/grafana_alerting.png)
 
 For more information on how to use Grafana, see the [official Grafana user guide](https://grafana.com/docs/guides/getting_started/)
 
