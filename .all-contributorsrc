@@ -54,6 +54,15 @@
       "contributions": [
         "ideas"
       ]
+    },
+    {
+      "login": "smouton-cetic",
+      "name": "smouton-cetic",
+      "avatar_url": "https://avatars3.githubusercontent.com/u/52540999?v=4",
+      "profile": "https://github.com/smouton-cetic",
+      "contributions": [
+        "projectManagement"
+      ]
     }
   ],
   "contributorsPerLine": 7,
