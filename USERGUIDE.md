@@ -43,16 +43,14 @@ To achieve this you need to:
 
 * Get the database password:
 
-```
-export POSTGRES_PASSWORD=$(kubectl get secret --namespace fadi fadi-postgresql -o jsonpath="{.data.postgresql-password}" | base64 --decode)
-echo $POSTGRES_PASSWORD
-```
-* Save the shown password to use it later. 
-
 * In pgadmin Browser, create a server on pgadmin by right-click on `Servers` -> `Create a Server`
 
-* Configure the server as shown in the following screenshot. 
-    * The `password` field should be completed by the one shown previously (with the `echo` command).
+* Configure the server as shown in the following screenshot:
+    * Host name: `fadi-postgresql`
+    * Port: `5432`
+    * Maintenance database: `postgres`
+    * Username: `admin`
+    * Password: `password1`
 ![Postgres Server](examples/basic/images/pgadmin_create_server.png)
 
 * Launch the Query tool.
@@ -155,11 +153,23 @@ So, create the following components :
 * Recursive Connection on `DatabaseRecord`:
     * Details > relationships > only `retry`   
 
-
+* Select both processors and both output ports
+        * right-click, and select `Start`. 
+        
 ![Nifi Ingest CSV and store in PostgreSQL](examples/basic/images/nifi_csv_to_sql_2.png)
 
 See also [the nifi template](/examples/basic/basic_example_final_template.xml) that corresponds to this example. 
-* Do not forget to update the `password` field in the imported template.
+* To reuse the provided template (instead of designing our own template), you can:
+    * Click `Upload template` in the **Operate** frame, select the template, and upload it.
+    * From the Nifi menu, drag and drop the **Template** menu.
+    * Choose your uploaded template. 
+    * In the **Operate** frame of Nifi:
+        * Click on `Configuration`
+        * Click on `View configuration` of `DBCPConnectionPool` controller service. 
+        * In the `Properties` tab, complete the `password` field with `password1`
+        * Enable both `CSVReader` and `DBCPConnectionPool` controller services.
+    * Select both processors and both output ports
+        * right-click, and select `Start`. 
 
 For more information on how to use Apache Nifi, see the [official Nifi user guide](https://nifi.apache.org/docs/nifi-docs/html/user-guide.html) and this [Awesome Nifi](https://github.com/jfrazee/awesome-nifi) resources.
 
