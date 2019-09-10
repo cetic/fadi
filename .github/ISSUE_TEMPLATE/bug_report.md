@@ -2,7 +2,7 @@
 name: Bug report
 about: Create a report to help us improve
 title: ''
-labels: ''
+labels: 'bug'
 assignees: ''
 
 ---
@@ -17,11 +17,12 @@ Be ready for followup questions, and please respond in a timely manner. If we ca
 **Describe the bug**
 A clear and concise description of what the bug is.
 
-**Version of Helm and Kubernetes**:
+**Environment**:
+Provide the environment in which the bug has happened (minikube on a workstation, full fledged Kubernetes cluster, ...)
 
-
-**Which chart**:
-
+* **OS** (e.g. from `/etc/os-release`)
+* **VM driver** (e.g. cat ~/.minikube/machines/minikube/config.json | grep DriverName)
+* **Minikube version** (e.g. `minikube version`)
 
 **What happened**:
 
@@ -31,7 +32,8 @@ A clear and concise description of what the bug is.
 
 **How to reproduce it** (as minimally and precisely as possible):
 
+**Output of `minikube logs` (if applicable)**:
+
 
 **Anything else we need to know**:
-
 
