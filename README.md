@@ -1,26 +1,8 @@
 # FADI - A framework for big data analytics
-[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0) ![version](https://img.shields.io/github/tag/cetic/fadi.svg?label=release) [![All Contributors](https://img.shields.io/badge/all_contributors-9-orange.svg?style=flat-square)](#contributors)
+[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0) ![version](https://img.shields.io/github/tag/cetic/fadi.svg?label=release) [![All Contributors](https://img.shields.io/badge/all_contributors-9-orange.svg?style=flat)](#contributors)
 
-<p align="center">
-  <p align="center" style="width: 50%; height: 200px;">
-    <a href="https://fadi.cetic.be"><img src="doc/images/logo.png" height="200"/></a>
-  </p>
-  <p align="center" style="margin-top: 16px; width: 50%;">
-      <table style="border:none;">
-        <tr>
-          <td style="text-align: center; vertical-align: middle;" align="center"><a href="INSTALL.md"><img alt="Installation guide" src="doc/images/install.svg" height="50"></a></td>
-          <td style="text-align: center; vertical-align: middle;" align="center"><a href="USERGUIDE.md"><img alt="User guide" src="doc/images/userguide.svg" height="50"></a></td>
-          <td style="text-align: center; vertical-align: middle;" align="center"><a href="https://fadi.presentations.cetic.be"><img alt="Presentation slides" src="doc/images/presentation.svg" height="50"></a></td>
-          <td style="text-align: center; vertical-align: middle;" align="center"><a href="FAQ.md"><img alt="FAQ" src="doc/images/faq.svg" height="50"></a></td>
-        </tr>
-        <tr>
-          <td style="text-align: center; vertical-align: middle;" align="center"><a href="INSTALL.md">Installation</a></td>
-          <td style="text-align: center; vertical-align: middle;" align="center"><a href="USERGUIDE.md">User guide</a></td>
-          <td style="text-align: center; vertical-align: middle;" align="center"><a href="https://fadi.presentations.cetic.be">Presentation</a></td>
-          <td style="text-align: center; vertical-align: middle;" align="center"><a href="FAQ.md">FAQ</a></td>
-        </tr>
-      </table>
-  </p>
+<p align="center" style="width: 50%; height: 200px;">
+  <a href="https://fadi.cetic.be"><img src="doc/images/logo.png" height="200"/></a>
 </p>
  
 ## What is FADI?
@@ -30,17 +12,14 @@ The FADI project is dedicated to making the deployment of Big Data tools simple,
 The goal is to provide a straightforward way to deploy open-source systems for Big Data to various infrastructures (private and public clouds). 
 Anywhere you can run [Kubernetes](https://kubernetes.io/), you should be able to run FADI.
 
+![FADI carousel](doc/images/carousel.gif)
+
 ## Quick start
 
 1. [Install the framework on your workstation](INSTALL.md)
 2. Try [a simple use case](USERGUIDE.md)
 
-## FADI architecture
-
-
 You can find a more detailed explanation of the various components in the [architecture presentation](https://fadi.presentations.cetic.be)
-
-![FADI stack](doc/images/carousel.gif)
 
 ## FADI Helm Chart
 
@@ -51,6 +30,8 @@ This [repository](https://github.com/cetic/helm-fadi) contains the Helm chart to
 ## Support
 
 In case you encounter an issue with FADI, have a feature request or any other question, feel free to [open an issue](https://github.com/cetic/fadi/issues/new/choose).
+
+See also [the FAQ](FAQ.md)!
 
 ## Contributors
 
