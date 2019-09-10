@@ -13,3 +13,14 @@ In case you encounter an issue with FADI, have a feature request or any other qu
 ## Why "FADI"?
 
 FADI is the acronym for "Framework d'Analyse de Données Industrielles" ("A Framework for Industrial Data Analysis"))
+
+## FADI is not working
+
+In case you encounter an issue with FADI, have a feature request or any other question, feel free to [open an issue](https://github.com/cetic/fadi/issues/new/choose).
+
+Please make sure the following steps have been taken beforehand:
+
+* update Minikube to the latest version
+* update Helm to the latest version
+* check the logs (`minikube logs`) for any suspicious error message
+
