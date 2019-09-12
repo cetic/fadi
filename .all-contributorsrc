@@ -45,6 +45,60 @@
         "code",
         "test"
       ]
+    },
+    {
+      "login": "FabianSteels",
+      "name": "Fabian Steels",
+      "avatar_url": "https://avatars3.githubusercontent.com/u/6490581?v=4",
+      "profile": "https://github.com/FabianSteels",
+      "contributions": [
+        "ideas"
+      ]
+    },
+    {
+      "login": "smouton-cetic",
+      "name": "smouton-cetic",
+      "avatar_url": "https://avatars3.githubusercontent.com/u/52540999?v=4",
+      "profile": "https://github.com/smouton-cetic",
+      "contributions": [
+        "projectManagement"
+      ]
+    },
+    {
+      "login": "nikosmtsk",
+      "name": "nikosmtsk",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/36480172?v=4",
+      "profile": "https://github.com/nikosmtsk",
+      "contributions": [
+        "projectManagement"
+      ]
+    },
+    {
+      "login": "Sellto",
+      "name": "Sellto",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/17011743?v=4",
+      "profile": "https://github.com/Sellto",
+      "contributions": [
+        "doc"
+      ]
+    },
+    {
+      "login": "terence-bigtt",
+      "name": "terence-bigtt",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/15094829?v=4",
+      "profile": "https://github.com/terence-bigtt",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "Maher-badri",
+      "name": "Maher-badri",
+      "avatar_url": "https://avatars0.githubusercontent.com/u/52699999?v=4",
+      "profile": "https://github.com/Maher-badri",
+      "contributions": [
+        "projectManagement"
+      ]
     }
   ],
   "contributorsPerLine": 7,
