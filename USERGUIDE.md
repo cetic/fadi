@@ -41,8 +41,6 @@ To achieve this you need to:
     * login: `pgadmin4@pgadmin.org`
     * password: `admin`
 
-* Get the database password:
-
 * In pgadmin Browser, create a server on pgadmin by right-click on `Servers` -> `Create a Server`
 
 * Configure the server as shown in the following screenshot:
