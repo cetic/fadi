@@ -106,7 +106,7 @@ minikube service fadi-phpldapadmin -n fadi
 
 The main page for phpLDAPadmin will open in your default browser where you can connect to your LDAP server and manage it.
 
-<img src="images/phpldapadmin.gif" />
+<img src="images/installation/phpldapadmin.gif" />
 
 The first entry that will be created is for the administrator and the password is initialized to `password1` which makes the credentials to use to connect to this server in phpLDAPadmin the following:
 
