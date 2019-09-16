@@ -44,18 +44,14 @@ minikube service -n fadi fadi-pgadmin
     * login: `pgadmin4@pgadmin.org`
     * password: `admin`
 
-* Get the database password:
-
-```
-export POSTGRES_PASSWORD=$(kubectl get secret --namespace fadi fadi-postgresql -o jsonpath="{.data.postgresql-password}" | base64 --decode)
-echo $POSTGRES_PASSWORD
-```
-* Save the shown password to use it later. 
-
 * In pgadmin Browser, create a server on pgadmin by right-click on `Servers` -> `Create a Server`
 
-* Configure the server as shown in the following screenshot. 
-    * The `password` field should be completed by the one shown previously (with the `echo` command).
+* Configure the server as shown in the following screenshot:
+    * Host name: `fadi-postgresql`
+    * Port: `5432`
+    * Maintenance database: `postgres`
+    * Username: `admin`
+    * Password: `password1`
 ![Postgres Server](examples/basic/images/pgadmin_create_server.png)
 
 * Launch the Query tool.
@@ -121,10 +117,9 @@ So, create the following components :
     *  right-click > `Configure` > `Properties` tab > Remote url: `https://raw.githubusercontent.com/cetic/fadi/master/examples/basic/sample_data.csv`
 * PutDatabaseRecord processor:
     * right-click > `Configure` > `Settings` tab > `Automatically Terminate Relationships` : all
-    * right-click > `Configure` > `Properties` tab  > Record Reader: `CSV Reader`
-        * `Go To` > `Configure` > `Properties` > 
-            * Treat First Line as Header: `true`
-            * Enable service by clicking on the lightning icon.
+    * right-click > `Configure` > `Properties` tab  > Record Reader > `Create a new service` > `CSV Reader`
+         * `Go To` > `Configure` > `Properties` > 
+         * Treat First Line as Header: `true`
     * right-click > `Configure` > `Properties` tab  > Statement Type: `INSERT`
     * right-click > `Configure` > `Properties` tab  > Database Connection Pooling Service > DBCPConnectionPool
         * `Go To` > `Configure` > `Properties` > 
@@ -137,6 +132,11 @@ So, create the following components :
     * right-click > `Configure` > `Properties` tab  > Schema Name > `public`
     * right-click > `Configure` > `Properties` tab  > Table Name > `example_basic`
     * right-click > `Configure` > `Properties` tab  > Translate Field Names > `false`
+    * Now we need to enable the controller services:
+        * Click anywhere on the Nifi workbench. 
+        * Click on the `configuration` button. 
+        * Enable both controller services.
+        
 * Response Connection:
     * Create an edge from `InvokeHTTP` processor to `PutDatabaseRecord`
     * Details > For relationships > `Response`
@@ -158,11 +158,23 @@ So, create the following components :
 * Recursive Connection on `DatabaseRecord`:
     * Details > relationships > only `retry`   
 
-
+* Select both processors and both output ports
+        * right-click, and select `Start`. 
+        
 ![Nifi Ingest CSV and store in PostgreSQL](examples/basic/images/nifi_csv_to_sql_2.png)
 
 See also [the nifi template](/examples/basic/basic_example_final_template.xml) that corresponds to this example. 
-* Do not forget to update the `password` field in the imported template.
+* To reuse the provided template (instead of designing our own template), you can:
+    * Click `Upload template` in the **Operate** frame, select the template, and upload it.
+    * From the Nifi menu, drag and drop the **Template** menu.
+    * Choose your uploaded template. 
+    * In the **Operate** frame of Nifi:
+        * Click on `Configuration`
+        * Click on `View configuration` of `DBCPConnectionPool` controller service. 
+        * In the `Properties` tab, complete the `password` field with `password1`
+        * Enable both `CSVReader` and `DBCPConnectionPool` controller services.
+    * Select both processors and both output ports
+        * right-click, and select `Start`. 
 
 For more information on how to use Apache Nifi, see the [official Nifi user guide](https://nifi.apache.org/docs/nifi-docs/html/user-guide.html) and this [Awesome Nifi](https://github.com/jfrazee/awesome-nifi) resources.
 
@@ -188,23 +200,40 @@ minikube service -n fadi fadi-grafana
 
 ![Grafana web interface](examples/basic/images/grafana_interface.png)
 
-First we will define the postgresql datasource:
+First we will define the postgresql datasource. To do that, in the Grafana Home Dashboard
+
+* Select `Create your first data source`,
+* Choose data source type: `PostgreSQL`,
+* Complete the seeting as:
+    * Host: `fadi-postgresql:5432`
+    * database: `postgres`
+    * user: `admin`
+    * password: `password1`
+    * SSL Mode: `disable`
+    * Version: `10`
 
 ![Grafana datasource](examples/basic/images/grafana_datasource.gif)
 
-* host: fadi-postgresql:5432
-* database: postgres
-* user: postgres
-* password: set to the postgresql password obtained above
-* disable ssl
+Then we will configure a simple dashboard that shows the temperatures over captured in the PostgreSQL database:
 
-Then we will configure a simple dashboard that shows the temperatures over the last week:
+* Select `Create your first data source`,
+* Select `Choose Visualization`
+
+A pre-filled SQL query is provided and shown in the **Queries** tab.
+
+To shown the dashboard, It is necessary to specify a time frame between `23/06/2016` and `28/06/2019`.
+
+![Grafana dashboard](examples/basic/images/grafana_time_frame.png)
+
+Then, a diagram is shown in the Grafana dashboard. 
 
 ![Grafana dashboard](examples/basic/images/grafana_dashboard.png)
 
 And finally we will configure some alerts using very simple rules:
-
-![Grafana alert](examples/basic/images/grafana_alerting.gif)
+* Select `Alert` tab.
+* Click on `Create Alert`
+* Specify the alert threshold.
+![Grafana alert](examples/basic/images/grafana_alerting.png)
 
 For more information on how to use Grafana, see the [official Grafana user guide](https://grafana.com/docs/guides/getting_started/)
 
