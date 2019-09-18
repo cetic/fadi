@@ -1,5 +1,5 @@
 # FADI - A framework for big data analytics
-[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0) ![version](https://img.shields.io/github/tag/cetic/fadi.svg?label=release) [![All Contributors](https://img.shields.io/badge/all_contributors-10-orange.svg?style=flat)](#contributors)
+[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0) ![version](https://img.shields.io/github/tag/cetic/fadi.svg?label=release) [![All Contributors](https://img.shields.io/badge/all_contributors-11-orange.svg?style=flat-square)](#contributors)
 
 <p align="center" style="width: 50%; height: 200px;">
   <a href="https://fadi.cetic.be"><img src="doc/images/logo.png" height="200"/></a>
@@ -53,6 +53,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
     <td align="center"><a href="https://github.com/Sellto"><img src="https://avatars1.githubusercontent.com/u/17011743?v=4" width="100px;" alt="Sellto"/><br /><sub><b>Sellto</b></sub></a><br /><a href="https://github.com/cetic/fadi/commits?author=Sellto" title="Documentation">📖</a></td>
     <td align="center"><a href="https://github.com/terence-bigtt"><img src="https://avatars1.githubusercontent.com/u/15094829?v=4" width="100px;" alt="terence-bigtt"/><br /><sub><b>terence-bigtt</b></sub></a><br /><a href="https://github.com/cetic/fadi/commits?author=terence-bigtt" title="Code">💻</a></td>
     <td align="center"><a href="https://github.com/Maher-badri"><img src="https://avatars0.githubusercontent.com/u/52699999?v=4" width="100px;" alt="Maher-badri"/><br /><sub><b>Maher-badri</b></sub></a><br /><a href="#projectManagement-Maher-badri" title="Project Management">📆</a></td>
+    <td align="center"><a href="https://github.com/mgoeminne"><img src="https://avatars1.githubusercontent.com/u/1286106?v=4" width="100px;" alt="Mathieu Goeminne"/><br /><sub><b>Mathieu Goeminne</b></sub></a><br /><a href="#ideas-mgoeminne" title="Ideas, Planning, & Feedback">🤔</a></td>
   </tr>
 </table>
 
