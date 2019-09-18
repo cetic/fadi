@@ -24,8 +24,10 @@ The components needed for this use case are the following:
 * Apache Nifi as a integration tool to ingest the sensor data from the data source (a csv file in this case) and store it in the database
 * PostgreSQL as both a datawarehouse and datalake
 * Gafana as a dashboard tool to display graphs from the data ingested and stored in the datalake
+* Superset as a exploration dashboard tool
+* Jupyter as a web interface to explore the data using notebooks
 
-Those components are configured in the following [sample config file](helm/deploy.sh), once the platform is ready, you can start working with it. The following instructions assume that you deployed FADI on your workstation inside minikube.
+Those components are configured in the following [sample config file](helm/values.yaml), once the platform is ready, you can start working with it. The following instructions assume that you deployed FADI on your workstation inside minikube.
 
 ## 2. Prepare the database to store measurments 
 
@@ -35,24 +37,23 @@ First, setup the datalake by creating a table in the postgresql database.
 
 To achieve this you need to: 
 
-* Head to the pgadmin interface ([http://pgadmin.fadi.minikube](http://pgadmin.fadi.minikube)) 
+* Head to the pgadmin interface, if you are using **minikube**, you can use the following command :
+```
+minikube service -n fadi fadi-pgadmin 
+```
 
 * Access to the pgadmin service using the following credentials:
     * login: `pgadmin4@pgadmin.org`
     * password: `admin`
 
-* Get the database password:
-
-```
-export POSTGRES_PASSWORD=$(kubectl get secret --namespace fadi fadi-postgresql -o jsonpath="{.data.postgresql-password}" | base64 --decode)
-echo $POSTGRES_PASSWORD
-```
-* Save the shown password to use it later. 
-
 * In pgadmin Browser, create a server on pgadmin by right-click on `Servers` -> `Create a Server`
 
-* Configure the server as shown in the following screenshot. 
-    * The `password` field should be completed by the one shown previously (with the `echo` command).
+* Configure the server as shown in the following screenshot:
+    * Host name: `fadi-postgresql`
+    * Port: `5432`
+    * Maintenance database: `postgres`
+    * Username: `admin`
+    * Password: `password1`
 ![Postgres Server](examples/basic/images/pgadmin_create_server.png)
 
 * Launch the Query tool.
@@ -102,7 +103,10 @@ measure_ts,temperature
 (...)
 ```
 
-To start, head to the Nifi web interface ([http://nifi.fadi.minikube](http://nifi.fadi.minikube)), if you are using the local installation with Minikube).
+To start, head to the Nifi web interface, if you are using **minikube**, you can use the following command :
+```
+minikube service -n fadi fadi-nifi
+```
 
 ![Nifi web interface](examples/basic/images/nifi_interface.png)
 
@@ -112,23 +116,30 @@ So, create the following components :
 
 * InvokeHTTP processor:
     * right-click > `Configure` > `Settings` tab > `Automatically Terminate Relationships` : all except `Response`
-    *  right-click > `Configure` > `Properties` tab > Remote url: `https://raw.githubusercontent.com/cetic/fadi/master/examples/basic/sample_data.csv`
+    * right-click > `Configure` > `Properties` tab > Remote url: `https://raw.githubusercontent.com/cetic/fadi/master/examples/basic/sample_data.csv`
+    * right-click > `Configure` > `Scheduling` tab > Run Schedule: 120s (this will download the sample file every 120 seconds)
 * PutDatabaseRecord processor:
     * right-click > `Configure` > `Settings` tab > `Automatically Terminate Relationships` : all
-    * right-click > `Configure` > `Properties` tab  > Record Reader: `CSV Reader`
-            * `Go To` > `Configure` > `Properties` > 
-            * Treat First Line as Header: `true`
+    * right-click > `Configure` > `Properties` tab  > Record Reader > `Create a new service` > `CSV Reader`
+         * `Go To` > `Configure` > `Properties` > 
+         * Treat First Line as Header: `true`
     * right-click > `Configure` > `Properties` tab  > Statement Type: `INSERT`
     * right-click > `Configure` > `Properties` tab  > Database Connection Pooling Service > DBCPConnectionPool
         * `Go To` > `Configure` > `Properties` > 
             * Database Connection URL: `jdbc:postgresql://fadi-postgresql:5432/postgres?stringtype=unspecified`
             * Database Driver Class Name: `org.postgresql.Driver`
             * Database Driver Location(s): `/opt/nifi/psql/postgresql-42.2.6.jar`
-            * Database User: `postgres`
-            * Password: set to the postgresql password obtained above
+            * Database User: `admin`
+            * Password: `password1`
+            * Enable service by clicking on the lightning icon.
     * right-click > `Configure` > `Properties` tab  > Schema Name > `public`
     * right-click > `Configure` > `Properties` tab  > Table Name > `example_basic`
     * right-click > `Configure` > `Properties` tab  > Translate Field Names > `false`
+    * Now we need to enable the controller services:
+        * Click anywhere on the Nifi workbench. 
+        * Click on the `configuration` button. 
+        * Enable both controller services.
+        
 * Response Connection:
     * Create an edge from `InvokeHTTP` processor to `PutDatabaseRecord`
     * Details > For relationships > `Response`
@@ -150,13 +161,27 @@ So, create the following components :
 * Recursive Connection on `DatabaseRecord`:
     * Details > relationships > only `retry`   
 
-
+* Select both processors and both output ports
+        * right-click, and select `Start`. 
+        
 ![Nifi Ingest CSV and store in PostgreSQL](examples/basic/images/nifi_csv_to_sql_2.png)
 
 See also [the nifi template](/examples/basic/basic_example_final_template.xml) that corresponds to this example. 
-* Do not forget to update the `password` field in the imported template.
+* To reuse the provided template (instead of designing our own template), you can:
+    * Click `Upload template` in the **Operate** frame, select the template, and upload it.
+    * From the Nifi menu, drag and drop the **Template** menu.
+    * Choose your uploaded template. 
+    * In the **Operate** frame of Nifi:
+        * Click on `Configuration`
+        * Click on `View configuration` of `DBCPConnectionPool` controller service. 
+        * In the `Properties` tab, complete the `password` field with `password1`
+        * Enable both `CSVReader` and `DBCPConnectionPool` controller services.
+    * Select both processors and both output ports
+        * right-click, and select `Start`. 
 
 For more information on how to use Apache Nifi, see the [official Nifi user guide](https://nifi.apache.org/docs/nifi-docs/html/user-guide.html) and this [Awesome Nifi](https://github.com/jfrazee/awesome-nifi) resources.
+
+Finally, **start** the nifi flow in the **operate** window. 
 
 ## 4. Display dashboards and configure alerts
 
@@ -168,27 +193,48 @@ Once the measurements are stored in the database, we will want to display the re
 
 [Grafana](http://grafana.com/) provides a dashboard and alerting interface.
 
-Head to the Grafana interface at [http://grafana.fadi.minikube](http://grafana.fadi.minikube) (the default credentials are `admin`/`password1`): 
+Head to the Grafana interface, if you are using **minikube**, you can use the following command :
+```
+minikube service -n fadi fadi-grafana
+``` 
+(the default credentials are `admin`/`password1`)
 
 ![Grafana web interface](examples/basic/images/grafana_interface.png)
 
-First we will define the postgresql datasource:
+First we will define the PostgreSQL datasource. To do that, in the Grafana Home Dashboard
+
+* Select `Add data source`,
+* Choose data source type: `PostgreSQL`,
+* Complete the seeting as:
+    * Host: `fadi-postgresql:5432`
+    * database: `postgres`
+    * user: `admin`
+    * password: `password1`
+    * SSL Mode: `disable`
+    * Version: `10`
 
 ![Grafana datasource](examples/basic/images/grafana_datasource.gif)
 
-* host: fadi-postgresql:5432
-* database: postgres
-* user: postgres
-* password: set to the postgresql password obtained above
-* disable ssl
+Then we will configure a simple dashboard that shows the temperatures captured in the PostgreSQL database:
 
-Then we will configure a simple dashboard that shows the temperatures over the last week:
+* Select `New dashboard`,
+* Select `Choose Visualization`
+
+A pre-filled SQL query is provided and shown in the **Queries** tab.
+
+To shown the dashboard, it is necessary to specify a time frame between `23/06/2016` and `28/06/2019`.
+
+![Grafana dashboard](examples/basic/images/grafana_time_frame.png)
+
+Then, a diagram is shown in the Grafana dashboard. 
 
 ![Grafana dashboard](examples/basic/images/grafana_dashboard.png)
 
 And finally we will configure some alerts using very simple rules:
-
-![Grafana alert](examples/basic/images/grafana_alerting.gif)
+* Select `Alert` tab.
+* Click on `Create Alert`
+* Specify the alert threshold.
+![Grafana alert](examples/basic/images/grafana_alerting.png)
 
 For more information on how to use Grafana, see the [official Grafana user guide](https://grafana.com/docs/guides/getting_started/)
 
@@ -200,28 +246,60 @@ For more information on how to use Grafana, see the [official Grafana user guide
 
 [Apache Superset](https://superset.incubator.apache.org) provides some interesting features to explore your data and build basic dashboards.
 
-Head to the Superset interface at [http://superset.fadi.minikube](http://superset.fadi.minikube) (the default credentials are `admin`/`password1`): 
+Head to the Superset interface, if you are using **minikube**, you can use the following command :
+```
+minikube service -n fadi fadi-superset
+``` 
+(the default credentials are `admin`/`password1`): 
 
 First we will define the datasource:
 
+* On the top menu of Superset, click on `Sources` -> `Databases`
+
+* Then, on the right, click on (+) (`add a new record` button).
+    * Database: `example_basic`
+    * SQLAlchemy URI: `postgresql://admin:password1@fadi-postgresql:5432/postgres`
+
+* Finally, you can click on `Test Connection` to check to connection to the database.
+
 ![Superset datasource](examples/basic/images/superset_datasource.png)
 
-* SQLAlchemy URI: `postgresql://postgres:<your_password>@fadi-postgresql:5432/postgres`
+* Once the database is created, we can now create a table. 
+    * On the top menu of Superset, click on `Sources` -> `Tables`
+    * Click on (+) (`add a new record` button).
+    * Database: select `example_basic`. 
+    * Table name: `example_basic`.
+    * Click `Save`.
+    * On the table `example_basic`, click `Edit record` button.
+    * On the `List Columns` tab, in the `measure_ts`, click on the `Edit record` button. 
+    * In the "Expression" box, enter `measure_ts ::timestamptz`.
+    * Click `Save`.
 
 ![Superset table](examples/basic/images/superset_table.gif)
-
-* Sources > Tables > "+"
-  * Database: example_basic
-  * Edit measure_ts 
-    * Select Sources --> Tables from the top-level menu.
-    * Click on the "Edit" icon for the example_basic table.
-    * Click on the "List Columns" tab.
-    * Scroll down to the "measure_ts" column.
-    * Click on the "Edit" icon for the "date" column.
-    * In the "Expression" box, enter `measure_ts ::timestamptz`.
-
+  
 Then we will explore our data and build a simple dashboard with the data that is inside the database:
 
+* On the top menu of Superset, click on `Charts` 
+* Click on (+) (`add a new record` button).
+* Choose a datasource: select `example_basic`. 
+* Choose a visualization type: `Time Series - Line Chart`.
+* Click `Create new chart`.
+* In the `Data` tab 
+    * in `Time` section, 
+       * Time Grain: `hour`.
+       * Time range: `Last quarter`
+    * in `Query` section
+       * Metrics: `AVG(temperature)`
+       * Click `Save`
+* Then, in the main window of the dashboard, click on `Run Query`.
+
+A diagram will be shown.
+
+* We can now save the dashboard, by clicking on `Save`.
+   * Save as: `Basic example`
+   * Add to new dashboard: `Basic example dashboard`
+   * Click on `Save & go to bashboard`.
+    
 ![Superset dashboard](examples/basic/images/superset_dashboard.gif)
 
 For more information on how to use Superset, see the [official Superset user guide](https://superset.incubator.apache.org/tutorial.html)
@@ -236,7 +314,11 @@ For more information on how to use Superset, see the [official Superset user gui
 
 In this simple use case, we will try to access the data that is stored in the data lake.
 
-Head to the Jupyter notebook interface at [http://jupyterhub.fadi.minikube](http://jupyterhub.fadi.minikube) (the default credentials are `admin`/`password1`):
+Head to the Jupyter notebook interface,  if you are using **minikube**, you can use the following command : 
+```
+minikube service -n fadi proxy-public
+```  
+(the default credentials are `admin`/`password1`):
 
 ![Jupyter web interface](examples/basic/images/jupyter_interface.png)
 

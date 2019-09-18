@@ -12,14 +12,14 @@ The FADI project is dedicated to making the deployment of Big Data tools simple,
 The goal is to provide a straightforward way to deploy open-source systems for Big Data to various infrastructures (private and public clouds). 
 Anywhere you can run [Kubernetes](https://kubernetes.io/), you should be able to run FADI.
 
-![FADI carousel](doc/images/carousel.gif)
+![FADI carousel](doc/images/carousel/carousel.gif)
 
 ## Quick start
 
 1. [Install the framework on your workstation](INSTALL.md)
 2. Try [a simple use case](USERGUIDE.md)
 
-You can find a more detailed explanation of the various components in the [architecture presentation](https://fadi.presentations.cetic.be)
+You can find a more detailed explanation of FADI in the [presentation slideshow](https://fadi.presentations.cetic.be)
 
 ## FADI Helm Chart
 

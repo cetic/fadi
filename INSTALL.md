@@ -90,6 +90,8 @@ cd helm
 # you can edit values.yaml file to customise the stack
 ./deploy.sh
 # see deploy.log for connection information to the various services
+# specify the fadi namespace to see the different pods
+kubectl config set-context minikube --namespace fadi
 ```
 
 You can check everything is deploying/-ed in the Kubernetes dashboard:

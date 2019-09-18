@@ -1,0 +1,1 @@
+The gif animation was made with https://ezgif.com
