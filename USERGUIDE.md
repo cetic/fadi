@@ -24,8 +24,10 @@ The components needed for this use case are the following:
 * Apache Nifi as a integration tool to ingest the sensor data from the data source (a csv file in this case) and store it in the database
 * PostgreSQL as both a datawarehouse and datalake
 * Gafana as a dashboard tool to display graphs from the data ingested and stored in the datalake
+* Superset as a exploration dashboard tool
+* Jupyter as a web interface to explore the data using notebooks
 
-Those components are configured in the following [sample config file](helm/deploy.sh), once the platform is ready, you can start working with it. The following instructions assume that you deployed FADI on your workstation inside minikube.
+Those components are configured in the following [sample config file](helm/values.yaml), once the platform is ready, you can start working with it. The following instructions assume that you deployed FADI on your workstation inside minikube.
 
 ## 2. Prepare the database to store measurments 
 
@@ -114,7 +116,8 @@ So, create the following components :
 
 * InvokeHTTP processor:
     * right-click > `Configure` > `Settings` tab > `Automatically Terminate Relationships` : all except `Response`
-    *  right-click > `Configure` > `Properties` tab > Remote url: `https://raw.githubusercontent.com/cetic/fadi/master/examples/basic/sample_data.csv`
+    * right-click > `Configure` > `Properties` tab > Remote url: `https://raw.githubusercontent.com/cetic/fadi/master/examples/basic/sample_data.csv`
+    * right-click > `Configure` > `Scheduling` tab > Run Schedule: 120s (this will download the sample file every 120 seconds)
 * PutDatabaseRecord processor:
     * right-click > `Configure` > `Settings` tab > `Automatically Terminate Relationships` : all
     * right-click > `Configure` > `Properties` tab  > Record Reader > `Create a new service` > `CSV Reader`
@@ -178,9 +181,7 @@ See also [the nifi template](/examples/basic/basic_example_final_template.xml) t
 
 For more information on how to use Apache Nifi, see the [official Nifi user guide](https://nifi.apache.org/docs/nifi-docs/html/user-guide.html) and this [Awesome Nifi](https://github.com/jfrazee/awesome-nifi) resources.
 
-finally, **start** the nifi flow in the **operate** window. 
-
-nb : Don't forget to stop the flow after few secondes, else you will end up with a huge amount of data and this is not essential in this use case.
+Finally, **start** the nifi flow in the **operate** window. 
 
 ## 4. Display dashboards and configure alerts
 
@@ -200,7 +201,7 @@ minikube service -n fadi fadi-grafana
 
 ![Grafana web interface](examples/basic/images/grafana_interface.png)
 
-First we will define the postgresql datasource. To do that, in the Grafana Home Dashboard
+First we will define the PostgreSQL datasource. To do that, in the Grafana Home Dashboard
 
 * Select `Add data source`,
 * Choose data source type: `PostgreSQL`,
@@ -214,14 +215,14 @@ First we will define the postgresql datasource. To do that, in the Grafana Home 
 
 ![Grafana datasource](examples/basic/images/grafana_datasource.gif)
 
-Then we will configure a simple dashboard that shows the temperatures over captured in the PostgreSQL database:
+Then we will configure a simple dashboard that shows the temperatures captured in the PostgreSQL database:
 
 * Select `New dashboard`,
 * Select `Choose Visualization`
 
 A pre-filled SQL query is provided and shown in the **Queries** tab.
 
-To shown the dashboard, It is necessary to specify a time frame between `23/06/2016` and `28/06/2019`.
+To shown the dashboard, it is necessary to specify a time frame between `23/06/2016` and `28/06/2019`.
 
 ![Grafana dashboard](examples/basic/images/grafana_time_frame.png)
 
@@ -245,7 +246,7 @@ For more information on how to use Grafana, see the [official Grafana user guide
 
 [Apache Superset](https://superset.incubator.apache.org) provides some interesting features to explore your data and build basic dashboards.
 
-Head to the Superset interface,  if you are using **minikube**, you can use the following command :
+Head to the Superset interface, if you are using **minikube**, you can use the following command :
 ```
 minikube service -n fadi fadi-superset
 ``` 
@@ -290,7 +291,7 @@ Then we will explore our data and build a simple dashboard with the data that is
     * in `Query` section
        * Metrics: `AVG(temperature)`
        * Click `Save`
-* Then, in the main window of the dashboad, click on `Run Query`.
+* Then, in the main window of the dashboard, click on `Run Query`.
 
 A diagram will be shown.
 
