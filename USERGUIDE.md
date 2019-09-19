@@ -318,17 +318,37 @@ Head to the Jupyter notebook interface,  if you are using **minikube**, you can 
 ```
 minikube service -n fadi proxy-public
 ```  
-(the default credentials are `admin`/`password1`):
+Then, you can login using the default credentials `admin`/`password1`.
+
+A Jupyter dashboard is shown. 
+
+Choose `Minimal environment` and click on `Spawn`.
 
 ![Jupyter web interface](examples/basic/images/jupyter_interface.png)
 
-Do some data exploration in the notebook, load the [sample code](examples/basic/jupyter_exporation.ipynb):
+* You can now do some data exploration in the notebook
+   * At first, you load the [sample code](examples/basic/jupyter_exploration.ipynb):
 
 ![Jupyter exploration](examples/basic/images/jupyter_exploration.gif)
 
-Do some Spark processing in the notebook, load the [sample code](examples/basic/jupyter_spark.ipynb):
+   * Click on the `jupyter_exploration.ipynb` module and run the different scripts.
+   * You should obtain results similar to that: 
 
-![Jupyter processing](examples/basic/images/jupyter_spark.png)
+![Jupyter results1](examples/basic/images/jupyter_results_1.png)
+![Jupyter results2](examples/basic/images/jupyter_results_2.png)
+   
+* Now, we will do some Spark processing in the notebook. Before starting, you need to change the environment. So:
+   * Click on `Control panel`
+   * Click on `Stop my server`
+   * Finally, click on `Start server`, choose `Spark environment` and click on `Spawn`.
+
+![Jupyter web interface](examples/basic/images/spark_interface.png)
+
+* You can now load the [sample code](examples/basic/jupyter_spark.ipynb)
+* Run the different scripts
+* You should obtain results similar to that:
+
+![Jupyter processing](examples/basic/images/spark_results.png)
 
 For more information on how to use Superset, see the [official Jupyter documentation](https://jupyter.readthedocs.io/en/latest/)
 
