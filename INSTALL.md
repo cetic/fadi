@@ -98,25 +98,23 @@ You can check everything is deploying/-ed in the Kubernetes dashboard:
 
 ![Kubernetes FADI dashboard](doc/images/installation/minikube_fadi_dashboard.png)
 
-To access a service in your browser, type for instance:
+
+To list the different services of fadi framework:
 
 ```
 minikube service list
+```
+
+To list the different fadi pods and their status:
+
+```
+kubectl get pods
+```
+
+To access a service in your browser, type for instance:
+
+```
 minikube service -n fadi fadi-nifi
-```
-
-To access a service in your browser, you can also setup entries in your /etc/hosts file to route [http://fadi.minikube](http://fadi.minikube) to our cluster.
-
-In production you would want to set up real DNS entries. You can get the IP address of your minikube instance by running minikube ip:
-
-```
-echo "$(minikube ip) fadi.minikube" | sudo tee -a /etc/hosts
-```
-
-Reply this operation for all the different services. For instance, for [superset](https://superset.incubator.apache.org/):
-
-```
-echo "$(minikube ip) superset.fadi.minikube" | sudo tee -a /etc/hosts
 ```
 
 You can list all the addresses by typing:
@@ -140,6 +138,7 @@ To delete the FADI stack, type:
 cd helm
 ./teardown.sh
 ```
+Once the different pods are running, you can start to 
 
 ## 2. Deployment on a generic Kubernetes cluster
 
