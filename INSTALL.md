@@ -138,7 +138,7 @@ To delete the FADI stack, type:
 cd helm
 ./teardown.sh
 ```
-Once the different pods are running, you can start to 
+Once the different pods are running, you can try it with a [simple use case](USERGUIDE.md).
 
 ## 2. Deployment on a generic Kubernetes cluster
 
@@ -164,7 +164,7 @@ cd helm
 
 Note that depending on your workstation size and network connection, this could take some time (at least 5 minutes)
 
-Now that you have a sandbox with FADI on your workstation, you can try it with a [simple use case](USERGUIDE.md)
+Now that you have a sandbox with FADI on your workstation, you can try it with a [simple use case](USERGUIDE.md).
 
 ## 3. Deployment on GKE
 
