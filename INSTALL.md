@@ -96,6 +96,8 @@ kubectl config set-context minikube --namespace fadi
 
 You can check everything is deploying/-ed in the Kubernetes dashboard:
 
+Do not forget to specify the namespace to `fadi`
+
 ![Kubernetes FADI dashboard](doc/images/installation/minikube_fadi_dashboard.png)
 
 
@@ -122,8 +124,6 @@ You can list all the addresses by typing:
 ```
 kubectl get ingress -n fadi
 ```
-
-We should now be able to visit the different services behind [http://fadi.minikube](http://fadi.minikube). For instance, you can access Grafana in the browser at [http://grafana.fadi.minikube](http://grafana.fadi.minikube).
 
 To update the FADI stack, re-type:
 
