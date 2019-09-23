@@ -172,7 +172,7 @@ See also [the nifi template](/examples/basic/basic_example_final_template.xml) t
     * From the Nifi menu, drag and drop the **Template** menu.
     * Choose your uploaded template. 
     * In the **Operate** frame of Nifi:
-        * Click on `Configuration`
+        * right-click on `Configuration`
         * Click on `View configuration` of `DBCPConnectionPool` controller service. 
         * In the `Properties` tab, complete the `password` field with `password1`
         * Enable both `CSVReader` and `DBCPConnectionPool` controller services.
@@ -222,7 +222,9 @@ Then we will configure a simple dashboard that shows the temperatures captured i
 
 A pre-filled SQL query is provided and shown in the **Queries** tab.
 
-To shown the dashboard, it is necessary to specify a time frame between `23/06/2016` and `28/06/2019`.
+You can complete the `Where` clause with the following expression: `Expr: temperature > 20`.
+
+To shown the dashboard, it is necessary to specify a time frame between `2019-06-23 16:00:00` and `2019-06-28 16:00:00`.
 
 ![Grafana dashboard](examples/basic/images/grafana_time_frame.png)
 
