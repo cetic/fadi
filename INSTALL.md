@@ -189,6 +189,7 @@ It is also possible to create the Kubernetes cluster in command line, see: https
 
 * Installation logs are located in the `helm/deploy.log` file.
 * Enable local monitoring in minikube: `minikube addons enable metrics-server`
+* For Windows users, please refer to the following [issue](https://github.com/cetic/fadi/issues/55).
 
 ## 5. Continuous integration (CI) and deployment (CD)
 
