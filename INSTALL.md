@@ -96,27 +96,27 @@ kubectl config set-context minikube --namespace fadi
 
 You can check everything is deploying/-ed in the Kubernetes dashboard:
 
+Do not forget to specify the namespace to `fadi`
+
 ![Kubernetes FADI dashboard](doc/images/installation/minikube_fadi_dashboard.png)
+
+
+To list the different services of fadi framework:
+
+```
+minikube service list
+```
+
+To list the different fadi pods and their status:
+
+```
+kubectl get pods
+```
 
 To access a service in your browser, type for instance:
 
 ```
-minikube service list
 minikube service -n fadi fadi-nifi
-```
-
-To access a service in your browser, you can also setup entries in your /etc/hosts file to route [http://fadi.minikube](http://fadi.minikube) to our cluster.
-
-In production you would want to set up real DNS entries. You can get the IP address of your minikube instance by running minikube ip:
-
-```
-echo "$(minikube ip) fadi.minikube" | sudo tee -a /etc/hosts
-```
-
-Reply this operation for all the different services. For instance, for [superset](https://superset.incubator.apache.org/):
-
-```
-echo "$(minikube ip) superset.fadi.minikube" | sudo tee -a /etc/hosts
 ```
 
 You can list all the addresses by typing:
@@ -124,8 +124,6 @@ You can list all the addresses by typing:
 ```
 kubectl get ingress -n fadi
 ```
-
-We should now be able to visit the different services behind [http://fadi.minikube](http://fadi.minikube). For instance, you can access Grafana in the browser at [http://grafana.fadi.minikube](http://grafana.fadi.minikube).
 
 To update the FADI stack, re-type:
 
@@ -140,6 +138,7 @@ To delete the FADI stack, type:
 cd helm
 ./teardown.sh
 ```
+Once the different pods are running, you can try it with a [simple use case](USERGUIDE.md).
 
 ## 2. Deployment on a generic Kubernetes cluster
 
@@ -165,7 +164,7 @@ cd helm
 
 Note that depending on your workstation size and network connection, this could take some time (at least 5 minutes)
 
-Now that you have a sandbox with FADI on your workstation, you can try it with a [simple use case](USERGUIDE.md)
+Now that you have a sandbox with FADI on your workstation, you can try it with a [simple use case](USERGUIDE.md).
 
 ## 3. Deployment on GKE
 
@@ -190,6 +189,7 @@ It is also possible to create the Kubernetes cluster in command line, see: https
 
 * Installation logs are located in the `helm/deploy.log` file.
 * Enable local monitoring in minikube: `minikube addons enable metrics-server`
+* For Windows users, please refer to the following [issue](https://github.com/cetic/fadi/issues/55).
 
 ## 5. Continuous integration (CI) and deployment (CD)
 
