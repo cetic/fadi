@@ -9,7 +9,8 @@ This page provides documentation on how to use the FADI big data framework using
  * [4. Display dashboards and configure alerts](#4-display-dashboards-and-configure-alerts)
  * [5. Explore](#5-explore)
  * [6. Process](#6-process)
- * [7. Summary](#7-summary)
+ * [7. Logs management](#7-Logs-management)
+ * [8. Summary](#8-summary)
 
 ![FADI sample use case - building monitoring](examples/basic/images/uc.svg)
 
@@ -332,7 +333,47 @@ Do some Spark processing in the notebook, load the [sample code](examples/basic/
 
 For more information on how to use Superset, see the [official Jupyter documentation](https://jupyter.readthedocs.io/en/latest/)
 
-## 7. Summary
+## 7. Logs management
+
+<p align="center";>
+	<img src="examples/basic/images/logo-ELK.png" align="center" width="300px" /></a>
+</p>
+
+**Elastic Stack** is a group of open source products from Elastic designed to help users take data from any type of source and in any format and search, analyze, and visualize that data in real time. The product group is composed of: **Beats**, **Logstash**, **Elasticsearch** and **Kibana**.
+Despite each one of these four technologies being a separate project, they have been built to work exceptionally well together, the process start with **Beats**, it ships the logs from all services to **Logstash**, which parse, filter or/and transfor them before storing them in **Elasticsearch**, which is connected to **Kibana**.
+
+<p align="center";>
+ 	<img src="examples/basic/images/Elastic-stack.png" width="400px" /></a>
+</p>
+
+To access the service **Kibana**, use this command:
+
+```
+minikube service fadi-kibana
+```
+
+The next step is to **define your index pattern:** Index patterns tell Kibana which Elasticsearch indices you want to explore. An index pattern can match the name of a single index, or include a wildcard (*) to match multiple indices, for example, in our case the index we're using is `filebeat*`.
+to create the index pattern and monitor the logs, follow these simple steps:
+
+1. In Kibana, open **Management** and then click **Index Patterns**.
+2. If this is your first index pattern, the **Create index pattern** page opens automatically. Otherwise, click **Create index pattern**. 
+3. Enter `filebeat*` in the Index pattern field.
+
+ 	<img src="examples/basic/images/index_pattern.png" width="600px" /></a>
+
+4. Click **Next step**.
+5. In **Configure settings**, click **Create index pattern**.
+	
+	You’re presented a table of all fields and associated data types in the index.
+6. Open **Discover** and the logs will be displayed automatically.
+
+	Your screen should look something like this:
+	
+ <img src="examples/basic/images/logs.png" width="600px" /></a>
+
+For more details you can always visit the Elastic-stack [official Documentation](https://www.elastic.co/guide/index.html).
+
+## 8. Summary
 
 In this use case, we have demonstrated a simple configuration for FADI, where we use various services to ingest, store, analyse, explore and provide dashboards and alerts 
 
