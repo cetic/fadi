@@ -222,13 +222,13 @@ Then we will configure a simple dashboard that shows the temperatures captured i
 
 A pre-filled SQL query is provided and shown in the **Queries** tab.
 
-You can complete the `Where` clause with the following expression: `Expr: temperature > 20`.
+You can complete the `Where` clause with the following expression: `Expr: temperature > 20` for example.
 
-To shown the dashboard, it is necessary to specify a time frame between `2019-06-23 16:00:00` and `2019-06-28 16:00:00`.
+To show the dashboard, it is necessary to specify a time frame between `2019-06-23 16:00:00` and `2019-06-28 16:00:00`.
 
 ![Grafana dashboard](examples/basic/images/grafana_time_frame.png)
 
-Then, a diagram is shown in the Grafana dashboard. 
+Then, a diagram is displayed in the Grafana dashboard. 
 
 ![Grafana dashboard](examples/basic/images/grafana_dashboard.png)
 
