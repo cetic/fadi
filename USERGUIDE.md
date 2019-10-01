@@ -172,7 +172,7 @@ See also [the nifi template](/examples/basic/basic_example_final_template.xml) t
     * From the Nifi menu, drag and drop the **Template** menu.
     * Choose your uploaded template. 
     * In the **Operate** frame of Nifi:
-        * Click on `Configuration`
+        * right-click on `Configuration`
         * Click on `View configuration` of `DBCPConnectionPool` controller service. 
         * In the `Properties` tab, complete the `password` field with `password1`
         * Enable both `CSVReader` and `DBCPConnectionPool` controller services.
@@ -222,11 +222,13 @@ Then we will configure a simple dashboard that shows the temperatures captured i
 
 A pre-filled SQL query is provided and shown in the **Queries** tab.
 
-To shown the dashboard, it is necessary to specify a time frame between `23/06/2016` and `28/06/2019`.
+You can complete the `Where` clause with the following expression: `Expr: temperature > 20` for example.
+
+To show the dashboard, it is necessary to specify a time frame between `2019-06-23 16:00:00` and `2019-06-28 16:00:00`.
 
 ![Grafana dashboard](examples/basic/images/grafana_time_frame.png)
 
-Then, a diagram is shown in the Grafana dashboard. 
+Then, a diagram is displayed in the Grafana dashboard. 
 
 ![Grafana dashboard](examples/basic/images/grafana_dashboard.png)
 
@@ -318,17 +320,37 @@ Head to the Jupyter notebook interface,  if you are using **minikube**, you can 
 ```
 minikube service -n fadi proxy-public
 ```  
-(the default credentials are `admin`/`password1`):
+Then, you can login using the default credentials `admin`/`password1`.
+
+A Jupyter dashboard is shown. 
+
+Choose `Minimal environment` and click on `Spawn`.
 
 ![Jupyter web interface](examples/basic/images/jupyter_interface.png)
 
-Do some data exploration in the notebook, load the [sample code](examples/basic/jupyter_exporation.ipynb):
+* You can now do some data exploration in the notebook
+   * At first, you load the [sample code](examples/basic/jupyter_exploration.ipynb):
 
 ![Jupyter exploration](examples/basic/images/jupyter_exploration.gif)
 
-Do some Spark processing in the notebook, load the [sample code](examples/basic/jupyter_spark.ipynb):
+   * Click on the `jupyter_exploration.ipynb` module and run the different scripts.
+   * You should obtain results similar to that: 
 
-![Jupyter processing](examples/basic/images/jupyter_spark.png)
+![Jupyter results1](examples/basic/images/jupyter_results_1.png)
+![Jupyter results2](examples/basic/images/jupyter_results_2.png)
+   
+* Now, we will do some Spark processing in the notebook. Before starting, you need to change the environment. So:
+   * Click on `Control panel`
+   * Click on `Stop my server`
+   * Finally, click on `Start server`, choose `Spark environment` and click on `Spawn`.
+
+![Jupyter web interface](examples/basic/images/spark_interface.png)
+
+* You can now load the [sample code](examples/basic/jupyter_spark.ipynb)
+* Run the different scripts
+* You should obtain results similar to that:
+
+![Jupyter processing](examples/basic/images/spark_results.png)
 
 For more information on how to use Superset, see the [official Jupyter documentation](https://jupyter.readthedocs.io/en/latest/)
 
