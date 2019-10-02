@@ -64,8 +64,6 @@ This project follows the [all-contributors](https://github.com/all-contributors/
 
 ## About
 
-![CETIC asbl](doc/images/logos/cetic.png)
-
 <a href="https://cetic.be/FADI"><img src="doc/images/logos/cetic.png" height="100"/></a>
 
 You can find out more about FADI on the [CETIC website](https://cetic.be/FADI)
