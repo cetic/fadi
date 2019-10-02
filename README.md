@@ -53,6 +53,8 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
     <td align="center"><a href="https://github.com/Sellto"><img src="https://avatars1.githubusercontent.com/u/17011743?v=4" width="100px;" alt="Sellto"/><br /><sub><b>Tom Selleslagh</b></sub></a><br /><a href="https://github.com/cetic/fadi/commits?author=Sellto" title="Documentation">📖</a></td>
     <td align="center"><a href="https://github.com/terence-bigtt"><img src="https://avatars1.githubusercontent.com/u/15094829?v=4" width="100px;" alt="terence-bigtt"/><br /><sub><b>Terence Delsate</b></sub></a><br /><a href="https://github.com/cetic/fadi/commits?author=terence-bigtt" title="Code">💻</a></td>
     <td align="center"><a href="https://github.com/Maher-badri"><img src="https://avatars0.githubusercontent.com/u/52699999?v=4" width="100px;" alt="Maher-badri"/><br /><sub><b>Maher Badri</b></sub></a><br /><a href="#projectManagement-Maher-badri" title="Project Management">📆</a></td>
+    <td align="center"><a href="https://github.com/mgoeminne"><img src="https://avatars1.githubusercontent.com/u/1286106?v=4" width="100px;" alt="Mathieu Goeminne"/><br /><sub><b>Mathieu Goeminne</b></sub></a><br /><a href="#ideas-mgoeminne" title="Ideas, Planning, & Feedback">🤔</a></td>
+    <td align="center"><a href="https://github.com/SellamiRami"><img src="https://avatars0.githubusercontent.com/u/3645720?v=4" width="100px;" alt="SellamiRami"/><br /><sub><b>Rami Sellami</b></sub></a><br /><a href="#review-SellamiRami" title="Reviewed Pull Requests">👀</a><a href="https://github.com/cetic/fadi/commits?author=SellamiRami" title="Tests">⚠️</a></td>
   </tr>
 </table>
 
