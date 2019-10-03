@@ -7,7 +7,7 @@
   "contributors": [
     {
       "login": "banzo",
-      "name": "banzo",
+      "name": "Sebastien Dupont",
       "avatar_url": "https://avatars1.githubusercontent.com/u/2684865?v=4",
       "profile": "https://github.com/banzo",
       "contributions": [
@@ -28,7 +28,7 @@
     },
     {
       "login": "AyadiAmen",
-      "name": "Amen",
+      "name": "Amen Ayadi",
       "avatar_url": "https://avatars1.githubusercontent.com/u/37482206?v=4",
       "profile": "https://github.com/AyadiAmen",
       "contributions": [
@@ -57,7 +57,7 @@
     },
     {
       "login": "smouton-cetic",
-      "name": "smouton-cetic",
+      "name": "Stephane Mouton",
       "avatar_url": "https://avatars3.githubusercontent.com/u/52540999?v=4",
       "profile": "https://github.com/smouton-cetic",
       "contributions": [
@@ -66,7 +66,7 @@
     },
     {
       "login": "nikosmtsk",
-      "name": "nikosmtsk",
+      "name": "Nikolaos Matskanis",
       "avatar_url": "https://avatars1.githubusercontent.com/u/36480172?v=4",
       "profile": "https://github.com/nikosmtsk",
       "contributions": [
@@ -75,16 +75,17 @@
     },
     {
       "login": "Sellto",
-      "name": "Sellto",
+      "name": "Tom Selleslagh",
       "avatar_url": "https://avatars1.githubusercontent.com/u/17011743?v=4",
       "profile": "https://github.com/Sellto",
       "contributions": [
-        "doc"
+        "doc",
+        "test"
       ]
     },
     {
       "login": "terence-bigtt",
-      "name": "terence-bigtt",
+      "name": "Terence Delsate",
       "avatar_url": "https://avatars1.githubusercontent.com/u/15094829?v=4",
       "profile": "https://github.com/terence-bigtt",
       "contributions": [
@@ -93,7 +94,7 @@
     },
     {
       "login": "Maher-badri",
-      "name": "Maher-badri",
+      "name": "Maher Badri",
       "avatar_url": "https://avatars0.githubusercontent.com/u/52699999?v=4",
       "profile": "https://github.com/Maher-badri",
       "contributions": [
@@ -111,7 +112,7 @@
     },
     {
       "login": "SellamiRami",
-      "name": "SellamiRami",
+      "name": "Rami Sellami",
       "avatar_url": "https://avatars0.githubusercontent.com/u/3645720?v=4",
       "profile": "https://github.com/SellamiRami",
       "contributions": [
@@ -119,7 +120,7 @@
       ]
     }
   ],
-  "contributorsPerLine": 7,
+  "contributorsPerLine": 6,
   "projectName": "fadi",
   "projectOwner": "cetic",
   "repoType": "github",
