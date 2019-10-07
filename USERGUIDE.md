@@ -4,7 +4,7 @@ FADI User guide
 This page provides documentation on how to use the FADI big data framework using a sample use case: monitoring CETIC offices building.
 
  * [1. Install FADI](#1-install-fadi)
- * [2. Prepare the database to store measurments](#2-prepare-the-database-to-store-measurments)
+ * [2. Prepare the database to store measurements](#2-prepare-the-database-to-store-measurements)
  * [3. Ingest measurements](#3-ingest-measurements)
  * [4. Display dashboards and configure alerts](#4-display-dashboards-and-configure-alerts)
  * [5. Explore](#5-explore)
@@ -29,7 +29,7 @@ The components needed for this use case are the following:
 
 Those components are configured in the following [sample config file](helm/values.yaml), once the platform is ready, you can start working with it. The following instructions assume that you deployed FADI on your workstation inside minikube.
 
-## 2. Prepare the database to store measurments 
+## 2. Prepare the database to store measurements 
 
 <a href="https://www.pgadmin.org" alt="pgAdmin"><img src="doc/images/logos/pgadmin.png" width="200px" /></a>
 

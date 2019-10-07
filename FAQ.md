@@ -24,3 +24,10 @@ Please make sure the following steps have been taken beforehand:
 * update Helm to the latest version
 * check the logs (`minikube logs`) for any suspicious error message
 
+## OSx - slow installation
+
+**Note for Mac users :** you need to change the network interface in the Minikube vm: in the VirtualBox GUI, go to `minikube->Configuration->Network->Interface 1->advanced` and change `Interface Type` to `PCnet-FAST III` (the minikube vm should be shut down in order to be able to change the network interface: `minikube stop`
+
+## Windows Installation
+
+This is still not totally supported, some guidelines here #55

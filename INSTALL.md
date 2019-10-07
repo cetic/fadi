@@ -45,6 +45,8 @@ Make sure that the computer you are installing FADI to is powerful enough (curre
 
 ### 1.2. Local deployment
 
+#### 1.2.1. Prepare the local Kubernetes cluster
+
 Delete any previously created Minikube installation:
 
 ```bash
@@ -72,14 +74,16 @@ This will open a browser window with the [Kubernetes Dashboard](http://127.0.0.1
 
 ![Minikube initial dashboard](doc/images/installation/minikube_dashboard.png)
 
+**Note for Mac users :** you need to change the network interface in the Minikube vm: in the VirtualBox GUI, go to `minikube->Configuration->Network->Interface 1->advanced` and change `Interface Type` to `PCnet-FAST III` (the minikube vm should be shut down in order to be able to change the network interface: `minikube stop`
+
+#### 1.2.2. Install FADI services on the local cluster
+
 Clone this repository:
 
 ```bash
 git clone https://github.com/cetic/fadi.git fadi
 cd fadi
 ```
-
-**Note for Mac users :** you need to change the network interface in the Minikube vm: in the VirtualBox GUI, go to `minikube->Configuration->Network->Interface 1->advanced` and change `Interface Type` to `PCnet-FAST III` (the minikube vm should be shut down in order to be able to change the network interface: `minikube stop`
 
 Launch the Helm script, this will deploy all the FADI services on the Minikube cluster (and may take some time).
 
@@ -138,7 +142,8 @@ To delete the FADI stack, type:
 cd helm
 ./teardown.sh
 ```
-Once the different pods are running, you can try it with a [simple use case](USERGUIDE.md).
+
+Now that you have a sandbox with FADI on your workstation, you can try it with a [simple use case](USERGUIDE.md).
 
 ## 2. Deployment on a generic Kubernetes cluster
 
@@ -164,7 +169,6 @@ cd helm
 
 Note that depending on your workstation size and network connection, this could take some time (at least 5 minutes)
 
-Now that you have a sandbox with FADI on your workstation, you can try it with a [simple use case](USERGUIDE.md).
 
 ## 3. Deployment on GKE
 
