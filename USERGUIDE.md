@@ -335,16 +335,14 @@ For more information on how to use Superset, see the [official Jupyter documenta
 
 ## 7. Logs management
 
-<p align="center";>
+<p align="left";>
 	<img src="examples/basic/images/logo-ELK.png" align="center" width="300px" /></a>
 </p>
 
 **Elastic Stack** is a group of open source products from Elastic designed to help users take data from any type of source and in any format and search, analyze, and visualize that data in real time. The product group is composed of: **Beats**, **Logstash**, **Elasticsearch** and **Kibana**.
 Despite each one of these four technologies being a separate project, they have been built to work exceptionally well together, the process start with **Beats**, it ships the logs from all services to **Logstash**, which parse, filter or/and transfor them before storing them in **Elasticsearch**, which is connected to **Kibana**.
 
-<p align="center";>
- 	<img src="examples/basic/images/Elastic-stack.png" width="400px" /></a>
-</p>
+![Elastic-stack](examples/basic/images/Elastic-stack.png)
 
 To access the service **Kibana**, use this command:
 
@@ -359,7 +357,7 @@ to create the index pattern and monitor the logs, follow these simple steps:
 2. If this is your first index pattern, the **Create index pattern** page opens automatically. Otherwise, click **Create index pattern**. 
 3. Enter `filebeat*` in the Index pattern field.
 
- 	<img src="examples/basic/images/index_pattern.png" width="600px" /></a>
+	![index_pattern](examples/basic/images/index_pattern.png)
 
 4. Click **Next step**.
 5. In **Configure settings**, click **Create index pattern**.
@@ -369,7 +367,7 @@ to create the index pattern and monitor the logs, follow these simple steps:
 
 	Your screen should look something like this:
 	
- <img src="examples/basic/images/logs.png" width="600px" /></a>
+ ![Logs](examples/basic/images/logs.png)
 
 For more details you can always visit the Elastic-stack [official Documentation](https://www.elastic.co/guide/index.html).
 
