@@ -6,13 +6,13 @@ FAQ - Frequently asked questions
 * a minimal setup can run on your laptop using minikube (see [the local deployment](https://github.com/cetic/fadi#02-local-deployment). Currently 16GB RAM with a modern CPU should be sufficient.
 * if you have an account at a public cloud that provides Kubernetes as a service (AWS, GCP, Azure, ...), or have a Kubernetes cluster at hand, you can install the stack using our Helm template. (see [GKE instructions](https://github.com/cetic/fadi#04-deployment-on-gke))
 
-## How can I get help on how to use FADI
+## How can I get help on how to use FADI?
 
 In case you encounter an issue with FADI, have a feature request or any other question, feel free to [open an issue](https://github.com/cetic/fadi/issues/new/choose).
 
 ## Why "FADI"?
 
-FADI is the acronym for "Framework d'Analyse de Données Industrielles" ("A Framework for Industrial Data Analysis"))
+FADI is the acronym for "Framework d'Analyse de Données Industrielles" ("A Framework for Industrial Data Analysis")
 
 ## FADI is not working
 
@@ -24,3 +24,10 @@ Please make sure the following steps have been taken beforehand:
 * update Helm to the latest version
 * check the logs (`minikube logs`) for any suspicious error message
 
+## OSx - slow installation
+
+**Note for Mac users :** you need to change the network interface in the Minikube vm: in the VirtualBox GUI, go to `minikube->Configuration->Network->Interface 1->advanced` and change `Interface Type` to `PCnet-FAST III` (the minikube vm should be shut down in order to be able to change the network interface: `minikube stop`
+
+## Windows Installation
+
+This is still not totally supported, some guidelines here #55
