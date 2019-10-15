@@ -197,5 +197,6 @@ See [.gitlab-ci.sample.yml](.gitlab-ci.sample.yml) for an example CI setup with 
 
 ## 6. Additional configuration
 
-See the [user management documentation](doc/USERMANAGEMENT.md) for additional information on how to configure FADI user identification and authorization (LDAP, RBAC, ...).
+See the [user management documentation](doc/USERMANAGEMENT.md) for information on how to configure user identification and authorization (LDAP, RBAC, ...).
 
+See the [logs management documentation](doc/LOGGING.md) for information on how to configure logging

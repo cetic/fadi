@@ -28,9 +28,15 @@ The components needed for this use case are the following:
 * Superset as a exploration dashboard tool
 * Jupyter as a web interface to explore the data using notebooks
 
-Those components are configured in the following [sample config file](helm/values.yaml), once the platform is ready, you can start working with it. The following instructions assume that you deployed FADI on your workstation inside minikube.
+Those components are configured in the following [sample config file](helm/values.yaml), once the platform is ready, you can start working with it. 
 
-## 2. Prepare the database to store measurments 
+The following instructions assume that you deployed FADI on your workstation inside minikube.
+
+Unless specified otherwise, all services can be accessed using the username and password pair: `admin` / `password1` , see the [user management documentation](doc/USERMANAGEMENT.md) for detailed information on how to configure user identification and authorization (LDAP, RBAC, ...).
+
+See the [logs management documentation](doc/LOGGING.md) for information on how to configure the management of the various service logs.
+
+## 2. Prepare the database to store measurements 
 
 <a href="https://www.pgadmin.org" alt="pgAdmin"><img src="doc/images/logos/pgadmin.png" width="200px" /></a>
 
@@ -333,45 +339,7 @@ Do some Spark processing in the notebook, load the [sample code](examples/basic/
 
 For more information on how to use Superset, see the [official Jupyter documentation](https://jupyter.readthedocs.io/en/latest/)
 
-## 7. Logs management
-
-<p align="left";>
-	<img src="examples/basic/images/logo-ELK.png" align="center" width="300px" /></a>
-</p>
-
-**Elastic Stack** is a group of open source products from Elastic designed to help users take data from any type of source and in any format and search, analyze, and visualize that data in real time. The product group is composed of: **Beats**, **Logstash**, **Elasticsearch** and **Kibana**.
-Despite each one of these four technologies being a separate project, they have been built to work exceptionally well together, the process start with **Beats**, it ships the logs from all services to **Logstash**, which parse, filter or/and transfor them before storing them in **Elasticsearch**, which is connected to **Kibana**.
-
-![Elastic-stack](examples/basic/images/Elastic-stack.png)
-
-To access the service **Kibana**, use this command:
-
-```
-minikube service fadi-kibana
-```
-
-The next step is to **define your index pattern:** Index patterns tell Kibana which Elasticsearch indices you want to explore. An index pattern can match the name of a single index, or include a wildcard (*) to match multiple indices, for example, in our case the index we're using is `filebeat*`.
-to create the index pattern and monitor the logs, follow these simple steps:
-
-1. In Kibana, open **Management** and then click **Index Patterns**.
-2. If this is your first index pattern, the **Create index pattern** page opens automatically. Otherwise, click **Create index pattern**. 
-3. Enter `filebeat*` in the Index pattern field.
-
-	![index_pattern](examples/basic/images/index_pattern.png)
-
-4. Click **Next step**.
-5. In **Configure settings**, click **Create index pattern**.
-	
-	You’re presented a table of all fields and associated data types in the index.
-6. Open **Discover** and the logs will be displayed automatically.
-
-	Your screen should look something like this:
-	
- ![Logs](examples/basic/images/logs.png)
-
-For more details you can always visit the Elastic-stack [official Documentation](https://www.elastic.co/guide/index.html).
-
-## 8. Summary
+## 7. Summary
 
 In this use case, we have demonstrated a simple configuration for FADI, where we use various services to ingest, store, analyse, explore and provide dashboards and alerts 
 
