@@ -27,7 +27,13 @@ The components needed for this use case are the following:
 * Superset as a exploration dashboard tool
 * Jupyter as a web interface to explore the data using notebooks
 
-Those components are configured in the following [sample config file](helm/values.yaml), once the platform is ready, you can start working with it. The following instructions assume that you deployed FADI on your workstation inside minikube.
+Those components are configured in the following [sample config file](helm/values.yaml), once the platform is ready, you can start working with it. 
+
+The following instructions assume that you deployed FADI on your workstation inside minikube.
+
+Unless specified otherwise, all services can be accessed using the username and password pair: `admin` / `password1` , see the [user management documentation](doc/USERMANAGEMENT.md) for detailed information on how to configure user identification and authorization (LDAP, RBAC, ...).
+
+See the [logs management documentation](doc/LOGGING.md) for information on how to configure the management of the various service logs.
 
 ## 2. Prepare the database to store measurements 
 

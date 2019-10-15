@@ -27,7 +27,7 @@ The first entry that will be created is for the administrator user ; to initiall
 * Username: `admin`
 * Password: `password1`
 
-Once created we either add the users/groups manually through the phpLDAPadmin web interface, or you can pass a [LDIF file](https://en.wikipedia.org/wiki/LDAP_Data_Interchange_Format) (see the [sample ldif file](examples/basic/example.ldif)).
+Once created we either add the users/groups manually through the phpLDAPadmin web interface, or you can pass a [LDIF file](https://en.wikipedia.org/wiki/LDAP_Data_Interchange_Format) (see the [sample ldif file](/examples/basic/example.ldif)).
 
 ## 2. Configure the various services
 

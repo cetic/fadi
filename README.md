@@ -1,5 +1,6 @@
 # FADI - A framework for big data analytics
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0) ![version](https://img.shields.io/github/tag/cetic/fadi.svg?label=release) [![All Contributors](https://img.shields.io/badge/all_contributors-10-orange.svg?style=flat)](#contributors)
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fcetic%2Ffadi.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2Fcetic%2Ffadi?ref=badge_shield)
 
 <p align="center" style="width: 50%; height: 200px;">
   <a href="https://fadi.cetic.be"><img src="doc/images/logo.png" height="200"/></a>
@@ -67,3 +68,6 @@ This project follows the [all-contributors](https://github.com/all-contributors/
 <a href="https://cetic.be/FADI"><img src="doc/images/logos/cetic.png" height="100"/></a>
 
 You can find out more about FADI on the [CETIC website](https://cetic.be/FADI)
+
+## License
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fcetic%2Ffadi.svg?type=large)](https://app.fossa.io/projects/git%2Bgithub.com%2Fcetic%2Ffadi?ref=badge_large)
