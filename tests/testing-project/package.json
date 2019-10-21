@@ -1,0 +1,15 @@
+{
+	"name": "pptr-testing-project",
+	"version": "1.0.0",
+	"description": "automated testing with puppeteer",
+	"main": "index.js",
+	"scripts": {
+		"test": "jest --config=jest.config.js --detectOpenHandles --forceExit"
+	},
+	"author": "",
+	"license": "ISC",
+	"dependencies": {
+		"jest": "^24.9.0",
+		"puppeteer": "^1.20.0"
+	}
+}
