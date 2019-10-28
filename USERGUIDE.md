@@ -11,7 +11,7 @@ This page provides documentation on how to use the FADI big data framework using
  * [6. Process](#6-process)
  * [7. Summary](#7-summary)
 
-![FADI sample use case - building monitoring](examples/basic/images/uc.svg)
+![FADI sample use case - building monitoring](examples/basic/images/uck.svg)
 
 In this simple example, we will ingest temperature measurements from sensors and push them into a broker.
 For store them, we are going to get back the data from the broker. Finally, we display the temperature values in a simple dashboard.
