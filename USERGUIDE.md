@@ -107,32 +107,28 @@ measure_ts,temperature
 2019-06-23 14:07:33.503,22.5
 2019-06-23 14:08:03.504,22.5
 2019-06-23 14:08:33.504,22.5
-2019-06-23 14:09:03.503,22.5
-2019-06-23 14:09:33.503,22.5
-2019-06-23 14:10:03.503,22.5
-2019-06-23 14:10:33.504,22.5
-2019-06-23 14:11:03.503,22.5
-2019-06-23 14:11:33.503,22.5
-2019-06-23 14:12:03.503,22.5
-2019-06-23 14:12:33.504,22.5
-2019-06-23 14:13:03.504,22.5
-2019-06-23 14:13:33.504,22.5
-2019-06-23 14:14:03.504,22.5
 (...)
 ```
 
 
-Now we need to tell Nifi to read the csv file and store the measurements in the data lake.
+Now we need to tell Nifi to read the csv file and push the measurements in broker.
 So, create the following components :
 
 #### Processors
-* InvokeHTTP processor:
+To create processor, make a drag and drop from the following button :
+
+<a href="https://grafana.com/" alt="Grafana"><img src="examples/basic/images/nifi_processor.png" width="50px" /></a>
+
+We need to configure two processors:
+
+1. InvokeHTTP processor:
     * right-click on the processor > Click on `Configure` >
       - On the `Settings` tab > `Automatically Terminate Relationships` : all except `Response`
       - On the `Properties` tab > `Remote url`: `https://raw.githubusercontent.com/cetic/fadi/master/examples/basic/sample_data.csv`
       - On the `Scheduling` tab > `Run Schedule`: 120s (this will download the sample file every 120 seconds)
 
-* PublishKafka processor:
+
+2. PublishKafka processor:
     * right-click on the processor > Click on `Configure` > go to `Properties` tab >
       - `Kafka Brokers`: `fadi-kafka:9092`
       - `Topic Name`: `nifi-kafka`
@@ -140,10 +136,93 @@ So, create the following components :
 
 
 #### Output Port
+To create output port, make a drag and drop from the following button :
+
+<a href="https://grafana.com/" alt="Grafana"><img src="examples/basic/images/nifi_output.png" width="50px" /></a>
+
 Create two output ports : `success_port` and `failure_port`
 
 #### Connections
-* `Response Connection:
+
+* `Response Connection`:
+    * Create an edge from `InvokeHTTP` processor to `PublishKafka`
+    * Details > For relationships > `Response`
+
+
+* `Success` Connection:
+    * Create an edge from `PutDatabaseRecord` to `Output Success Port`  
+    * Details > relationships > only `success`    
+
+
+* `Failure` Connection:
+    * From `PutDatabaseRecord` to `Output Failure Port`
+    * Details > relationships > : only `failure`   
+
+
+Here is the result you need to arrive :
+
+![Nifi Ingest CSV and store in PostgreSQL](examples/basic/images/nifi_csv_to_kafka.png)
+
+See also [the nifi Kafka_to_psql template](/examples/basic/nifi_template_CSV_to_kafka.xml) that corresponds to this example.
+* To reuse the provided template (instead of designing our own template), you can:
+    * Click `Upload template` in the **Operate** frame, select the template, and upload it.
+    * From the Nifi menu, drag and drop the **Template** menu.
+    * Choose your uploaded template.
+
+* right-click, and select `Start`.
+
+### 3.2 Measurements digestion
+
+#### Processors
+To create processor, make a drag and drop from the following button :
+
+<a href="https://grafana.com/" alt="Grafana"><img src="examples/basic/images/nifi_processor.png" width="50px" /></a>
+
+We need to configure two processors:
+
+1. ConsumeKafka processor:
+    * right-click on the processor > Click on `Configure` > go to `Properties` tab >
+      - `Kafka Brokers`: `fadi-kafka:9092`
+      - `Topic Name`: `nifi-kafka`
+      - `Group ID`: `fadi`
+      - `Offset Reset`: `earliest`
+
+
+2. PutDatabaseRecord processor:
+<ul>
+  <li> right-click on the processor > Click on <code>Configure</code> > go to <code>Settings</code> tab > uncheck all the box on the list <code>Automatically Terminate Relationships</code></li>
+  <br>
+  <li> right-click on the processor > Click on  <code>Configure</code> > go to  <code>Properties</code> tab >
+  <ul>
+    <li> Statement Type: <code>INSERT</code></li>
+    <li> Schema Name > <code>public</code></li>
+    <li> Table Name > <code>example_basic</code></li>
+    <li> Translate Field Names > <code>false</code></li>
+  </ul>
+  </li>
+  <br>
+  <li>right-click on the processor > Click on <code>Configure</code> > go to <code>Properties</code> tab  > Record Reader > <code>Create a new service</code> > <code>CSV Reader</code> > click on <code>Go To</code> (the litlle arrow on the right) > Click on <code>Configure</code>(the gear on the right side) > <code>Properties</code> > set <code>Treat First Line as Header</code> to <code>true</code></li>
+ <br>
+  <li> right-click on the processor > Click on <code>Configure</code> > go to <code>Properties</code> tab  > Database Connection Pooling Service > <code>DBCPConnectionPool</code> > Click on <code>Go To</code> (the litlle arrow on the right) > Click on <code>Configure</code>(the gear on the right side) > <code>Properties</code> > set up the following values:
+    <ul>
+      <li> Database Connection URL: <code>jdbc:postgresql://fadi-postgresql:5432/postgres?stringtype=unspecified</code></li>
+      <li> Database Driver Class Name: <code>org.postgresql.Driver</code> </li>
+      <li> Database Driver Location(s): <code>/opt/nifi/psql/postgresql-42.2.6.jar </code> </li>
+      <li> Database User: <code>admin</code </li>
+      <li> Password: <code> password1</code </li>
+      <li> Enable service by clicking on the lightning icon.</li>
+    </ul>
+  </li>
+
+#### Output Port
+To create output port, make a drag and drop from the following button :
+
+<a href="https://grafana.com/" alt="Grafana"><img src="examples/basic/images/nifi_output.png" width="50px" /></a>
+
+Create two output ports : `success_port` and `failure_port`
+
+#### Connections
+* `Response Connection`:
     * Create an edge from `InvokeHTTP` processor to `PublishKafka`
     * Details > For relationships > `Response`
 
@@ -153,117 +232,14 @@ Create two output ports : `success_port` and `failure_port`
 
 * `Failure` Connection:
     * From `PutDatabaseRecord` to `Output Failure Port`
-    * Details > relationships > : only `failure`   
+    * Details > relationships > : only `failure`  
 
 
-Here is the result you need to arrive : 
+Here is the result you need to arrive :
 
-<!-- ![Nifi Ingest CSV and store in PostgreSQL](examples/basic/images/nifi_csv_to_sql_2.png) -->
+![Nifi Ingest CSV and store in PostgreSQL](examples/basic/images/nifi_kafka_to_sql.png)
 
-
-### 3.2 Measurements digestion
-
-<a href="http://nifi.apache.org/" alt="Apache Nifi"><img src="doc/images/logos/nifi.png" width="100px" /></a>
-
-> "An easy to use, powerful, and reliable system to process and distribute data."
-
-[Apache Nifi](http://nifi.apache.org/) provides ingestion mechanism (to e.g. connect a database, REST API, csv/json/avro files on a FTP, ... for ingestion): in this case we want to read the temperature sensors data from our HVAC system and store it in a database.
-
-Temperature measurements from the last 5 days (see [HVAC sample temperatures csv extract](examples/basic/sample_data.csv)) are ingested:
-
-```csv
-measure_ts,temperature
-2019-06-23 14:05:03.503,22.5
-2019-06-23 14:05:33.504,22.5
-2019-06-23 14:06:03.504,22.5
-2019-06-23 14:06:33.504,22.5
-2019-06-23 14:07:03.504,22.5
-2019-06-23 14:07:33.503,22.5
-2019-06-23 14:08:03.504,22.5
-2019-06-23 14:08:33.504,22.5
-2019-06-23 14:09:03.503,22.5
-2019-06-23 14:09:33.503,22.5
-2019-06-23 14:10:03.503,22.5
-2019-06-23 14:10:33.504,22.5
-2019-06-23 14:11:03.503,22.5
-2019-06-23 14:11:33.503,22.5
-2019-06-23 14:12:03.503,22.5
-2019-06-23 14:12:33.504,22.5
-2019-06-23 14:13:03.504,22.5
-2019-06-23 14:13:33.504,22.5
-2019-06-23 14:14:03.504,22.5
-(...)
-```
-
-To start, head to the Nifi web interface, if you are using **minikube**, you can use the following command :
-```
-minikube service -n fadi fadi-nifi
-```
-
-![Nifi web interface](examples/basic/images/nifi_interface.png)
-
-Now we need to tell Nifi to read the csv file and store the measurements in the data lake.
-
-So, create the following components :
-
-* InvokeHTTP processor:
-    * right-click > `Configure` > `Settings` tab > `Automatically Terminate Relationships` : all except `Response`
-    * right-click > `Configure` > `Properties` tab > Remote url: `https://raw.githubusercontent.com/cetic/fadi/master/examples/basic/sample_data.csv`
-    * right-click > `Configure` > `Scheduling` tab > Run Schedule: 120s (this will download the sample file every 120 seconds)
-
-* KafkaPublish
-
-* KafkaSubscribe
-
-* PutDatabaseRecord processor:
-    * right-click > `Configure` > `Settings` tab > `Automatically Terminate Relationships` : all
-    * right-click > `Configure` > `Properties` tab  > Record Reader > `Create a new service` > `CSV Reader`
-         * `Go To` > `Configure` > `Properties` >
-         * Treat First Line as Header: `true`
-    * right-click > `Configure` > `Properties` tab  > Statement Type: `INSERT`
-    * right-click > `Configure` > `Properties` tab  > Database Connection Pooling Service > DBCPConnectionPool
-        * `Go To` > `Configure` > `Properties` >
-            * Database Connection URL: `jdbc:postgresql://fadi-postgresql:5432/postgres?stringtype=unspecified`
-            * Database Driver Class Name: `org.postgresql.Driver`
-            * Database Driver Location(s): `/opt/nifi/psql/postgresql-42.2.6.jar`
-            * Database User: `admin`
-            * Password: `password1`
-            * Enable service by clicking on the lightning icon.
-    * right-click > `Configure` > `Properties` tab  > Schema Name > `public`
-    * right-click > `Configure` > `Properties` tab  > Table Name > `example_basic`
-    * right-click > `Configure` > `Properties` tab  > Translate Field Names > `false`
-    * Now we need to enable the controller services:
-        * Click anywhere on the Nifi workbench.
-        * Click on the `configuration` button.
-        * Enable both controller services.
-
-* Response Connection:
-    * Create an edge from `InvokeHTTP` processor to `PutDatabaseRecord`
-    * Details > For relationships > `Response`
-
-* Output Port:
-    * Port Name > : `success_port`     
-
-* Output Port:
-    * Port Name > : `failure_port`   
-
-* `Success` Connection:
-    * Create an edge from `PutDatabaseRecord` to `Output Success Port`  
-    * Details > relationships > only `success`    
-
-* `Failure` Connection:
-    * From `PutDatabaseRecord` to `Output Failure Port`
-    * Details > relationships > : only `failure`   
-
-* Recursive Connection on `DatabaseRecord`:
-    * Details > relationships > only `retry`   
-
-* Select both processors and both output ports
-        * right-click, and select `Start`.
-
-![Nifi Ingest CSV and store in PostgreSQL](examples/basic/images/nifi_csv_to_sql_2.png)
-
-See also [the nifi template](/examples/basic/basic_example_final_template.xml) that corresponds to this example.
+See also [the nifi CSV_to_Kafka template](/examples/basic/nifi_template_Kafka_to_psql.xml) that corresponds to this example.
 * To reuse the provided template (instead of designing our own template), you can:
     * Click `Upload template` in the **Operate** frame, select the template, and upload it.
     * From the Nifi menu, drag and drop the **Template** menu.
@@ -273,14 +249,11 @@ See also [the nifi template](/examples/basic/basic_example_final_template.xml) t
         * Click on `View configuration` of `DBCPConnectionPool` controller service.
         * In the `Properties` tab, complete the `password` field with `password1`
         * Enable both `CSVReader` and `DBCPConnectionPool` controller services.
-    * Select both processors and both output ports
-        * right-click, and select `Start`.
+
+    * right-click, and select `Start`.
 
 For more information on how to use Apache Nifi, see the [official Nifi user guide](https://nifi.apache.org/docs/nifi-docs/html/user-guide.html) and this [Awesome Nifi](https://github.com/jfrazee/awesome-nifi) resources.
 
-
-* Select both processors and both output ports
-        * right-click, and select `Start`.
 
 Finally, **start** the nifi flow in the **operate** window.
 
