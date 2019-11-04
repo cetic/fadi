@@ -1,5 +1,5 @@
 {
-	"name": "testing-project",
+	"name": "tests",
 	"version": "1.0.0",
 	"description": "automated testing of the FADI platform with puppeteer and jest.",
 	"main": "index.js",

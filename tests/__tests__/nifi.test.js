@@ -10,7 +10,7 @@ const shouldExist = require('../lib/helpers').shouldExist
 const shouldNotExist = require('../lib/helpers').shouldNotExist
 const dragAndDrop = require('../lib/helpers').dragAndDrop
 
-const utils = require('../lib/utils')
+//const utils = require('../lib/utils')
 
 describe('Test the Nifi service of the FADI platform', () => {  
     let browser

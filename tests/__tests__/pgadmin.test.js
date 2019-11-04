@@ -9,7 +9,7 @@ const pressKey = require('../lib/helpers').pressKey
 const shouldExist = require('../lib/helpers').shouldExist
 const shouldNotExist = require('../lib/helpers').shouldNotExist
 
-const utils = require('../lib/utils')
+//const utils = require('../lib/utils')
 
 describe('Test the Pgadmin service of the FADI platform', () => {  
     let browser
