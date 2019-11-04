@@ -8,6 +8,19 @@ module.exports={
         }
     },
 
+    dragAndDrop: async function(page, selector){
+        try {
+            const e = await page.$(selector);
+            const box = await e.boundingBox();
+            await page.mouse.move(box.x + box.width / 2, box.y + box.height / 2);
+            await page.mouse.down();
+            await page.mouse.move(100, 200); // move to (100, 200) coordinates
+            await page.mouse.up();
+        } catch (error) {
+            throw new Error(`Could not click on selector: ${selector}`)
+        }
+    },
+
     typeText: async function(page, text, selector){
         try {
             await page.waitForSelector(selector)
