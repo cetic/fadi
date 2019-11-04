@@ -1,10 +1,10 @@
 {
-	"name": "pptr-testing-project",
+	"name": "testing-project",
 	"version": "1.0.0",
-	"description": "automated testing with puppeteer",
+	"description": "automated testing of the FADI platform with puppeteer and jest.",
 	"main": "index.js",
 	"scripts": {
-		"test": "jest --config=jest.config.js --detectOpenHandles --forceExit"
+		"test": "jest --config=jest.config.js --detectOpenHandles --forceExit --verbose=true"
 	},
 	"author": "",
 	"license": "ISC",
