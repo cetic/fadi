@@ -81,11 +81,9 @@ host       database  user  address  auth-method  [auth-options]
 
 For example, to use LDAP authentication for local users, your configuration should look something like this :
 
-
 ```
 local      all  all  ldap  ldapserver=example.com  ldapport=389 [other-ldap-options]
 ```
-
 
 For more information about how to add LDAP authentication to PostgreSQL: [LDAP authentication in PostgreSQL](https://www.postgresql.org/docs/11/auth-ldap.html)
 
