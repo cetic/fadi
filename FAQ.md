@@ -31,3 +31,52 @@ Please make sure the following steps have been taken beforehand:
 ## Windows Installation
 
 This is still not totally supported, some guidelines here #55
+
+## How to configure external access to the deployed services?
+
+When deploying on a generic Kubernetes cluster, you will want to make the services accessible from the outside.
+
+See
+
+* https://github.com/cetic/fadi/blob/feature/documentation/doc/REVERSEPROXY.md for the reverse proxy configuration guide 
+* https://github.com/cetic/fadi/issues/81 for port forwarding instructions
+
+## How to configure Kubernetes Storage Class?
+
+If you encounter the error `pod has unbound PersistentVolumeClaims`, make sure you have a **default StorageClass** in your cluster.
+
+To list the StorageClasses in your cluster: 
+
+```bash
+kubectl get storageclass
+```
+
+The output should be similar to this:
+
+```
+NAME                 PROVISIONER               AGE
+standard (default)   kubernetes.io/gce-pd      1d
+```
+
+If there is no StorageClass, you can create one by using [Local Path Provisioner](https://github.com/rancher/local-path-provisioner).
+ 
+To mark a StorageClass as default, run this command where `<your-class-name>` is the StorageClass name:
+ 
+ 
+```bash
+kubectl patch storageclass <your-class-name> -p '{"metadata": {"annotations":{"storageclass.kubernetes.io/is-default-class":"true"}}}'
+```
+
+If you follow [Local Path Provisioner](https://github.com/rancher/local-path-provisioner) your StorageClass name will be `local-path`, so to mark it as default you can run this command:
+
+```bash
+kubectl patch storageclass local-path -p '{"metadata": {"annotations":{"storageclass.kubernetes.io/is-default-class":"true"}}}'
+```
+
+**Important note:** FADI should be installed in the same namespace as the StorageClass.
+
+
+See also:
+ 
+ * Kubernetes official documentation on storage classes: https://kubernetes.io/docs/concepts/storage/storage-classes/
+ * https://github.com/cetic/helm-fadi/issues/15

@@ -160,6 +160,11 @@ Set your Kubernetes context:
 kubectl config set-context <your-k8s-context>
 ```
 
+* make sure you have a **default StorageClass** in your cluster (see the [FAQ entry](FAQ.md))
+* configure external access to the services: 
+  * Reverse proxy configuration guide : https://github.com/cetic/fadi/blob/feature/documentation/doc/REVERSEPROXY.md
+  * Port forwarding instructions: https://github.com/cetic/fadi/issues/81
+
 Finally, you can deploy the full FADI stack by typing:
 
 ```bash
@@ -168,7 +173,6 @@ cd helm
 ```
 
 Note that depending on your workstation size and network connection, this could take some time (at least 5 minutes)
-
 
 ## 3. Deployment on GKE
 
