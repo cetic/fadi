@@ -2,9 +2,7 @@ Reverse Proxy
 ==========
 
 <p align="left";>
-	<a href="https://www" alt="traefik">
-	    <img src="/doc/images/logos/traefik-logo.svg" align="center" alt"ELK logo" width="200px" />
-    </a>
+	<a href="https://traefik.io/" alt="traefik"><img src="doc/images/logos/traefik-logo.png" align="center" alt="traefikLogo" width="200px" /></a>
 </p>
 
 * [1. Create the Traefik server](#1-create-the-ldap-server)
@@ -14,63 +12,33 @@ This page provides information on how to configure FADI with the [Traefik](https
 
 > Traefik is an open-source reverse proxy and load balancer for HTTP and TCP-based applications that is easy, dynamic, automatic, fast, full-featured, production proven, provides metrics, and integrates with every major cluster technology... No wonder it's so popular!
 
+It exists other Reverse Proxy than Traefik, check the list [here](https://kubernetes.io/docs/concepts/services-networking/ingress-controllers/).
+
 ## 1. Create the Traefik reverse proxy
 
-* https://github.com/helm/charts/tree/master/stable/traefik
+To create the Traefik reverse proxy, you will need to add the stable helm repository:
 
-* create a clusterrole for traefik
+```
+helm repo add stable https://kubernetes-charts.storage.googleapis.com
+```
+
+You can find informations about this Helm chart [here](https://github.com/helm/charts/tree/master/stable/traefik) as the Trafiek Helm chart is hosted on the stable helm repository.
+
+First, you will need to create a clusterrole for traefik:
 
 ```
 kubectl get clusterrole traefik-ingress-controller 2> /dev/null || kubectl create -f ./traefik/rbac-config.yaml
 ```
 
-```
----
-kind: ClusterRole
-apiVersion: rbac.authorization.k8s.io/v1beta1
-metadata:
-  name: traefik-ingress-controller
-rules:
-  - apiGroups:
-      - ""
-    resources:
-      - services
-      - endpoints
-      - secrets
-    verbs:
-      - get
-      - list
-      - watch
-  - apiGroups:
-      - extensions
-    resources:
-      - ingresses
-    verbs:
-      - get
-      - list
-      - watch
----
-kind: ClusterRoleBinding
-apiVersion: rbac.authorization.k8s.io/v1beta1
-metadata:
-  name: traefik-ingress-controller
-roleRef:
-  apiGroup: rbac.authorization.k8s.io
-  kind: ClusterRole
-  name: traefik-ingress-controller
-subjects:
-- kind: ServiceAccount
-  name: default
-  namespace: kube-system
-```
+Take a look at the sample file [here](/helm/traefik/rbac-config.yaml).
 
-* install traefik (https://docs.traefik.io/v1.3/user-guide/kubernetes/#deploy-trfik-using-helm-chart)
+Then, you can install traefik: (If you want further informations, you can follow this [tutorial](https://docs.traefik.io/v1.3/user-guide/kubernetes/#deploy-trfik-using-helm-chart))
 
 ```
 helm upgrade --install traefik stable/traefik -f ./traefik/values.yaml --namespace kube-system --tiller-namespace tiller
 ```
 
-The values file: (ADD the link).
+The values file can be found [here](/helm/traefik/values.yaml).
 
 ```
 loadBalancerIP: "yourLoadBalancerIP"
@@ -89,13 +57,14 @@ See the [default values file](https://github.com/helm/charts/blob/master/stable/
 
 ## 2. Configure the various services to use Trafiek
 
-You need to update ingress definition for each service you want to expose behind your dopmain name.
+You need to update ingress definition for each service you want to expose behind your domain name.
 
-See https://docs.traefik.io/providers/kubernetes-ingress/
+See https://docs.traefik.io/providers/kubernetes-ingress/ for the documentation.
 
-Update the values.yaml file:
+Update the FADI values.yaml file. You can set all the service types to `ClusterIP`as all services are now exposed through an Ingress. 
 
 For instance, for grafana:
+```
 grafana:
   enabled: true
   service:
@@ -107,8 +76,6 @@ grafana:
     hosts: [grafana.yourdomain]
 ```
 
-You should now be able to access grafana through the domain name you choose.
+You should now be able to access grafana through the domain name you have chosen.
 
-Next you can also configure the SSL. For that, have a look at the next [section](). 
-
-
+Next you can also configure the SSL. For that, have a look at the next  [section](/doc/SECURITY.md). 
