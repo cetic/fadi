@@ -2,7 +2,7 @@ Logs management
 ==========
 
 <p align="left";>
-	<a href="https://www.elastic.co" alt="pgAdmin">
+	<a href="https://www.elastic.co" alt="elk">
 	    <img src="/doc/images/logos/elk.png" align="center" alt"ELK logo" width="200px" />
     </a>
 </p>
