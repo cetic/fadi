@@ -9,7 +9,7 @@ TSimulus: Sensors simulation for FADI
 
 * [0. Context](#0-context)
 * [1. Setup TSimulus](#1-setup-tsimulus)
-* [2. How to use TSimulus?](#2-howto-use-tsimulus)
+* [2. How to use TSimulus?](#2-how-to-use-tsimulus)
 
 ## 0. Context
 
@@ -25,9 +25,9 @@ The project is strucured as a sbt multiproject, each part are runnable as standa
 
 For more informations about the implementation, take a look at the documentation of [TSimulus as a Service](https://github.com/cetic/tsimulus-saas).
 
-To install TSimulus with FADI, you will need to modify a bit the [values.yaml](/helm/values.yaml) file. This will deploy all the TSimulus-saas services (TSimulus microservice and Swagger UI) on your Kubernetes cluster.
+To install TSimulus with FADI, you will need to modify a bit the [values.yaml](/helm/values.yaml) file. This will deploy all the TSimulus services (the TSimulus microservice and the Swagger User Interface) on your Kubernetes cluster.
 
-First of all, update your [values.yaml](/helm/values.yaml) by activating the tsaas services:
+First of all, update your [values.yaml](/helm/values.yaml) by activating the TSimulus services:
 
 ```
 tsaas:
@@ -48,6 +48,8 @@ swaggerui:
     hosts: [swagger-tsimulus.yourdomain]
 ```
 
+You can also setup Ingress parts to use a reverse proxy. See the [previous section](doc/REVERSEPROXY.md).
+
 Then, run the [deploy.sh](/helm/deploy.sh) script to take the modifications into account:
 
 ```
@@ -55,11 +57,11 @@ cd helm
 ./deploy.sh
 ```
 
-You should now be able to access to the swaggerui:
+You should now be able to access the Swagger User Interface:
 
 ![](/doc/images/installation/tsaas-swaggerui.png)
 
-## 2. How to use TSimulus?
+## 2. How to use TSimulus as a Service?
 
 * See the [TSimulus Documentation](https://tsimulus.readthedocs.io/en/latest/).
 * See the [TSimulus as a Service Documentation](https://github.com/cetic/tsimulus-saas).

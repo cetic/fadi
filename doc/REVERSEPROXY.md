@@ -58,7 +58,7 @@ dashboard:
 See the [default values file](https://github.com/helm/charts/blob/master/stable/traefik/values.yaml) from the official repository for more configuration options.
 
 
-## 2. Configure the various services to use Trafiek
+## 2. Configure the various services to use Traefik
 
 You will need to update ingress definitions for each service you want to expose, behind your domain name.
 
