@@ -61,7 +61,7 @@ You should now be able to access the Swagger User Interface:
 
 ![](/doc/images/installation/tsaas-swaggerui.png)
 
-## 2. How to use TSimulus as a Service?
+## 2. How to use TSimulus?
 
 * See the [TSimulus Documentation](https://tsimulus.readthedocs.io/en/latest/).
 * See the [TSimulus as a Service Documentation](https://github.com/cetic/tsimulus-saas).
