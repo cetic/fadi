@@ -17,10 +17,10 @@ Despite each one of these four technologies being a separate project, they have 
 
 ![Elastic-stack](/doc/images/installation/elastic_stack.png)
 
-To access the **Kibana** web interface, use this command:
+To access the **Kibana** web interface, you have to. pass by nginx-ldapauth-proxy, you can use this command:
 
 ```
-minikube service fadi-kibana
+minikube service fadi-nginx-ldapauth-proxy
 ```
 
 The next step is to **define your index pattern:** Index patterns tell Kibana which Elasticsearch indices you want to explore. An index pattern can match the name of a single index, or include a wildcard (`*`) to match multiple indices, for example, in our case the index we are using is `filebeat*` ([ref](https://www.elastic.co/guide/en/beats/filebeat/current/index.html)).

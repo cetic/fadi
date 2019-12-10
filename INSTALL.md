@@ -159,32 +159,11 @@ Set your Kubernetes context:
 ```bash
 kubectl config set-context <your-k8s-context>
 ```
-Make sure you have a **default StorageClass** in your cluster, to list the StorageClasses in your cluster: 
 
-```bash
-kubectl get storageclass
-```
-
-The output is similar to this:
-
-```
-NAME                 PROVISIONER               AGE
-standard (default)   kubernetes.io/gce-pd      1d
-```
-if there's no StorageClass you can create one by using [Local Path Provisioner](https://github.com/rancher/local-path-provisioner).
- 
- To mark a StorageClass as default, run this command where `<your-class-name>` is the StorageClass name:
- 
- 
-```bash
-kubectl patch storageclass <your-class-name> -p '{"metadata": {"annotations":{"storageclass.kubernetes.io/is-default-class":"true"}}}'
-```
-If you follow [Local Path Provisioner](https://github.com/rancher/local-path-provisioner) your StorageClass name will be `local-path` so to mark it as default you can run this command:
-
-```bash
-kubectl patch storageclass local-path -p '{"metadata": {"annotations":{"storageclass.kubernetes.io/is-default-class":"true"}}}'
-```
-**Important note:** FADI should be installed in the same namespace as the StorageClass.
+* make sure you have a **default StorageClass** in your cluster (see the [FAQ entry](FAQ.md))
+* configure external access to the services: 
+  * Reverse proxy configuration guide : https://github.com/cetic/fadi/blob/feature/documentation/doc/REVERSEPROXY.md
+  * Port forwarding instructions: https://github.com/cetic/fadi/issues/81
 
 Finally, you can deploy the full FADI stack by typing:
 
@@ -194,7 +173,6 @@ cd helm
 ```
 
 Note that depending on your workstation size and network connection, this could take some time (at least 5 minutes)
-
 
 ## 3. Deployment on GKE
 
@@ -229,4 +207,4 @@ See [.gitlab-ci.sample.yml](.gitlab-ci.sample.yml) for an example CI setup with 
 
 See the [user management documentation](doc/USERMANAGEMENT.md) for information on how to configure user identification and authorization (LDAP, RBAC, ...).
 
-See the [logs management documentation](doc/LOGGING.md) for information on how to configure logging
+See the [logs management documentation](doc/LOGGING.md) for information on how to configure logging.
