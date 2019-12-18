@@ -1,6 +1,10 @@
 # Automatied tests
 This repository contains materials to define functional test cases and to run functional test about FADI.
 
+Test cases specification using cockburns is available [here](doc/Cockburns-specification.md).
+
+Test scripts specification is available [here](doc/Test-scripts-specifications.md).
+
 
 ## Defining a new test case
 
