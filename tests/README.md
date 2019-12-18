@@ -1,1 +1,21 @@
+# Automatied tests
+This repository contains materials to define functional test cases and to run functional test about FADI.
 
+
+## Defining a new test case
+
+Two templates are available in order to define a new [test case](doc/cockburns/TC-template.md) and a new [test script](doc/test-scripts/TS-template.md)
+
+## Running a single test
+Explain how to run a single test
+
+```bash
+Give an example
+```
+
+## Running an end-to-end test
+Explain how to run an end-to-end test
+
+```bash
+Give an example
+```
