@@ -95,7 +95,7 @@
    </td>
    <td>TC-4
    </td>
-   <td>[Defining the Nifi workflow by uploading a template](test-scripts/TS-4.md)
+   <td><a href="./test-scripts/TS-4.md">Defining the Nifi workflow by uploading a template</a>
    </td>
    <td>Data Scientist, Data Engineer
    </td>
@@ -107,7 +107,7 @@
    </td>
    <td>TC-11
    </td>
-   <td>[Defining dashboards based on the analyzed data using Grafana](test-scripts/TS-11.md)
+   <td> <a href="./test-scripts/TS-11.md">Defining dashboards based on the analyzed data using Grafana</a≥
    </td>
    <td>Business Analyst, Business Leader
    </td>
@@ -119,7 +119,7 @@
    </td>
    <td>TC-15
    </td>
-   <td>[Creating a chart in Superset](test-scripts/TS-15.md) 
+   <td><a href="./test-scripts/TS-15.md">Creating a chart in Superset</a≥ 
    </td>
    <td>Business Analyst, Business Leader
    </td>
