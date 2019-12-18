@@ -100,7 +100,7 @@ In this section, the main concepts and technologies are introduced in order to e
   <tr>
    <td>TC-1
    </td>
-   <td>Authentication to a given tool via LDAP
+   <td><a href="./cockburns/TC-1.md">Authentication to a given tool via LDAP</a>
    </td>
    <td>all actors
    </td>
@@ -110,7 +110,7 @@ In this section, the main concepts and technologies are introduced in order to e
   <tr>
    <td>TC-2
    </td>
-   <td>Access to the FADI dashboard
+    <td><a href="./cockburns/TC-2.md">Access to the FADI dashboard</a>
    </td>
    <td>Platform Admin, System Admin, Stakeholders, ICT manager
    </td>
@@ -120,7 +120,7 @@ In this section, the main concepts and technologies are introduced in order to e
   <tr>
    <td>TC-3
    </td>
-   <td>Defining the Nifi workflow
+    <td><a href="./cockburns/TC-3.md">Defining the Nifi workflow</a>
    </td>
    <td>Data Scientist, Data Engineer
    </td>
@@ -130,7 +130,7 @@ In this section, the main concepts and technologies are introduced in order to e
   <tr>
    <td>TC-4
    </td>
-   <td>Defining the Nifi workflow by uploading a template
+    <td><a href="./cockburns/TC-4.md">Defining the Nifi workflow by uploading a template</a>
    </td>
    <td>Data Scientist, Data Engineer
    </td>
@@ -140,7 +140,7 @@ In this section, the main concepts and technologies are introduced in order to e
   <tr>
    <td>TC-5
    </td>
-   <td>Creating a database server in pgAdmin
+    <td><a href="./cockburns/TC-5.md">Creating a database server in pgAdmin</a>
    </td>
    <td>Data Engineer
    </td>
@@ -150,7 +150,7 @@ In this section, the main concepts and technologies are introduced in order to e
   <tr>
    <td>TC-6
    </td>
-   <td>Creating a table in pgAdmin
+    <td><a href="./cockburns/TC-6.md">Creating a table in pgAdmin</a>
    </td>
    <td>Data Engineer
    </td>
@@ -160,7 +160,7 @@ In this section, the main concepts and technologies are introduced in order to e
   <tr>
    <td>TC-7
    </td>
-   <td>Deleting a table in pgAdmin
+    <td><a href="./cockburns/TC-7.md">Deleting a table in pgAdmin</a>
    </td>
    <td>Data Engineer
    </td>
@@ -170,7 +170,7 @@ In this section, the main concepts and technologies are introduced in order to e
   <tr>
    <td>TC-8
    </td>
-   <td>Deleting a database in pgAdmin
+    <td><a href="./cockburns/TC-8.md">Deleting a database in pgAdmin</a>
    </td>
    <td>Data Engineer
    </td>
@@ -180,7 +180,7 @@ In this section, the main concepts and technologies are introduced in order to e
   <tr>
    <td>TC-9
    </td>
-   <td>Inserting data in a given table
+    <td><a href="./cockburns/TC-9.md">Inserting data in a given table</a>
    </td>
    <td>Data Engineer
    </td>
@@ -190,7 +190,7 @@ In this section, the main concepts and technologies are introduced in order to e
   <tr>
    <td>TC-10
    </td>
-   <td>Configuring a data source in the Grafana dashboard
+    <td><a href="./cockburns/TC-10.md">Configuring a data source in the Grafana dashboard</a>
    </td>
    <td>Business Analyst, Business Leader
    </td>
@@ -200,7 +200,7 @@ In this section, the main concepts and technologies are introduced in order to e
   <tr>
    <td>TC-11
    </td>
-   <td>Defining dashboards based on the analyzed data using Grafana
+   <td><a href="./cockburns/TC-11.md">Defining dashboards based on the analyzed data using Grafana</a>
    </td>
    <td>Business Analyst, Business Leader
    </td>
@@ -210,7 +210,7 @@ In this section, the main concepts and technologies are introduced in order to e
   <tr>
    <td>TC-12
    </td>
-   <td>Defining alerts using Grafana
+    <td><a href="./cockburns/TC-12.md">Defining alerts using Grafana</a>
    </td>
    <td>Business Analyst, Business Leader
    </td>
@@ -220,7 +220,7 @@ In this section, the main concepts and technologies are introduced in order to e
   <tr>
    <td>TC-13
    </td>
-   <td>Configuring a database in Superset
+    <td><a href="./cockburns/TC-13.md">Configuring a database in Superset</a>
    </td>
    <td>Business Analyst, Business Leader
    </td>
@@ -230,7 +230,7 @@ In this section, the main concepts and technologies are introduced in order to e
   <tr>
    <td>TC-14
    </td>
-   <td>Configuring a table in Superset 
+    <td><a href="./cockburns/TC-14.md">Configuring a table in Superset</a>
    </td>
    <td>Business Analyst, Business Leader
    </td>
@@ -240,7 +240,7 @@ In this section, the main concepts and technologies are introduced in order to e
   <tr>
    <td>TC-15
    </td>
-   <td>Creating a chart in Superset 
+    <td><a href="./cockburns/TC-15.md">Creating a chart in Superset</a>
    </td>
    <td>Business Analyst, Business Leader
    </td>
@@ -250,7 +250,7 @@ In this section, the main concepts and technologies are introduced in order to e
   <tr>
    <td>TC-16
    </td>
-   <td>Saving a dashboard in Superset 
+    <td><a href="./cockburns/TC-16.md">Saving a dashboard in Superset</a>
    </td>
    <td>Business Analyst, Business Leader
    </td>
@@ -260,7 +260,7 @@ In this section, the main concepts and technologies are introduced in order to e
   <tr>
    <td>TC-17
    </td>
-   <td>Preparing reports using Superset
+    <td><a href="./cockburns/TC-17.md">Preparing reports using Superset</a>
    </td>
    <td>Business Analyst, Business Leader
    </td>
@@ -270,7 +270,7 @@ In this section, the main concepts and technologies are introduced in order to e
   <tr>
    <td>TC-18
    </td>
-   <td>Loading data in Jupyter 
+    <td><a href="./cockburns/TC-18.md">Loading data in Jupyter</a>
    </td>
    <td>Business Analyst, Business Leader
    </td>
@@ -280,7 +280,7 @@ In this section, the main concepts and technologies are introduced in order to e
   <tr>
    <td>TC-19
    </td>
-   <td>Analyzing data using Jupyter
+    <td><a href="./cockburns/TC-19.md">Analyzing data using Jupyter</a>
    </td>
    <td>Business Analyst, Business Leader
    </td>
@@ -290,7 +290,7 @@ In this section, the main concepts and technologies are introduced in order to e
   <tr>
    <td>TC-20
    </td>
-   <td>Loading data in Spark
+    <td><a href="./cockburns/TC-20.md">Loading data in Spark</a>
    </td>
    <td>Business Analyst, Business Leader
    </td>
@@ -300,7 +300,7 @@ In this section, the main concepts and technologies are introduced in order to e
   <tr>
    <td>TC-21
    </td>
-   <td>Analyzing data using Spark
+    <td><a href="./cockburns/TC-21.md">Analyzing data using Spark</a>
    </td>
    <td>Business Analyst, Business Leader
    </td>
