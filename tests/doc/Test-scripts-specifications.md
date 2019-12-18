@@ -1,19 +1,3 @@
-# Abbreviations list
-<table>
-  <tr>
-   <td><strong>Abbreviation</strong>
-   </td>
-   <td><strong>Meaning</strong>
-   </td>
-  </tr>
-  <tr>
-   <td>
-   </td>
-   <td>
-   </td>
-  </tr>
-</table>
-
 # Actors abbreviations list
 <table>
   <tr>
