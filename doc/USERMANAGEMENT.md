@@ -8,6 +8,7 @@ User Management
      * [Superset](#superset)
      * [PostgreSQL](#postgresql)
 * [3. Manage your LDAP server](#3-manage-your-ldap-server)
+     * [Adding a user](#adding-a-user)
 
 
 This page provides information on how to configure FADI user authentication and authorization (LDAP, RBAC, ...).
@@ -114,3 +115,76 @@ The first entry that will be created is for the administrator and the password i
 * Password: `password1`
 
 For more information on how to use phpLDAPadmin, see the [phpLDAPadmin documentation](http://phpldapadmin.sourceforge.net/function-ref/1.2/)
+
+### Adding a user
+
+This section provides an example on how to add a user through phpLDAPadmin and access the Superset, Grafana and JupyterHub services.
+
+#### 1. Connect to phpLDAPadmin
+
+<a href="http://phpldapadmin.sourceforge.net/wiki/index.php/Main_Page" alt="phpLDAPadmin"><img src="images/logos/phpldapadmin.jpg" width="100px" /></a>
+
+Access your phpLDAPadmin service and connect using the admin Login DN & password, the default Login DN & password are:
+
+* Login DN: `cn=admin,dc=ldap,dc=cetic,dc=be`
+* Password: `password1`
+
+<img src="images/installation/phpldapadmin.gif" />
+
+#### 2. Add the user
+
+To add users,  there are two ways: using a tempalte and manually.
+
+#### Import the user using a template
+
+The template below adds a user called John Doe:
+
+```
+dn: cn=John,cn=admin,dc=ldap,dc=cetic,dc=be
+cn: John
+givenname: John
+mail: john@mail.com
+objectclass: inetOrgPerson
+objectclass: top
+sn: Doe
+uid: John Doe
+userpassword: Johnpassword
+```
+
+Change the user name and other misc info ( mail, etc.) and copy/paste it in the import field, here is an example of a modified template for a user called `Luke Skywalker`.
+
+```
+dn: cn=Luke,cn=admin,dc=ldap,dc=cetic,dc=be
+cn: Luke
+givenname: Luke
+mail: luke.skywalker@mail.com
+objectclass: inetOrgPerson
+objectclass: top
+sn: Skywalker
+uid: Luke Skywalker
+userpassword: ThereIsNoTry
+```
+
+Now you can go to `import`, paste that template and click `proceed` and the user will be added.
+
+<img src="images/installation/Luke.gif" alt="Add a user"/>
+
+#### Add the user manually
+
+You can add a user manually through phpLDAPadmin, after connecting go to `⭐️Create new entry here` :
+
+<img src="images/installation/Create_new.gif" alt="Create user"/>
+
+You can for example create a user in the default admin group `cn=admin,dc=ldap,dc=cetic,dc=be`, or create a new group in which you can create new users. 
+
+In this example we are going to create a simple user under the default admin user (which is also a group).
+
+When you click on  `⭐️Create new entry here`, a new window called `Select a template for the creation process` will show up with all the different entries you can create:
+
+<img src="images/installation/Generic_User_Account.png" alt="Create a new user"/>
+
+Go to `Generic: User Account` and a list of fields will show up. Enter the information about the user you want to create and click `Create Object`.
+ 
+
+
+
