@@ -365,3 +365,5 @@ For more information on how to use Superset, see the [official Jupyter documenta
 In this use case, we have demonstrated a simple configuration for FADI, where we use various services to ingest, store, analyse, explore and provide dashboards and alerts 
 
 You can find the various resources for this sample use case (Nifi flowfile, Grafana dashboards, ...) in the [examples folder](examples/basic)
+
+The examples section contains other more specific examples (e.g. [Kafka streaming ingestion](examples/kafka/README.md))
