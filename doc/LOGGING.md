@@ -2,8 +2,8 @@ Logs management
 ==========
 
 <p align="left";>
-	<a href="https://www.elastic.co" alt="pgAdmin">
-	    <img src="/doc/images/logos/elk.png" align="center" alt"ELK logo" width="200px" />
+	<a href="https://www.elastic.co" alt="elk">
+	    <img src="/doc/images/logos/elk.png" align="center" alt="ELK logo" width="200px" />
     </a>
 </p>
 
@@ -11,13 +11,13 @@ Logs management
 Despite each one of these four technologies being a separate project, they have been built to work together:
  
 * the process start with **[Beats](https://www.elastic.co/products/beats)**, it ships the logs from all services to 
-* **[Logstash](https://www.elastic.co/products/logstash)**, which parse, filter or/and transform the logs before storing them in 
+* **[Logstash](https://www.elastic.co/products/logstash)**, which parses, filters or/and transforms the logs before storing them in 
 * **[Elasticsearch](https://www.elastic.co/products/elasticsearch)** for indexing, which is connected to 
 * **[Kibana](https://www.elastic.co/products/kibana)** that provides visualisation of the various services' logs in a central web application interface
 
 ![Elastic-stack](/doc/images/installation/elastic_stack.png)
 
-To access the **Kibana** web interface, you have to. pass by nginx-ldapauth-proxy, you can use this command:
+To access the **Kibana** web interface, you have to go through the nginx-ldapauth-proxy, you can use this command:
 
 ```
 minikube service fadi-nginx-ldapauth-proxy
@@ -29,7 +29,6 @@ To create the index pattern and monitor the logs, follow these simple steps:
 1. In Kibana, open **Management** and then click **Index Patterns**.
 2. If this is your first index pattern, the **Create index pattern** page opens automatically. Otherwise, click **Create index pattern**. 
 3. Enter `filebeat*` in the Index pattern field.
-
   ![index_pattern](/doc/images/installation/index_pattern.png)
 
 4. Click **Next step**.
