@@ -1,0 +1,17 @@
+---
+# Default values for FADI are defined here: https://github.com/cetic/helm-fadi.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+# Values you define here will overwrite default values from helm-fadi.
+
+kafka:
+  enabled: true
+  replicas: 1
+  affinity: {}
+  external:
+    enabled: true
+  persistence:
+    enabled: false
+  zookeeper:
+    replicaCount: 1
+    fullnameOverride: fadi-kafka-zookeeper

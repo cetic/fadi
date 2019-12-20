@@ -10,31 +10,31 @@ Reverse Proxy
 * [1. Create the Traefik reverse proxy](#1-create-the-traefik-reverse-proxy)
 * [2. Configure the various services to use Traefik](#2-configure-the-various-services-to-use-traefik)
 
-This page provides informations on how to configure FADI with the [Traefik](https://traefik.io/) Reverse Proxy.
+This page provides information on how to configure FADI with the [Traefik](https://traefik.io/) Reverse Proxy.
 
 > Traefik is an open-source reverse proxy and load balancer for HTTP and TCP-based applications that is easy, dynamic, automatic, fast, full-featured, production proven, provides metrics, and integrates with every major cluster technology... No wonder it's so popular!
 
-It exists other Reverse Proxy than Traefik that can be used with FADI, check the list [here](https://kubernetes.io/docs/concepts/services-networking/ingress-controllers/).
+Note: other Reverse Proxy than Traefik that could be used with FADI, check the list [here](https://kubernetes.io/docs/concepts/services-networking/ingress-controllers/).
 
 ## 1. Create the Traefik reverse proxy
 
-To create the Traefik reverse proxy, you will need to add the `stable` helm repository:
+To create the Traefik reverse proxy, you will need to add the `stable` Helm repository:
 
 ```
 helm repo add stable https://kubernetes-charts.storage.googleapis.com
 ```
 
-You can find informations about this Helm chart [here](https://github.com/helm/charts/tree/master/stable/traefik) as the Traefik Helm chart is hosted on the stable helm repository.
+You can find information about this Helm chart [here](https://github.com/helm/charts/tree/master/stable/traefik) as the Traefik Helm chart is hosted in the stable helm repository.
 
-First, you will need to create a clusterrole for traefik:
+First, you will need to create a `clusterrole` for Traefik:
 
 ```
 kubectl get clusterrole traefik-ingress-controller 2> /dev/null || kubectl create -f ./traefik/rbac-config.yaml
 ```
 
-Take a look at the sample file [here](/helm/traefik/rbac-config.yaml).
+Take a look at the [sample file](/helm/traefik/rbac-config.yaml).
 
-Then, you can install Traefik with helm: (If you want further informations, you can follow this [tutorial](https://docs.traefik.io/v1.3/user-guide/kubernetes/#deploy-trfik-using-helm-chart))
+Then, you can install Traefik with Helm: (If you want further information, you can follow this [tutorial](https://docs.traefik.io/v1.3/user-guide/kubernetes/#deploy-trfik-using-helm-chart))
 
 ```
 helm upgrade --install traefik stable/traefik -f ./traefik/values.yaml --namespace kube-system --tiller-namespace tiller
@@ -64,9 +64,9 @@ You will need to update ingress definitions for each service you want to expose,
 
 See https://docs.traefik.io/providers/kubernetes-ingress/ for the documentation.
 
-Update the FADI values.yaml file. You can set all the service types to `ClusterIP` as all services are now exposed through an Ingress. 
+Update the FADI `values.yaml` file. You can set all the service types to `ClusterIP` as all services are now exposed through an Ingress. 
 
-For instance, for grafana:
+For instance, for Grafana:
 ```
 grafana:
   enabled: true
@@ -79,6 +79,6 @@ grafana:
     hosts: [grafana.yourdomain]
 ```
 
-You should now be able to access grafana through the domain name you have chosen.
+You should now be able to access Grafana through the domain name you have chosen: `http(s)://grafana.yourdomain.com`
 
-Next you can also configure the SSL. For that, have a look at the next  [section](/doc/SECURITY.md). 
+Next you will also want to configure SSL access to your services. For that, have a look at the [security documentation](/doc/SECURITY.md). 

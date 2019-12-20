@@ -13,19 +13,19 @@ TSimulus: Sensors simulation for FADI
 
 ## 0. Context
 
-The TSimulus library has been used to simulate various sensors from industrial partners in the context of [many research projects](https://www.cetic.be/FADI). It allowed to generate a suffisant amout of data to test the entire FADI platform. It was useful when there was a lack of real time data streams. TSimulus allowed to already work on the analysis part without having the real data from the partners.
+The TSimulus library is used to simulate various sensors from industrial partners in the context of [many research projects](https://www.cetic.be/FADI). It allows to generate a sufficient amount of data to test the entire FADI platform. It is useful when there was a lack of real time data streams. In that context, TSimulus enables to already work on the analysis part without having the real data from the partners.
 
 This section explains how to setup TSimulus for FADI and gives the essential links to the documentation on how to use it.
 
 ## 1. Setup TSimulus
 
-The TSimulus as a Service project aims at building a REST API in front of the [TSimulus](https://github.com/cetic/TSimulus) framework, and a set of configurable websocket routes to consume the Tsimulus stream.
+The **TSimulus as a Service** project aims at building a REST API in front of the [TSimulus](https://github.com/cetic/TSimulus) framework, and a set of configurable websocket routes to consume the TSimulus stream.
 
-The project is strucured as a sbt multiproject, each part are runnable as standalone and the top level project coordinates a complete deployment and coordination of each parts.
+The project is structured as a [sbt multiproject](https://www.scala-sbt.org/1.x/docs/Multi-Project.html), each part is runnable as standalone and the top level project orchestrates a complete deployment and coordination of each parts.
 
-For more informations about the implementation, take a look at the documentation of [TSimulus as a Service](https://github.com/cetic/tsimulus-saas).
+For more information on the implementation, take a look at the documentation of [TSimulus as a Service](https://github.com/cetic/tsimulus-saas).
 
-To install TSimulus with FADI, you will need to modify a bit the [values.yaml](/helm/values.yaml) file. This will deploy all the TSimulus services (the TSimulus microservice and the Swagger User Interface) on your Kubernetes cluster.
+To install TSimulus with FADI, you will need to modify a bit the [values.yaml](/helm/values.yaml) file. This will deploy all the TSimulus services (the TSimulus microservice and the [Swagger User Interface](https://swagger.io/tools/swagger-ui/)) on your Kubernetes cluster.
 
 First of all, update your [values.yaml](/helm/values.yaml) by activating the TSimulus services:
 
@@ -57,7 +57,7 @@ cd helm
 ./deploy.sh
 ```
 
-You should now be able to access the Swagger User Interface:
+You should now be able to access the Swagger User Interface (on a minikube setup: `minikube service fadi-swaggerui`):
 
 ![](/doc/images/installation/tsaas-swaggerui.png)
 
