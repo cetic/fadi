@@ -18,9 +18,9 @@ Anywhere you can run [Kubernetes](https://kubernetes.io/), you should be able to
 ## Quick start
 
 1. [Install the framework on your workstation](INSTALL.md)
-2. Try [a simple use case](USERGUIDE.md)
+2. Try [a simple use case](USERGUIDE.md) (or more [advanced usage examples](examples/README.md))
 
-You can find a more detailed explanation of FADI in the [presentation slideshow](https://fadi.presentations.cetic.be)
+You can find a more detailed explanation of FADI in the [presentation slideshow](https://fadi.presentations.cetic.be) and in the [documentation section](doc/README.md)
 
 ## FADI Helm Chart
 

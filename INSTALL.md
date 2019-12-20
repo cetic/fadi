@@ -207,4 +207,10 @@ See [.gitlab-ci.sample.yml](.gitlab-ci.sample.yml) for an example CI setup with 
 
 See the [user management documentation](doc/USERMANAGEMENT.md) for information on how to configure user identification and authorization (LDAP, RBAC, ...).
 
-See the [logs management documentation](doc/LOGGING.md) for information on how to configure logging
+See the [logs management documentation](doc/LOGGING.md) for information on how to configure logging.
+
+See the [reverse proxy documentation](doc/REVERSEPROXY.md) for information on how to configure the Traefik reverse proxy with FADI.
+
+See the [security documentation](doc/SECURITY.md) for information on how to configure SSL.
+
+Seel the [TSimulus documentation](doc/TSIMULUS.md) for information on how to simulate sensors and generate realistic data with [TSimulus](https://github.com/cetic/TSimulus). 
