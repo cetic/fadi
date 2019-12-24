@@ -10,6 +10,7 @@ module.exports={
 
     dragAndDrop: async function(page, selector){
         try {
+            await page.waitForSelector(selector)
             const e = await page.$(selector);
             const box = await e.boundingBox();
             await page.mouse.move(box.x + box.width / 2, box.y + box.height / 2);
