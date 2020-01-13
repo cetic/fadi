@@ -4,12 +4,13 @@
 	"description": "automated testing of the FADI platform with puppeteer and jest.",
 	"main": "index.js",
 	"scripts": {
-		"test": "jest --config=jest.config.js --detectOpenHandles --forceExit --verbose=true"
+		"test": "jest --testSequencer=../TestSequencer.js --config=jest.config.js --detectOpenHandles --forceExit --verbose=true"
 	},
 	"author": "",
 	"license": "ISC",
 	"dependencies": {
 		"jest": "^24.9.0",
-		"puppeteer": "^1.20.0"
+		"puppeteer": "^1.20.0",
+		"@jest/test-sequencer": "24.9.0"
 	}
 }
