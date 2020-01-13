@@ -5,7 +5,7 @@
   <tr>
    <td><strong>Use case ID</strong>
    </td>
-   <td colspan="2" >TC-4
+   <td colspan="2" ><a href="https://github.com/cetic/fadi/blob/feature/tests/tests/__tests__/1-nifi.test.js" title="TC-4">TC-4</a>
    </td>
   </tr>
   <tr>
