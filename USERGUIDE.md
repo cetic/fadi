@@ -43,7 +43,7 @@ First, setup the datalake by creating a table in the postgresql database.
 
 To achieve this you need to: 
 
-* Head to the pgadmin interface, if you are using **minikube**, you can use the following command :
+* Head to the adminer interface, if you are using **minikube**, you can use the following command :
 ```
 minikube service -n fadi fadi-adminer 
 ```
