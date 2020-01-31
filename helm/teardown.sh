@@ -17,17 +17,10 @@ printf "\n\nDeleting FADI release...\n"
 
 helm delete --purge ${NAMESPACE} --tiller-namespace tiller || true
 
-printf "\n\nDeleting Traefik release...\n"
-
-helm delete --purge traefik --tiller-namespace tiller || true
-
 printf "\n\nDeleting Tiller and namespaces...\n"
 
 # Delete sa for tiller
 kubectl delete -f ./tiller/rbac-config.yaml
-
-# Delete clusterrole for traefik
-kubectl delete -f ./traefik/rbac-config.yaml
 
 # Delete namespaces
 kubectl delete namespace tiller
