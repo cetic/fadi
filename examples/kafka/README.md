@@ -67,7 +67,10 @@ minikube service -n fadi fadi-adminer
 * Once the previous steps are finished, you can detect that a new table `example_basic` is created in the `Tables` field of adminer Browser. 
 
 ## 3 Prepare Nifi to inter-connect the different components.
-<a href="http://nifi.apache.org/" alt="Apache Nifi"><img src="doc/images/logos/nifi.png" width="100px" /></a>
+
+<a href="http://nifi.apache.org/" alt="Apache Nifi"><img src="../../doc/images/logos/nifi.png" width="100px" /></a>
+
+![](/doc/images/logos/nifi.png | width=100)
 
 > "An easy to use, powerful, and reliable system to process and distribute data."
 
