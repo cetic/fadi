@@ -38,7 +38,7 @@ Unless specified otherwise, all services can be accessed using the username and 
 
 ## 2. Prepare the database to store measurements
 
-<a href="https://www.adminer.org/" alt="adminer"><img src="doc/images/logos/adminer.png" width="200px" /></a>
+<a href="https://www.adminer.org/" alt="adminer"><img src="../../doc/images/logos/adminer.png" width="200px" /></a>
 
 First, setup the datalake by creating a table in the postgresql database. 
 
@@ -69,8 +69,6 @@ minikube service -n fadi fadi-adminer
 ## 3 Prepare Nifi to inter-connect the different components.
 
 <a href="http://nifi.apache.org/" alt="Apache Nifi"><img src="../../doc/images/logos/nifi.png" width="100px" /></a>
-
-![](/doc/images/logos/nifi.png | width=100)
 
 > "An easy to use, powerful, and reliable system to process and distribute data."
 
@@ -108,7 +106,7 @@ Now we need to tell Nifi to read the csv file and push the measurements in broke
 
 To create processor, make a drag and drop from the following button :
 
-<a href="https://grafana.com/" alt="Grafana"><img src="/examples/kafka/images/nifi_processor.png" width="50px" /></a>
+![Grafana](/examples/kafka/images/nifi_processor.png)
 
 We need to configure two processors:
 
@@ -129,10 +127,7 @@ We need to configure two processors:
 #### Output Port
 To create output port, make a drag and drop from the following button :
 
-<img src="/examples/kafka/images/nifi_output.png" width="50px" />
-
 ![Nifi button](/examples/kafka/images/nifi_output.png)
-
 
 Create two output ports : `success_port` and `failure_port`
 
@@ -171,7 +166,7 @@ To reuse the provided template (instead of designing your own template), you can
 
 To create the processor, drag and drop from the following button :
 
-<a href="https://grafana.com/" alt="Grafana"><img src="/examples/kafka/images/nifi_processor.png" width="50px" /></a>
+![Grafana](/examples/kafka/images/nifi_processor.png)
 
 We need to configure two processors:
 
@@ -201,7 +196,7 @@ We need to configure two processors:
 
 To create output port, make a drag and drop from the following button :
 
-<img src="/examples/kafka/images/nifi_output.png" width="50px" />
+![Grafana](/examples/kafka/images/nifi_output.png)
 
 Create two output ports : `success_port` and `failure_port`
 
