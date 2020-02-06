@@ -23,7 +23,7 @@ Once FADI is installed, head to the [user guide](USERGUIDE.md)
 
 The deployment of the FADI stack is achieved with:
 
-* [Helm](https://helm.sh/).
+* [Helm v3](https://helm.sh/).
 * [Kubernetes](https://kubernetes.io/).
 
 ![](doc/images/architecture/helm-architecture.png)
@@ -39,7 +39,7 @@ The following tools need to be installed on the host system:
 * a virtualisation solution (for example [VirtualBox](https://www.virtualbox.org/wiki/Downloads) or KVM)
 * [Kubectl](https://kubernetes.io/docs/tasks/tools/install-kubectl/), the Kubernetes CLI
 * [Minikube](https://github.com/kubernetes/minikube/releases), a local Kubernetes cluster
-* the [Helm client](https://helm.sh/docs/using_helm/#installing-helm)
+* the [Helm client v3](https://helm.sh/docs/using_helm/#installing-helm) (please, install >3.0 version of Helm)
 
 Make sure that the computer you are installing FADI to is powerful enough (currently, 6vcpu's and 12GB RAM are needed for comfortable use).
 
