@@ -15,15 +15,11 @@ NAMESPACE=${1:-fadi}
 
 printf "\n\nDeleting FADI release...\n"
 
-helm delete --purge ${NAMESPACE} --tiller-namespace tiller || true
+helm uninstall ${NAMESPACE} -n ${NAMESPACE} || true
 
-printf "\n\nDeleting Tiller and namespaces...\n"
+printf "\n\nDeleting FADI namespace...\n"
 
-# Delete sa for tiller
-kubectl delete -f ./tiller/rbac-config.yaml
-
-# Delete namespaces
-kubectl delete namespace tiller
+# Delete namespace
 kubectl delete namespace ${NAMESPACE}
 
 printf "\n\nTeardown complete!\n"
