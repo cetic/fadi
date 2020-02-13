@@ -213,4 +213,4 @@ See the [reverse proxy documentation](doc/REVERSEPROXY.md) for information on ho
 
 See the [security documentation](doc/SECURITY.md) for information on how to configure SSL.
 
-Seel the [TSimulus documentation](doc/TSIMULUS.md) for information on how to simulate sensors and generate realistic data with [TSimulus](https://github.com/cetic/TSimulus). 
+See the [TSimulus documentation](doc/TSIMULUS.md) for information on how to simulate sensors and generate realistic data with [TSimulus](https://github.com/cetic/TSimulus). 
