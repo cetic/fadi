@@ -1,14 +1,15 @@
 Deploy FADI with rancher and proxmox
 =============
 
-* [1. Upload ISO on Proxmox Node](#1-Upload-IS-on-Proxmox-Node)
-* [3. Create Cluster With Rancher](#2-Create-Cluster-With-Rancher)
+* [1. Upload ISO on Proxmox Node](#1-Upload-IS0-on-Proxmox-Node)
+* [2. Install Rancher](#2-Install-Rancher)
+* [3. Add docker-machine driver](#1-Add-docker-machine-driver)
+* [4. Create Cluster With Rancher](#2-Create-Cluster-With-Rancher)
      * [Create Node Template](#Create-Node-Template)
      * [Create Cluster](#Create-Cluster)
      * [Create The Nodes](#Create-The-Nodes)
-     * [Create PVC for persistent volumes ](#Create-PVC-for-persistent-volumes)
-     * [Create PVC for persistent volumes ](#Create-PVC-for-persistent-volumes)
-* [4. Control Cluster from Local PC](#3-Control-Cluster-from-Local-PC)
+* [5.Manage the provisioning of the persistent volumes](#5-Manage-the-provisioning-of-the-persistent-volumes)
+* [5. Control Cluster from Local PC](#3-Control-Cluster-from-Local-PC)
 
 
 This page provides information on how to create a kubernetes cluster and deploy FADI using rancher and proxmox.
@@ -23,17 +24,21 @@ First you need to download the iso rancheros-proxmoxve-autoformat.iso, you can d
 
 Once downloaded you need to upload on your proxmox node.
 ## 2. Install Rancher
-https://rancher.com/docs/rancher/v2.x/en/installation/other-installation-methods/single-node-docker/advanced/
-## 2. Add docker-machine driver
+
+We consider you have already deploy Rancher. However we give you the instructions that we have followed to deploy our Rancher server : [https://rancher.com/docs/rancher/v2.x/en/installation/other-installation-methods/single-node-docker/advanced/](https://rancher.com/docs/rancher/v2.x/en/installation/other-installation-methods/single-node-docker/advanced/)
+## 3. Add docker-machine driver
 
 You need to allow Rancher to control the Proxmox. We have contributed to upgrade a existing docker-machine driver to make it compatible with Rancher.
-To add this driver into rancher, Follow this steps :
+To add this driver in your Rancher, Follow this steps :
 
+![Proxmox driver](images/installation/proxmoxdriver.gif)
 
-driver Url:
-```https://github.com/lnxbil/docker-machine-driver-proxmox-ve/releases/download/v3/docker-machine-driver-proxmoxve.linux-amd64```
+Driver Url:
+```
+https://github.com/lnxbil/docker-machine-driver-proxmox-ve/releases/download/v3/docker-machine-driver-proxmoxve.linux-amd64
+```
 
-## 3. Create Cluster With Rancher
+## 4. Create Cluster With Rancher
 
 <a href="https://www.proxmox.com/" alt="OpenLDAP"> <img src="images/logos/rancher.png" width="150px" /></a>
 
@@ -50,7 +55,7 @@ and then fill the rest of the fields like the IP of the proxmox `i.e. proxmoxHos
 
 ### Create Cluster
 
-To create your clust:
+To create your cluster:
 
  `Cluster`  > `Add Cluster` > `Proxmoxve`
 
@@ -66,21 +71,30 @@ if a second ( or more ) node ( master or worker ) is needed you can either add a
  ![Proxmoxve](images/installation/addnode.png)
 
 
-### Create PVC for persistent voolumes
+## 5. Manage the provisioning of the persistent volumes.
+#### StorageOS
+Once all your nodes are up and running, it's time to deploy your services, but before you do you need to set your default PVC for the persistent volumes, to do so we first need to deploy the volume plugin `StorageOS`, go to `YourCluster (not global)`  > `system` > `apps` > `launch` and search for `StorageOS`. make sure all the fields are filled correctly like the following screenshot:
 
-Once all your nodes are up and running, it's time to deploy your services, but before you do you need to set your default PVC for the persistent volumes, to do so we first need to deploy the volume plugin `StorageOS`, go to `YourCluster (not global)`  > `system` > `apps` > `launch` and search for `StorageOS`. make sure all the fields are filled correctly ( for the user you can generate a password ) and then launch it 🚀 .
+![Proxmoxve](images/installation/StorageOS.png)
+
+and now, launch it 🚀 .
 
 > "launching apps usually takes several minutes, you're going to need to wait a few minutes till the "
 
-![defaultpvc](images/installation/defaultpvc.png)
+Be Careful this service give the posibility to allocate maximum 50Gi with the basic License.
 
-use CSI driver -> False /var/lib/kubelet/volumeplugins node selector set as default the StorageClass
+![Proxmoxve](images/installation/StorageOS_limits.png)
+#### Manualy
 
-6. launch the volume service to create your persistent volumes
+
+TBT
 
 
 ### Deploy FADI
+![defaultpvc](images/installation/defaultpvc.png)
 
+ selector set as default the StorageClass
+#### Longhorn
 7. edit the values yaml of fadi
 8. run fadi
 
