@@ -17,7 +17,7 @@ Despite each one of these four technologies being a separate project, they have 
 
 ![Elastic-stack](/doc/images/installation/elastic_stack.png)
 
-To access the **Kibana** web interface, you have to go through the nginx-ldapauth-proxy, you can use this command:
+To access the **Kibana** web interface, you have to go through the [nginx-ldapauth-proxy](###-LDAP-Authentication), you can use this command:
 
 ```
 minikube service fadi-nginx-ldapauth-proxy
@@ -42,3 +42,18 @@ To create the index pattern and monitor the logs, follow these simple steps:
   ![Kibana Logs](/doc/images/installation/kibana_logs.png)
 
 For more details you can always visit the [Elastic-stack official documentation](https://www.elastic.co/guide/index.html).
+
+
+### LDAP Authentication 
+================
+
+KIBANA is not compatible with ldap which means it can't be linked directly, to authenticate against the ldap server before accessing KIBANA we're using [nginx-ldap-auth](https://github.com/nginxinc/nginx-ldap-auth).
+> The nginx-ldap-auth software is a reference implementation of a method for authenticating users who request protected resources from servers proxied by NGINX Plus. It includes a daemon (ldap-auth) that communicates with an authentication server which is in this case OpenLDAP.
+
+The kibana service isn't accessible directly, to get to it you have to access nginx-ldap-auth, authenticate using your username/password and if successful you'll be redirected to the kibana service, to do so run this command:
+
+```
+minikube service fadi-nginx-ldapauth-proxy
+```
+for more info: [nginx plus authenticate users](https://www.nginx.com/blog/nginx-plus-authenticate-users/).
+

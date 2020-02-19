@@ -13,9 +13,9 @@ FADI - Installation
 
 This page describes how to install the FADI platform 
 
-1. on a laptop/workstation, using [Minikube](https://github.com/kubernetes/minikube)
-2. on a generic Kubernetes cluster
-3. on Google Kubernetes Engine (GKE) 
+1. on a laptop/workstation, using [Minikube](https://github.com/kubernetes/minikube) for local development
+2. on a generic Kubernetes cluster for a self-hosted installation
+3. on Google Kubernetes Engine (GKE) as an example of public cloud
 
 The last sections describes how to automate the deployment using Gitlab-CI, and configure various parts of FADI (user management, ...).
 
@@ -93,7 +93,6 @@ minikube addons enable ingress
 cd helm
 # you can edit values.yaml file to customise the stack
 ./deploy.sh
-# see deploy.log for connection information to the various services
 # specify the fadi namespace to see the different pods
 kubectl config set-context minikube --namespace fadi
 ```
@@ -182,7 +181,7 @@ Note that depending on your workstation size and network connection, this could 
 
 The creation of a GKE environment can be done with [Terraform](https://www.terraform.io/) or manually. 
 
-See the Terraform scripts for the creation of the Kubernetes cluster [here](/terraform) and its documentation [here](/terraform/README.md).
+See the [Terraform scripts](/terraform) for the creation of the Kubernetes cluster and its [documentation](/terraform/README.md).
 
 To manually create a Kubernetes cluster (GKE):
 
@@ -203,6 +202,38 @@ It is also possible to create the Kubernetes cluster in command line, see: https
 
 See [.gitlab-ci.sample.yml](.gitlab-ci.sample.yml) for an example CI setup with [Gitlab-CI](https://about.gitlab.com/product/continuous-integration/).
 
+A lightweight alternative to a proper Kubernetes cluster (for example for continuous integration or testing purposes) would be to install FADI in minikube (single node).
+
+Setup a server (VM or bare metal) with the following specifications:
+
+* 20 GB RAM
+* 8 CPUs
+* Debian 9
+* Docker, minikube, git, vim, kubectl, ...
+    * for port-forwarding: `sudo apt-get install socat`
+    
+Launch minikube (in this case with `vm-driver` as `none`, see limitations of this approach [here](https://minikube.sigs.k8s.io/docs/reference/drivers/none/)):
+
+```
+sudo minikube start --vm-driver=none
+# now install FADI as usual:
+git clone https://github.com/cetic/fadi.git fadi
+cd fadi
+kubectl config set-context minikube
+minikube addons enable ingress
+cd helm
+# you can edit values.yaml file to customise the stack
+./deploy.sh
+# specify the fadi namespace to see the different pods
+kubectl config set-context minikube --namespace fadi
+```
+
+Open minikube to the outside world (make sure you know what you are doing here):
+
+```
+kubectl proxy --address='0.0.0.0' --disable-filter=true
+```
+
 ## 6. Additional configuration
 
 See the [user management documentation](doc/USERMANAGEMENT.md) for information on how to configure user identification and authorization (LDAP, RBAC, ...).
@@ -213,4 +244,4 @@ See the [reverse proxy documentation](doc/REVERSEPROXY.md) for information on ho
 
 See the [security documentation](doc/SECURITY.md) for information on how to configure SSL.
 
-Seel the [TSimulus documentation](doc/TSIMULUS.md) for information on how to simulate sensors and generate realistic data with [TSimulus](https://github.com/cetic/TSimulus). 
+See the [TSimulus documentation](doc/TSIMULUS.md) for information on how to simulate sensors and generate realistic data with [TSimulus](https://github.com/cetic/TSimulus). 
