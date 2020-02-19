@@ -60,7 +60,7 @@ which means if david isn't in the developers group or the admins group, he will 
 
 A sample configuration can be found in the `jupyterhub:auth` section of the default FADI [`values.yaml` file](https://github.com/cetic/helm-fadi/blob/master/values.yaml)
 
-More details on using LDAP with JupyterHub in the [Jupyter documentatation](https://z2jh.jupyter.org/en/stable/authentication.html#authenticating-with-ldap), 
+More details on using LDAP with JupyterHub in the [Jupyter documentation](https://z2jh.jupyter.org/en/stable/authentication.html#authenticating-with-ldap), 
 
 ### Superset
 
