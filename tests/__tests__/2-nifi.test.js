@@ -160,11 +160,11 @@ describe('Test instantiating template of Apache Nifi service', () => {
         await click(page, '.slick-viewport > .grid-canvas > .ui-widget-content:nth-child(6) > .slick-cell > .unset')
 
         // Define the password
-        await typeText(page, 'password1', '.slickgrid-nfel-editor > .nfel-editor > .CodeMirror > div > textarea')
+        await typeText(page, 'password1', '.slickgrid-nf-editor > .nf-editor > .CodeMirror > div > textarea')
 
         // Click Ok on the password tab
-        await shouldExist(page,'#canvas-body > .slickgrid-nfel-editor > div > .button')
-        await click(page, '#canvas-body > .slickgrid-nfel-editor > div > .button')
+        await shouldExist(page,'#canvas-body > .slickgrid-nf-editor > div > .button')
+        await click(page, '#canvas-body > .slickgrid-nf-editor > div > .button')
 
         // Click 'Apply' on the Configure Controller Service
         await shouldExist(page,'#canvas-body > #controller-service-configuration > .dialog-buttons > .button:nth-child(1) > span')
