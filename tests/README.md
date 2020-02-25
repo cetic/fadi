@@ -23,11 +23,12 @@ To test fadi platform, you need to implement the following instructions:
 3. Inside the created container, clone the fadi repository:
 
     `git clone https://github.com/cetic/fadi.git`
-4. Configure [here](./lib/config.js) the urls and paths of different FADI platform services
-    
-    `cd fadi/tests`     
+4. Configure [here](./lib/config.js) the urls and paths of different FADI platform services   
 
-5. Go to the `tests` folder and run
+5. Go to the `tests` folder 
+
+    `cd fadi/tests`
+6. and run the following command
     
     `npm run test`     
 
