@@ -11,8 +11,7 @@ const shouldNotExist = require('../lib/helpers').shouldNotExist
 const dragAndDrop = require('../lib/helpers').dragAndDrop
 const Sequencer = require('@jest/test-sequencer').default
 
-// 'http://adminer.newtech4steel.cetic.be'
-const url = 'http://192.168.99.164:32749'
+const url = config.AdminerUrl
 //const utils = require('../lib/utils')
 
 describe('Test the authentification to the Adminer service', () => {

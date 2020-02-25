@@ -11,8 +11,8 @@ const shouldNotExist = require('../lib/helpers').shouldNotExist
 const dragAndDrop = require('../lib/helpers').dragAndDrop
 const Sequencer = require('@jest/test-sequencer').default
 
-const url = 'http://grafana.newtech4steel.cetic.be' // 'http://grafana.newtech4steel.cetic.be'
-const dashboard_path = '/home/setup/tests/files/USERGUIDE_Dashboard-1581604268718.json' // '/builds/newtech4steel/setup/tests/files/basic_example_final_template.xml'
+const url = config.GrafanaUrl
+const dashboard_path = config.GrafanaDashboardPath 
 //const utils = require('../lib/utils')
 
 describe('Test the authentification to the Grafana service', () => {

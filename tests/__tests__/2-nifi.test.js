@@ -11,10 +11,8 @@ const shouldNotExist = require('../lib/helpers').shouldNotExist
 const dragAndDrop = require('../lib/helpers').dragAndDrop
 const Sequencer = require('@jest/test-sequencer').default
 
-const url = 'http://nifi.newtech4steel.cetic.be'
-
-// /builds/newtech4steel/setup/tests/files/basic_example_final_template.xml
-const template_path = '/home/setup/tests/files/basic_example_final_template.xml'
+const url = config.NifiUrl
+const template_path = config.NifiTemplatePath
 
 //const utils = require('../lib/utils')
 

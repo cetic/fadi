@@ -10,10 +10,9 @@ const shouldExist = require('../lib/helpers').shouldExist
 const shouldNotExist = require('../lib/helpers').shouldNotExist
 const dragAndDrop = require('../lib/helpers').dragAndDrop
 const Sequencer = require('@jest/test-sequencer').default
-// 'http://adminer.newtech4steel.cetic.be'
-const url = 'http://adminer.newtech4steel.cetic.be'
-//const utils = require('../lib/utils')
 
+const url = config.AdminerUrl
+//const utils = require('../lib/utils')
 
 describe('Test the delete of the table', () => {
     /** @type {puppeteer.Browser} */
