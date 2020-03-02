@@ -1,0 +1,59 @@
+{
+  "config": {
+    "generators": [
+      {
+        "name": "daily-generator",
+        "type": "daily",
+        "points": {
+          "6:00:00.000": 4,
+          "12:00:00.000": 12,
+          "18:00:00.000": 6,
+          "0:00:00.000": 0
+        }
+      },
+      {
+        "name": "noisy-daily",
+        "type": "aggregate",
+        "aggregator": "sum",
+        "generators": [
+          "daily-generator",
+          {
+            "type": "arma",
+            "model": {
+              "phi": [
+                0.5
+              ],
+              "std": 0.25,
+              "c": 0,
+              "seed": 159357
+            },
+            "timestep": 180000,
+            "origin": "2020-02-17 00:00:00.000"
+          }
+        ]
+      }
+    ],
+    "exported": [
+      {
+        "name": "temp",
+        "generator": "daily-generator",
+        "frequency": 5000
+      }
+    ],
+    "from": "2020-02-26 00:00:00.000",
+    "to": "2020-02-29 00:00:00.000"
+  },
+  "templates": [
+    {
+      "seriesName": "temp",
+      "template": {
+        "template": "{\n    \"Name\":\"external_temp\",\n    \"Value\": \"${x}\",\n    \"Time\": \"${t?number_to_datetime?string[\"yyyy-MM-dd'T'HH:mm:ss.'000000Z'\"]}\"\n}",
+        "timeVariable": "t",
+        "nameVariable": "name",
+        "valueVariable": "x"
+      }
+    }
+  ],
+  "speed": "realtime",
+  "type": "tsimulus"
+}

@@ -1,0 +1,309 @@
+---
+# Default values for FADI.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+## Storage Module
+adminer:
+  enabled: true
+  persistence:
+    enabled: false
+  config:
+    design: "pepa-linha"
+  service:
+    type: NodePort
+
+postgresql:
+  enabled: true
+  persistence:
+    enabled: false
+  ldap:
+    enabled: true
+    pgldapconfig: |-
+      # Reference: https://github.com/larskanis/pg-ldap-sync/blob/master/config/sample-config.yaml
+      # Connection parameters to LDAP server
+      ldap_connection:
+        host: fadi-openldap
+        port: 389
+        auth:
+          method: :simple
+          username: CN=admin,DC=ldap,DC=cetic,DC=be
+          password: password1
+        # Search parameters for LDAP users which should be synchronized
+      ldap_users:
+        base: CN=admin,DC=ldap,DC=cetic,DC=be
+        # LDAP filter (according to RFC 2254)
+        # defines to users in LDAP to be synchronized
+        filter: (!(cn=admin))
+        # this attribute is used as PG role name
+        name_attribute: cn
+        # lowercase name for use as PG role name
+        lowercase_name: true
+      ldap_groups:
+          base: DC=ldap,DC=cetic,DC=be
+          filter: (|(cn=group1)(cn=group2)(cn=group3))
+          # this attribute is used as PG role name
+          name_attribute: cn
+          # this attribute must reference to all member DN's of the given group
+          member_attribute: member
+      # Connection parameters to PostgreSQL server
+      # see also: http://rubydoc.info/gems/pg/PG/Connection#initialize-instance_method
+      pg_connection:
+        host: fadi-postgresql
+        dbname: postgres # the db name is usually "postgres"
+        user: admin # the user name is usually "postgres"
+        password: password1 # kubectl get secret --namespace fadi <pod_name> -o jsonpath="{.data.postgresql-password}" | base64 --decode
+      pg_users:
+        # Filter for identifying LDAP generated users in the database.
+        # It's the WHERE-condition to "SELECT rolname, oid FROM pg_roles"
+        # filter: rolcanlogin AND NOT rolsuper
+        filter: oid IN (SELECT pam.member FROM pg_auth_members pam JOIN pg_roles pr ON pr.oid=pam.roleid WHERE pr.rolname='ldap_users')
+        # Options for CREATE RULE statements
+        create_options: LOGIN IN ROLE ldap_users
+      pg_groups:
+        # Filter for identifying LDAP generated groups in the database.
+        # It's the WHERE-condition to "SELECT rolname, oid FROM pg_roles"
+        # filter: NOT rolcanlogin AND NOT rolsuper
+        filter: oid IN (SELECT pam.member FROM pg_auth_members pam JOIN pg_roles pr ON pr.oid=pam.roleid WHERE pr.rolname='ldap_groups')
+        # Options for CREATE RULE statements
+        create_options: NOLOGIN IN ROLE ldap_groups
+        #grant_options:
+    cron:
+      schedule: "*/1 * * * *"
+      repo: ceticasbl/pg-ldap-sync
+      tag: latest
+      restartPolicy: Never
+      mountPath: /workspace
+      subPath: ""
+  postgresql:
+    username: admin
+    password: password1
+    database: postgres
+    pghba: |-
+      local all all ldap ldapserver=fadi-openldap  ldapport=389 ldaptls=0 ldapbasedn="dc=ldap,dc=cetic,dc=be" ldapbinddn="cn=admin,dc=ldap,dc=cetic,dc=be" ldapbindpasswd=password1  ldapsearchfilter=cn=$username
+      host all all 0.0.0.0/0  ldap ldapserver=fadi-openldap  ldapport=389 ldaptls=0 ldapbasedn="dc=ldap,dc=cetic,dc=be" ldapbinddn="cn=admin,dc=ldap,dc=cetic,dc=be" ldapbindpasswd=password1  ldapsearchfilter=cn=$username
+    initdbscripts: |-
+      #!/bin/sh
+      psql -c "create role ldap_users;" postgres admin
+      psql -c "create role ldap_groups;" postgres admin
+
+minio:
+  enabled: true
+  persistence:
+    enabled: false
+  service:
+    type: NodePort
+
+## Auth Modules
+openldap:
+  enabled: true
+  env:
+    LDAP_ORGANISATION: "Cetic"
+    LDAP_DOMAIN: "ldap.cetic.be"
+    LDAP_BACKEND: "hdb"
+    LDAP_TLS: "true"
+    LDAP_TLS_ENFORCE: "false"
+    LDAP_REMOVE_CONFIG_AFTER_SETUP: "false"
+  adminPassword: password1
+  configPassword: password2
+
+  customLdifFiles:
+    1-default-users.ldif: |-
+      # You can find an example ldif file.
+
+phpldapadmin:
+  enabled: true
+  service:
+    type: NodePort
+  env:
+    PHPLDAPADMIN_LDAP_HOSTS: "fadi-openldap"
+
+
+## Data Creation Module
+tsaas:
+  enabled: true
+  service:
+    type: NodePort
+
+
+## Data Manipulation Module
+jupyterhub:
+  enabled: true
+  persistence:
+    enabled: false
+  proxy:
+    secretToken: 'af83775ec3bfaf0507ce596df51d491e7ed54450adc454038fa7405495465f19'
+    db:
+      type: sqlite-memory
+  rbac:
+    enabled: true
+  singleuser:
+    ##########################
+    #WorkAround for K8S > 1.15
+    events: false
+    ##########################
+    storage:
+      type: none
+  # Defines the default image
+    image:
+      name: jupyter/minimal-notebook
+      tag: 7d427e7a4dde
+    profileList:
+      - display_name: "Minimal environment"
+        description: "To avoid too much bells and whistles: Python."
+        default: true
+      - display_name: "Datascience environment"
+        description: "If you want the additional bells and whistles: Python, R, and Julia."
+        kubespawner_override:
+          image: jupyter/datascience-notebook:7d427e7a4dde
+      - display_name: "Spark environment"
+        description: "The Jupyter Stacks spark image"
+        kubespawner_override:
+          image: jupyter/all-spark-notebook:latest
+      - display_name: "tensorflow environment"
+        description: "TensorFlow Notebook"
+        kubespawner_override:
+          image: jupyter/tensorflow-notebook:latest
+  # ---- auth ----
+  auth:
+    type: ldap
+    ldap:
+      server:
+        address: fadi-openldap
+      dn:
+        templates:
+          - 'cn={username},cn=admin,dc=ldap,dc=cetic,dc=be'
+          - 'uid={username},cn=admin,dc=ldap,dc=cetic,dc=be'
+          - 'cn={username},dc=ldap,dc=cetic,dc=be'
+  # ---- auth ----
+  prePuller:
+    hook:
+      enabled: false
+
+nifi:
+  enabled: true
+  service:
+    type: NodePort
+  postStart: /opt/nifi/psql; wget -P /opt/nifi/psql https://jdbc.postgresql.org/download/postgresql-42.2.6.jar
+  persistence:
+    enabled: false
+  zookeeper:
+    persistence:
+      enabled: false
+    replicaCount: 1
+
+
+mlflow:
+  enabled: true
+  backend_store_uri: "postgresql://admin:password1@fadi-postgresql.fadi.svc.cluster.local:5432"
+
+
+## Visualisation Modules
+grafana:
+  enabled: true
+  service:
+    type: NodePort
+  grafana.ini:
+    paths:
+      data: /var/lib/grafana/data
+      logs: /var/log/grafana
+      plugins: /var/lib/grafana/plugins
+      provisioning: /etc/grafana/provisioning
+    analytics:
+      check_for_updates: true
+    log:
+      mode: console
+    grafana_net:
+      url: https://grafana.net
+    ## LDAP Authentication can be enabled with the following values on grafana.ini
+    ## NOTE: Grafana will fail to start if the value for ldap.toml is invalid
+    # ----- auth -------
+    auth.ldap:
+      enabled: true
+      allow_sign_up: true
+      config_file: /etc/grafana/ldap.toml
+  # Enable persistence
+  persistence:
+    enabled: false
+  # Administrator credentials when not using an existing secret (see below)
+  adminUser: admin
+
+  ## Grafana's LDAP configuration
+  ## Templated by the template in _helpers.tpl
+  ## NOTE: To enable the grafana.ini must be configured with auth.ldap.enabled
+  ## ref: http://docs.grafana.org/installation/configuration/#auth-ldap
+  ## ref: http://docs.grafana.org/installation/ldap/#configuration
+  ldap:
+    enabled: true
+    # `existingSecret` is a reference to an existing secret containing the ldap configuration
+    # for Grafana in a key `ldap-toml`.
+    existingSecret: ""
+    # `config` is the content of `ldap.toml` that will be stored in the created secret
+    config: |-
+      verbose_logging = true
+      [[servers]]
+      host = "fadi-openldap"
+      port = 389
+      use_ssl = false
+      start_tls = false
+      ssl_skip_verify = false
+      bind_dn = "cn=admin,DC=ldap,DC=cetic,DC=be"
+      bind_password = 'password1'
+      search_filter = "(|(cn=%s)(&(cn=%s)(memberOf=cn=admin,DC=ldap,DC=cetic,DC=be)))"
+      search_base_dns = ["cn=admin,dc=ldap,dc=cetic,dc=be"]
+      group_search_base_dns = ["ou=Groups,dc=ldap,dc=cetic,dc=be"]
+
+      [[servers.group_mappings]]
+      group_dn = "*"
+      org_role = "Admin"
+      ##grafana_admin = true
+
+      #group_dn = "cn=amen,DC=ldap,DC=cetic,DC=be"
+      #org_role = "Viewer"
+
+      [servers.attributes]
+      name = "givenName"
+      surname = "sn"
+      username = "cn"
+      member_of = "memberOf"
+      email =  "email"
+
+   # ----- auth -----
+
+
+# Not Used Modules
+swaggerui:
+  enabled: false
+
+pgadmin:
+  enabled: false
+
+spark:
+  enabled: false
+
+superset:
+  enabled: false
+
+kafka:
+  enabled: false
+
+cassandra:
+  enabled: false
+
+elasticsearch:
+  enabled: false
+
+kibana:
+  enabled: false
+
+nginx_ldapauth_proxy:
+  enabled: false
+
+logstash:
+  enabled: false
+
+filebeat:
+  enabled: false
+
+node-red:
+  enabled: false
