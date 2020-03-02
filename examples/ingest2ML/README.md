@@ -8,7 +8,7 @@ This page provides documentation on how to use the FADI big data framework using
  * [3. Prepare the database to store measurements](#2-prepare-the-database-to-store-measurements)
  * [4. Ingest measurements](#3-ingest-measurements)
 
-![FADI sample use case - From ingestion to machine learning](examples/ingest2ML/images/uck.svg)
+![FADI sample use case - From ingestion to machine learning](images/uck.svg)
 
 In this simple example, we will ingest temperature measurements from a virtual sensor and store them into a database. With this ingested data, a model will be train to predict the future values. Finally, we will display the received and predicted temperature.
 
@@ -18,13 +18,13 @@ To install the FADI framework on your workstation or on a cloud, see the [instal
 
 The components needed for this use case are the following:
 
-* Tsimulus as Service - a data sender from virtual sensors
-* Apache Nifi as a integration tool to ingest the sensor data from the data source (a csv file in this case) and store it in the database
-* PostgreSQL as both a datawarehouse and datalake
-* Jupyter as a web interface to explore the data using notebooks
-* MLFlow as a platform for the machine learning lifecycle
-* Seldon to manage, serve and scale models built in any framework on Kubernetes.
-* Grafana as a dashboard tool to display graphs from the data ingested and stored in the datalake
+* **Tsimulus as Service** - a data sender from virtual sensors
+* **Apache Nifi** as a integration tool to ingest the sensor data from the data source (a csv file in this case) and store it in the database
+* **PostgreSQL** as both a datawarehouse and datalake
+* **Jupyter** as a web interface to explore the data using notebooks
+* **MLFlow** as a platform for the machine learning lifecycle
+* **Seldon** to manage, serve and scale models built in any framework on Kubernetes.
+* **Grafana** as a dashboard tool to display graphs from the data ingested and stored in the datalake
 
 Those components are configured in the following [sample config file](helm/values.yaml), once the platform is ready, you can start working with it.
 
@@ -35,12 +35,32 @@ Unless specified otherwise, all services can be accessed using the username and 
 See the [logs management documentation](doc/LOGGING.md) for information on how to configure the management of the various service logs.
 
 ## 2. Start the Tsimulus stream
+<a href="https://www.adminer.org/" alt="adminer"><img src="images/logos/TSimulus-logo.png" width="200px" /></a>
+
+[TSimulus](https://rts-gen.readthedocs.io/en/latest/) (formally, RTS-Gen) is a tool for generating random, yet realistic, time series values. In this project, a time series is an orderly sequence of points in times, each of them being associated to at most a value.
+
+The Cetic also develop a service for Tsimulues. The aim of this work is to provide a self service that showcases TSimulus capabilities. The result is a realtime stream with simulate data. Those values are made available through a web socket.
+
+![Tsaas Logical view](images/tsaas_logical_view.png)
+
+For now, the frontend is not available but we can directly send command to the API.
+
+For this example, you have created a shell script that :
+* Get the configuration json file
+* Create a stream with this configuration
+* Start the new stream created
+* Get a status of the stream
 
 
+There two ways to launch the script:
+### 2.1 From a terminal
+TBT
+### 2.2 From NIFI
+TBT
 
 ## 3. Prepare the database to store measurements
 
-<a href="https://www.adminer.org/" alt="adminer"><img src="doc/images/logos/adminer.png" width="200px" /></a>
+<a href="https://www.adminer.org/" alt="adminer"><img src="images/logos/adminer.png" width="200px" /></a>
 
 First, setup the datalake by creating a table in the postgresql database.
 
@@ -61,8 +81,8 @@ minikube service -n fadi fadi-adminer
 
 * In the adminer Browser, launch the Query tool by clicking "SQL command".
 
-* Copy/Paste the [table creation script](examples/basic/create_datalake_tables.sql) in the Query Editor.
-![Postgres Server](examples/basic/images/adminer_create_table.png)
+* Copy/Paste the [table creation script](examples/ingest2ML/adminer/create_datalake_tables.sql) in the Query Editor.
+![Postgres Server](images/adminer/adminer_create_table.png)
 
 * Execute the creation query by clicking on the `Execute` command.
 
@@ -70,58 +90,36 @@ minikube service -n fadi fadi-adminer
 
 ## 3. Ingest measurements
 
-<a href="http://nifi.apache.org/" alt="Apache Nifi"><img src="doc/images/logos/nifi.png" width="100px" /></a>
+<a href="http://nifi.apache.org/" alt="Apache Nifi"><img src="images/logos/nifi.png" width="100px" /></a>
 
 > "An easy to use, powerful, and reliable system to process and distribute data."
 
 [Apache Nifi](http://nifi.apache.org/) provides ingestion mechanism (to e.g. connect a database, REST API, csv/json/avro files on a FTP, ... for ingestion): in this case we want to read the temperature sensors data from our HVAC system and store it in a database.
 
-Temperature measurements from the last 5 days (see [HVAC sample temperatures csv extract](examples/basic/sample_data.csv)) are ingested:
 
-```csv
-measure_ts,temperature
-2019-06-23 14:05:03.503,22.5
-2019-06-23 14:05:33.504,22.5
-2019-06-23 14:06:03.504,22.5
-2019-06-23 14:06:33.504,22.5
-2019-06-23 14:07:03.504,22.5
-2019-06-23 14:07:33.503,22.5
-2019-06-23 14:08:03.504,22.5
-2019-06-23 14:08:33.504,22.5
-2019-06-23 14:09:03.503,22.5
-2019-06-23 14:09:33.503,22.5
-2019-06-23 14:10:03.503,22.5
-2019-06-23 14:10:33.504,22.5
-2019-06-23 14:11:03.503,22.5
-2019-06-23 14:11:33.503,22.5
-2019-06-23 14:12:03.503,22.5
-2019-06-23 14:12:33.504,22.5
-2019-06-23 14:13:03.504,22.5
-2019-06-23 14:13:33.504,22.5
-2019-06-23 14:14:03.504,22.5
-(...)
-```
 
 To start, head to the Nifi web interface, if you are using **minikube**, you can use the following command :
 ```
 minikube service -n fadi fadi-nifi
 ```
 
-![Nifi web interface](examples/basic/images/nifi_interface.png)
+![Nifi web interface](images/nifi/nifi_interface.png)
 
-Now we need to tell Nifi to read the csv file and store the measurements in the data lake.
+Now we need to tell Nifi to listen the tsaas websocket and store the measurements in the data lake.
 
 So, create the following components :
 
-* InvokeHTTP processor:
-    * right-click > `Configure` > `Settings` tab > `Automatically Terminate Relationships` : all except `Response`
-    * right-click > `Configure` > `Properties` tab > Remote url: `https://raw.githubusercontent.com/cetic/fadi/master/examples/basic/sample_data.csv`
-    * right-click > `Configure` > `Scheduling` tab > Run Schedule: 120s (this will download the sample file every 120 seconds)
+* ConnectWebSocket:
+    * right-click > `Configure` > `Settings` tab > `Automatically Terminate Relationships` : all except `text message`
+    * right-click > `Configure` > `Properties` tab > WebSocket Client ControllerService > `JettyWebSocketClient`
+      * `Go To` > `Configure` > `Properties` >
+          * WebSocket URI: `ws://fadi-tsaas.fadi.svc.cluster.local:8080/socket/71f0d26e-f3aa-4f04-868b-5aaf304dfe5b`
+          * Enable service by clicking on the lightning icon.
+    * right-click > `Configure` > `Scheduling` tab > Run Schedule: 5s
 * PutDatabaseRecord processor:
     * right-click > `Configure` > `Settings` tab > `Automatically Terminate Relationships` : all
-    * right-click > `Configure` > `Properties` tab  > Record Reader > `Create a new service` > `CSV Reader`
-         * `Go To` > `Configure` > `Properties` >
-         * Treat First Line as Header: `true`
+    * right-click > `Configure` > `Properties` tab  > Record Reader > `Create a new service` > `JsonTreeReader` (Enable service by clicking on the lightning icon.)
+
     * right-click > `Configure` > `Properties` tab  > Statement Type: `INSERT`
     * right-click > `Configure` > `Properties` tab  > Database Connection Pooling Service > DBCPConnectionPool
         * `Go To` > `Configure` > `Properties` >
