@@ -11,7 +11,7 @@ This page provides documentation on how to use the FADI big data framework using
  * [6. Process](#6-process)
  * [7. Summary](#7-summary)
 
-![FADI sample use case - building monitoring](examples/kafka/images/uck.svg)
+![FADI sample use case - building monitoring](/examples/kafka/images/uck.svg)
 
 In this example, we will ingest temperature measurements from sensors and push them into the [Apache Kafka](https://kafka.apache.org) message broker.
 We are then going to store the data from the broker into a database.
@@ -30,54 +30,45 @@ The components needed for this use case are the following:
 * Superset as a exploration dashboard tool
 * Jupyter as a web interface to explore the data using notebooks
 
-Those components are configured in the following [sample config file](examples/kafka/values.yaml).
+Those components are configured in the following [sample config file](/examples/kafka/values.yaml).
 
 The following instructions assume that you deployed FADI on your workstation inside minikube.
 
-Unless specified otherwise, all services can be accessed using the username and password pair: `admin` / `password1` , see the [user management documentation](doc/USERMANAGEMENT.md) for detailed information on how to configure user identification and authorization (LDAP, RBAC, ...).
+Unless specified otherwise, all services can be accessed using the username and password pair: `admin` / `password1` , see the [user management documentation](/doc/USERMANAGEMENT.md) for detailed information on how to configure user identification and authorization (LDAP, RBAC, ...).
 
 ## 2. Prepare the database to store measurements
 
-<a href="https://www.pgadmin.org" alt="pgAdmin"><img src="doc/images/logos/pgadmin.png" width="200px" /></a>
+<a href="https://www.adminer.org/" alt="adminer"><img src="../../doc/images/logos/adminer.png" width="200px" /></a>
 
-First, setup the datalake by creating a table in the PostgreSQL database.
+First, setup the datalake by creating a table in the postgresql database. 
 
-To achieve this you need to:
+To achieve this you need to: 
 
-* Head to the pgadmin interface, if you are using **minikube**, you can use the following command :
-
+* Head to the adminer interface, if you are using **minikube**, you can use the following command :
 ```
-minikube service -n fadi fadi-pgadmin
+minikube service -n fadi fadi-adminer 
 ```
 
-* Access to the pgadmin service using the following credentials:
-    * login: `pgadmin4@pgadmin.org`
-    * password: `admin`
+* Access to the adminer service and to the postgreSQL database using the following credentials:
 
-* In pgadmin Browser, create a server on pgadmin by right-click on `Servers` -> `Create a Server`
+    * System: PostgreSQL
+    * Server: fadi-postgresql
+    * Username: admin
+    * Password: passowrd1
+    * Database: postgres
 
-* Configure the server as shown in the following screenshot:
-    * Host name: `fadi-postgresql`
-    * Port: `5432`
-    * Maintenance database: `postgres`
-    * Username: `admin`
-    * Password: `password1`
-![Postgres Server](examples/kafka/images/pgadmin_create_server.png)
+* In the adminer Browser, launch the Query tool by clicking "SQL command".
 
-* Launch the Query tool.
+* Copy/Paste the [table creation script](examples/basic/create_datalake_tables.sql) in the Query Editor. 
+![Postgres Server](/examples/basic/images/adminer_create_table.png)
 
-<img src="/examples/kafka/images/pgadmin_query_tool.png" width="300" alt="PGAdmin web interface">
+* Execute the creation query by clicking on the `Execute` command. 
 
-* Copy/Paste the [table creation script](examples/kafka/create_datalake_tables.sql) in the Query Editor.
-![Postgres Server](examples/kafka/images/pgadmin_create_table.png)
-
-* Execute the creation query by clicking on the `Execute/Refresh` command.
-![Postgres Server](examples/kafka/images/pgadmin_execute_table.png)
-
-* Once the previous steps are finished, you can detect that a new table `example_basic` is created in the `Tables` field of pgadmin Browser.
+* Once the previous steps are finished, you can detect that a new table `example_basic` is created in the `Tables` field of adminer Browser. 
 
 ## 3 Prepare Nifi to inter-connect the different components.
-<a href="http://nifi.apache.org/" alt="Apache Nifi"><img src="doc/images/logos/nifi.png" width="100px" /></a>
+
+<a href="http://nifi.apache.org/" alt="Apache Nifi"><img src="../../doc/images/logos/nifi.png" width="100px" /></a>
 
 > "An easy to use, powerful, and reliable system to process and distribute data."
 
@@ -88,12 +79,12 @@ To start, head to the Nifi web interface, if you are using **minikube**, you can
 minikube service -n fadi fadi-nifi
 ```
 
-![Nifi web interface](examples/kafka/images/nifi_interface.png)
+![Nifi web interface](/examples/kafka/images/nifi_interface.png)
 
 For more information on how to use Apache Nifi, see the [official Nifi user guide](https://nifi.apache.org/docs/nifi-docs/html/user-guide.html) and this [Awesome Nifi](https://github.com/jfrazee/awesome-nifi) resources.
 
 ### 3.1 Measurements ingestion
-Temperature measurements from the last 5 days (see [HVAC sample temperatures csv extract](examples/kafka/sample_data.csv)) are ingested:
+Temperature measurements from the last 5 days (see [HVAC sample temperatures csv extract](/examples/kafka/sample_data.csv)) are ingested:
 
 ```csv
 measure_ts,temperature
@@ -115,7 +106,7 @@ Now we need to tell Nifi to read the csv file and push the measurements in broke
 
 To create processor, make a drag and drop from the following button :
 
-<a href="https://grafana.com/" alt="Grafana"><img src="examples/kafka/images/nifi_processor.png" width="50px" /></a>
+![Grafana](/examples/kafka/images/nifi_processor.png)
 
 We need to configure two processors:
 
@@ -136,7 +127,7 @@ We need to configure two processors:
 #### Output Port
 To create output port, make a drag and drop from the following button :
 
-<img src="examples/kafka/images/nifi_output.png" width="50px" />
+![Nifi button](/examples/kafka/images/nifi_output.png)
 
 Create two output ports : `success_port` and `failure_port`
 
@@ -159,7 +150,7 @@ Create two output ports : `success_port` and `failure_port`
 
 Here is the target result :
 
-![Nifi Ingest CSV and store in PostgreSQL](examples/kafka/images/nifi_csv_to_kafka.png)
+![Nifi Ingest CSV and store in PostgreSQL](/examples/kafka/images/nifi_csv_to_kafka.png)
 
 See also [the Nifi "Kafka_to_PostgreSQL" template](/examples/kafka/nifi_template_CSV_to_kafka.xml) that corresponds to this example.
 
@@ -175,7 +166,7 @@ To reuse the provided template (instead of designing your own template), you can
 
 To create the processor, drag and drop from the following button :
 
-<a href="https://grafana.com/" alt="Grafana"><img src="examples/kafka/images/nifi_processor.png" width="50px" /></a>
+![Grafana](/examples/kafka/images/nifi_processor.png)
 
 We need to configure two processors:
 
@@ -205,7 +196,7 @@ We need to configure two processors:
 
 To create output port, make a drag and drop from the following button :
 
-<img src="examples/kafka/images/nifi_output.png" width="50px" />
+![Grafana](/examples/kafka/images/nifi_output.png)
 
 Create two output ports : `success_port` and `failure_port`
 
@@ -226,7 +217,7 @@ Create two output ports : `success_port` and `failure_port`
 
 Here is the result you need to arrive to:
 
-![Nifi Ingest CSV and store in PostgreSQL](examples/kafka/images/nifi_kafka_to_sql.png)
+![Nifi Ingest CSV and store in PostgreSQL](/examples/kafka/images/nifi_kafka_to_sql.png)
 
 See also [the Nifi "CSV_to_Kafka" template](/examples/kafka/nifi_template_CSV_to_Kafka.xml) that corresponds to this example.
 
