@@ -15,8 +15,8 @@ In this section, the main concepts and technologies are introduced in order to e
 *   **Jupyter** is a notebook  that provides an easy interface to the Spark processing engine that runs on your cluster. It is used in the FADI platform to enable the use of Spark and explore data.
 
 
+<!---
 # Abbreviations list
-
 
 <table>
   <tr>
@@ -32,6 +32,7 @@ In this section, the main concepts and technologies are introduced in order to e
    </td>
   </tr>
 </table>
+--->
 
 
 
@@ -45,7 +46,7 @@ In this section, the main concepts and technologies are introduced in order to e
    <td>
 <ul>
 
-<li><strong>Operator (</strong>Fraiseur/responsable de maintenance)<strong> (co)</strong>: operator on machine. He must understand information given by analysis dashboards to achieve his work.
+<li><strong>Operator</strong><strong> (co)</strong>: operator on machine. He must understand information given by analysis dashboards to achieve his work.
 
 <li><strong>Factory Leader (cfl)</strong>:<strong> </strong>he manages the factory (Tenant) and the Operators.
 
@@ -83,7 +84,7 @@ In this section, the main concepts and technologies are introduced in order to e
 
 
 
-# Test case list
+# Test cases list
 
 
 <table>
@@ -128,7 +129,7 @@ In this section, the main concepts and technologies are introduced in order to e
    </td>
   </tr>
   <tr>
-   <td><a href="https://github.com/cetic/fadi/blob/feature/tests/tests/__tests__/1-nifi.test.js" title="TC-4">TC-4</a>
+   <td><a href="../__tests__/2-nifi.test.js" title="TC-4">TC-4</a>
    </td>
     <td><a href="./cockburns/TC-4.md">Defining the Nifi workflow by uploading a template</a>
    </td>

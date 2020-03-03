@@ -91,7 +91,7 @@
    </td>
    <td>TC-11
    </td>
-   <td> <a href="./test-scripts/TS-11.md">Defining dashboards based on the analyzed data using Grafana</a≥
+   <td> <a href="./test-scripts/TS-11.md">Defining dashboards based on the analyzed data using Grafana</a>
    </td>
    <td>Business Analyst, Business Leader
    </td>
@@ -103,7 +103,7 @@
    </td>
    <td>TC-15
    </td>
-   <td><a href="./test-scripts/TS-15.md">Creating a chart in Superset</a≥ 
+   <td><a href="./test-scripts/TS-15.md">Creating a chart in Superset</a>
    </td>
    <td>Business Analyst, Business Leader
    </td>
