@@ -37,43 +37,33 @@ See the [logs management documentation](doc/LOGGING.md) for information on how t
 
 ## 2. Prepare the database to store measurements 
 
-<a href="https://www.pgadmin.org" alt="pgAdmin"><img src="doc/images/logos/pgadmin.png" width="200px" /></a>
+<a href="https://www.adminer.org/" alt="adminer"><img src="doc/images/logos/adminer.png" width="200px" /></a>
 
 First, setup the datalake by creating a table in the postgresql database. 
 
 To achieve this you need to: 
 
-* Head to the pgadmin interface, if you are using **minikube**, you can use the following command :
+* Head to the adminer interface, if you are using **minikube**, you can use the following command :
 ```
-minikube service -n fadi fadi-pgadmin 
+minikube service -n fadi fadi-adminer 
 ```
 
-* Access to the pgadmin service using the following credentials:
-    * login: `pgadmin4@pgadmin.org`
-    * password: `admin`
+* Access to the adminer service and to the postgreSQL database using the following credentials:
 
-* In pgadmin Browser, create a server on pgadmin by right-click on `Servers` -> `Create a Server`
+    * System: PostgreSQL
+    * Server: fadi-postgresql
+    * Username: admin
+    * Password: passowrd1
+    * Database: postgres
 
-* Configure the server as shown in the following screenshot:
-    * Host name: `fadi-postgresql`
-    * Port: `5432`
-    * Maintenance database: `postgres`
-    * Username: `admin`
-    * Password: `password1`
-![Postgres Server](examples/basic/images/pgadmin_create_server.png)
-
-* Launch the Query tool.
-
-<img src="examples/basic/images/pgadmin_query_tool.png" width="300">
-
+* In the adminer Browser, launch the Query tool by clicking "SQL command".
 
 * Copy/Paste the [table creation script](examples/basic/create_datalake_tables.sql) in the Query Editor. 
-![Postgres Server](examples/basic/images/pgadmin_create_table.png)
+![Postgres Server](examples/basic/images/adminer_create_table.png)
 
-* Execute the creation query by clicking on the `Execute/Refresh` command. 
-![Postgres Server](examples/basic/images/pgadmin_execute_table.png)
+* Execute the creation query by clicking on the `Execute` command. 
 
-* Once the previous steps are finished, you can detect that a new table `example_basic` is created in the `Tables` field of pgadmin Browser. 
+* Once the previous steps are finished, you can detect that a new table `example_basic` is created in the `Tables` field of adminer Browser. 
 
 ## 3. Ingest measurements 
 
@@ -366,3 +356,5 @@ For more information on how to use Superset, see the [official Jupyter documenta
 In this use case, we have demonstrated a simple configuration for FADI, where we use various services to ingest, store, analyse, explore and provide dashboards and alerts 
 
 You can find the various resources for this sample use case (Nifi flowfile, Grafana dashboards, ...) in the [examples folder](examples/basic)
+
+The examples section contains other more specific examples (e.g. [Kafka streaming ingestion](examples/kafka/README.md))
