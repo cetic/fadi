@@ -50,11 +50,11 @@ minikube service -n fadi fadi-adminer
 
 * Access to the adminer service and to the postgreSQL database using the following credentials:
 
-    * System: PostgreSQL
-    * Server: fadi-postgresql
-    * Username: admin
-    * Password: passowrd1
-    * Database: postgres
+    * System: `PostgreSQL`
+    * Server: `fadi-postgresql`
+    * Username: `admin`
+    * Password: `password1`
+    * Database: `postgres`
 
 * In the adminer Browser, launch the Query tool by clicking "SQL command".
 
