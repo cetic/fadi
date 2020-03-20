@@ -6,22 +6,27 @@
 
 # Add Binderhub around FADI
 
-## Disable jupyterhub in the default FADI deployement.
-the BinderHub Helm chart take care of the deployement of JupyterHub. We could think that it's possible to
-add the following values in a values.yaml file :
-```
-jupyterhub:
-  enabled: false
-```
-We assume that you have already a stable cluster with the default version of FADI installed
+We assume that you have already a cluster deployed. If not, you can refer and follow our [Installation guide]() until the point 1.2.2
 
+## Prepare the config.yaml file.
 
+Clone this repository and go to the binderhub example folder:
+
+```bash
+git clone https://github.com/cetic/fadi.git fadi
+cd $pwd/fadi/examples/binderhub
 ```
-echo -e "jupyterhub:\n  enabled: false" >> values.yaml
-helm upgrade --install fadi cetic/fadi -f ./values.yaml --namespace fadi
-helm install binderhub jupyterhub/binderhub -f ./values.yaml --namespace binderhub
 
-helm install jupyterhub/binderhub --version=0.2.0-3b53fce  --name=<choose-name> --namespace=<choose-namespace> -f 
+Launch the Helm script, this will deploy all the FADI services on the cluster (and may take some time).
+
+```bash
+kubectl config set-context minikube
+minikube addons enable ingress
+# you can edit values.yaml file to customise the stack but let jupyterhub disabled
+./deploy.sh
+# see deploy.log for connection information to the various services
+# specify the fadi namespace to see the different pods
+kubectl config set-context minikube --namespace fadi
 ```
 
 # Basic example of binderhub workflow

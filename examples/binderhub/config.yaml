@@ -1,7 +1,13 @@
 config:
   BinderHub:
-    hub_url: http://proxy-public.fadi.svc.cluster.local:30902
+    use_registry: false
 
+dind:
+  enabled: true
+  daemonset:
+    image:
+      name: docker
+      tag: 18.09.2-dind
 
 jupyterhub:
   hub:
