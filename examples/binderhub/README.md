@@ -38,7 +38,15 @@ registry:
 
 # Basic example of binderhub workflow
 
-TODO
-
+## Input
+![images/1_input.png](images/1_input.png)
+## Building
+![images/2_building.png](images/2_building.png)
+## Pushing
+![images/3_pushing.png](images/3_pushing.png)
+## Server
+![images/4_jupyter.png](images/4_jupyter.png)
+## Launch
+![images/5_notebook.png](images/5_notebook.png)
 # References
  - [https://binderhub.readthedocs.io/en/latest/](https://binderhub.readthedocs.io/en/latest/)
