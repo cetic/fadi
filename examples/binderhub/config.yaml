@@ -1,6 +1,11 @@
 config:
   BinderHub:
-    use_registry: false
+    use_registry: true
+    image_prefix: <DOCKER_ID>/<PROJECT_NAME>-
+registry:
+  username: <DOCKER_ID>
+  password: >DOCKER_PASSWORD>
+
 
 dind:
   enabled: true
