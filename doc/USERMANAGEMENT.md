@@ -9,6 +9,7 @@ User Management
      * [PostgreSQL](#postgresql)
 * [3. Manage your LDAP server](#3-manage-your-ldap-server)
      * [Adding a user](#adding-a-user)
+     * [Creating groups](#Creating-groups)
 
 
 This page provides information on how to configure FADI user authentication and authorization (LDAP, RBAC, ...).
@@ -187,6 +188,167 @@ When you click on  `⭐️Create new entry here`, a new window called `Select a 
 
 Go to `Generic: User Account` and a list of fields will show up. Enter the information about the user you want to create and click `Create Object`.
  
+## Creating groups
+
+The LDAP protocol doesn’t define how programs function either on the server or client, but the messages exchanged between an LDAP server and an LDAP client, to manage your users well you need to know how to create users/groups in the ldap server and then you need to assign every user/group to the right service or application **through the application's configuration on the `values.yaml` file**.
+
+We are going to create a group called **devs** and add a user in that group and then **configure each service** to authenticate that particular group. The LDAP protocol doesn’t define how programs function either on the server or client, but the messages exchanged between an LDAP server and an LDAP client, to manage your users well you need to know how to create users/groups in the ldap server and then you need to assign every user/group to the right service or application **through the application's configuration in the `values.yaml` file**.
+
+We are going to create a group called **devs** and a group called **admins** and add a user in each group and then **configure each service** to authenticate the newly created users/groups.
+
+#### Create groups in openldap
+
+When using openldap you will probably need to create different groups and give them different roles or assign them on different services, to manage your ldap server head to phpLDAPadmin:
+
+here's a simple ldif code to import that will create:
+
+* An Organizational Unit `OU=people`
+* A group called **admins** under `ou=people,dc=ldap,dc=cetic,dc=be` so the dn will be `cn=admins,ou=people,dc=ldap,dc=cetic,dc=be`
+* A user called `John` under `cn=admin,dc=ldap,dc=cetic,dc=be` so the dn will be `cn=john,cn=admins,ou=people,dc=ldap,dc=cetic,dc=be` with the password `john123`
+* A group called **devs** under `ou=people,dc=ldap,dc=cetic,dc=be` so the dn will be `cn=devs,ou=people,dc=ldap,dc=cetic,dc=be` 
+* A user called `Luke` under `cn=devs,dc=ldap,dc=cetic,dc=be` so the dn will be `cn=luke,cn=devs,ou=people,dc=ldap,dc=cetic,dc=be` with the password `luke123`
+
+```
+dn: ou=people,dc=ldap,dc=cetic,dc=be
+ou: people
+objectClass: organizationalUnit
+
+dn: cn=admins,ou=people,dc=ldap,dc=cetic,dc=be
+cn: admins
+gidnumber: 501
+objectclass: posixGroup
+objectclass: top
+
+dn: cn=devs,ou=people,dc=ldap,dc=cetic,dc=be
+cn: devs
+gidnumber: 500
+objectclass: posixGroup
+objectclass: top
+
+dn: cn=luke,cn=devs,ou=people,dc=ldap,dc=cetic,dc=be
+cn: luke
+gidnumber: 500
+givenname: luke
+homedirectory: /home/users/lskywalker
+loginshell: /bin/sh
+objectclass: inetOrgPerson
+objectclass: posixAccount
+objectclass: top
+sn: skywalker
+uid: luke
+uidnumber: 1000
+userpassword: {MD5}hSQr2UGesHOpB9f3VrX43Q==
+
+dn: cn=john,cn=admins,ou=people,dc=ldap,dc=cetic,dc=be
+cn: john
+gidnumber: 501
+givenname: john
+homedirectory: /home/users/John
+loginshell: /bin/sh
+objectclass: inetOrgPerson
+objectclass: posixAccount
+objectclass: top
+sn: Doe
+uid: john
+uidnumber: 1001
+userpassword: john123
+```
+
+## PostgresQL
+
+To copy the groups/users in postgres you need to configure the Cron job that executes the tool [pg-ldap-sync](https://github.com/larskanis/pg-ldap-sync) to synchronise the users between the LDAP server and the database, there for we're configuring pg-ldap-sync to add the users of our group.
+
+in `values.yaml` file head to the variable `postgresql.ldap.pgldapconfig` and make sure the `ldap_users` section looks like this:
+
+```
+ldap_users:
+base: DC=ldap,DC=cetic,DC=be
+# LDAP filter (according to RFC 2254)
+# defines to users in LDAP to be synchronized
+filter: (!(cn=admin))
+# this attribute is used as PG role name
+name_attribute: uid
+# lowercase name for use as PG role name
+lowercase_name: true
+```
+
+and the ldap_groups section looks like this :
+
+```
+ldap_groups:
+base: DC=ldap,DC=cetic,DC=be
+filter: (|(cn=devs)(ou=people)(cn=admins))
+# this attribute is used as PG role name
+name_attribute: cn
+# this attribute must reference to all member DN's of the given group
+member_attribute: member
+```
+The main change here is the **filter `filter: (|(cn=devs)(ou=people)(cn=admins))`** in which we add the names of the groups we want to be added to PostgresQL, for example if our filter is `filter: (|(cn=devs)(ou=people))` the group **admins** will not be added .
+
+## Grafana
+
+For Grafana head to the variable `grafana.ldap.config` and make sure it looks like this:
+
+```
+    config: |-
+      verbose_logging = true
+      [[servers]]
+      host = "fadi-openldap"
+      port = 389
+      use_ssl = false
+      start_tls = false
+      ssl_skip_verify = false
+      bind_dn = "cn=admin,DC=ldap,DC=cetic,DC=be"
+      bind_password = 'password1'
+      search_filter = "(|(cn=%s)(uid=%s))"
+      search_base_dns = ["dc=ldap,dc=cetic,dc=be"]
+      group_search_base_dns = ["ou=people,dc=ldap,dc=cetic,dc=be"]
+
+      [servers.attributes]
+      name = "givenName"
+      surname = "sn"
+      username = "cn"
+      member_of = "memberOf"
+      email =  "email"
+
+      [[servers.group_mappings]]
+      group_dn = "cn=admins,ou=people,dc=ldap,dc=cetic,dc=be"
+      org_role = "Admin"
+      grafana_admin = true
+
+      [[servers.group_mappings]]
+      group_dn = "*"
+      org_role = "Viewer"
+```
+
+The main change here is `group_search_base_dns = ["ou=people,dc=ldap,dc=cetic,dc=be"]` in which we add Organizational Unit `OU=people` so it can find the newly created groups **devs** and **admins**. Then to manage the access ( and/or roles ) you can do so following the [documentation](https://grafana.com/docs/grafana/latest/auth/ldap/), adding the following sample of configuration will give the **group admins** the **admin rights** and all the rest the **Viewer rights**.
 
 
+```
+      [[servers.group_mappings]]
+      group_dn = "cn=admins,ou=people,dc=ldap,dc=cetic,dc=be"
+      org_role = "Admin"
+      grafana_admin = true
 
+      [[servers.group_mappings]]
+      group_dn = "*"
+      org_role = "Viewer"
+```
+
+## JupyterHub
+
+For JupyterHub head to the variable `jupyterhub.auth.ldap.dn.templates` and put only the list of DNs to be accepted, for instance if we want to add the **group devs** and give them access to this service we add this line `cn={username},cn=devs,dc=ldap,dc=cetic,dc=be` where `{username}` is the username that will be put by the user, while we won't add `cn={username},cn=admins,dc=ldap,dc=cetic,dc=be` so the group **admins** won't have access, the list shoud look something like this:
+
+```
+   auth:
+    type: ldap
+    ldap:
+      server:
+        address: fadi-openldap
+      dn:
+        templates:
+          - 'cn={username},cn=admin,dc=ldap,dc=cetic,dc=be'
+          - 'uid={username},cn=admins,ou=people,dc=ldap,dc=cetic,dc=be'
+          - 'cn={username},dc=ldap,dc=cetic,dc=be'
+          - 'cn={username},cn=devs,ou=people,dc=ldap,dc=cetic,dc=be'
+```
