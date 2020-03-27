@@ -111,7 +111,7 @@ StorageOS is a very good turnkey solution. However this service give only the po
 
 ![StorageOS limits](images/installation/StorageOS_limits.png)
 
-Finally, all that remains is to define the StorageClass storageos as the one that will be used by default. To do this, go to ... .... ... ... and ticked on ...
+Finally, all that remains is to define the StorageClass **StorageOS** as the one that will be used by default. To do this, go to `Storage`> `StorageClass` and click on the menu (the three little points on the right side). Now, click on `Set as Default`.
 
 This procedure is shown on the below animation :
 
@@ -130,8 +130,23 @@ We report the bugs and problems encountered in two opened github issues:
 [https://github.com/rancher/os/issues/2937](https://github.com/rancher/os/issues/2937)
 [https://github.com/longhorn/longhorn/issues/828](https://github.com/longhorn/longhorn/issues/828)
 
-## NFS Server
+## NFS Server Provisionner
+<a href="https://github.com/longhorn/longhorn" alt="nfs"> <img src="images/logos/nfs.jpg" width="150px" /></a>
 
+>*The Network File System (NFS) is a client/server application that lets a computer user view and optionally store and update files on a remote computer as though they were on the user's own computer.
+NFS Server Provisioner is an out-of-tree dynamic provisioner for Kubernetes. You can use it to quickly & easily deploy shared storage that works almost anywhere.*
+
+This is the last solution that we are trying to master, so we still have very little feedback.
+
+However, it is very easy to deploy and set up. Indeed, our first uses did not require any particular configuration. This plugin supports both the deployment of the NFS server and the management of persistent volumes
+
+One of the limits and caveat would be that the NFS server is attached to a node, if it crashes, it is possible that the data is lost.
+
+To add this plugin to your cluster go to `Apps` and click on `Launch`. On the `Search bar` put `nfs-provisioner`.
+
+![images/installation/nfsapp.png](images/installation/nfsapp.png)
+
+Just select the plugin and push and the launch button 🚀.
 ## Manualy
 
 It is also possible to manually create the persistent volumes, this way of doing offers the advantage of a complete control of the volumes but is very inflexible. If you choose this way of doing things, we refer you to the official documentation of Kubernetes:
