@@ -1,4 +1,4 @@
-Deploy FADI with rancher and proxmox
+Deploy FADI with Rancher and Proxmox
 =============
 
 * [1. Upload ISO on Proxmox Node](#1-Upload-IS0-on-Proxmox-Node)
@@ -48,9 +48,9 @@ https://github.com/lnxbil/docker-machine-driver-proxmox-ve/releases/download/v3/
 
 <a href="https://www.proxmox.com/" alt="OpenLDAP"> <img src="images/logos/rancher.png" width="150px" /></a>
 
-*Rancher is open source software that combines everything an organization needs to adopt and run containers in production. Built on Kubernetes, Rancher makes it easy for DevOps teams to test, deploy and manage their applications.*
+>*Rancher is open source software that combines everything an organization needs to adopt and run containers in production. Built on Kubernetes, Rancher makes it easy for DevOps teams to test, deploy and manage their applications.*
 
-After connecting to rancher, you can follow the following steps
+After connecting to rancher, you can follow the following steps :
 
 ### Create Node Template
 This is where you define the templates you wanna use for your nodes ( both masters and workers ), to do so you can go to: `profile (top right corner)`  > `Node templates` > `Add Template` :
@@ -69,6 +69,10 @@ To create your cluster go to:
 You'll need to give your cluster a name, then specify the nodes in the cluster, at first start with **one master node**, you give it a name, choose the template created earlier for that node and then tick all 3 boxes for `etcd`, `Control Plane` and `Worker`, then choose the kubernetes version and click `create`.
 
 > you'll have to wait the `VM creation`, `the RancherOS install` and `the IP address retrieving`, that might take a while
+
+
+![CreateCluster](images/installation/CreateCluster.gif)
+
 
  Once the master node gets its IP address, go to `Cluster`  > `Edit Cluster` and add another worker node, untick the worker box from the master node and tick it in the new worker node, it should look something like this:
  ![Proxmoxve](images/installation/workernode.png)
