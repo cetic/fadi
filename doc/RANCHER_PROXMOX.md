@@ -9,10 +9,16 @@ Deploy FADI with rancher and proxmox
      * [Create Cluster](#Create-Cluster)
      * [Create The Nodes](#Create-The-Nodes)
 * [5.Manage the provisioning of the persistent volumes](#5-Manage-the-provisioning-of-the-persistent-volumes)
-* [5. Control Cluster from Local PC](#3-Control-Cluster-from-Local-PC)
+    * [StorageOS](StorageOS)
+    * [Longhorn](Longhorn)
+    * [NFS Server](NFS Server)
+    * [Manually](Manually)
+* [6. Deploy FADI](#6-Deploy-FADI)
+* [7. Control Cluster from Local PC](#7-Control-Cluster-from-Local-PC)
+* [8.References](#8-References)
 
 
-This page provides information on how to create a kubernetes cluster and deploy FADI using rancher and proxmox.
+This page provides information on how to create a kubernetes cluster and deploy FADI using **Rancher** and **Proxmox**. We assume that you have already deploy **Proxmox**.
 
 ## 1. Upload ISO on Proxmox Node
 
@@ -126,12 +132,10 @@ We report the bugs and problems encountered in two open issues on github :
 It is also possible to manually create the persistent volumes, this way of doing offers the advantage of a complete control of the volumes but is very inflexible. If you choose this way of doing things, we refer you to the official documentation of Kubernetes:
 
 [https://kubernetes.io/docs/concepts/storage/volumes/](https://kubernetes.io/docs/concepts/storage/volumes/)
-### Deploy FADI
-![defaultpvc](images/installation/defaultpvc.png)
+## 6. Deploy FADI
+TBT
 
- selector set as default the StorageClass
+## 7. Control Cluster from Local PC
+TBT
 
-
-## 4. Control Cluster from Local PC
-
-## 5. Reference
+## 8. Reference
