@@ -11,7 +11,7 @@ Deploy FADI with Rancher and Proxmox
 * [5.Manage the provisioning of the persistent volumes](#5-Manage-the-provisioning-of-the-persistent-volumes)
     * [StorageOS](StorageOS)
     * [Longhorn](Longhorn)
-    * [NFS Server](NFS Server)
+    * [NFS Server](NFS-Server)
     * [Manually](Manually)
 * [6. Control Cluster from Local PC](#7-Control-Cluster-from-Local-PC)
 * [7. References](#8-References)
@@ -19,7 +19,7 @@ Deploy FADI with Rancher and Proxmox
 
 This page provides information on how to create a kubernetes cluster and deploy FADI using **Rancher** and **Proxmox**. We assume that you have already deploy **Proxmox**.
 
-## 1. Upload ISO on Proxmox Node
+# 1. Upload ISO on Proxmox Node
 
 <a href="https://www.proxmox.com/" alt="OpenLDAP"> <img src="images/logos/Proxmox.png" width="150px" /></a>
 
@@ -28,10 +28,10 @@ This page provides information on how to create a kubernetes cluster and deploy 
 First you need to download the iso rancheros-proxmoxve-autoformat.iso, you can download by clicking [here](https://github.com/rancher/os/releases/download/v1.5.5/rancheros-proxmoxve-autoformat.iso).
 
 Once downloaded you need to upload on your proxmox node.
-## 2. Install Rancher
+# 2. Install Rancher
 
 We consider you have already deploy Rancher. However we give you the instructions that we have followed to deploy our Rancher server : [https://rancher.com/docs/rancher/v2.x/en/installation/other-installation-methods/single-node-docker/advanced/](https://rancher.com/docs/rancher/v2.x/en/installation/other-installation-methods/single-node-docker/advanced/)
-## 3. Add docker-machine driver
+# 3. Add docker-machine driver
 
 You need to allow Rancher to control the Proxmox. We have contributed to upgrade a existing docker-machine driver to make it compatible with Rancher.
 To add this driver in your Rancher, Follow this steps :
@@ -43,7 +43,7 @@ Driver Url:
 https://github.com/lnxbil/docker-machine-driver-proxmox-ve/releases/download/v3/docker-machine-driver-proxmoxve.linux-amd64
 ```
 
-## 4. Create Cluster With Rancher
+# 4. Create Cluster With Rancher
 
 <a href="https://www.proxmox.com/" alt="OpenLDAP"> <img src="images/logos/rancher.png" width="150px" /></a>
 
@@ -51,7 +51,7 @@ https://github.com/lnxbil/docker-machine-driver-proxmox-ve/releases/download/v3/
 
 After connecting to rancher, you can follow the following steps :
 
-### Create Node Template
+## Create Node Template
 This is where you define the templates you wanna use for your nodes ( both masters and workers ), to do so you can go to: `profile (top right corner)`  > `Node templates` > `Add Template` :
 
 Choose `Proxmoxve`
@@ -59,7 +59,8 @@ Choose `Proxmoxve`
 and then fill the rest of the fields like the IP of the proxmox `i.e. proxmoxHost`, the username/password `i.e. proxmoxUserName, proxmoxUserPassword `, storage of the image file `vmImageFile ` which is in our case `local:iso/rancheros-proxmoxve-autoformat.iso` and coming down to the resources you want to allocate for your node `i.e. nodevmCpuCores, vmMemory, vmStorageSize `.
 
 Be careful, the ssh **sshUsername** and **sshPassword** must be `docker` and `tcuser`
-### Create Cluster
+
+## Create Cluster
 
 To create your cluster go to:
 
@@ -84,12 +85,12 @@ All of this steps are taken back in the following animation :
  ![Proxmoxve](images/installation/addnode.png)
 
 
-## 5. Manage the provisioning of the persistent volumes.
+# 5. Manage the provisioning of the persistent volumes.
 Once all your nodes are up and running, it's time to deploy your services, but before you do you need to set your default PVC for the persistent volumes.
 
 Several ways are possible to manage its aspects. We will describe three of them, and leave it to you to choose the method that best meets your requirements.
 
-### StorageOS
+## StorageOS
 <a href="https://www.storageos.com/" alt="storageos"> <img src="images/logos/storageos.svg" width="150px" /></a>
 > *StorageOS is a cloud native storage solution that delivers persistent container storage for your stateful applications in production.
 Dynamically provision highly available persistent volumes by simply deploying StorageOS anywhere with a single container.*
@@ -116,7 +117,8 @@ Finally, all that remains is to define the StorageClass storageos as the one tha
 This procedure is shown on the below animation :
 
 ![StorageClass](images/installation/StorageClassDefault.gif)
-#### Longhorn
+
+## Longhorn
 <a href="https://github.com/longhorn/longhorn" alt="longhorn"> <img src="images/logos/longhorn.png" width="150px" /></a>
 
 > *Longhorn is a distributed block storage system for Kubernetes.
@@ -129,15 +131,15 @@ We report the bugs and problems encountered in two open issues on github :
 [https://github.com/rancher/os/issues/2937](https://github.com/rancher/os/issues/2937)
 [https://github.com/longhorn/longhorn/issues/828](https://github.com/longhorn/longhorn/issues/828)
 
-#### NFS Server
+## NFS Server
 
-#### Manualy
+## Manualy
 
 It is also possible to manually create the persistent volumes, this way of doing offers the advantage of a complete control of the volumes but is very inflexible. If you choose this way of doing things, we refer you to the official documentation of Kubernetes:
 
 [https://kubernetes.io/docs/concepts/storage/volumes/](https://kubernetes.io/docs/concepts/storage/volumes/)
 
-## 6. Control Cluster from Local PC
+# 6. Control Cluster from Local PC
 TBT
 
-## 7. References
+# 7. References
