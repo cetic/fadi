@@ -34,7 +34,7 @@ Zabbix proxy is a process that may collect monitoring data from one or more moni
 Make sure to enable zabbix in the `values.yaml` file, then to access the front-end use the following command:
 
 ```
-minikube service zabbix-web
+minikube service fadi-zabbix-web
 ```
 
 The default username/password are `Admin`/`zabbix`, once connected make sure the zabbix-server is working on the global view, to see the received metrics ( or graphs ) head to the tab `Latest data` under `monitoring` and then click on select on **host groups** and **hosts** and choose your `zabbix servers`.
