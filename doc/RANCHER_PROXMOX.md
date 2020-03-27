@@ -13,9 +13,8 @@ Deploy FADI with Rancher and Proxmox
     * [Longhorn](Longhorn)
     * [NFS Server](NFS Server)
     * [Manually](Manually)
-* [6. Deploy FADI](#6-Deploy-FADI)
-* [7. Control Cluster from Local PC](#7-Control-Cluster-from-Local-PC)
-* [8.References](#8-References)
+* [6. Control Cluster from Local PC](#7-Control-Cluster-from-Local-PC)
+* [7. References](#8-References)
 
 
 This page provides information on how to create a kubernetes cluster and deploy FADI using **Rancher** and **Proxmox**. We assume that you have already deploy **Proxmox**.
@@ -76,7 +75,7 @@ You'll need to give your cluster a name, then specify the nodes in the cluster, 
 
  Once the master node gets its IP address, go to `Cluster`  > `Edit Cluster` and add another worker node, untick the worker box from the master node and tick it in the new worker node, it should look something like this:
 
- ![AddNode](images/installation/AddNode.gif)
+ ![AddNode](images/installation/AddNodefix.gif)
 
 If a second (or more) node (master or worker) is needed you can either add another with a different template the same way we just did or you can add as much nodes as you want using the same template by simply going to  `YourCluster` (not global)  > `nodes` > `+` and it will add an other node of the same kind:
 
@@ -137,10 +136,8 @@ We report the bugs and problems encountered in two open issues on github :
 It is also possible to manually create the persistent volumes, this way of doing offers the advantage of a complete control of the volumes but is very inflexible. If you choose this way of doing things, we refer you to the official documentation of Kubernetes:
 
 [https://kubernetes.io/docs/concepts/storage/volumes/](https://kubernetes.io/docs/concepts/storage/volumes/)
-## 6. Deploy FADI
+
+## 6. Control Cluster from Local PC
 TBT
 
-## 7. Control Cluster from Local PC
-TBT
-
-## 8. Reference
+## 7. References
