@@ -23,12 +23,16 @@ This page provides information on how to create a kubernetes cluster and deploy 
 
 <a href="https://www.proxmox.com/" alt="OpenLDAP"> <img src="images/logos/Proxmox.png" width="150px" /></a>
 
-> "Proxmox VE is a complete open-source platform for enterprise virtualization. With the built-in web interface you can easily manage VMs and containers, software-defined storage and networking, high-availability clustering, and multiple out-of-the-box tools on a single solution."
+> *Proxmox VE is a complete open-source platform for enterprise virtualization. With the built-in web interface you can easily manage VMs and containers, software-defined storage and networking, high-availability clustering, and multiple out-of-the-box tools on a single solution.*
 
 First you need to download the iso rancheros-proxmoxve-autoformat.iso, you can download by clicking [here](https://github.com/rancher/os/releases/download/v1.5.5/rancheros-proxmoxve-autoformat.iso).
-
 Once downloaded you need to upload on your proxmox node.
+
 # 2. Install Rancher
+<a href="https://www.proxmox.com/" alt="OpenLDAP"> <img src="images/logos/rancher.png" width="150px" /></a>
+
+>*Rancher is open source software that combines everything an organization needs to adopt and run containers in production. Built on Kubernetes, Rancher makes it easy for DevOps teams to test, deploy and manage their applications.*
+
 
 We consider you have already deploy Rancher. However we give you the instructions that we have followed to deploy our Rancher server : [https://rancher.com/docs/rancher/v2.x/en/installation/other-installation-methods/single-node-docker/advanced/](https://rancher.com/docs/rancher/v2.x/en/installation/other-installation-methods/single-node-docker/advanced/)
 # 3. Add docker-machine driver
@@ -44,11 +48,6 @@ https://github.com/lnxbil/docker-machine-driver-proxmox-ve/releases/download/v3/
 ```
 
 # 4. Create Cluster With Rancher
-
-<a href="https://www.proxmox.com/" alt="OpenLDAP"> <img src="images/logos/rancher.png" width="150px" /></a>
-
->*Rancher is open source software that combines everything an organization needs to adopt and run containers in production. Built on Kubernetes, Rancher makes it easy for DevOps teams to test, deploy and manage their applications.*
-
 After connecting to rancher, you can follow the following steps :
 
 ## Create Node Template
@@ -126,7 +125,7 @@ Longhorn creates a dedicated storage controller for each block device volume and
 
 This tool is really very powerful, based on iSCSI technology. Unfortunately it is not yet supported by RancherOS (The operating system used in this example).
 
-We report the bugs and problems encountered in two open issues on github :
+We report the bugs and problems encountered in two opened github issues:
 
 [https://github.com/rancher/os/issues/2937](https://github.com/rancher/os/issues/2937)
 [https://github.com/longhorn/longhorn/issues/828](https://github.com/longhorn/longhorn/issues/828)
