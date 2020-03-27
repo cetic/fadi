@@ -14,7 +14,6 @@ Deploy FADI with Rancher and Proxmox
     * [NFS Server](NFS-Server)
     * [Manually](Manually)
 * [6. Control Cluster from Local PC](#7-Control-Cluster-from-Local-PC)
-* [7. References](#8-References)
 
 
 This page provides information on how to create a kubernetes cluster and deploy FADI using **Rancher** and **Proxmox**. We assume that you have already deploy **Proxmox**.
@@ -154,6 +153,14 @@ It is also possible to manually create the persistent volumes, this way of doing
 [https://kubernetes.io/docs/concepts/storage/volumes/](https://kubernetes.io/docs/concepts/storage/volumes/)
 
 # 6. Control Cluster from Local PC
-TBT
+There are ways to interact with your cluster using the `kubectl` command line tool.
 
-# 7. References
+First, **Rancher** offers a restricted terminal where only this tool is available. To access it just go to the monitoring page of your cluster and click on the launch `kubectl` button.
+
+![images/installation/ranchermonitoring.png](images/installation/ranchermonitoring.png)
+
+![images/installation/rancherkubectl.png](images/installation/rancherkubectl.png)
+
+The second approach is to use the `kubectl` tool on your machine. to do so, go to the monitoring page of your cluster again and click on `Kubeconfig File`. Copy and paste all of the informations into the file `~/.kube/config` present on your machine.
+
+#### You can now use your cluster created with rancher and deploy in Proxmox!
