@@ -75,7 +75,8 @@ You'll need to give your cluster a name, then specify the nodes in the cluster, 
 
 
  Once the master node gets its IP address, go to `Cluster`  > `Edit Cluster` and add another worker node, untick the worker box from the master node and tick it in the new worker node, it should look something like this:
- ![Proxmoxve](images/installation/workernode.png)
+
+ ![AddNode](images/installation/AddNode.gif)
 
 If a second (or more) node (master or worker) is needed you can either add another with a different template the same way we just did or you can add as much nodes as you want using the same template by simply going to  `YourCluster` (not global)  > `nodes` > `+` and it will add an other node of the same kind:
 
