@@ -42,7 +42,7 @@ https://github.com/lnxbil/docker-machine-driver-proxmox-ve/releases/download/v3/
 
 <a href="https://www.proxmox.com/" alt="OpenLDAP"> <img src="images/logos/rancher.png" width="150px" /></a>
 
-> "Rancher is open source software that combines everything an organization needs to adopt and run containers in production. Built on Kubernetes, Rancher makes it easy for DevOps teams to test, deploy and manage their applications."
+*Rancher is open source software that combines everything an organization needs to adopt and run containers in production. Built on Kubernetes, Rancher makes it easy for DevOps teams to test, deploy and manage their applications.*
 
 After connecting to rancher, you can follow the following steps
 
@@ -53,11 +53,12 @@ Choose `Proxmoxve`
 ![Proxmoxve](images/installation/Proxmoxve.png)
 and then fill the rest of the fields like the IP of the proxmox `i.e. proxmoxHost`, the username/password `i.e. proxmoxUserName, proxmoxUserPassword `, storage of the image file `vmImageFile ` which is in our case `local:iso/rancheros-proxmoxve-autoformat.iso` and coming down to the resources you want to allocate for your node `i.e. nodevmCpuCores, vmMemory, vmStorageSize `.
 
+Be careful, the ssh **sshUsername** and **sshPassword** must be `docker` and `tcuser`
 ### Create Cluster
 
-To create your cluster:
+To create your cluster go to:
 
- `Cluster`  > `Add Cluster` > `Proxmoxve`
+`global`  >  `Cluster`  > `Add Cluster` > `Proxmoxve`
 
 You'll need to give your cluster a name, then specify the nodes in the cluster, at first start with **one master node**, you give it a name, choose the template created earlier for that node and then tick all 3 boxes for `etcd`, `Control Plane` and `Worker`, then choose the kubernetes version and click `create`.
 
@@ -68,34 +69,69 @@ You'll need to give your cluster a name, then specify the nodes in the cluster, 
 
 If a second (or more) node (master or worker) is needed you can either add another with a different template the same way we just did or you can add as much nodes as you want using the same template by simply going to  `YourCluster` (not global)  > `nodes` > `+` and it will add an other node of the same kind:
 
+All of this steps are taken back in the following animation :
+
  ![Proxmoxve](images/installation/addnode.png)
 
 
 ## 5. Manage the provisioning of the persistent volumes.
+Once all your nodes are up and running, it's time to deploy your services, but before you do you need to set your default PVC for the persistent volumes.
+
+Several ways are possible to manage its aspects. We will describe three of them, and leave it to you to choose the method that best meets your requirements.
+
 ### StorageOS
-Once all your nodes are up and running, it's time to deploy your services, but before you do you need to set your default PVC for the persistent volumes, to do so we first need to deploy the volume plugin `StorageOS`, go to `YourCluster (not global)`  > `system` > `apps` > `launch` and search for `StorageOS`. make sure all the fields are filled correctly like the following screenshot:
-
-![Proxmoxve](images/installation/StorageOS.png)
-
-and now, launch it 🚀 .
-
-> "launching apps usually takes several minutes, you're going to need to wait a few minutes till the "
-
-Be Careful this service give the posibility to allocate maximum 50Gi with the basic License.
-
-![Proxmoxve](images/installation/StorageOS_limits.png)
-### Manualy
+<a href="https://www.storageos.com/" alt="storageos"> <img src="images/logos/storageos.svg" width="150px" /></a>
+> *StorageOS is a cloud native storage solution that delivers persistent container storage for your stateful applications in production.
+Dynamically provision highly available persistent volumes by simply deploying StorageOS anywhere with a single container.*
 
 
-TBT
+To deploy the volume plugin `StorageOS`, go to `YourCluster (not global)`  > `system` > `apps` > `launch` and search for `StorageOS`. make sure all the fields are filled correctly like the following screenshot:
 
+![StorageOSConfig](images/installation/StorageOS.png)
 
+and now, launch it 🚀.
+
+A small animation take back this all steps:
+
+![StorageOSGuide](images/installation/StorageOSGuide.gif)
+
+launching apps usually takes several minutes, you're going to need to wait a few minutes
+
+StorageOS is a very good turnkey solution. However this service give only the possibility to allocate maximum 50Gi with the basic License.
+
+![StorageOS limits](images/installation/StorageOS_limits.png)
+
+Finally, all that remains is to define the StorageClass storageos as the one that will be used by default. To do this, go to ... .... ... ... and ticked on ...
+
+This procedure is shown on the below animation :
+
+![StorageClass](images/installation/StorageClassDefault.gif)
+#### Longhorn
+<a href="https://github.com/longhorn/longhorn" alt="longhorn"> <img src="images/logos/longhorn.png" width="150px" /></a>
+
+> *Longhorn is a distributed block storage system for Kubernetes.
+Longhorn creates a dedicated storage controller for each block device volume and synchronously replicates the volume across multiple replicas stored on multiple nodes. The storage controller and replicas are themselves orchestrated using Kubernetes.*
+
+This tool is really very powerful, based on iSCSI technology. Unfortunately it is not yet supported by RancherOS (The operating system used in this example).
+
+We report the bugs and problems encountered in two open issues on github :
+
+[https://github.com/rancher/os/issues/2937](https://github.com/rancher/os/issues/2937)
+[https://github.com/longhorn/longhorn/issues/828](https://github.com/longhorn/longhorn/issues/828)
+
+#### NFS Server
+
+#### Manualy
+
+It is also possible to manually create the persistent volumes, this way of doing offers the advantage of a complete control of the volumes but is very inflexible. If you choose this way of doing things, we refer you to the official documentation of Kubernetes:
+
+[https://kubernetes.io/docs/concepts/storage/volumes/](https://kubernetes.io/docs/concepts/storage/volumes/)
 ### Deploy FADI
 ![defaultpvc](images/installation/defaultpvc.png)
 
  selector set as default the StorageClass
-#### Longhorn
-7. edit the values yaml of fadi
-8. run fadi
+
 
 ## 4. Control Cluster from Local PC
+
+## 5. Reference
