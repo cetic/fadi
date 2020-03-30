@@ -37,6 +37,28 @@ If tests pass, you should obtain the following results:
 <img src="./screenshot.png" height="500"/>
 
 
+## Example
+
+The following example checks the creation of a `example_basic` table in the `postgres` database.  
+
+```js 
+        it('should create a table', async () => {
+        // Go to the indicated page 
+        await page.goto(url)
+
+        // Click on SQL query button 
+        await click(page, '.ltr > #menu > .links > a:nth-child(1)')
+
+        // type the query
+        await typeText(page, 'CREATE TABLE example_basic (measure_ts TIMESTAMP NOT NULL,temperature FLOAT (50));', '.ltr > #content > #form > p > .jush')
+
+        // Execute the table creation query
+        await click(page, '.ltr > #content > #form > p > input:nth-child(1)')
+
+        // Check the creation of the table
+        await shouldExist(page, '#content > p.message')
+    })
+```
 ## Documentation
 Test cases specification of FADI platform are defined using cockburns[1] and available [here](doc/Cockburns-specification.md).
 
