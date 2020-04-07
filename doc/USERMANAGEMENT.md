@@ -15,7 +15,6 @@ User Management
      * [Grafana](#Grafana)
      * [JupyterHub](#JupyterHub)
 
-
 This page provides information on how to configure FADI user authentication and authorization (LDAP, RBAC, ...).
 
 For user management FADI uses [OpenLDAP](https://www.openldap.org) to ensure the [LDAP user authentication](https://en.wikipedia.org/wiki/Lightweight_Directory_Access_Protocol) for the platform services.
@@ -28,12 +27,12 @@ For user management FADI uses [OpenLDAP](https://www.openldap.org) to ensure the
 
 The **OpenLDAP** service creates an empty LDAP server for the company `Example Inc.` and the domain `example.org` by default, which we will overwrite via the environment variables in the Helm chart. 
 
-The first entry that will be created is for the administrator user ; to initially connect to any of the services you can use the following credentials:
+The first entry that will be created is for the administrator user. To initially connect any of the services, you can use the following credentials:
 
 * Username: `admin`
 * Password: `password1`
 
-Once created we either add the users/groups manually through the phpLDAPadmin web interface, or pass a [LDIF file](https://en.wikipedia.org/wiki/LDAP_Data_Interchange_Format) (see the [sample ldif file](/examples/basic/example.ldif)).
+Once created, we either add the users/groups manually through the phpLDAPadmin web interface, or pass a [LDIF file](https://en.wikipedia.org/wiki/LDAP_Data_Interchange_Format) (see the [sample ldif file](/examples/basic/example.ldif)).
 
 ## 2. Configure the various services
 
@@ -47,7 +46,7 @@ group_dn = "cn=developers,ou=groups,dc=ldap,dc=cetic,dc=be"
 org_role = "Editor"
 ```
 
-For more information [grafana LDAP configuration](https://grafana.com/docs/auth/ldap/#configuration-examples) is very well documented.
+For more information, click on this link: [grafana LDAP configurations](https://grafana.com/docs/auth/ldap/#configuration-examples), which is very well documented.
 
 ### JupyterHub
 
@@ -56,12 +55,13 @@ JupyterHub configuration allows you to give access to users/groups through templ
 * `uid={username},cn=admin,dc=ldap,dc=cetic,dc=be`
 * `uid={username},ou=developers,dc=ldap,dc=cetic,dc=be`
 
+
 where `{username}` will be overwritten by the value the user passes as username in the authentication screen. Let's suppose we only have those two templates, when the user david passes his name for authentication, for him to successfully sign in, his entry should be one of the following:
 
 * `uid=david,ou=admins,dc=ldap,dc=cetic,dc=be`
 * `uid=david,ou=developers,dc=ldap,dc=cetic,dc=be`
 
-which means if david isn't in the developers group or the admins group, he will not be able to sign in.
+which means if david is not in the developers group or the admins group, he will not be able to sign in.
 
 A sample configuration can be found in the `jupyterhub:auth` section of the default FADI [`values.yaml` file](https://github.com/cetic/helm-fadi/blob/master/values.yaml)
 
@@ -71,9 +71,9 @@ More details on using LDAP with JupyterHub in the [Jupyter documentation](https:
 
 Superset uses **Flask-AppBuilder** Security for the LDAP authentication, in order to activate we need to pass the configuration inside python config `configFile.py`.
 
-For more information on how to configure Superset with LDAP: the official documentation for the [flask-appbuilder authentication-ldap](https://flask-appbuilder.readthedocs.io/en/latest/security.html#authentication-ldap).
+For more information on how to configure Superset with LDAP, follow the official documentation for the [flask-appbuilder authentication-ldap](https://flask-appbuilder.readthedocs.io/en/latest/security.html#authentication-ldap).
 
-For more information about the different options you can use to configure your Superset LDAP authentication: the official documentation for the [Base Configuration](https://flask-appbuilder.readthedocs.io/en/latest/config.html).
+For more information about the different options you can use to configure your Superset LDAP authentication, follow the official documentation for the [Base Configuration](https://flask-appbuilder.readthedocs.io/en/latest/config.html).
 
 ### PostgreSQL
 
@@ -89,16 +89,15 @@ local      database  user  auth-method  [auth-options]
 host       database  user  address  auth-method  [auth-options]
 ```
 
-For example, to use LDAP authentication for local users, your configuration should look something like this :
+For example, to use LDAP authentication for local users, your configuration should look something like this:
 
 ```
 local      all  all  ldap  ldapserver=example.com  ldapport=389 [other-ldap-options]
 ```
 
-For more information about how to add LDAP authentication to PostgreSQL: [LDAP authentication in PostgreSQL](https://www.postgresql.org/docs/11/auth-ldap.html)
+For more information about how to add LDAP authentication to PostgreSQL, follow [LDAP authentication in PostgreSQL](https://www.postgresql.org/docs/11/auth-ldap.html).
 
 For more information about pg-ldap-sync: [Use LDAP permissions in PostgreSQL](https://github.com/larskanis/pg-ldap-sync)
-
 
 ## 3. Manage your LDAP server
 
@@ -121,7 +120,7 @@ The first entry that will be created is for the administrator and the password i
 * Login DN: `cn=admin,dc=ldap,dc=cetic,dc=be`
 * Password: `password1`
 
-For more information on how to use phpLDAPadmin, see the [phpLDAPadmin documentation](http://phpldapadmin.sourceforge.net/function-ref/1.2/)
+For more information on how to use phpLDAPadmin, see the [phpLDAPadmin documentation](http://phpldapadmin.sourceforge.net/function-ref/1.2/) documentation.
 
 ### Adding a user
 
@@ -138,9 +137,10 @@ Access your phpLDAPadmin service and connect using the admin Login DN & password
 
 <img src="images/installation/phpldapadmin.gif" />
 
-#### 2. Add the user
+#### 2. Add users
 
 To add users,  there are two ways: using a template and manually.
+
 
 #### Import the user using a template
 
@@ -178,13 +178,13 @@ Now you can go to `import`, paste that template and click `proceed` and the user
 
 #### Add the user manually
 
-You can add a user manually through phpLDAPadmin, after connecting go to `⭐️Create new entry here` :
+You can add a user manually through phpLDAPadmin, after connecting go to `Create new entry here` :
 
 <img src="images/installation/Create_new.gif" alt="Create user"/>
 
 You can for example create a user in the default admin group `cn=admin,dc=ldap,dc=cetic,dc=be`, or create a new group in which you can create new users. 
 
-In this example we are going to create a simple user under the default admin user (which is also a group).
+In this example, we are going to create a simple user under the default admin user (which is also a group).
 
 When you click on  `⭐️Create new entry here`, a new window called `Select a template for the creation process` will show up with all the different entries you can create:
 
@@ -194,14 +194,13 @@ Go to `Generic: User Account` and a list of fields will show up. Enter the infor
  
 ## Creating groups
 
-To manage your users you need to know how to create users/groups in the ldap server and then you need to assign every user/group to the right service or application **through the application's configuration on the `values.yaml` file**.
+The LDAP protocol does not define how programs function either on the server or client, but the messages exchanged between an LDAP server and an LDAP client. 
+To manage your users you need to know how to create users/groups in the LDAP server and then you need to assign every user/group to the right service or application **through the application's configuration in the `values.yaml` file**.
 
 
 We are going to create a group called **devs** and a group called **admins** and add a user in each group and then **configure each service** to authenticate the newly created users/groups.
 
 #### Create groups in openldap
-
-When using openldap you will probably need to create different groups and give them different roles or assign them on different services, to manage your ldap server head to phpLDAPadmin:
 
 here's a simple ldif code to import that will create:
 
@@ -257,11 +256,12 @@ uidnumber: 1001
 userpassword: john123
 ```
 
-## PostgresQL
+## PostgreSQL
 
-To copy the groups/users in postgres we need to configure the Cron job that executes the tool [pg-ldap-sync](https://github.com/larskanis/pg-ldap-sync) to synchronise the users between the LDAP server and the database, therefor we're configuring pg-ldap-sync to add the users of our group.
+To copy the groups/users in postgreSQL we need to configure the Cron job that executes the tool [pg-ldap-sync](https://github.com/larskanis/pg-ldap-sync) to synchronise the users between the LDAP server and the database, therefor we are configuring pg-ldap-sync to add the users of our group.
 
-in `values.yaml` file head to the variable `postgresql.ldap.pgldapconfig` and make sure the `ldap_users` section looks like this:
+
+In the `values.yaml` file, head to the variable `postgresql.ldap.pgldapconfig` and make sure the `ldap_users` section looks like this:
 
 ```
 ldap_users:
@@ -275,7 +275,8 @@ name_attribute: uid
 lowercase_name: true
 ```
 
-and the `ldap_groups` section looks like this :
+And the `ldap_groups` section looks like this:
+
 
 ```
 ldap_groups:
@@ -286,11 +287,11 @@ name_attribute: cn
 # this attribute must reference to all member DN's of the given group
 member_attribute: member
 ```
-The main change here is the **filter `filter: (|(cn=devs)(ou=people)(cn=admins))`** in which we add the names of the groups we want to be added to PostgresQL, for example if our filter is `filter: (|(cn=devs)(ou=people))` the group **admins** will not be added .
+The main change here is the **filter `filter: (|(cn=devs)(ou=people)(cn=admins))`** in which we add the names of the groups we want to be added to PostgreSQL, for example if our filter is `filter: (|(cn=devs)(ou=people))` the group **admins** will not be added.
 
 ## Grafana
 
-For Grafana head to the variable `grafana.ldap.config` and make sure it looks like this:
+For Grafana, head to the variable `grafana.ldap.config` and make sure it looks like this:
 
 ```
     config: |-
@@ -324,7 +325,7 @@ For Grafana head to the variable `grafana.ldap.config` and make sure it looks li
       org_role = "Viewer"
 ```
 
-The main change here is `group_search_base_dns = ["ou=people,dc=ldap,dc=cetic,dc=be"]` in which we add Organizational Unit `OU=people` so it can find the newly created groups **devs** and **admins**. Then to manage the access ( and/or roles ) you can do so following the [documentation](https://grafana.com/docs/grafana/latest/auth/ldap/), adding the following sample of configuration will give the **group admins** the **admin rights** and all the rest the **Viewer rights**.
+The main change here is `group_search_base_dns = ["ou=people,dc=ldap,dc=cetic,dc=be"]` in which we add Organizational Unit `OU=people` so it can find the newly created groups **devs** and **admins**. Then, to manage the access ( and/or roles ) you can follow the [documentation](https://grafana.com/docs/grafana/latest/auth/ldap/), adding the following sample of configuration will give the **group admins** the **admin rights** and all the rest the **Viewer rights**.
 
 
 ```
@@ -344,10 +345,11 @@ for more info: [Grafana permissions overview](https://grafana.com/docs/grafana/l
 
 ## JupyterHub
 
-For JupyterHub head to the variable `jupyterhub.auth.ldap.dn.templates` and put only the list of DNs to be accepted.
+For JupyterHub, the variable `jupyterhub.auth.ldap.dn.templates` is a list of DNs to be accepted. 
 
-If we want to add the **group devs** and give them access we add this line `cn={username},cn=devs,dc=ldap,dc=cetic,dc=be` where `{username}` is the username that will be put by the user.
-The line  `cn={username},cn=admins,dc=ldap,dc=cetic,dc=be` will not be added so the group **admins** won't have access, the list shoud look something like this:
+If we want to add the **group devs** and give them access to we add this line `cn={username},cn=devs,dc=ldap,dc=cetic,dc=be` where `{username}` is the username that will be put by the user. 
+
+Here we're not adding `cn={username},cn=admins,dc=ldap,dc=cetic,dc=be` so the group **admins** will not have access, the list shoud look something like this:
 
 ```
    auth:
