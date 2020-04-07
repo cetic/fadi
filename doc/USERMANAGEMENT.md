@@ -10,6 +10,10 @@ User Management
 * [3. Manage your LDAP server](#3-manage-your-ldap-server)
      * [Adding a user](#adding-a-user)
      * [Creating groups](#Creating-groups)
+* [4.Creating groups](#3-Creating-groups)
+     * [PostgresQL](#PostgresQL)
+     * [Grafana](#Grafana)
+     * [JupyterHub](#JupyterHub)
 
 
 This page provides information on how to configure FADI user authentication and authorization (LDAP, RBAC, ...).
@@ -29,7 +33,7 @@ The first entry that will be created is for the administrator user ; to initiall
 * Username: `admin`
 * Password: `password1`
 
-Once created we either add the users/groups manually through the phpLDAPadmin web interface, or you can pass a [LDIF file](https://en.wikipedia.org/wiki/LDAP_Data_Interchange_Format) (see the [sample ldif file](/examples/basic/example.ldif)).
+Once created we either add the users/groups manually through the phpLDAPadmin web interface, or pass a [LDIF file](https://en.wikipedia.org/wiki/LDAP_Data_Interchange_Format) (see the [sample ldif file](/examples/basic/example.ldif)).
 
 ## 2. Configure the various services
 
@@ -52,7 +56,7 @@ JupyterHub configuration allows you to give access to users/groups through templ
 * `uid={username},cn=admin,dc=ldap,dc=cetic,dc=be`
 * `uid={username},ou=developers,dc=ldap,dc=cetic,dc=be`
 
-where `{username}` will be overwrought by the value the user passes as username in the authentication screen. Let's suppose we only have those two templates, when the user david passes his name for authentication, for him to successfully sign on, his entry should be one of the following:
+where `{username}` will be overwritten by the value the user passes as username in the authentication screen. Let's suppose we only have those two templates, when the user david passes his name for authentication, for him to successfully sign in, his entry should be one of the following:
 
 * `uid=david,ou=admins,dc=ldap,dc=cetic,dc=be`
 * `uid=david,ou=developers,dc=ldap,dc=cetic,dc=be`
@@ -77,7 +81,7 @@ LDAP authentication method in PostgreSQL uses LDAP as the password verification 
 
 Client authentication is controlled by a configuration file called `pg_hba.conf`, you can pass your authentication config through the variable `pghba` in the `values.yaml` file.
 
-The most common formats of authentication configuration are :
+The configuration for the most common methods of authentication are:
 
 
 ```
@@ -136,7 +140,7 @@ Access your phpLDAPadmin service and connect using the admin Login DN & password
 
 #### 2. Add the user
 
-To add users,  there are two ways: using a tempalte and manually.
+To add users,  there are two ways: using a template and manually.
 
 #### Import the user using a template
 
@@ -190,9 +194,8 @@ Go to `Generic: User Account` and a list of fields will show up. Enter the infor
  
 ## Creating groups
 
-The LDAP protocol doesn’t define how programs function either on the server or client, but the messages exchanged between an LDAP server and an LDAP client, to manage your users well you need to know how to create users/groups in the ldap server and then you need to assign every user/group to the right service or application **through the application's configuration on the `values.yaml` file**.
+To manage your users you need to know how to create users/groups in the ldap server and then you need to assign every user/group to the right service or application **through the application's configuration on the `values.yaml` file**.
 
-We are going to create a group called **devs** and add a user in that group and then **configure each service** to authenticate that particular group. The LDAP protocol doesn’t define how programs function either on the server or client, but the messages exchanged between an LDAP server and an LDAP client, to manage your users well you need to know how to create users/groups in the ldap server and then you need to assign every user/group to the right service or application **through the application's configuration in the `values.yaml` file**.
 
 We are going to create a group called **devs** and a group called **admins** and add a user in each group and then **configure each service** to authenticate the newly created users/groups.
 
@@ -256,7 +259,7 @@ userpassword: john123
 
 ## PostgresQL
 
-To copy the groups/users in postgres you need to configure the Cron job that executes the tool [pg-ldap-sync](https://github.com/larskanis/pg-ldap-sync) to synchronise the users between the LDAP server and the database, there for we're configuring pg-ldap-sync to add the users of our group.
+To copy the groups/users in postgres we need to configure the Cron job that executes the tool [pg-ldap-sync](https://github.com/larskanis/pg-ldap-sync) to synchronise the users between the LDAP server and the database, therefor we're configuring pg-ldap-sync to add the users of our group.
 
 in `values.yaml` file head to the variable `postgresql.ldap.pgldapconfig` and make sure the `ldap_users` section looks like this:
 
@@ -272,7 +275,7 @@ name_attribute: uid
 lowercase_name: true
 ```
 
-and the ldap_groups section looks like this :
+and the `ldap_groups` section looks like this :
 
 ```
 ldap_groups:
@@ -335,9 +338,16 @@ The main change here is `group_search_base_dns = ["ou=people,dc=ldap,dc=cetic,dc
       org_role = "Viewer"
 ```
 
+The **admin rights** makes user a Super Admin. This means they can access the Server Admin views where all users and organizations can be administrated in addition of course to creating/editing dashboards, data sources etc, and the **Viewer rights** allow the users to only **see** the created dashboards.
+ 
+for more info: [Grafana permissions overview](https://grafana.com/docs/grafana/latest/permissions/overview/)
+
 ## JupyterHub
 
-For JupyterHub head to the variable `jupyterhub.auth.ldap.dn.templates` and put only the list of DNs to be accepted, for instance if we want to add the **group devs** and give them access to this service we add this line `cn={username},cn=devs,dc=ldap,dc=cetic,dc=be` where `{username}` is the username that will be put by the user, while we won't add `cn={username},cn=admins,dc=ldap,dc=cetic,dc=be` so the group **admins** won't have access, the list shoud look something like this:
+For JupyterHub head to the variable `jupyterhub.auth.ldap.dn.templates` and put only the list of DNs to be accepted.
+
+If we want to add the **group devs** and give them access we add this line `cn={username},cn=devs,dc=ldap,dc=cetic,dc=be` where `{username}` is the username that will be put by the user.
+The line  `cn={username},cn=admins,dc=ldap,dc=cetic,dc=be` will not be added so the group **admins** won't have access, the list shoud look something like this:
 
 ```
    auth:
