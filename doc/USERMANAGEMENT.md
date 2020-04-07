@@ -11,9 +11,9 @@ User Management
      * [Adding a user](#adding-a-user)
      * [Creating groups](#Creating-groups)
 * [4.Creating groups](#3-Creating-groups)
-     * [PostgresQL](#PostgresQL)
-     * [Grafana](#Grafana)
-     * [JupyterHub](#JupyterHub)
+     * [1. PostgresQL](#1.-PostgresQL)
+     * [2. Grafana](#2.-Grafana)
+     * [3. JupyterHub](#3.-JupyterHub)
 
 This page provides information on how to configure FADI user authentication and authorization (LDAP, RBAC, ...).
 
@@ -256,7 +256,7 @@ uidnumber: 1001
 userpassword: john123
 ```
 
-## PostgreSQL
+## 1. PostgreSQL
 
 To copy the groups/users in postgreSQL we need to configure the Cron job that executes the tool [pg-ldap-sync](https://github.com/larskanis/pg-ldap-sync) to synchronise the users between the LDAP server and the database, therefor we are configuring pg-ldap-sync to add the users of our group.
 
@@ -289,7 +289,7 @@ member_attribute: member
 ```
 The main change here is the **filter `filter: (|(cn=devs)(ou=people)(cn=admins))`** in which we add the names of the groups we want to be added to PostgreSQL, for example if our filter is `filter: (|(cn=devs)(ou=people))` the group **admins** will not be added.
 
-## Grafana
+## 2. Grafana
 
 For Grafana, head to the variable `grafana.ldap.config` and make sure it looks like this:
 
@@ -343,7 +343,7 @@ The **admin rights** makes user a Super Admin. This means they can access the Se
  
 for more info: [Grafana permissions overview](https://grafana.com/docs/grafana/latest/permissions/overview/)
 
-## JupyterHub
+## 3. JupyterHub
 
 For JupyterHub, the variable `jupyterhub.auth.ldap.dn.templates` is a list of DNs to be accepted. 
 
