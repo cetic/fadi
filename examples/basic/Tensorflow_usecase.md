@@ -3,7 +3,7 @@
 This is a simple Tensorflow use case, first we authenticate to JupyterHub, then we choose the tensorflow envirement and click spawn and we follow the steps. 
 
 
-![Jupyter web interface](../examples/basic/images/Tensorflow.png)
+![Jupyter web interface](/images/Tensorflow.png)
 
 
 * Import TensorFlow:
@@ -38,14 +38,14 @@ model = tf.keras.models.Sequential([
 predictions = model(x_train[:1]).numpy()
 predictions
 ```
-![Jupyter web interface](../examples/basic/images/Tensorflowusecase.png)
+![Jupyter web interface](/images/Tensorflowusecase.png)
 
 * The `tf.nn.softmax` function converts these logits to "probabilities" for each class:
 
 ```
 tf.nn.softmax(predictions).numpy()
 ```
-![Jupyter web interface](../examples/basic/images/tensor2.png)
+![Jupyter web interface](/images/tensor2.png)
 
 * The `losses.SparseCategoricalCrossentropy` loss takes a vector of logits and a True index and returns a scalar loss for each example.
 
@@ -59,7 +59,7 @@ This untrained model gives probabilities close to random (1/10 for each class), 
 ```
 loss_fn(y_train[:1], predictions).numpy()
 ```
-![Jupyter web interface](../examples/basic/images/tensor3.png)
+![Jupyter web interface](/images/tensor3.png)
 
 ```
 model.compile(optimizer='adam',
@@ -72,14 +72,14 @@ model.compile(optimizer='adam',
 model.fit(x_train, y_train, epochs=5)
 ```
 
-![Jupyter web interface](../examples/basic/images/tensor4.png)
+![Jupyter web interface](/images/tensor4.png)
 
 * The `Model.evaluate` method checks the models performance, usually on a "[Validation-set](https://developers.google.com/machine-learning/glossary#validation-set)".
 
 ```
 model.evaluate(x_test,  y_test, verbose=2)
 ```
-![Jupyter web interface](../examples/basic/images/tensor5.png)
+![Jupyter web interface](/images/tensor5.png)
 
 * The image classifier is now trained to ~98% accuracy on this dataset, If you want your model to return a probability, you can wrap the trained model, and attach the softmax to it:
 
@@ -93,4 +93,4 @@ probability_model = tf.keras.Sequential([
 ```
 probability_model(x_test[:5])
 ```
-![Jupyter web interface](../examples/basic/images/tensor6.png)
+![Jupyter web interface](/images/tensor6.png)
