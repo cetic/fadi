@@ -58,6 +58,10 @@ where `{username}` will be overwrought by the value the user passes as username 
 
 which means if david isn't in the developers group or the admins group, he will not be able to sign in.
 
+A sample configuration can be found in the `jupyterhub:auth` section of the default FADI [`values.yaml` file](https://github.com/cetic/helm-fadi/blob/master/values.yaml)
+
+More details on using LDAP with JupyterHub in the [Jupyter documentation](https://z2jh.jupyter.org/en/stable/authentication.html#authenticating-with-ldap), 
+
 ### Superset
 
 Superset uses **Flask-AppBuilder** Security for the LDAP authentication, in order to activate we need to pass the configuration inside python config `configFile.py`.

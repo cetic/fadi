@@ -30,7 +30,7 @@ Please make sure the following steps have been taken beforehand:
 
 ## Windows Installation
 
-This is still not totally supported, some guidelines here #55
+Windows support for the Minikube installation should work but is not tested frequently. 
 
 ## How to configure external access to the deployed services?
 
@@ -38,7 +38,7 @@ When deploying on a generic Kubernetes cluster, you will want to make the servic
 
 See
 
-* https://github.com/cetic/fadi/blob/feature/documentation/doc/REVERSEPROXY.md for the reverse proxy configuration guide 
+* [doc/REVERSEPROXY.md](doc/REVERSEPROXY.md) for the reverse proxy configuration guide 
 * https://github.com/cetic/fadi/issues/81 for port forwarding instructions
 
 ## How to configure Kubernetes Storage Class?
