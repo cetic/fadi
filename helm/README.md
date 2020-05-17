@@ -16,11 +16,11 @@ To use a custom Helm chart:
 * adapt `deploy.sh` and `teardown.sh`:
 
     ```bash
-    helm upgrade --install ${NAMESPACE} cetic/fadi -f ./values.yaml --namespace ${NAMESPACE} --tiller-namespace tiller
+    helm upgrade --install ${NAMESPACE} cetic/fadi -f ./values.yaml --namespace ${NAMESPACE}
     ```
     
     should become 
     
     ```bash
-    helm upgrade --install ${NAMESPACE} . -f ./values.yaml --namespace ${NAMESPACE} --tiller-namespace tiller
+    helm upgrade --install ${NAMESPACE} . -f ./values.yaml --namespace ${NAMESPACE}
     ```
