@@ -4,7 +4,7 @@ config:
     image_prefix: <DOCKER_ID>/<PROJECT_NAME>-
 registry:
   username: <DOCKER_ID>
-  password: >DOCKER_PASSWORD>
+  password: <DOCKER_PASSWORD>
 
 
 dind:
