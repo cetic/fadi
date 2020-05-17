@@ -17,22 +17,22 @@ User Management
 
 This page provides information on how to configure FADI user authentication and authorization (LDAP, RBAC, ...).
 
-For user management FADI uses [OpenLDAP](https://www.openldap.org) to ensure the [LDAP user authentication](https://en.wikipedia.org/wiki/Lightweight_Directory_Access_Protocol) for the platform services.
+For user management, FADI uses [OpenLDAP](https://www.openldap.org) to ensure the [LDAP user authentication](https://en.wikipedia.org/wiki/Lightweight_Directory_Access_Protocol) for the platform services.
 
 ## 1. Create the LDAP server
 
-<a href="https://www.openldap.org/" alt="OpenLDAP"> <img src="images/logos/OpenLDAP.png" width="100px" /></a>
+<a href="https://www.openldap.org/" title="OpenLDAP"> <img src="images/logos/OpenLDAP.png" width="100px" alt="OpenLDAP"/></a>
 
 > "OpenLDAP Software is an open source implementation of the Lightweight Directory Access Protocol."
 
-The **OpenLDAP** service creates an empty LDAP server for the company `Example Inc.` and the domain `example.org` by default, which we will overwrite via the environment variables in the Helm chart. 
+The **OpenLDAP** service creates an empty LDAP server for the company `Example Inc.` and the domain `example.org` by default, which we will overwrite via the environment variables in the Helm chart.
 
 The first entry that will be created is for the administrator user. To initially connect any of the services, you can use the following credentials:
 
 * Username: `admin`
 * Password: `password1`
 
-Once created, we either add the users/groups manually through the phpLDAPadmin web interface, or pass a [LDIF file](https://en.wikipedia.org/wiki/LDAP_Data_Interchange_Format) (see the [sample ldif file](/examples/basic/example.ldif)).
+Once created, we either add the users/groups manually through the phpLDAPadmin web interface, or pass a [LDIF file](https://en.wikipedia.org/wiki/LDAP_Data_Interchange_Format) (see the [sample ldif file](/examples/basic/example.ldif)) to the chart.
 
 ## 2. Configure the various services
 
@@ -46,7 +46,7 @@ group_dn = "cn=developers,ou=groups,dc=ldap,dc=cetic,dc=be"
 org_role = "Editor"
 ```
 
-For more information, click on this link: [grafana LDAP configurations](https://grafana.com/docs/auth/ldap/#configuration-examples), which is very well documented.
+For more information, see [Grafana LDAP documentation](https://grafana.com/docs/auth/ldap/#configuration-examples).
 
 ### JupyterHub
 
@@ -55,17 +55,16 @@ JupyterHub configuration allows you to give access to users/groups through templ
 * `uid={username},cn=admin,dc=ldap,dc=cetic,dc=be`
 * `uid={username},ou=developers,dc=ldap,dc=cetic,dc=be`
 
-
-where `{username}` will be overwritten by the value the user passes as username in the authentication screen. Let's suppose we only have those two templates, when the user david passes his name for authentication, for him to successfully sign in, his entry should be one of the following:
+where `{username}` will be overwritten by the value the user passes as username in the authentication screen. Let's suppose we only have those two templates, when the user David passes his name for authentication. For him to successfully sign in, his entry should be one of the following:
 
 * `uid=david,ou=admins,dc=ldap,dc=cetic,dc=be`
 * `uid=david,ou=developers,dc=ldap,dc=cetic,dc=be`
 
-which means if david is not in the developers group or the admins group, he will not be able to sign in.
+which means if David is not in the `developers` or `admins` groups, he will not be able to sign in.
 
 A sample configuration can be found in the `jupyterhub:auth` section of the default FADI [`values.yaml` file](https://github.com/cetic/helm-fadi/blob/master/values.yaml)
 
-More details on using LDAP with JupyterHub in the [Jupyter documentation](https://z2jh.jupyter.org/en/stable/authentication.html#authenticating-with-ldap), 
+More details on using LDAP with JupyterHub in the [Jupyter documentation](https://z2jh.jupyter.org/en/stable/authentication.html#authenticating-with-ldap). 
 
 ### Superset
 
@@ -83,13 +82,12 @@ Client authentication is controlled by a configuration file called `pg_hba.conf`
 
 The configuration for the most common methods of authentication are:
 
-
 ```
 local      database  user  auth-method  [auth-options]
 host       database  user  address  auth-method  [auth-options]
 ```
 
-For example, to use LDAP authentication for local users, your configuration should look something like this:
+For example, to use LDAP authentication for local users, your configuration should look like this:
 
 ```
 local      all  all  ldap  ldapserver=example.com  ldapport=389 [other-ldap-options]
@@ -105,7 +103,7 @@ For more information about pg-ldap-sync: [Use LDAP permissions in PostgreSQL](ht
 
 > " phpLDAPadmin is a web app for administering Lightweight Directory Access Protocol (LDAP) servers.."
 
-In order to use [phpLDAPadmin](http://phpldapadmin.sourceforge.net/wiki/index.php/Main_Page) you have to pass the configuration for your LDAP server through the environmental variable `_PHPLDAPADMIN_LDAP_HOSTS_`. To connect this service with the OpenLDAP server, you need to pass **the name of the service** (`fadi-openldap`). To connect to the web application, simply run the following command:
+In order to use [phpLDAPadmin](http://phpldapadmin.sourceforge.net/wiki/index.php/Main_Page) you have to pass the configuration for your LDAP server through the environmental variable `_PHPLDAPADMIN_LDAP_HOSTS_`. To connect this service with the OpenLDAP server, you need to pass **the name of the service** (`fadi-openldap`). To connect to the web application, run the following command:
 
 ```bash
 minikube service fadi-phpldapadmin -n fadi
@@ -113,14 +111,14 @@ minikube service fadi-phpldapadmin -n fadi
 
 The main page for phpLDAPadmin will open in your default browser where you can connect to your LDAP server and manage it.
 
-<img src="images/installation/phpldapadmin.gif" />
+<img src="images/installation/phpldapadmin.gif" alt="phpdapadmin" />
 
 The first entry that will be created is for the administrator and the password is initialized to `password1` which makes the credentials to use to connect to this server in phpLDAPadmin the following:
 
 * Login DN: `cn=admin,dc=ldap,dc=cetic,dc=be`
 * Password: `password1`
 
-For more information on how to use phpLDAPadmin, see the [phpLDAPadmin documentation](http://phpldapadmin.sourceforge.net/function-ref/1.2/) documentation.
+For more information on how to use phpLDAPadmin, see the [phpLDAPadmin documentation](http://phpldapadmin.sourceforge.net/function-ref/1.2/).
 
 ### Adding a user
 
@@ -130,17 +128,16 @@ This section provides an example on how to add a user through phpLDAPadmin and a
 
 <a href="http://phpldapadmin.sourceforge.net/wiki/index.php/Main_Page" alt="phpLDAPadmin"><img src="images/logos/phpldapadmin.jpg" width="100px" /></a>
 
-Access your phpLDAPadmin service and connect using the admin Login DN & password, the default Login DN & password are:
+Access your phpLDAPadmin service and connect using the admin Login DN and password, defaults are:
 
 * Login DN: `cn=admin,dc=ldap,dc=cetic,dc=be`
 * Password: `password1`
 
-<img src="images/installation/phpldapadmin.gif" />
+<img src="images/installation/phpldapadmin.gif" alt="phpldapadmin" />
 
-#### 2. Add users
+### 2. Add users
 
-To add users,  there are two ways: using a template and manually.
-
+To add users, there are two ways: using a template and manually.
 
 #### Import the user using a template
 
@@ -158,7 +155,7 @@ uid: John Doe
 userpassword: Johnpassword
 ```
 
-Change the user name and other misc info ( mail, etc.) and copy/paste it in the import field, here is an example of a modified template for a user called `Luke Skywalker`.
+Change the user name and other misc info (mail, etc.) and copy/paste it in the import field, here is an example of a modified template for a user called `Luke Skywalker`:
 
 ```
 dn: cn=Luke,cn=admin,dc=ldap,dc=cetic,dc=be
@@ -178,7 +175,7 @@ Now you can go to `import`, paste that template and click `proceed` and the user
 
 #### Add the user manually
 
-You can add a user manually through phpLDAPadmin, after connecting go to `Create new entry here` :
+You can add a user manually through phpLDAPadmin, after connecting go to `Create new entry here`:
 
 <img src="images/installation/Create_new.gif" alt="Create user"/>
 
@@ -192,17 +189,16 @@ When you click on  `⭐️Create new entry here`, a new window called `Select a 
 
 Go to `Generic: User Account` and a list of fields will show up. Enter the information about the user you want to create and click `Create Object`.
  
-## Creating groups
+## 4. Creating groups 
 
 The LDAP protocol does not define how programs function either on the server or client, but the messages exchanged between an LDAP server and an LDAP client. 
 To manage your users you need to know how to create users/groups in the LDAP server and then you need to assign every user/group to the right service or application **through the application's configuration in the `values.yaml` file**.
 
-
 We are going to create a group called **devs** and a group called **admins** and add a user in each group and then **configure each service** to authenticate the newly created users/groups.
 
-#### Create groups in openldap
+### Create groups in openLDAP
 
-here's a simple ldif code to import that will create:
+Here is a simple ldif code to import that will create:
 
 * An Organizational Unit `OU=people`
 * A group called **admins** under `ou=people,dc=ldap,dc=cetic,dc=be` so the dn will be `cn=admins,ou=people,dc=ldap,dc=cetic,dc=be`
@@ -256,10 +252,9 @@ uidnumber: 1001
 userpassword: john123
 ```
 
-## 1. PostgreSQL
+### 1. PostgreSQL
 
-To copy the groups/users in postgreSQL we need to configure the Cron job that executes the tool [pg-ldap-sync](https://github.com/larskanis/pg-ldap-sync) to synchronise the users between the LDAP server and the database, therefor we are configuring pg-ldap-sync to add the users of our group.
-
+To copy the groups/users in postgreSQL we need to configure the Cron job that executes the tool [pg-ldap-sync](https://github.com/larskanis/pg-ldap-sync) to synchronise the users between the LDAP server and the database, therefore we are configuring pg-ldap-sync to add the users of our group.
 
 In the `values.yaml` file, head to the variable `postgresql.ldap.pgldapconfig` and make sure the `ldap_users` section looks like this:
 
@@ -289,7 +284,7 @@ member_attribute: member
 ```
 The main change here is the **filter `filter: (|(cn=devs)(ou=people)(cn=admins))`** in which we add the names of the groups we want to be added to PostgreSQL, for example if our filter is `filter: (|(cn=devs)(ou=people))` the group **admins** will not be added.
 
-## 2. Grafana
+### 2. Grafana
 
 For Grafana, head to the variable `grafana.ldap.config` and make sure it looks like this:
 
@@ -339,19 +334,19 @@ The main change here is `group_search_base_dns = ["ou=people,dc=ldap,dc=cetic,dc
       org_role = "Viewer"
 ```
 
-The **admin rights** makes user a Super Admin. This means they can access the Server Admin views where all users and organizations can be administrated in addition of course to creating/editing dashboards, data sources etc, and the **Viewer rights** allow the users to only **see** the created dashboards.
+The **admin rights** make the user a Super Admin. This means they can access the Server Admin views where all users and organizations can be administrated in addition of course to creating/editing dashboards, data sources etc, and the **Viewer rights** allow the users to only **see** the created dashboards.
  
-for more info: [Grafana permissions overview](https://grafana.com/docs/grafana/latest/permissions/overview/)
+For more information, see the [Grafana permissions overview](https://grafana.com/docs/grafana/latest/permissions/overview/).
 
-## 3. JupyterHub
+### 3. JupyterHub
 
 For JupyterHub, the variable `jupyterhub.auth.ldap.dn.templates` is a list of DNs to be accepted. 
 
-If we want to add the **group devs** and give them access to we add this line `cn={username},cn=devs,dc=ldap,dc=cetic,dc=be` where `{username}` is the username that will be put by the user. 
+If we want to add the **group devs** and give them access, we add this line `cn={username},cn=devs,dc=ldap,dc=cetic,dc=be` where `{username}` is the username corresponding to the user. 
 
-Here we're not adding `cn={username},cn=admins,dc=ldap,dc=cetic,dc=be` so the group **admins** will not have access, the list shoud look something like this:
+Here we are not adding `cn={username},cn=admins,dc=ldap,dc=cetic,dc=be` so the group **admins** will not have access, the list should look like this:
 
-```
+```yaml
    auth:
     type: ldap
     ldap:
