@@ -9,7 +9,6 @@ User Management
      * [PostgreSQL](#postgresql)
 * [3. Manage your LDAP server](#3-manage-your-ldap-server)
      * [Adding a user](#adding-a-user)
-     * [Creating groups](#Creating-groups)
 * [4.Creating groups](#3-Creating-groups)
      * [1. PostgresQL](#1.-PostgresQL)
      * [2. Grafana](#2.-Grafana)
