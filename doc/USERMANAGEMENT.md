@@ -9,10 +9,10 @@ User Management
      * [PostgreSQL](#postgresql)
 * [3. Manage your LDAP server](#3-manage-your-ldap-server)
      * [Adding a user](#adding-a-user)
-* [4.Creating groups](#3-Creating-groups)
-     * [1. PostgresQL](#1.-PostgresQL)
-     * [2. Grafana](#2.-Grafana)
-     * [3. JupyterHub](#3.-JupyterHub)
+* [4. Creating groups](#4-Creating-groups)
+     * [1. PostgresQL](#1-PostgresQL)
+     * [2. Grafana](#2-Grafana)
+     * [3. JupyterHub](#3-JupyterHub)
 
 This page provides information on how to configure FADI user authentication and authorization (LDAP, RBAC, ...).
 
