@@ -34,10 +34,10 @@ kubectl get clusterrole traefik-ingress-controller 2> /dev/null || kubectl creat
 
 Take a look at the [sample file](/helm/traefik/rbac-config.yaml).
 
-Then, you can install Traefik with Helm: (If you want further information, you can follow this [tutorial](https://docs.traefik.io/v1.3/user-guide/kubernetes/#deploy-trfik-using-helm-chart))
+Then, you can install Traefik with Helm: (If you want further information, you can follow this [tutorial](https://docs.traefik.io/v1.7/user-guide/kubernetes/#deploy-traefik-using-helm-chart))
 
 ```
-helm upgrade --install traefik stable/traefik -f ./traefik/values.yaml --namespace kube-system --tiller-namespace tiller
+helm upgrade --install traefik stable/traefik -f ./traefik/values.yaml --namespace kube-system
 ```
 
 The values file can be found [here](/helm/traefik/values.yaml).
