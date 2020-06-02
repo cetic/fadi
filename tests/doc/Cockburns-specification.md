@@ -128,7 +128,7 @@ In this section, the main concepts and technologies are introduced in order to e
    </td>
   </tr>
   <tr>
-   <td><a href="../__tests__/2-nifi.test.js" title="TC-4">TC-4</a>
+   <td>TC-4
    </td>
     <td><a href="./cockburns/TC-4.md">Defining the Nifi workflow by uploading a template</a>
    </td>
