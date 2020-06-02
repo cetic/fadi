@@ -8,7 +8,6 @@ In this section, the main concepts and technologies are introduced in order to e
 *   **FADI dashboard** is actually the Kubernetes dashboard that enables to have an idea about the status of the Kubernetes pods by launching the command “minikube dashboard”.
 *   **Apache Nifi** is an open source tool designed to automate the flow of data between software systems. It used in the FADI platform in order to collect data, to extract it, to transform it and to store it in the appropriate data store. 
 *   **PostgreSQL** is an open source relational database management system and it is used to store the data in the FADI platform. 
-*   **PgAdmin** is an open source graphical administration tool for PostgreSQL databases. It is used in FADI in order to ease the management of the PostgreSQL databases.
 *   **Grafana** is an open source tool enabling the visualization and the formatting of metrics data coming from different type of databases. It can play the role of the FADI dashboard.
 *   **Apache Superset** is an open source tool to visualize big data and it can play the role of th FADI dashboard.
 *   **Spark** is an open source analytics engine for large-scale data processing. It is used in the FADI platform to analyse data.
@@ -128,53 +127,13 @@ In this section, the main concepts and technologies are introduced in order to e
    </td>
   </tr>
   <tr>
-   <td><a href="https://github.com/cetic/fadi/blob/feature/tests/tests/__tests__/1-nifi.test.js" title="TC-4">TC-4</a>
+   <td><a href="../__tests__/2-nifi.test.js" title="TC-4">TC-4</a>
    </td>
     <td><a href="./cockburns/TC-4.md">Defining the Nifi workflow by uploading a template</a>
    </td>
    <td>Data Scientist, Data Engineer
    </td>
    <td>Data ingestion
-   </td>
-  </tr>
-  <tr>
-   <td>TC-5
-   </td>
-    <td><a href="./cockburns/TC-5.md">Creating a database server in pgAdmin</a>
-   </td>
-   <td>Data Engineer
-   </td>
-   <td>Data storage
-   </td>
-  </tr>
-  <tr>
-   <td>TC-6
-   </td>
-    <td><a href="./cockburns/TC-6.md">Creating a table in pgAdmin</a>
-   </td>
-   <td>Data Engineer
-   </td>
-   <td>Data storage
-   </td>
-  </tr>
-  <tr>
-   <td>TC-7
-   </td>
-    <td><a href="./cockburns/TC-7.md">Deleting a table in pgAdmin</a>
-   </td>
-   <td>Data Engineer
-   </td>
-   <td>Data storage
-   </td>
-  </tr>
-  <tr>
-   <td>TC-8
-   </td>
-    <td><a href="./cockburns/TC-8.md">Deleting a database in pgAdmin</a>
-   </td>
-   <td>Data Engineer
-   </td>
-   <td>Data storage
    </td>
   </tr>
   <tr>
