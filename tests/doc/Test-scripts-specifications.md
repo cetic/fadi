@@ -75,9 +75,9 @@
    </td>
   </tr>
   <tr>
-   <td><a href="https://github.com/cetic/fadi/blob/feature/tests/tests/__tests__/1-nifi.test.js" title="TS-4">TS-4</a>
+   <td><a href="../__tests__/2-nifi.test.js" title="TS-4">TS-4</a>
    </td>
-   <td><a href="https://github.com/cetic/fadi/blob/feature/tests/tests/__tests__/1-nifi.test.js" title="TC-4">TC-4</a>
+   <td><a href="../__tests__/2-nifi.test.js" title="TC-4">TC-4</a>
    </td>
    <td><a href="./test-scripts/TS-4.md">Defining the Nifi workflow by uploading a template</a>
    </td>
@@ -87,9 +87,9 @@
    </td>
   </tr>
   <tr>
-   <td>TS-11
+   <td><a href="../__tests__/3-grafana.test.js" title="TS-11">TS-11</a>
    </td>
-   <td>TC-11
+   <td><a href="../__tests__/3-grafana.test.js" title="TC-11">TC-11</a>
    </td>
    <td> <a href="./test-scripts/TS-11.md">Defining dashboards based on the analyzed data using Grafana</a≥
    </td>
