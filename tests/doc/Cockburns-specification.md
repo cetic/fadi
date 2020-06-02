@@ -138,9 +138,9 @@ In this section, the main concepts and technologies are introduced in order to e
    </td>
   </tr>
   <tr>
-   <td>TC-7
+   <td>TC-6
    </td>
-    <td><a href="./cockburns/TC-7.md">Deleting a table in Adminer</a>
+    <td><a href="./cockburns/TC-6.md">Creating a table in Adminer</a>
    </td>
    <td>Data Engineer
    </td>
