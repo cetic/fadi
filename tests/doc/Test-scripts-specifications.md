@@ -77,7 +77,7 @@
   <tr>
    <td><a href="../__tests__/2-nifi.test.js" title="TS-4">TS-4</a>
    </td>
-   <td><a href="./test-scripts/TS-4.md" title="TC-4">TC-4</a>
+   <td><a href="./cockburns/TC-4.md" title="TC-4">TC-4</a>
    </td>
    <td><a href="./test-scripts/TS-4.md">Defining the Nifi workflow by uploading a template</a>
    </td>
@@ -89,7 +89,7 @@
   <tr>
    <td><a href="../__tests__/3-grafana.test.js" title="TS-11">TS-11</a>
    </td>
-   <td><a href="./test-scripts/TS-11.md" title="TC-11">TC-11</a>
+   <td><a href="./cockburns/TC-11.md" title="TC-11">TC-11</a>
    </td>
    <td> <a href="./test-scripts/TS-11.md">Defining dashboards based on the analyzed data using Grafana</a≥
    </td>
@@ -99,15 +99,15 @@
    </td>
   </tr>
   <tr>
-   <td>TS-15
+   <td><a href="../__tests__/1-adminer.test.js" title="TS-6">TS-6</a>
    </td>
-   <td><a href="./test-scripts/TS-15.md">TC-15</a≥
+   <td><a href="./cockburns/TC-6.md">TC-6</a≥
    </td>
-   <td><a href="./test-scripts/TS-15.md">Creating a chart in Superset</a≥ 
+   <td><a href="./test-scripts/TS-6.md">Creating a table in Adminer</a≥ 
    </td>
-   <td>Business Analyst, Business Leader
+   <td>Data Engineer
    </td>
-   <td>Exploring and  displaying data
+   <td>Data storage
    </td>
   </tr>
 </table>
