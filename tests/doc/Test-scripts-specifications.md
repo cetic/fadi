@@ -31,7 +31,7 @@
   <tr>
    <td>Test script ID
    </td>
-   <td>The identifier of the test script 
+   <td>The identifier of the test script. It contains two links: spec and impl to consult the specification and the implementation of the test script respectively 
    </td>
   </tr>
   <tr>
@@ -75,7 +75,7 @@
    </td>
   </tr>
   <tr>
-   <td><a href="../__tests__/2-nifi.test.js" title="TS-4">TS-4</a>
+   <td>TS-4 [<a href="./test-scripts/TS-4.md">Spec</a>, <a href="../__tests__/2-nifi.test.js">Impl</a>]
    </td>
    <td><a href="./cockburns/TC-4.md" title="TC-4">TC-4</a>
    </td>
@@ -87,11 +87,11 @@
    </td>
   </tr>
   <tr>
-   <td><a href="../__tests__/3-grafana.test.js" title="TS-11">TS-11</a>
+   <td>TS-11 [<a href="./test-scripts/TS-11.md">Spec</a>, <a href="../__tests__/3-grafana.test.js">Impl</a>]
    </td>
    <td><a href="./cockburns/TC-11.md" title="TC-11">TC-11</a>
    </td>
-   <td> <a href="./test-scripts/TS-11.md">Defining dashboards based on the analyzed data using Grafana</a≥
+   <td> <a href="./test-scripts/TS-11.md">Defining dashboards based on the analyzed data using Grafana</a>
    </td>
    <td>Business Analyst, Business Leader
    </td>
@@ -99,11 +99,11 @@
    </td>
   </tr>
   <tr>
-   <td><a href="../__tests__/1-adminer.test.js" title="TS-6">TS-6</a>
+   <td>TS-6 [<a href="./test-scripts/TS-6.md">Spec</a>, <a href="../__tests__/1-adminer.test.js" title="TS-6">Impl</a>]
    </td>
-   <td><a href="./cockburns/TC-6.md">TC-6</a≥
+   <td><a href="./cockburns/TC-6.md">TC-6</a>
    </td>
-   <td><a href="./test-scripts/TS-6.md">Creating a table in Adminer</a≥ 
+   <td><a href="./test-scripts/TS-6.md">Creating a table in Adminer</a>
    </td>
    <td>Data Engineer
    </td>
