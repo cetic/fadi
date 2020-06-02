@@ -1,4 +1,4 @@
-## TC-6: Creating a table in pgAdmin
+## TC-6: Creating a table in Adminer
 
 
 <table>
@@ -11,7 +11,7 @@
   <tr>
    <td><strong>Use case name</strong>
    </td>
-   <td colspan="2" >Creating a table in pgAdmin
+   <td colspan="2" >Creating a table in Adminer
    </td>
   </tr>
   <tr>
@@ -43,7 +43,7 @@
   <tr>
    <td><strong>Short Description</strong>
    </td>
-   <td colspan="2" >The FADI platform enables to create a new table via the interface of the pgAdmin tool. This use case allows to test whether the table creation is successfully achieved.
+   <td colspan="2" >The FADI platform enables to create a new table via the interface of the Adminer tool. This use case allows to test whether the table creation is successfully achieved.
    </td>
   </tr>
   <tr>
@@ -52,11 +52,11 @@
    <td colspan="2" >
 <ul>
 
-<li>The actor knows either the URL address or the command to access to the pgAdmin service
+<li>The actor knows either the URL address or the command to access to the Adminer service
 
 <li>The database in which the table will be created already exists
 
-<li>The actor is connected to pgAdmin
+<li>The actor is connected to Adminer
 
 <li>The actor knows the name of the table to be created
 
