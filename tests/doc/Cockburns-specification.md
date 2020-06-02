@@ -138,39 +138,9 @@ In this section, the main concepts and technologies are introduced in order to e
    </td>
   </tr>
   <tr>
-   <td>TC-5
-   </td>
-    <td><a href="./cockburns/TC-5.md">Creating a database server in Adminer</a>
-   </td>
-   <td>Data Engineer
-   </td>
-   <td>Data storage
-   </td>
-  </tr>
-  <tr>
-   <td>TC-6
-   </td>
-    <td><a href="./cockburns/TC-6.md">Creating a table in Adminer</a>
-   </td>
-   <td>Data Engineer
-   </td>
-   <td>Data storage
-   </td>
-  </tr>
-  <tr>
    <td>TC-7
    </td>
     <td><a href="./cockburns/TC-7.md">Deleting a table in Adminer</a>
-   </td>
-   <td>Data Engineer
-   </td>
-   <td>Data storage
-   </td>
-  </tr>
-  <tr>
-   <td>TC-8
-   </td>
-    <td><a href="./cockburns/TC-8.md">Deleting a database in Adminer</a>
    </td>
    <td>Data Engineer
    </td>
