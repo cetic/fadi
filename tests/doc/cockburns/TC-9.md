@@ -45,7 +45,7 @@
   <tr>
    <td><strong>Short Description</strong>
    </td>
-   <td colspan="2" >The FADI platform enables to collect data and to store it in a given database either via the pgAdmin interface or by defining a data workflow using Nifi. This use case allows to test whether the data insertion is successfully achieved.
+   <td colspan="2" >The FADI platform enables to collect data and to store it in a given database either via the Adminer interface or by defining a data workflow using Nifi. This use case allows to test whether the data insertion is successfully achieved.
 <p>
 In this use case, we will implement the case of data insertion using Nifi.
    </td>
