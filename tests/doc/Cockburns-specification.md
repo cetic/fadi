@@ -6,6 +6,7 @@ In this section, the main concepts and technologies are introduced in order to e
 
 *   **FADI platform** is a Cloud Native platform for Big Data based on mature open source tools. The FADI project is dedicated to making the deployment of Big Data tools simple, portable and scalable. The goal is to provide a straightforward way to deploy open-source systems for Big Data to various infrastructures (private and public clouds). 
 *   **FADI dashboard** is actually the Kubernetes dashboard that enables to have an idea about the status of the Kubernetes pods by launching the command “minikube dashboard”.
+*   **Adminer** is an open source graphical administration tool for relational databases. It is used in FADI in order to ease the management of the PostgreSQL databases.
 *   **Apache Nifi** is an open source tool designed to automate the flow of data between software systems. It used in the FADI platform in order to collect data, to extract it, to transform it and to store it in the appropriate data store. 
 *   **PostgreSQL** is an open source relational database management system and it is used to store the data in the FADI platform. 
 *   **Grafana** is an open source tool enabling the visualization and the formatting of metrics data coming from different type of databases. It can play the role of the FADI dashboard.
@@ -134,6 +135,46 @@ In this section, the main concepts and technologies are introduced in order to e
    <td>Data Scientist, Data Engineer
    </td>
    <td>Data ingestion
+   </td>
+  </tr>
+  <tr>
+   <td>TC-5
+   </td>
+    <td><a href="./cockburns/TC-5.md">Creating a database server in Adminer</a>
+   </td>
+   <td>Data Engineer
+   </td>
+   <td>Data storage
+   </td>
+  </tr>
+  <tr>
+   <td>TC-6
+   </td>
+    <td><a href="./cockburns/TC-6.md">Creating a table in Adminer</a>
+   </td>
+   <td>Data Engineer
+   </td>
+   <td>Data storage
+   </td>
+  </tr>
+  <tr>
+   <td>TC-7
+   </td>
+    <td><a href="./cockburns/TC-7.md">Deleting a table in Adminer</a>
+   </td>
+   <td>Data Engineer
+   </td>
+   <td>Data storage
+   </td>
+  </tr>
+  <tr>
+   <td>TC-8
+   </td>
+    <td><a href="./cockburns/TC-8.md">Deleting a database in Adminer</a>
+   </td>
+   <td>Data Engineer
+   </td>
+   <td>Data storage
    </td>
   </tr>
   <tr>
