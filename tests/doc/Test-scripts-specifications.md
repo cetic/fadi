@@ -1,4 +1,11 @@
-# Actors abbreviations list
+Test scripts specifications
+============
+
+* [Actors abbreviations list](#actors-abbreviations-list)
+* [Description of the content of the table](#description-of-the-content-of-the-table)
+* [Test scripts list](#test-scripts-list)
+
+## Actors abbreviations list
 <table>
   <tr>
    <td><strong>Abbreviation</strong>
@@ -20,7 +27,8 @@
   </tr>
 </table>
 
-# Description of the content of the table
+## Description of the content of the table
+
 <table>
   <tr>
    <td><strong>Column</strong>
@@ -60,7 +68,8 @@
   </tr>
 </table>
 
-# Test scripts list
+## Test scripts list
+
 <table>
   <tr>
    <td><strong>Test script ID</strong>

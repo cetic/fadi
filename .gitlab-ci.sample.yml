@@ -9,6 +9,7 @@ stages:
 - tf_plan
 - tf_apply
 - deployWithHelm
+- test
 
 variables:
   KUBECONFIG: /etc/deploy/config
@@ -132,3 +133,16 @@ deployWithHelm:
     url: http://$PROJECT
   only:
   - master
+
+test:
+  stage: test
+  image: fzalila/docker-puppeteer-jest
+  script:
+    - ls
+    - cd tests/
+    - pwd
+    - npm run test
+  tags:
+    - docker
+  only:
+    - develop

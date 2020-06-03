@@ -1,4 +1,12 @@
-# General definitions
+Test cases specifications
+================
+
+* [General definitions](#general-definitions)
+* [Abbreviations lists](#abbreviations-list)
+* [Actors](#actors)
+* [Test cases list](#test-cases-list)
+
+## General definitions
 
 In this section, the main concepts and technologies are introduced in order to ease the understanding of the different test use cases.
 
@@ -15,7 +23,7 @@ In this section, the main concepts and technologies are introduced in order to e
 *   **Jupyter** is a notebook  that provides an easy interface to the Spark processing engine that runs on your cluster. It is used in the FADI platform to enable the use of Spark and explore data.
 
 
-# Abbreviations list
+## Abbreviations list
 
 
 <table>
@@ -35,7 +43,7 @@ In this section, the main concepts and technologies are introduced in order to e
 
 
 
-# Actors
+## Actors
 
 
 <table>
@@ -83,7 +91,7 @@ In this section, the main concepts and technologies are introduced in order to e
 
 
 
-# Test case list
+## Test cases list
 
 
 <table>
