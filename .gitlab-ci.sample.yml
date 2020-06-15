@@ -140,7 +140,6 @@ test:
   script:
     - ls
     - cd tests/
-    - pwd
     - npm run test
   tags:
     - docker

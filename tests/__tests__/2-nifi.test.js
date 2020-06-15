@@ -71,7 +71,9 @@ describe('Test the upload template feature of Apache Nifi service', () => {
         // click on the 'upload' button
         await page.click('#canvas-body > #upload-template-dialog > .dialog-buttons > .button:nth-child(1)')
     })
-    //fixme verify unable to upload. 
+    //TODO verify the button "unable to upload" is enabled.
+    
+    // Click on the upload button 
     it('confirm the upload of the template', async () => {
         // check if the success upload template dialog appears
         await shouldExist(page, "#nf-ok-dialog")
