@@ -95,11 +95,9 @@ deployWithHelm:
 
 test:
   stage: test
-  image: fzalila/docker-puppeteer-jest
+  image: ceticasbl/puppeteer-jest
   script:
-   - ls
    - cd tests/
-   - pwd
    - npm run test
   tags:
     - docker
