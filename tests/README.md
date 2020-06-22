@@ -6,7 +6,7 @@
 
 * [Introduction](#introduction)
 * [Quick start](#quick-start)
-* [Example](#example)
+* [Example](#examples)
 * [Documentation](#documentation)
 * [References](#references)
 
@@ -53,29 +53,29 @@ If tests pass, you should obtain the following results:
 The following example checks the creation of a `example_basic` table in the `postgres` database.  
 
 ```js 
-        it('should create a table', async () => {
-        // Go to the indicated page 
-        await page.goto(url)
+it('should create a table', async () => {
+    // Go to the indicated page 
+    await page.goto(url)
 
-        // Click on SQL query button 
-        await click(page, '.ltr > #menu > .links > a:nth-child(1)')
+    // Click on SQL query button 
+    await click(page, '.ltr > #menu > .links > a:nth-child(1)')
 
-        // type the query
-        await typeText(page, 'CREATE TABLE example_basic (measure_ts TIMESTAMP NOT NULL,temperature FLOAT (50));', '.ltr > #content > #form > p > .jush')
+    // type the query
+    await typeText(page, 'CREATE TABLE example_basic (measure_ts TIMESTAMP NOT NULL,temperature FLOAT (50));', '.ltr > #content > #form > p > .jush')
 
-        // Execute the table creation query
-        await click(page, '.ltr > #content > #form > p > input:nth-child(1)')
+    // Execute the table creation query
+    await click(page, '.ltr > #content > #form > p > input:nth-child(1)')
 
-        // Check the creation of the table
-        await shouldExist(page, '#content > p.message')
-    })
+    // Check the creation of the table
+    await shouldExist(page, '#content > p.message')
+})
 ```
 
 More examples are available in the [test-scripts folder](doc/test-scripts/).
 
 ## Documentation
 
-Test cases of the FADI framework are specified using Cockburns[1] templates, available [here](doc/Cockburns-specification.md).
+Test cases of the FADI framework are specified using Cockburns[[1](#references)] templates, available [here](doc/Cockburns-specification.md).
 
 Test scripts specifications are available [here](doc/Test-scripts-specifications.md).
 
