@@ -138,7 +138,6 @@ test:
   stage: test
   image: ceticasbl/puppeteer-jest
   script:
-    - ls
     - cd tests/
     - npm run test
   tags:

@@ -71,7 +71,7 @@ describe('Test the upload template feature of Apache Nifi service', () => {
         // click on the 'upload' button
         await page.click('#canvas-body > #upload-template-dialog > .dialog-buttons > .button:nth-child(1)')
     })
-    //TODO verify the button "unable to upload" is enabled.
+    //TODO verify the button "unable to upload" is enabled - see https://github.com/cetic/fadi/issues/125
     
     // Click on the upload button 
     it('confirm the upload of the template', async () => {
@@ -123,7 +123,7 @@ describe('Test instantiating template of Apache Nifi service', () => {
     it('drag and drop a template', async () => {
         // Upload the template 
 
-        // TODO choose the appropriate one
+        // TODO choose the appropriate one - see https://github.com/cetic/fadi/issues/126
         await shouldExist(page, '#template-component')
         await dragAndDrop(page, '#template-component')
         await shouldExist(page, '#instantiate-template-dialog')
