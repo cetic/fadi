@@ -83,7 +83,7 @@ Two templates are available in order to define a new [test case](doc/cockburns/T
 
 ## Continuous integration
 
-To automate testing inside a continuous integration process, you can for example add a `test` stage to a Gitlab-CI pipeline by editing the `.gitlab-ci.yml` configuration:
+To automate testing inside a continuous integration process, you can for example add a `test` stage to a Gitlab-CI pipeline by editing the [`.gitlab-ci.yml`](../.gitlab-ci.sample.yml) configuration:
 
 ```yaml
 stages:
@@ -99,10 +99,6 @@ test:
   script:
    - cd tests/
    - npm run test
-  tags:
-    - docker
-  only:
-    - develop
 ```
 
 ## References
