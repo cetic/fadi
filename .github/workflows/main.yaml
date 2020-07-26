@@ -20,5 +20,7 @@ jobs:
     - uses: actions/checkout@v1
     - name: test minikube 
       run: minikube version
-    - name: helm version
-      run: minikube version
+    - name: test helm
+      run: helm version
+    - name: test k8s
+      run: kubectl version
