@@ -19,7 +19,7 @@ jobs:
         helm version
     - uses: actions/checkout@v1
     - name: create minikube cluster
-      run: minikube start --cpus 6 --memory 12288 --disk-size=40GB
+      run: minikube start --cpus 6 --memory 12288 --disk-size=40GB --vm-driver='virtualbox'
     - name: configure context
       run: kubectl config set-context minikube
     - name: Enable ingress
