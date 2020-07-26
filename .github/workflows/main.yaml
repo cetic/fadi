@@ -12,7 +12,7 @@ jobs:
       with:
         minikube version: 'v1.12.0'
         kubernetes version: ${{ matrix.k8s }}
-        start args: '--addons ingress'
+        start args: '--addons=ingress'
     - run: kubectl get nodes
     - name: Ready helm
       run: |
