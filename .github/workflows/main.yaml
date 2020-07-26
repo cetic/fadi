@@ -20,8 +20,8 @@ jobs:
     - uses: actions/checkout@v1
     - name: configure context
       run: kubectl config set-context minikube
-    - name: Enable ingress
-      run: minikube addons enable ingress
+    # - name: Enable ingress
+    #   run: minikube addons enable ingress
     - name: Install FADI
       run: cd ./helm && ./deploy
     - name: Configure namespace
