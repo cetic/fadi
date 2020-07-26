@@ -21,9 +21,9 @@ jobs:
     - name: configure context
       run: kubectl config set-context minikube
     - name: Enable ingress
-      run: minikube addons list
-    # - name: Install FADI
-    #   run: cd ./helm && ./deploy
-    # - name: Configure namespace
-    #   run: kubectl config set-context minikube --namespace fadi
+      run: sudo minikube addons enable ingress
+    - name: Install FADI
+      run: cd ./helm && ./deploy
+    - name: Configure namespace
+      run: kubectl config set-context minikube --namespace fadi
       
