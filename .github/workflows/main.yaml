@@ -21,6 +21,8 @@ jobs:
     - uses: actions/checkout@v1
     - name: configure context
       run: kubectl config set-context minikube
+    - name: check addons
+      run: minikube addons list
     - name: Install FADI
       run: cd ./helm && ./deploy.sh
     - name: Configure namespace
