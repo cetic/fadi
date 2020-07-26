@@ -1,0 +1,22 @@
+name: fadi_ci
+on: [push]
+jobs:
+  k8s:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        k8s: [v1.17.0]
+    steps:
+    - name: Ready minikube
+      uses: manusa/actions-setup-minikube@v1.0.0
+      with:
+        minikube version: 'v1.12.0'
+        kubernetes version: ${{ matrix.k8s }}
+    - run: kubectl get nodes
+    - name: Ready helm
+      run: |
+        wget https://get.helm.sh/helm-v3.1.0-linux-amd64.tar.gz && tar -zxvf helm-v3.1.0-linux-amd64.tar.gz && sudo mv linux-amd64/helm /usr/local/bin/helm
+        helm version
+    - uses: actions/checkout@v1
+    - name: test
+      run: ls
