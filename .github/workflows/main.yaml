@@ -18,9 +18,14 @@ jobs:
         wget https://get.helm.sh/helm-v3.1.0-linux-amd64.tar.gz && tar -zxvf helm-v3.1.0-linux-amd64.tar.gz && sudo mv linux-amd64/helm /usr/local/bin/helm
         helm version
     - uses: actions/checkout@v1
-    - name: test minikube 
-      run: minikube version
-    - name: test helm
-      run: helm version
-    - name: test k8s
-      run: kubectl version
+    - name: create minikube cluster
+      run: minikube start --cpus 6 --memory 12288 --disk-size=40GB
+    - name: configure context
+      run: kubectl config set-context minikube
+    - name: Enable ingress
+      run: minikube addons enable ingress
+    - name: Install FADI
+      run: cd ./helm && ./deploy
+    - name: Configure namespace
+      run: kubectl config set-context minikube --namespace fadi
+      
