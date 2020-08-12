@@ -7,6 +7,12 @@ User Management
      * [JupyterHub](#jupyterhub)
      * [Superset](#superset)
      * [PostgreSQL](#postgresql)
+     * [NiFi](#NiFi)
+     	* [Configuration](#Configuration) 
+     	* [sign in](#sign_in)
+     	* [Authorizers & Initial Admin Identity](#Authorizers_&_Initial_Admin_Identity)
+     	* [Adding users](#Adding_users)
+     	* [Multi-Tenancy](#Multi-Tenancy)
 * [3. Manage your LDAP server](#3-manage-your-ldap-server)
      * [Adding a user](#adding-a-user)
 * [4. Creating groups](#4-Creating-groups)
@@ -95,6 +101,87 @@ local      all  all  ldap  ldapserver=example.com  ldapport=389 [other-ldap-opti
 For more information about how to add LDAP authentication to PostgreSQL, follow [LDAP authentication in PostgreSQL](https://www.postgresql.org/docs/11/auth-ldap.html).
 
 For more information about pg-ldap-sync: [Use LDAP permissions in PostgreSQL](https://github.com/larskanis/pg-ldap-sync)
+
+### NiFi
+
+#### Configuration
+
+To secure NiFi with Ldap we need to enable SSL for NiFi. As part of enabling SSL, NiFi will also automatically enable authentication requiring an additional authentication method which in our case will be Ldap, to get detailed description of the whole process: [Apache NiFi - Authorization and Multi-Tenancy](https://bryanbende.com/development/2016/08/17/apache-nifi-1-0-0-authorization-and-multi-tenancy)
+
+to Configure Ldap in this helm chart we need to first enable it by setting the variable `auth.ldap.enabled` to **true** then configure the rest of the variables. here's an example for tthe default fadi ldap:
+
+```
+  enabled: true
+    host: ldap://fadi-openldap:389
+    searchBase: cn=admin,dc=ldap,dc=cetic,dc=be
+    admin: cn=admin,dc=ldap,dc=cetic,dc=be
+    searchFilter: (objectClass=*)
+    UserIdentityAttribute: cn
+    pass: password1
+
+```
+ 
+ when ldap is enabled make sure to change the variables `properties.isSecure` and `properties.clusterSecure` to **true** and set `properties.httpPort` to **null** and `properties.httpsPort` to **9443**, Also it's mandatory to set the **namesapce** and the **release-name** you're going to use in advance respectivly in `properties.namespace` and `properties.release` .
+
+#### Sign in 
+
+
+When you access Nifi a sign-in screen will show up, you can sign in using your Ldap username/password normally ( not the full DN ).
+
+<img src="images/installation/sign-in.png" />
+
+**Important note:** only One user can connect the first time and it's the user with the **Initial Admin Identity**, in FADI it's the default LDAP admin user ( admin / password1 ). once connected you'll get access the the UI that will look like this :
+
+<img src="images/installation/grey.png" />
+
+you will notice that everything is desabled and that's because there are no users registred and no policies ( persmissions ) destributed, but the Initial Admin has all the rights to create policies and give permissions.
+
+#### Authorizers & Initial Admin Identity
+
+We can see that the initial admin has READ/WRITE access to /flow, /tenants, /policies, and /controller, and the cluster nodes have READ/WRITE access to /proxy. This allows the initial admin to get into the UI (/flow) and to create new users/groups (/tenants), and to create new policies (/policies), but you’ll notice there are no policies granting access to the root process group, or any other components. This is why all of the actions in the toolbar are grayed-out. 
+
+We can create a policy for the root process group by clicking the key icon in the operate palette on the left. We should see the do the following:
+
+<img src="images/installation/create.gif" />
+
+After creating the necessary policies, the “view component” action on the root process group, which is essentially the READ action and the “modify the component” which is the WRITE policy for the root process group the admin user will have the appropriate authorizations. 
+
+PS: you can do the same thing for the rest of policies.
+
+#### Adding users
+
+Adding the ldap users has to be done manually through the UI as **there is no syncing mechanism to automatically add LDAP users/groups into NiFi** .
+
+When connected with your initial admin account (using your individual certificate), go into users to add your users, and then into policies to grant access and rights to the users, in this example we're going to add the user John who already exists in the ldap server ( to add the user we should use the full DN: `cn=john,cn=admin,dc=ldap,dc=cetic,dc=be` )
+
+<img src="images/installation/users.gif" /> 
+
+After adding the user **don't forget to assign the policies** for that user to give the needed permissions by default the new user cannot even access the UI.
+
+#### Multi-Tenancy
+
+This is copied from this great article: [Apacche Nifi - Authorization and Multi-Tenancy](https://bryanbende.com/development/2016/08/17/apache-nifi-1-0-0-authorization-and-multi-tenancy).
+
+ The policy structure is hierarchical, such that when access is checked for a component, if no policy is found then it checks the parent, and if not policy is found for the parent, it checks the parent’s parent, and so on, until reaching the root process group. This means that by giving ourselves READ/WRITE to the root group we now have READ/WRITE for all sub-components **until a more restrictive policy is created.**
+
+Lets simulate how two development teams might share a single NiFi instance by creating two process groups:
+
+
+<img src="images/installation/teams.png" /> 
+
+Lets pretend we are a member of Team 1 so we should have full access to the first process group, but we shouldn’t be able to know anything about what Team 2 is doing, and shouldn’t be able to modify their flow. We can simulate this by creating a more restrictive policy on the “Team 2” process group that does not include the current user (the initial admin).
+
+If you select the “Team 2” process group, you’ll notice the palette on the left changes and says “Team 2”. This palette always operate in the context of the selected component, so if we click the key icon while “Team 2” is selected, we are now editing the policies for the “Team 2” process group. If we click the “Override this policy” link for “view component” and create a new policy without adding users, we should get the following:
+
+<img src="images/installation/Team2.png" /> 
+
+If we do the same thing for “modify the component” and then return to the main canvas we should see the following on the next refresh:
+
+<img src="images/installation/Team1.png" /> 
+
+
+We can no longer see the name of the group, and we now have a more restrictive context menu that prevents us from configuring the group. 
+
 
 ## 3. Manage your LDAP server
 
