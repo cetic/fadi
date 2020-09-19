@@ -28,5 +28,7 @@ jobs:
     - name: Configure namespace
       run: kubectl config set-context minikube --namespace fadi
     - name: Check pods
-      run: kubectl get pods  
+      run: kubectl get pods
+    - name: Check deployments
+      run: kubectl get deployments
       
