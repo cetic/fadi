@@ -36,7 +36,7 @@ jobs:
     - name: Check fadi-grafana deployment status
       run: kubectl rollout status deployment fadi-grafana
     - name: Check fadi-nifi deployment status
-      run: kubectl rollout status deployment fadi-nifi
+      run: kubectl get pods
     - name: Check the accessibility of adminer service
       run: curl "$(minikube service -n fadi fadi-adminer --url)"
     - name: Check the accessibility of grafana service
