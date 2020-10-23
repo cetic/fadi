@@ -43,5 +43,7 @@ jobs:
       run: export GRAFANA_URL="$(minikube service -n fadi fadi-grafana --url)"      
     - name: Check the accessibility of nifi service
       run: export NIFI_URL="$(minikube service -n fadi fadi-nifi --url)"
+    - name: install Jest 
+      run: npm i jest@24.9.0
     - name: launch function tests
       run: cd ./tests && npm run test
