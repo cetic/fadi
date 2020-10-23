@@ -5,7 +5,7 @@ module.exports = {
     GrafanaUrl: 'http://grafana.test.fadi.cetic.be',
     NifiTemplatePath: '../tests/files/basic_example_final_template.xml',
     GrafanaDashboardPath: '../tests/files/USERGUIDE_Dashboard-1581604268718.json',
-    isHeadless: false,
+    isHeadless: true,
     slowMo: 100,
     isDevtools: false,
     launchTimeout: 10000,

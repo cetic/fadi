@@ -11,7 +11,7 @@ const shouldNotExist = require('../lib/helpers').shouldNotExist
 const dragAndDrop = require('../lib/helpers').dragAndDrop
 const Sequencer = require('@jest/test-sequencer').default
 
-const url = config.NifiUrl
+const url = process.env.NIFI_URL
 const template_path = config.NifiTemplatePath
 
 //const utils = require('../lib/utils')

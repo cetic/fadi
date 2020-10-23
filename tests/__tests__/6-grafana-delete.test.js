@@ -11,7 +11,7 @@ const shouldNotExist = require('../lib/helpers').shouldNotExist
 const dragAndDrop = require('../lib/helpers').dragAndDrop
 const Sequencer = require('@jest/test-sequencer').default
 
-const url = config.GrafanaUrl
+const url = process.env.GRAFANA_URL
 //const utils = require('../lib/utils')
 
 describe('Test the authentification to the Grafana service', () => {
