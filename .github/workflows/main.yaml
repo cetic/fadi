@@ -44,8 +44,8 @@ jobs:
     - name: Check the accessibility of nifi service
       run: export NIFI_URL="$(minikube service -n fadi fadi-nifi --url)"
     - name: install Pptr 
-      run: sudo npm -g i puppeteer --unsafe-perm=true
+      run: sudo npm i puppeteer --unsafe-perm=true
     - name: install Jest 
-      run: sudo npm -g i jest @types/jest @jest/test-sequencer
+      run: sudo npm i jest @types/jest @jest/test-sequencer
     - name: launch function tests
       run: cd ./tests && npm run test
