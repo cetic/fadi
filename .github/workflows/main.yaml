@@ -38,10 +38,10 @@ jobs:
     - name: Check fadi-nifi deployment status
       run: kubectl wait --for=condition=Ready pod/fadi-nifi-0 --timeout=10m
     - name: Check the accessibility of adminer service
-      run: export ADMINER_URL = "$(minikube service -n fadi fadi-adminer --url)"
+      run: export ADMINER_URL="$(minikube service -n fadi fadi-adminer --url)"
     - name: Check the accessibility of grafana service
-      run: export GRAFANA_URL = "$(minikube service -n fadi fadi-grafana --url)"      
+      run: export GRAFANA_URL="$(minikube service -n fadi fadi-grafana --url)"      
     - name: Check the accessibility of nifi service
-      run: export NIFI_URL = "$(minikube service -n fadi fadi-nifi --url)"
+      run: export NIFI_URL="$(minikube service -n fadi fadi-nifi --url)"
     - name: launch function tests
       run: cd ./tests && npm run test
