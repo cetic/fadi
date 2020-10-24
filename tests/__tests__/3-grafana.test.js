@@ -11,7 +11,11 @@ const shouldNotExist = require('../lib/helpers').shouldNotExist
 const dragAndDrop = require('../lib/helpers').dragAndDrop
 const Sequencer = require('@jest/test-sequencer').default
 
+//Specify the url using env
+var env = require('node-env-file');
+env('./.env');
 const url = process.env.GRAFANA_URL
+
 const dashboard_path = config.GrafanaDashboardPath 
 //const utils = require('../lib/utils')
 
