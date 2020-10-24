@@ -39,24 +39,17 @@ jobs:
       run: kubectl wait --for=condition=Ready pod/fadi-nifi-0 --timeout=10m  
     - name: Set adminer service
       run: |
-        echo ::set-env name=ADMINER_URL::$(minikube service -n fadi fadi-adminer --url)
-    - name: Check the accessibility of adminer service
-      run: echo $ADMINER_URL
+        touch tests/.env
+        echo ADMINER_URL=$(minikube service -n fadi fadi-adminer --url) >> tests/.env
     - name: Set grafana service
       run: |
-        echo ::set-env name=GRAFANA_URL::$(minikube service -n fadi fadi-grafana --url)
-    - name: Check the accessibility of grafana service
-      run: echo $GRAFANA_URL    
+        echo GRAFANA_URL=$(minikube service -n fadi fadi-grafana --url) >> tests/.env   
     - name: Set nifi service
       run: |
-        echo ::set-env name=NIFI_URL::$(minikube service -n fadi fadi-nifi --url)
-    - name: Check the accessibility of nifi service
-      run: echo $NIFI_URL
+        echo NIFI_URL=$(minikube service -n fadi fadi-nifi --url) >> tests/.env 
+    - name: Check .env
+      run: cat tests/.env
     - name: install dependencies 
       run: cd ./tests && sudo npm install
     - name: launch function tests
-      run: |
-        echo ::set-env name=ADMINER_URL::$(minikube service -n fadi fadi-adminer --url)
-        echo ::set-env name=GRAFANA_URL::$(minikube service -n fadi fadi-grafana --url)
-        echo ::set-env name=NIFI_URL::$(minikube service -n fadi fadi-nifi --url)
-        cd ./tests && sudo npm run test
+      run: cd ./tests && sudo npm run test
