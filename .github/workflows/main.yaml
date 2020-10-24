@@ -40,14 +40,14 @@ jobs:
     - name: test urls
       run: echo Hello world $ADMINER_URL $GRAFANA_URL $NIFI_URL
       env:
-        ADMINER_URL: "$(minikube service -n fadi fadi-adminer --url)"
-        GRAFANA_URL: "$(minikube service -n fadi fadi-grafana --url)"  
-        NIFI_URL: "$(minikube service -n fadi fadi-nifi --url)"
+        ADMINER_URL: minikube service -n fadi fadi-adminer --url
+        GRAFANA_URL: minikube service -n fadi fadi-grafana --url
+        NIFI_URL: minikube service -n fadi fadi-nifi --url
     - name: install dependencies 
       run: cd ./tests && sudo npm install
     - name: launch function tests
       run: cd ./tests && sudo npm run test
       env:
-        ADMINER_URL: "$(minikube service -n fadi fadi-adminer --url)"
-        GRAFANA_URL: "$(minikube service -n fadi fadi-grafana --url)"  
-        NIFI_URL: "$(minikube service -n fadi fadi-nifi --url)"
+        ADMINER_URL: minikube service -n fadi fadi-adminer --url
+        GRAFANA_URL: minikube service -n fadi fadi-grafana --url  
+        NIFI_URL: minikube service -n fadi fadi-nifi --url
