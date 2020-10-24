@@ -55,4 +55,8 @@ jobs:
     - name: install dependencies 
       run: cd ./tests && sudo npm install
     - name: launch function tests
-      run: cd ./tests && sudo npm run test
+      run: |
+        echo ::set-env name=ADMINER_URL::$(minikube service -n fadi fadi-adminer --url)
+        echo ::set-env name=GRAFANA_URL::$(minikube service -n fadi fadi-grafana --url)
+        echo ::set-env name=NIFI_URL::$(minikube service -n fadi fadi-nifi --url)
+        cd ./tests && sudo npm run test
