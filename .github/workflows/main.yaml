@@ -44,6 +44,6 @@ jobs:
     - name: Check the accessibility of nifi service
       run: export NIFI_URL="$(minikube service -n fadi fadi-nifi --url)"
     - name: install dependencies 
-      run: sudo npm install
+      run: cd ./tests && sudo npm install
     - name: launch function tests
-      run: cd ./tests && npm run test
+      run: cd ./tests && sudo npm run test
