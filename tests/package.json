@@ -11,6 +11,7 @@
 	"dependencies": {
 		"jest": "^24.9.0",
 		"puppeteer": "^1.20.0",
+		"node-env-file": "^0.1.8",
 		"@jest/test-sequencer": "24.9.0"
 	}
 }

@@ -11,6 +11,11 @@ const shouldNotExist = require('../lib/helpers').shouldNotExist
 const dragAndDrop = require('../lib/helpers').dragAndDrop
 const Sequencer = require('@jest/test-sequencer').default
 
+var env = require('node-env-file');
+
+// Load any undefined ENV variables from a specified file.
+env('./.env');
+
 const url = process.env.ADMINER_URL
 //const utils = require('../lib/utils')
 
