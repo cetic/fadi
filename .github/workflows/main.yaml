@@ -37,19 +37,17 @@ jobs:
       run: kubectl rollout status deployment fadi-grafana
     - name: Check fadi-nifi deployment status
       run: kubectl wait --for=condition=Ready pod/fadi-nifi-0 --timeout=10m
-    - name: Set adminer service
-      run: export ADMINER_URL="'$(minikube service -n fadi fadi-adminer --url)''"
-    - name: Check the accessibility of adminer service
-      run: echo $ADMINER_URL
-    - name: Set grafana service
-      run: export GRAFANA_URL="'$(minikube service -n fadi fadi-grafana --url)''"  
-    - name: Check the accessibility of grafana service
-      run: echo $GRAFANA_URL    
-    - name: Set nifi service
-      run: export NIFI_URL="'$(minikube service -n fadi fadi-nifi --url)''"
-    - name: Check the accessibility of nifi service
-      run: echo $NIFI_URL  
+    - name: test urls
+      run: echo Hello world $ADMINER_URL $GRAFANA_URL $NIFI_URL
+      env:
+        ADMINER_URL: "$(minikube service -n fadi fadi-adminer --url)"
+        GRAFANA_URL: "$(minikube service -n fadi fadi-grafana --url)"  
+        NIFI_URL: "$(minikube service -n fadi fadi-nifi --url)"
     - name: install dependencies 
       run: cd ./tests && sudo npm install
     - name: launch function tests
       run: cd ./tests && sudo npm run test
+      env:
+        ADMINER_URL: "$(minikube service -n fadi fadi-adminer --url)"
+        GRAFANA_URL: "$(minikube service -n fadi fadi-grafana --url)"  
+        NIFI_URL: "$(minikube service -n fadi fadi-nifi --url)"
