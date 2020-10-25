@@ -10,7 +10,7 @@ jobs:
     - name: Ready minikube
       uses: manusa/actions-setup-minikube@v2.0.1
       with:
-        minikube version: 'v1.14.1'
+        minikube version: 'v1.14.0'
         kubernetes version: ${{ matrix.k8s }}
         start args: '--cpus 6 --memory 8192 --addons=ingress'
     - name: Checkout code    
