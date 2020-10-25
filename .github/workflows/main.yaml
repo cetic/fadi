@@ -12,7 +12,7 @@ jobs:
       with:
         minikube version: 'v1.14.0'
         kubernetes version: ${{ matrix.k8s }}
-        start args: '--cpus 6 --memory 8192 --addons=ingress'
+        start args: "--vm-driver='virtualbox' --cpus 6 --memory 8192 --addons=ingress"
     - name: Checkout code    
       uses: actions/checkout@v1
     - name: configure context
