@@ -47,29 +47,29 @@ describe('Test the authentification to the Grafana service', () => {
     it('should authentificate to the Grafana index page', async () => {
         // Go to the indicated page 
         await page.goto(url)
-        await shouldExist(page, '.login-content')
+        await shouldExist(page, '#login-view')
 
         // Login to the Grafana service
         await typeText(page, 'admin', '[name=user]')
         await typeText(page, 'password1', '[name=password]')
-        await click(page, '[type=submit]')
+        await click(page, '[aria-label="Login button"]')
         await shouldExist(page, '.sidemenu__logo')
     })
 
     it('should create a configuration of data source', async () => {
         // Click on Configuration
-        await click(page, '.sidemenu__top > .sidemenu-item:nth-child(5)')
+        await click(page, '.sidemenu__top > .sidemenu-item:nth-child(6)')
 
         // Click on Data sources
         // await page.waitForSelector('.sidemenu__top > .sidemenu-item:nth-child(5) > .dropdown-menu > li:nth-child(2) > a')
         // await page.click('.sidemenu__top > .sidemenu-item:nth-child(5) > .dropdown-menu > li:nth-child(2) > a')
 
         //Click on Add data source
-        await click(page, '.css-eb113e-button')
+        await click(page, '[aria-label="Call to action button Add data source"]')
         //await page.waitFor(5000)
 
         // Click on Postgresql option
-        await click(page, "[aria-label='PostgreSQL datasource plugin']")
+        await click(page, "[aria-label='Data source plugin item PostgreSQL']")
         //await page.waitFor(5000)
 
         // Insert the Host
@@ -106,18 +106,18 @@ describe('Test the authentification to the Grafana service', () => {
         await click(page, '.sidemenu__top > .sidemenu-item:nth-child(2) > .dropdown-menu > li:nth-child(4) > a')
 
         //Click on Import Dashboard
-        await click(page, '.page-container > manage-dashboards > .dashboard-list > .page-action-bar > .btn:nth-child(5)')
+        await click(page, 'body > grafana-app > div > div > react-container > div > div > div.view > div > div.page-container.page-body > div:nth-child(1)')
 
         // select the approapriate template
         const [fileChooser] = await Promise.all([
             page.waitForFileChooser(),
-            page.click('.page-container > div > .page-action-bar > dash-upload > .btn'), // some button that triggers file selection
+            page.click('.view > .page-scrollbar-content > .page-container > .css-lq6a48 > .css-1vlnne-button'), // some button that triggers file selection
         ]);
         await fileChooser.accept([dashboard_path]);
 
         // Confirm the Import
-        await click(page, 'div > .page-container > div > .gf-form-button-row > .btn-primary')
-        await page.waitFor(10000)
+        await click(page, 'body > grafana-app > div > div > react-container > div > div > div.view > div > div.page-container.page-body > form > div.css-61y8vr > div:nth-child(1)')
+        await page.waitFor(20000)
 
         await page.screenshot({
             path: './files/Grafana_screenshot.jpg',

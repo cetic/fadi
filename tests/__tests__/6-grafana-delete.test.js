@@ -46,18 +46,18 @@ describe('Test the authentification to the Grafana service', () => {
     it('should authentificate to the Grafana index page', async () => {
         // Go to the indicated page 
         await page.goto(url)
-        await shouldExist(page, '.login-content')
+        await shouldExist(page, '#login-view')
 
         // Login to the Grafana service
         await typeText(page, 'admin', '[name=user]')
         await typeText(page, 'password1', '[name=password]')
-        await click(page, '[type=submit]')
+        await click(page, '[aria-label="Login button"]')
         await shouldExist(page, '.sidemenu__logo')
     })
 
     it('should delete a configuration of data source', async () => {
         // Click on the configuration menu 
-        await click(page, '.sidemenu__top > .sidemenu-item > .sidemenu-link > .icon-circle > .gicon-cog')
+        await click(page, '.sidemenu__top > .sidemenu-item:nth-child(6)')
 
         // Select the postgresql data source
         await click(page, '.card-section > .card-list > .card-item-wrapper > .card-item > .card-item-body')
@@ -72,21 +72,21 @@ describe('Test the authentification to the Grafana service', () => {
 
     it('should delete a Grafana dashboard ', async () => {
 
-        // Click on Dashboard menu
-        await click(page, '.sidemenu > .sidemenu__top > .sidemenu-item:nth-child(2) > .sidemenu-link > .icon-circle')
+        // Click on dashboard menu
+        await click(page, '.sidemenu__top > .sidemenu-item:nth-child(3)')
 
-        // Click on Manage section
-        await click(page, '.sidemenu__top > .sidemenu-item:nth-child(2) > .dropdown-menu > li:nth-child(4) > a')
+        //click on Manage dashboard
+        await click(page, '.sidemenu__top > .sidemenu-item:nth-child(3) > .dropdown-menu > li:nth-child(4) > a')
 
         // Check the dashboard to delete
-        await shouldExist(page, '.search-item > .center-vh > gf-form-checkbox > .gf-form-switch-container > .gf-form-checkbox > .gf-form-switch__checkbox')
-        await click(page, '.search-item > .center-vh > gf-form-checkbox > .gf-form-switch-container > .gf-form-checkbox > .gf-form-switch__checkbox')
+        await shouldExist(page, '.css-1ljbtbg > .css-1umfglk > .css-s44s3q > .css-12xei9w > .css-7483ua')
+        await click(page, '.css-1ljbtbg > .css-1umfglk > .css-s44s3q > .css-12xei9w > .css-7483ua')
 
         // Click on the delete button
-        await click(page, '.search-results > .search-results-filter-row > .search-results-filter-row__filters > .gf-form-button-row > .btn-danger')
+        await click(page, '.css-61y8vr > .css-1xw4p59 > .css-11vdkcj-button > .css-1beih13 > span:nth-child(2)')
 
         // Confirm the delete
-        await click(page, '.modal-body > .modal-content > .confirm-modal-buttons > .btn-danger')
+        await click(page, '.css-ief6ig > .css-1nrg97p > .css-11eaers-button > .css-1beih13 > span')
 
     })
 })
