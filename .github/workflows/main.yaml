@@ -49,5 +49,8 @@ jobs:
       run: cd ./tests && sudo npm install
     - name: launch functional tests
       run: cd ./tests && sudo npm run test
+    - name: Display structure of tests files
+      run: ls 
+      working-directory: tests/files
     - name: delete minikube cluster
       run: minikube delete
