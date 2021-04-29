@@ -167,7 +167,7 @@ This is copied from this great article: [Apacche Nifi - Authorization and Multi-
 Lets simulate how two development teams might share a single NiFi instance by creating two process groups:
 
 
-<img src="images/installation/teams.png" /> 
+<img src="images/installation/Teams.png" /> 
 
 Lets pretend we are a member of Team 1 so we should have full access to the first process group, but we shouldn’t be able to know anything about what Team 2 is doing, and shouldn’t be able to modify their flow. We can simulate this by creating a more restrictive policy on the “Team 2” process group that does not include the current user (the initial admin).
 
@@ -181,6 +181,45 @@ If we do the same thing for “modify the component” and then return to the ma
 
 
 We can no longer see the name of the group, and we now have a more restrictive context menu that prevents us from configuring the group. 
+
+#### enabling ladp in values.yaml
+
+For NIFI we need a particular configuration in the `values.yaml` file, first the variable `nifi.auth.ldap.enabled` must be set to true to enable ldap and then configure the different ldap variables, it should look something like this:
+
+
+```yaml
+auth:
+    ldap:
+      enabled: true
+      host: ldap://fadi-openldap:389
+      searchBase: cn=admin,dc=ldap,dc=cetic,dc=be
+      admin: cn=admin,dc=ldap,dc=cetic,dc=be
+      pass: password1
+      searchFilter: (objectClass=*)
+      userIdentityAttribute: cn
+```
+
+Then we make sure to pre-set the nodePort, let's say we want your node port to be 34567, our service configuration should look like this :
+
+```yaml
+service:
+  type: NodePort
+  nodePort: 34567
+```
+
+And then we set the properties as follows, the `nifi.properties.webProxyHost` variable should has the exact url with the exact port that we're going to use to access NIFI later, if our dns is nifi.example.cetic.be and/or the ip address 10.10.10.10, our configuration should look like this:
+
+
+```yaml
+  properties:
+    externalSecure: false
+    isNode: false
+    httpPort: null
+    httpsPort: 9443
+    webProxyHost: nifi.example.cetic.be:34567, 10.10.10.10:34567
+    clusterPort: 6007
+    clusterSecure: true
+```
 
 
 ## 3. Manage your LDAP server
@@ -445,3 +484,7 @@ Here we are not adding `cn={username},cn=admins,dc=ldap,dc=cetic,dc=be` so the g
           - 'cn={username},dc=ldap,dc=cetic,dc=be'
           - 'cn={username},cn=devs,ou=people,dc=ldap,dc=cetic,dc=be'
 ```
+
+
+
+
