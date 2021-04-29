@@ -108,20 +108,42 @@ For more information about pg-ldap-sync: [Use LDAP permissions in PostgreSQL](ht
 
 To secure NiFi with Ldap we need to enable SSL for NiFi. As part of enabling SSL, NiFi will also automatically enable authentication requiring an additional authentication method which in our case will be Ldap, to get detailed description of the whole process: [Apache NiFi - Authorization and Multi-Tenancy](https://bryanbende.com/development/2016/08/17/apache-nifi-1-0-0-authorization-and-multi-tenancy)
 
-to Configure Ldap in this helm chart we need to first enable it by setting the variable `auth.ldap.enabled` to **true** then configure the rest of the variables. here's an example for tthe default fadi ldap:
+to Configure Ldap in this helm chart we need to first enable it by setting the variable `auth.ldap.enabled` to **true** then configure the rest of the variables. here's an example for the default fadi ldap:
 
-```
-  enabled: true
-    host: ldap://fadi-openldap:389
-    searchBase: cn=admin,dc=ldap,dc=cetic,dc=be
-    admin: cn=admin,dc=ldap,dc=cetic,dc=be
-    searchFilter: (objectClass=*)
-    UserIdentityAttribute: cn
-    pass: password1
 
+```yaml
+auth:
+    ldap:
+      enabled: true
+      host: ldap://fadi-openldap:389
+      searchBase: cn=admin,dc=ldap,dc=cetic,dc=be
+      admin: cn=admin,dc=ldap,dc=cetic,dc=be
+      pass: password1
+      searchFilter: (objectClass=*)
+      userIdentityAttribute: cn
 ```
- 
- when ldap is enabled make sure to change the variables `properties.isSecure` and `properties.clusterSecure` to **true** and set `properties.httpPort` to **null** and `properties.httpsPort` to **9443**, Also it's mandatory to set the **namesapce** and the **release-name** you're going to use in advance respectivly in `properties.namespace` and `properties.release` .
+
+Then we make sure to pre-set the nodePort, let's say we want your node port to be 34567, our service configuration should look like this :
+
+```yaml
+service:
+  type: NodePort
+  nodePort: 34567
+```
+
+And then we set the properties as follows, the `nifi.properties.webProxyHost` variable should has the exact url with the exact port that we're going to use to access NIFI later, if our dns is nifi.example.cetic.be and/or the ip address 10.10.10.10, our configuration should look like this:
+
+
+```yaml
+  properties:
+    externalSecure: false
+    isNode: false
+    httpPort: null
+    httpsPort: 9443
+    webProxyHost: nifi.example.cetic.be:34567, 10.10.10.10:34567
+    clusterPort: 6007
+    clusterSecure: true
+```
 
 #### Sign in 
 
@@ -181,45 +203,6 @@ If we do the same thing for “modify the component” and then return to the ma
 
 
 We can no longer see the name of the group, and we now have a more restrictive context menu that prevents us from configuring the group. 
-
-#### enabling ladp in values.yaml
-
-For NIFI we need a particular configuration in the `values.yaml` file, first the variable `nifi.auth.ldap.enabled` must be set to true to enable ldap and then configure the different ldap variables, it should look something like this:
-
-
-```yaml
-auth:
-    ldap:
-      enabled: true
-      host: ldap://fadi-openldap:389
-      searchBase: cn=admin,dc=ldap,dc=cetic,dc=be
-      admin: cn=admin,dc=ldap,dc=cetic,dc=be
-      pass: password1
-      searchFilter: (objectClass=*)
-      userIdentityAttribute: cn
-```
-
-Then we make sure to pre-set the nodePort, let's say we want your node port to be 34567, our service configuration should look like this :
-
-```yaml
-service:
-  type: NodePort
-  nodePort: 34567
-```
-
-And then we set the properties as follows, the `nifi.properties.webProxyHost` variable should has the exact url with the exact port that we're going to use to access NIFI later, if our dns is nifi.example.cetic.be and/or the ip address 10.10.10.10, our configuration should look like this:
-
-
-```yaml
-  properties:
-    externalSecure: false
-    isNode: false
-    httpPort: null
-    httpsPort: 9443
-    webProxyHost: nifi.example.cetic.be:34567, 10.10.10.10:34567
-    clusterPort: 6007
-    clusterSecure: true
-```
 
 
 ## 3. Manage your LDAP server
