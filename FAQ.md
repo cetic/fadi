@@ -41,6 +41,8 @@ See
 * https://github.com/cetic/fadi/blob/feature/documentation/doc/REVERSEPROXY.md for the reverse proxy configuration guide 
 * https://github.com/cetic/fadi/issues/81 for port forwarding instructions
 
+In a Minikube setting, make sure the ingress plugin is enabled (`minikube addons enable ingress`), and populate your `/etc/hosts` file accordingly.
+
 ## How to configure Kubernetes Storage Class?
 
 If you encounter the error `pod has unbound PersistentVolumeClaims`, make sure you have a **default StorageClass** in your cluster.
