@@ -7,6 +7,12 @@ User Management
      * [JupyterHub](#jupyterhub)
      * [Superset](#superset)
      * [PostgreSQL](#postgresql)
+     * [NiFi](#NiFi)
+     	* [Configuration](#Configuration) 
+     	* [sign in](#sign_in)
+     	* [Authorizers & Initial Admin Identity](#Authorizers_&_Initial_Admin_Identity)
+     	* [Adding users](#Adding_users)
+     	* [Multi-Tenancy](#Multi-Tenancy)
 * [3. Manage your LDAP server](#3-manage-your-ldap-server)
      * [Adding a user](#adding-a-user)
 * [4. Creating groups](#4-Creating-groups)
@@ -26,18 +32,18 @@ For user management, FADI uses [OpenLDAP](https://www.openldap.org) to ensure th
 
 The **OpenLDAP** service creates an empty LDAP server for the company `Example Inc.` and the domain `example.org` by default, which we will overwrite via the environment variables in the Helm chart.
 
-The first entry that will be created is for the administrator user. To initially connect any of the services, you can use the following credentials:
+The first entry that will be created is for the administrator user. To initially connect any of the services, use the following credentials:
 
 * Username: `admin`
 * Password: `password1`
 
 Once created, we either add the users/groups manually through the phpLDAPadmin web interface, or pass a [LDIF file](https://en.wikipedia.org/wiki/LDAP_Data_Interchange_Format) (see the [sample ldif file](/examples/basic/example.ldif)) to the chart.
 
-## 2. Configure the various services
+## 2. Configure services
 
 ### Grafana
 
-Grafana has 3 roles by default: **Admin** , **Editor** and **Viewer**. To assign these roles to the different groups of LDAP users, you need to pass that in the configuration. Let's assume you have a group of developers in your LDAP server with the entry `cn=developers,ou=groups,dc=ldap,dc=cetic,dc=be` that you want to give the role of **Editor**. You can add these 3 lines of configuration under the default LDAP configuration that FADI already provides:
+Grafana has 3 roles by default: **Admin** , **Editor** and **Viewer**. To assign these roles to the different groups of LDAP users, we need to pass that information through the configuration. Let's assume we have a group of developers in the LDAP server with the entry `cn=developers,ou=groups,dc=ldap,dc=cetic,dc=be` that we want to give the role of **Editor**. We can add these 3 lines of configuration under the default LDAP configuration that FADI already provides:
 
 ```
 [[servers.group_mappings]]
@@ -49,17 +55,17 @@ For more information, see [Grafana LDAP documentation](https://grafana.com/docs/
 
 ### JupyterHub
 
-JupyterHub configuration allows you to give access to users/groups through templates, the templates usually follow this syntax:
+JupyterHub configuration allows to give access to users/groups through templates, the templates usually follow this syntax:
 
 * `uid={username},cn=admin,dc=ldap,dc=cetic,dc=be`
 * `uid={username},ou=developers,dc=ldap,dc=cetic,dc=be`
 
-where `{username}` will be overwritten by the value the user passes as username in the authentication screen. Let's suppose we only have those two templates, when the user David passes his name for authentication. For him to successfully sign in, his entry should be one of the following:
+where `{username}` will be overwritten by the value the user passes as username in the authentication screen. Let's suppose we only have those two templates, and the user David provides his name for authentication. For him to successfully sign in, his entry should be one of the following:
 
 * `uid=david,ou=admins,dc=ldap,dc=cetic,dc=be`
 * `uid=david,ou=developers,dc=ldap,dc=cetic,dc=be`
 
-which means if David is not in the `developers` or `admins` groups, he will not be able to sign in.
+which means that if David is not in the `developers` or `admins` groups, he will not be able to sign in.
 
 A sample configuration can be found in the `jupyterhub:auth` section of the default FADI [`values.yaml` file](https://github.com/cetic/helm-fadi/blob/master/values.yaml)
 
@@ -75,9 +81,9 @@ For more information about the different options you can use to configure your S
 
 ### PostgreSQL
 
-LDAP authentication method in PostgreSQL uses LDAP as the password verification method. LDAP is used only to validate the username/password pairs. Therefore there's a Cron job that executes the tool [pg-ldap-sync](https://github.com/larskanis/pg-ldap-sync) to synchronise the users between the LDAP server and the database.
+LDAP authentication method in PostgreSQL uses LDAP as the password verification method. LDAP is used only to validate the username/password pairs. Therefore there is a Cron job that executes the tool [pg-ldap-sync](https://github.com/larskanis/pg-ldap-sync) to synchronise the users between the LDAP server and the database management system.
 
-Client authentication is controlled by a configuration file called `pg_hba.conf`, you can pass your authentication config through the variable `pghba` in the `values.yaml` file.
+Client authentication is controlled by a configuration file called [`pg_hba.conf`](https://www.postgresql.org/docs/current/auth-pg-hba-conf.html), authentication configuration can be provided through the variable `pghba` in the `values.yaml` file.
 
 The configuration for the most common methods of authentication are:
 
@@ -86,7 +92,7 @@ local      database  user  auth-method  [auth-options]
 host       database  user  address  auth-method  [auth-options]
 ```
 
-For example, to use LDAP authentication for local users, your configuration should look like this:
+For example, to use LDAP authentication for local users, the configuration should look like this:
 
 ```
 local      all  all  ldap  ldapserver=example.com  ldapport=389 [other-ldap-options]
@@ -96,13 +102,114 @@ For more information about how to add LDAP authentication to PostgreSQL, follow 
 
 For more information about pg-ldap-sync: [Use LDAP permissions in PostgreSQL](https://github.com/larskanis/pg-ldap-sync)
 
+### NiFi
+
+#### Configuration
+
+To secure NiFi with LDAP we need to enable SSL for NiFi. As part of enabling SSL, NiFi will also automatically enable authentication requiring an additional authentication method which in our case will be LDAP, to get detailed description of the whole process: [Apache NiFi - Authorization and Multi-Tenancy](https://bryanbende.com/development/2016/08/17/apache-nifi-1-0-0-authorization-and-multi-tenancy)
+
+To configure LDAP in a Helm chart, we need to first enable it by setting the variable `auth.ldap.enabled` to `true` then configure the rest of the variables. Here is an example for the default FADI LDAP:
+
+
+```yaml
+auth:
+    ldap:
+      enabled: true
+      host: ldap://fadi-openldap:389
+      searchBase: cn=admin,dc=ldap,dc=cetic,dc=be
+      admin: cn=admin,dc=ldap,dc=cetic,dc=be
+      pass: password1
+      searchFilter: (objectClass=*)
+      userIdentityAttribute: cn
+```
+
+Then we make sure to pre-set the `nodePort`, let's say we want the node port to be 34567, our service configuration should look like this :
+
+```yaml
+service:
+  type: NodePort
+  nodePort: 34567
+```
+
+And then we set the properties as follows, the `nifi.properties.webProxyHost` variable should have the exact url with the exact port that we are going to use to access NIFI later, if our dns is nifi.example.cetic.be and/or the ip address 10.10.10.10, our configuration should look like this:
+
+
+```yaml
+  properties:
+    externalSecure: false
+    isNode: false
+    httpPort: null
+    httpsPort: 9443
+    webProxyHost: nifi.example.cetic.be:34567, 10.10.10.10:34567
+    clusterPort: 6007
+    clusterSecure: true
+```
+
+#### Sign in 
+
+
+When accessing Nifi, a sign-in screen will show up. Sign in using the LDAP username/password normally (not the full DN).
+
+<img src="images/installation/sign-in.png" />
+
+**Important note:** only one user can connect the first time and it is the user with the **Initial Admin Identity**, in FADI it is the default LDAP admin user (admin / password1). Once connected, the user interface will look like this :
+
+<img src="images/installation/grey.png" />
+
+Everything is disabled and that is because there are no users registered and no policies (permissions) distributed, but the Initial Admin has all the rights to create policies and give permissions.
+
+#### Authorizers & Initial Admin Identity
+
+We can see that the initial admin has READ/WRITE access to /flow, /tenants, /policies, and /controller, and the cluster nodes have READ/WRITE access to /proxy. This allows the initial admin to get into the UI (/flow) and to create new users/groups (/tenants), and to create new policies (/policies). There are no policies granting access to the root process group, or any other components. This is why all of the actions in the toolbar are grayed-out. 
+
+We can create a policy for the root process group by clicking the key icon in the operate palette on the left:
+
+<img src="images/installation/create.gif" />
+
+After creating the necessary policies, the “view component” action on the root process group (which is essentially the READ action) and the “modify the component” (which is the WRITE policy for the root process group), the admin user will have the appropriate authorizations. 
+
+Note that this can be also done for the rest of policies.
+
+#### Adding users
+
+Adding the LDAP users has to be done manually through the user interface as **there is no syncing mechanism to automatically add LDAP users/groups into NiFi**.
+
+When connected with the initial admin account (using the individual certificate), go into users to add users, and then into policies to grant access and rights to the users. In this example we are going to add the user John who already exists in the LDAP server (to add the user we should use the full DN: `cn=john,cn=admin,dc=ldap,dc=cetic,dc=be`).
+
+<img src="images/installation/users.gif" /> 
+
+After adding the user **do not forget to assign the policies** for that user to give the needed permissions: by default the new user cannot even access the user interface.
+
+#### Multi-Tenancy
+
+This is copied from this great article: [Apacche Nifi - Authorization and Multi-Tenancy](https://bryanbende.com/development/2016/08/17/apache-nifi-1-0-0-authorization-and-multi-tenancy).
+
+> The policy structure is hierarchical, such that when access is checked for a component, if no policy is found then it checks the parent, and if not policy is found for the parent, it checks the parent’s parent, and so on, until reaching the root process group. This means that by giving ourselves READ/WRITE to the root group we now have READ/WRITE for all sub-components **until a more restrictive policy is created.**
+
+Let's simulate how two development teams might share a single NiFi instance by creating two process groups:
+
+<img src="images/installation/Teams.png" /> 
+
+Let's pretend we are a member of Team 1 so we should have full access to the first process group, but we should not be able to know anything about what Team 2 is doing, and should not be able to modify their flow. We can simulate this by creating a more restrictive policy on the "Team 2" process group that does not include the current user (the initial admin).
+
+When selecting the "Team 2" process group, the palette on the left changes and says "Team 2". This palette always operate in the context of the selected component, so if we click the key icon while "Team 2" is selected, we are now editing the policies for the "Team 2" process group. If we click the "Override this policy" link for "view component" and create a new policy without adding users, we should get the following:
+
+<img src="images/installation/Team2.png" /> 
+
+If we do the same thing for "modify the component" and then return to the main canvas we should see the following on the next refresh:
+
+<img src="images/installation/Team1.png" /> 
+
+We can no longer see the name of the group, and we now have a more restrictive context menu that prevents us from configuring the group. 
+
+
 ## 3. Manage your LDAP server
 
 <a href="http://phpldapadmin.sourceforge.net/wiki/index.php/Main_Page" alt="phpLDAPadmin"><img src="images/logos/phpldapadmin.jpg" width="100px" /></a>
 
-> " phpLDAPadmin is a web app for administering Lightweight Directory Access Protocol (LDAP) servers.."
+> "phpLDAPadmin is a web app for administering Lightweight Directory Access Protocol (LDAP) servers."
 
-In order to use [phpLDAPadmin](http://phpldapadmin.sourceforge.net/wiki/index.php/Main_Page) you have to pass the configuration for your LDAP server through the environmental variable `_PHPLDAPADMIN_LDAP_HOSTS_`. To connect this service with the OpenLDAP server, you need to pass **the name of the service** (`fadi-openldap`). To connect to the web application, run the following command:
+In order to use [phpLDAPadmin](http://phpldapadmin.sourceforge.net/wiki/index.php/Main_Page), pass the configuration for the LDAP server through the environmental variable `_PHPLDAPADMIN_LDAP_HOSTS_`. To connect this service with the OpenLDAP server, pass **the name of the service** (`fadi-openldap`). To connect to the web application, run the following command:
 
 ```bash
 minikube service fadi-phpldapadmin -n fadi
@@ -168,13 +275,13 @@ uid: Luke Skywalker
 userpassword: ThereIsNoTry
 ```
 
-Now you can go to `import`, paste that template and click `proceed` and the user will be added.
+Now go to `import`, paste that template and click `proceed` and the user will be added.
 
 <img src="images/installation/Luke.gif" alt="Add a user"/>
 
 #### Add the user manually
 
-You can add a user manually through phpLDAPadmin, after connecting go to `Create new entry here`:
+Add a user manually through phpLDAPadmin, after connecting go to `Create new entry here`:
 
 <img src="images/installation/Create_new.gif" alt="Create user"/>
 
@@ -187,7 +294,7 @@ When you click on  `⭐️Create new entry here`, a new window called `Select a 
 <img src="images/installation/Generic_User_Account.png" alt="Create a new user"/>
 
 Go to `Generic: User Account` and a list of fields will show up. Enter the information about the user you want to create and click `Create Object`.
- 
+
 ## 4. Creating groups 
 
 The LDAP protocol does not define how programs function either on the server or client, but the messages exchanged between an LDAP server and an LDAP client. 
@@ -319,7 +426,7 @@ For Grafana, head to the variable `grafana.ldap.config` and make sure it looks l
       org_role = "Viewer"
 ```
 
-The main change here is `group_search_base_dns = ["ou=people,dc=ldap,dc=cetic,dc=be"]` in which we add Organizational Unit `OU=people` so it can find the newly created groups **devs** and **admins**. Then, to manage the access ( and/or roles ) you can follow the [documentation](https://grafana.com/docs/grafana/latest/auth/ldap/), adding the following sample of configuration will give the **group admins** the **admin rights** and all the rest the **Viewer rights**.
+The main change here is `group_search_base_dns = ["ou=people,dc=ldap,dc=cetic,dc=be"]` in which we add Organizational Unit `OU=people` so it can find the newly created groups **devs** and **admins**. Then, to manage the access (and/or roles), follow the [documentation](https://grafana.com/docs/grafana/latest/auth/ldap/). Adding the following sample of configuration will give the **group admins** the **admin rights** and others will receive the **Viewer rights**.
 
 
 ```
@@ -333,7 +440,7 @@ The main change here is `group_search_base_dns = ["ou=people,dc=ldap,dc=cetic,dc
       org_role = "Viewer"
 ```
 
-The **admin rights** make the user a Super Admin. This means they can access the Server Admin views where all users and organizations can be administrated in addition of course to creating/editing dashboards, data sources etc, and the **Viewer rights** allow the users to only **see** the created dashboards.
+The **admin rights** make the user a Super Admin. This means they can access the Server Admin views where all users and organizations can be administrated in addition of course to creating/editing dashboards, data sources, etc. The **Viewer rights** allow the users to only **see** the created dashboards.
  
 For more information, see the [Grafana permissions overview](https://grafana.com/docs/grafana/latest/permissions/overview/).
 
@@ -358,3 +465,4 @@ Here we are not adding `cn={username},cn=admins,dc=ldap,dc=cetic,dc=be` so the g
           - 'cn={username},dc=ldap,dc=cetic,dc=be'
           - 'cn={username},cn=devs,ou=people,dc=ldap,dc=cetic,dc=be'
 ```
+
