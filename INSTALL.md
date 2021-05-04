@@ -26,8 +26,6 @@ The deployment of the FADI stack is achieved with:
 * [Helm v3](https://helm.sh/).
 * [Kubernetes](https://kubernetes.io/).
 
-![](doc/images/architecture/helm-architecture.png)
-
 ## 1. Local installation
 
 This type of installation provides a quick way to test the platform, and also to adapt it to your needs.
@@ -70,7 +68,7 @@ To get the Kubernetes dashboard, type:
 minikube dashboard
 ```
 
-This will open a browser window with the [Kubernetes Dashboard](http://127.0.0.1:40053/api/v1/namespaces/kube-system/services/http:kubernetes-dashboard:/proxy/), it should look like this:
+This will open a browser window with the Kubernetes Dashboard:
 
 ![Minikube initial dashboard](doc/images/installation/minikube_dashboard.png)
 
@@ -195,7 +193,16 @@ It is also possible to create the Kubernetes cluster in command line, see: https
 ## 4. Troubleshooting
 
 * Installation logs are located in the `helm/deploy.log` file.
-* Enable local monitoring in minikube: `minikube addons enable metrics-server`
+* Check the Minikube and Kubernetes logs:
+```bash
+minikube logs
+kubectl get events --all-namespaces
+kubectl get events -n fadi
+kubectl get pods -n fadi
+kubectl logs fadi-nifi-xxxxx -n fadi
+```
+* Enable [metrics server](https://kubernetes.io/docs/tasks/debug-application-cluster/resource-metrics-pipeline/#metrics-server) in minikube: `minikube addons enable metrics-server`
+* The [FAQ](FAQ.md) provides some guidance on common issues
 * For Windows users, please refer to the following [issue](https://github.com/cetic/fadi/issues/55).
 
 ## 5. Continuous integration (CI) and deployment (CD)

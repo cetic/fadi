@@ -21,7 +21,7 @@ A clear and concise description of what the bug is.
 Provide the environment in which the bug has happened (minikube on a workstation, full fledged Kubernetes cluster, ...)
 
 * **OS** (e.g. from `/etc/os-release`)
-* **VM driver** (e.g. cat ~/.minikube/machines/minikube/config.json | grep DriverName)
+* **VM driver** (e.g. `cat ~/.minikube/machines/minikube/config.json | grep DriverName`)
 * **Minikube version** (e.g. `minikube version`)
 
 **What happened**:
@@ -34,6 +34,14 @@ Provide the environment in which the bug has happened (minikube on a workstation
 
 **Output of `minikube logs` (if applicable)**:
 
+**Output of Kubectl for pods, events**
+
+```bash
+kubectl get events --all-namespaces
+kubectl get events -n fadi
+kubectl get pods -n fadi
+kubectl logs fadi-nifi
+```
 
 **Anything else we need to know**:
 
