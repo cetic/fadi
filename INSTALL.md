@@ -26,8 +26,6 @@ The deployment of the FADI stack is achieved with:
 * [Helm v3](https://helm.sh/).
 * [Kubernetes](https://kubernetes.io/).
 
-![](doc/images/architecture/helm-architecture.png)
-
 ## 1. Local installation
 
 This type of installation provides a quick way to test the platform, and also to adapt it to your needs.
