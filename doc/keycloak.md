@@ -40,7 +40,7 @@ once logged in we get the following UI:
 <img src="images/installation/keycloak-ui.png" alt="Create user"/>
 
 
-##Create realm
+## Create realm
 
 When you log in to the admin console, you work in a realm, which is a space where you manage objects. Two types of realms exist:
 
@@ -62,7 +62,7 @@ when we click **Create** the main admin console page opens with realm set to Dev
 
 
 
-##Create client
+## Create client
 
 To create clients we first click **Clients** in the **left side menu** to open the Clients page.
 
@@ -87,7 +87,7 @@ Now we open the client grafana again and go to **credentials tag** and copy the 
 
 <img src="images/installation/client-credentials.png" alt="Create user"/>
 
-##Create user
+## Create user
 
 In the devops realm, we need to create a new user and a temporary password for that new user, we head to the left menu, click Users to open the user list page.
 
