@@ -42,7 +42,7 @@ once logged in we get the following UI:
 <img src="images/installation/keycloak-ui.png" alt="Create user"/>
 
 
-##Create realm
+## Create realm
 
 When you log in to the admin console, you work in a realm, which is a space where you manage objects. Two types of realms exist:
 
@@ -63,8 +63,8 @@ when we click **Create** the main admin console page opens with realm set to Dev
 <img src="images/installation/devops-realm.png" alt="Create user"/>
 
 
+## Create grafana client
 
-##Create grafana client
 
 To create clients we first click **Clients** in the **left side menu** to open the Clients page.
 
@@ -89,7 +89,8 @@ Now we open the client grafana again and go to **credentials tag** and copy the 
 
 <img src="images/installation/client-credentials.png" alt="Create user"/>
 
-##Create Nifi client
+
+## Create Nifi client
 
 The same way we're going to create a client for Nifi, we select Clients from the menu on the left, and then click the Create button to add a new client. Enter the Client ID `Org:apache:nifi:saml:sp`, select SAML as the Client Protocol, and click Save.
 
@@ -119,7 +120,8 @@ The last step is to add the `keystore.jks` **that we're going to use to secure t
 
 Now all the rest is to configure nifi accordingly.
 
-##Create user
+## Create user
+
 
 In the devops realm, we need to create a new user and a temporary password for that new user, we head to the left menu, click Users to open the user list page.
 
@@ -144,7 +146,7 @@ The management page for the new user opens, we Click the **Credentials tab** to 
 
 the we Click **Set Password** to set the user password to the new one we specified.
 
-##Role mapping
+## Role mapping
 
 After creating the user we need to map this user to the grafana client we created earlier.
 
