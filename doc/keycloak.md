@@ -155,9 +155,12 @@ then we can find the role admin that we created, we **select admin** and then cl
 
 ### Integrate with Grafana
 
-After creating the client in keycloak we have to configure Grafana to use Oauth and connect it to keyclaok, we do so in grafana's **grafana.ini** file that we can configure in the **helm chart's configmap** [keycloak.yaml](https://github.com/cetic/helm-fadi/blob/feature/keycloak/templates/keycloak.yaml).
+After creating the client in Keycloak we have to configure Grafana to use Oauth and connect it to Keycloak, we do so in Grafana's **grafana.ini** file that we can configure in the **helm chart's configmap** [keycloak.yaml](https://github.com/cetic/helm-fadi/blob/feature/keycloak/templates/keycloak.yaml).
 
-Now to configure grafana we edit as below where devops is the realm name, client id is the client name and client secret the **previously copied code**, in this example **Keyclaok's NodePort** is **30330** which makes **keycloak's address** **http://10.10.10.10:30330** ( we can find the Generic OAuth at **line 469** in [keycloak.yaml](https://github.com/cetic/helm-fadi/blob/feature/keycloak/templates/keycloak.yaml).. 
+Now to configure Grafana we edit as below: 
+
+* `devops` is the realm name, client id is the client name and client secret the **previously copied code**, in this example **Keycloak's NodePort** is **30330** which makes **keycloak's address** **http://10.10.10.10:30330** ( we can find the Generic OAuth [keycloak.yaml](https://github.com/cetic/helm-fadi/blob/feature/keycloak/templates/keycloak.yaml#L469-L492). 
+* `client_secret` with Keycloak > Clients > Grafana > Credentials > Secret
 
 ```
     #################################### Generic OAuth #######################
@@ -186,7 +189,7 @@ Now to configure grafana we edit as below where devops is the realm name, client
     tls_client_ca =
 ```
 
-Then back to the **server** configuration ( **line 35** ), we configure as shown below where 10.10.10.10 is the minikube IP ( or kubernetes IP ) and **http://10.10.10.10:30300** is the **grafana address**.
+Then back to the [server configuration](https://github.com/cetic/helm-fadi/blob/feature/keycloak/templates/keycloak.yaml#L55), we configure `root_url` and `domain` as shown below where **http://10.10.10.10:30300** is the **Grafana address**.
 
 ```
  #################################### Server ##############################
@@ -213,18 +216,17 @@ Then back to the **server** configuration ( **line 35** ), we configure as shown
 
 ```
 
-> PS: this is a temporary and not the final format of the document as it will be completed as we progress with adding keycloak to fadi.
+> PS: this is a temporary and not the final format of the document as it will be completed as we progress with adding Keycloak to FADI.
 
-Now after configuring grafana we need to apply these modifications, to do so we can use the command:
+Now after configuring Grafana we need to apply these modifications, to do so we can use the command:
 
+```bash
+helm upgrade --install fadi .
 ```
-helm upgrade --install fadi
-```
 
-Once fadi upgrades grafana will reboot with our new configuration, now we can head to our grafana and we should notice that we have the option **Sign in with OAuth** which the option we're going to choose.
+Once FADI upgrades, Grafana will restart with our new configuration, now we can head to our Grafana and we should notice that we have the option **Sign in with OAuth** which is the option we are going to choose.
 
-
-<img src="images/installation/sign-in-with-oauth.png" alt="Create user"/>
+<img src="images/installation/sign-in-with-oauth.png" alt="Create user" />
 
 that will take us to a keycloak themed authentification screen, that's where we can authenticate using the **user** that we created earlier in keycloak and mapped to the Grafana client.
 
