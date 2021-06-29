@@ -88,16 +88,10 @@ To create a client for Nifi, we select `Clients` from the menu on the left, and 
 
 Once created we need to configure **Root URL**, **Valid Redirect URIs**, **Base URL**, and **Master SAML Processing URL** as follows where `https://192.168.64.57:30236` is Nifi address:
 
-```
-Root URL: https://192.168.64.57:30236
-
-Valid Redirect URIs: /nifi-api/access/saml/*
-
-Base URL: /nifi
-
-Master SAML Processing URL: https://192.168.64.57:30236/nifi-api/access/saml/metadata
-
-```
+* Root URL: `https://192.168.64.57:30236`
+* Valid Redirect URIs: `/nifi-api/access/saml/*`
+* Base URL: `/nifi`
+* Master SAML Processing URL: `https://192.168.64.57:30236/nifi-api/access/saml/metadata`
 
 Since NiFi’s SAML implementation doesn’t use a single processing URL, we also need to configure the fine-grained SAML URLs. The values for the URLs should look like the following:
 
