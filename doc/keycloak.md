@@ -107,7 +107,7 @@ The last step is to add the certificates container `keystore.jks` **that we're g
 
 <img src="images/installation/import-keystore.png" alt="Create user"/>
 
-Now all the rest is to configure nifi accordingly.
+Now all that is left is to configure NiFi accordingly.
 
 ## Create user
 
