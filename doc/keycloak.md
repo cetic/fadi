@@ -15,32 +15,28 @@ KeyCloak
 
 ## 1. Configure keycloak
 
-<a href="https://www.openldap.org/" alt="OpenLDAP"> <img src="images/logos/keycloak-logo.png" width="100px" /></a>
+<a href="https://www.keycloak.org/" alt="Keycloak"> <img src="images/logos/keycloak-logo.png" width="100px" alt="Keycloak logo"/></a>
 
 > "Keycloak is an open source Identity and Access Management solution aimed at modern applications and services. It makes it easy to secure applications and services with little to no code."
 
-Keycloak is first deployed with one admin user that we need to configure before deployment, to do so we need to pass the username/password in the values file like follows:
+Keycloak is first deployed with one admin user that we need to configure before deployment, to do so we need to pass the username/password in the `values.yaml` file like follows:
 
 ```
+keycloak:
+  enabled: true
   auth:
     createAdminUser: true
     adminUser: admin
     adminPassword: "password1"
 ```
 
-Once deployed we can access the ui and log in, when trying to access keycloak will get the following screen 
+Once deployed we can access the user interface and log in: 
 
-<img src="images/installation/keycloak-first-screen.png" alt="Create user"/>
+<img src="images/installation/keycloak-first-screen.png" alt="Keycloak login"/>
 
-We click on **administration console** then we log in using the credentials we configured above:
+We click on **administration console** then we log in using the credentials we configured above.
 
-* Username: `admin`
-* Password: `password1`
-
-once logged in we get the following UI:
-
-<img src="images/installation/keycloak-ui.png" alt="Create user"/>
-
+<img src="images/installation/keycloak-ui.png" alt="Keycloak home"/>
 
 ## Create realm
 
@@ -50,54 +46,47 @@ When you log in to the admin console, you work in a realm, which is a space wher
 
 * **Other realms** - These realms are created by the admin in the master realm. In these realms, administrators create users and applications. The applications are owned by the users.
 
+<img src="images/installation/keycloak-realms.png" alt="Keycloak realms"/>
 
-<img src="images/installation/keycloak-realms.png" alt="Create user"/>
+To create a realm, head to the Master menu, click `Add Realm`. When you are logged in to the master realm, this menu lists all other realms, then type for example `devops` in the Name field to name our new realm devops.
 
-To create a realm head to the Master menu, click Add Realm. When you are logged in to the master realm, this menu lists all other realms, then we type **devops** in the Name field to name our new real devops.
+<img src="images/installation/add-realm.png" alt="Keycloak add realm"/>
 
+When we click `Create`, the main admin console page opens with realm set to devops, now we can switch between managing the master realm and the realm we just created by clicking entries in the `Select realm` drop-down list.
 
-<img src="images/installation/add-realm.png" alt="Create user"/>
-
-when we click **Create** the main admin console page opens with realm set to Devops, now we can switch between managing the master realm and the realm we just created by clicking entries in the Select realm drop-down list.
-
-<img src="images/installation/devops-realm.png" alt="Create user"/>
-
+<img src="images/installation/devops-realm.png" alt="Keycloak select realm"/>
 
 ## Create grafana client
 
-
 To create clients we first click **Clients** in the **left side menu** to open the Clients page.
 
-<img src="images/installation/keycloak-clients.png" alt="Create user"/>
+<img src="images/installation/keycloak-clients.png" alt="Keucloak create client"/>
 
-On the right side, we click **Create** and then on the Add Client dialog, we create a client called Grafana by completing the fields as follows:
+On the right side, we click `Create` and then on the `Add Client` dialog, we create a client called `Grafana` by filling the fields as follows:
 
-* Client ID: Grafana
-* Root URL: \<your-grafana-address>, for this example our grafana adress is http://10.10.10.10:30300
+* Client ID: `Grafana`
+* Root URL: `\<your-grafana-address>`, for this example our grafana adress is http://10.10.10.10:30300
 
+<img src="images/installation/grafana-client.png" alt="Keycloak create client"/>
 
-<img src="images/installation/grafana-client.png" alt="Create user"/>
-
-
-Once the client is created,we open the client configuration and change the **access type** to **confidential** from public and complete the rest of the fields as shown below assuming our grafana adress is http://10.10.10.10:30300, then we **Save the config**.
+Once the client is created, we open the client configuration and change the **access type** to **confidential** from public, and complete the rest of the fields as shown below assuming our Grafana address is http://10.10.10.10:30300, then we **Save the config**.
 
 
-<img src="images/installation/grafana-client-created.png" alt="Create user"/>
+<img src="images/installation/grafana-client-created.png" alt="Keycloak Grafana client created"/>
 
 
-Now we open the client grafana again and go to **credentials tag** and copy the client id and secret because we're going to need them to configure grafana later.
+Now we open the client Grafana again, go to **credentials tag** and copy the `client id` and `secret` because we are going to need them to configure Grafana later.
 
-<img src="images/installation/client-credentials.png" alt="Create user"/>
+<img src="images/installation/client-credentials.png" alt="Keycloak get Grafana credentials"/>
 
 
 ## Create Nifi client
 
-The same way we're going to create a client for Nifi, we select Clients from the menu on the left, and then click the Create button to add a new client. Enter the Client ID `Org:apache:nifi:saml:sp`, select SAML as the Client Protocol, and click Save.
+To create a client for Nifi, we select `Clients` from the menu on the left, and then click the `Create` button to add a new client. Enter the Client ID `org:apache:nifi:saml:sp`, select `SAML` as the Client Protocol, and click `Save`.
 
-<img src="images/installation/client-nifi.png" alt="Create user"/>
+<img src="images/installation/client-nifi.png" alt="Keycloak - nifi client creation"/>
 
-
-once created we need to configure **Root URL**, **Valid Redirect URIs**, **Base URL**, and **Master SAML Processing URL** as follows where `https://192.168.64.57:30236` is the link to nifi:
+Once created we need to configure **Root URL**, **Valid Redirect URIs**, **Base URL**, and **Master SAML Processing URL** as follows where `https://192.168.64.57:30236` is Nifi address:
 
 ```
 Root URL: https://192.168.64.57:30236
