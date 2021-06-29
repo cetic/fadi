@@ -103,7 +103,7 @@ Since NiFi’s SAML implementation doesn’t use a single processing URL, we als
 
 <img src="images/installation/fine-grain-saml.png" alt="Create user"/>
 
-The last step is to add the `keystore.jks` **that we're going to use to secure the nifi cluster**, to do so we click on the **SAML Keys** tab, and then click Import. We are going to import the `keystore.jks` that is used in `nifi.properties`.
+The last step is to add the certificates container `keystore.jks` **that we're going to use to secure the NiFi cluster**, to do so we click on the **SAML Keys** tab, and then click Import. We are going to import the `keystore.jks` that is used in `nifi.properties`.
 
 <img src="images/installation/import-keystore.png" alt="Create user"/>
 
