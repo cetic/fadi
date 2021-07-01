@@ -1,18 +1,6 @@
 KeyCloak
 =============
 
-* [1. Configure keycloak](#1-configure-keycloak)
-     * [Create realm](#Create-realm)
-     * [Create grafana client](#Create-grafana-client)
-     * [Create Nifi client](#Create-Nifi-client)
-     * [Create users](#Create-users)
-     * [Role mapping](#Role-mapping)
-
-* [2. Integrate Keycloak](#2-Integrate-Keycloak)
-     * [Integrate with Grafana](#Integrate-with-Grafana)
-     * [Integrate with Nifi](#Integrate-with-Nifi)
-
-
 ## 1. Configure keycloak
 
 <a href="https://www.keycloak.org/" alt="Keycloak"> <img src="images/logos/keycloak-logo.png" width="100px" alt="Keycloak logo"/></a>
@@ -245,9 +233,12 @@ This document is inspired by keycloak's [getting started](https://www.keycloak.o
 
 ### Integrate with Nifi
 
-To perform any type of authentication, we need a secured NiFi instance with a keystore, truststore, and https host/port.
+To perform any type of authentication, we need a secured NiFi instance with a keystore, truststore, and https host/port. in the [nifi's helm chart](https://github.com/cetic/helm-nifi) we generate self signed certificates by enabling the built-in [nifi-toolkit](https://nifi.apache.org/docs/nifi-docs/html/toolkit-guide.html) container by setting `auth.secure.enabled` to true.
 
-The main configuration is in the `nifi.properties` file, it should look something like this :
+
+Now to configure nifi, the main configuration is in the `nifi.properties` file, it should look something like this :
+
+>PS: This configuration can be set through the `values.yaml` file in the helm chart by setting `auth.secure.enabled` and `properties.clusterSecure` to true, `properties.httpPort` to null and `properties.httpsPort` to 9443.
 
 ```
 nifi.remote.input.secure=true
@@ -255,7 +246,7 @@ nifi.remote.input.secure=true
 nifi.web.http.host=
 nifi.web.http.port=
 
-nifi.web.https.host=localhost
+nifi.web.https.host=
 nifi.web.https.port=9443
 
 nifi.security.keystore=/path/to/keystore.jks
@@ -270,6 +261,9 @@ nifi.security.truststorePasswd=changeit
 ```
 
 then we need to add the **SAML** configuration since it's the protocol used here, mainly we need to set `nifi.security.user.saml.idp.metadata.url` to `http://<link-to-keycloak>/auth/realms/devops/protocol/saml/descriptor` and `nifi.security.user.saml.sp.entity.id` to the previously created nifi client `org:apache:nifi:saml:sp` so the configuration should look something like this :
+
+>This configuration can also be set through the `values.yaml` file in the helm chart by the variables `auth.keycloak.*` .
+
 
 ```
 # SAML Properties #
@@ -292,6 +286,7 @@ nifi.security.user.saml.http.client.read.timeout=30 secs
 ```
 
 The last thing we need to do is configure NiFi’s authorizers.xml. We will use the file-based providers, so we need to setup an initial user and initial admin that corresponds to one of the users we added to Keycloak. We’ll use the user john.
+
 
 ```
 <userGroupProvider>
