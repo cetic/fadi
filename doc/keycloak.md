@@ -131,7 +131,7 @@ we fill in the role name and description then click save.
 
 now that we have at least one role for grafana we map this new role to the user we created earlier so we can log in using the new user.
 
-now we head back to the Clients page and chose john, then we click the **Role mappings** tab, in **client role** dropdown menu we choose grafana.
+now we head back to the Users page and chose john, then we click the **Role mappings** tab, in **client role** dropdown menu we choose grafana.
 
 
 <img src="images/installation/role-mapping.png" alt="Create user"/>
