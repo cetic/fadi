@@ -1,6 +1,13 @@
 KeyCloak
 =============
 
+```
+git clone -b feature/keycloak git@github.com:cetic/helm-fadi.git
+cd helm-fadi
+helm dep up
+helm install fadi .
+```
+
 ## 1. Configure keycloak
 
 <a href="https://www.keycloak.org/" alt="Keycloak"> <img src="images/logos/keycloak-logo.png" width="100px" alt="Keycloak logo"/></a>
