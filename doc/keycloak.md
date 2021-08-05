@@ -245,7 +245,25 @@ To perform any type of authentication, we need a secured NiFi instance with a ke
 
 Now to configure nifi, the main configuration is in the `nifi.properties` file, it should look something like this :
 
->PS: This configuration can be set through the `values.yaml` file in the helm chart by setting `auth.secure.enabled` and `properties.clusterSecure` to true, `properties.httpPort` to null and `properties.httpsPort` to 9443.
+~~PS: This configuration can be set through the `values.yaml` file in the helm chart by setting `auth.secure.enabled` and `properties.clusterSecure` to true, `properties.httpPort` to null and `properties.httpsPort` to 9443.~~
+
+```
+cd charts
+git clone -b feature/keycloak git@github.com:cetic/helm-nifi.git
+cd helm-nifi
+vim values.yaml
+# edit the following:
+webProxyHost:<minikube_ip>:30236
+webHttpsHost:
+auth.keycloak.address: <minikube_ip>
+auth.keycloak.port: minikube service list -> fadi-keycloak port 
+auth.oidc.enabled: true
+auth.oidc.discovery.url: http://{{.Values.auth.keycloak.address}}:{{.Values.auth.keycloak.port}}/auth/realms/{{.Values.auth.keycloak.realm}}/.well-known/openid-configuration
+auth.oidc.di: true
+
+```
+
+Edit `nifi.properties`:
 
 ```
 nifi.remote.input.secure=true
