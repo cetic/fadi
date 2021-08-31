@@ -79,12 +79,12 @@ Now we open the client Grafana again, go to **credentials tag** and copy the `cl
 
 To create clients we first click **Clients** in the **left side menu** to open the Clients page.
 
-<img src="images/installation/keycloak-clients.png" alt="Keucloak create client"/>
+<img src="images/installation/keycloak-clients.png" alt="Keycloak create client"/>
 
 On the right side, we click `Create` and then on the `Add Client` dialog, we create a client called `Nifi` by filling the fields as follows:
 
 * Client ID: `Nifi`
-* Root URL: `\<your-Nifi-address>`, for this example our grafana adress is https://172.17.23.203:30326 (don't forget the "s" of "https")
+* Root URL: `\<your-Nifi-address>`, for this example our Nifi adress is https://172.17.23.203:30326 (don't forget the "s" of "https")
 
 <img src="images/installation/client-nifi.png" alt="Keycloak create client"/>
 
@@ -94,9 +94,9 @@ Once the client is created, we open the client configuration and change the **ac
 <img src="images/installation/client-nifi-created.png" alt="Keycloak Nifi client created"/>
 
 
-Now we open the client Nifi again, go to **credentials tag** and copy the `client id` and `secret` because we are going to need them to configure Grafana later.
+Now we open the client Nifi again, go to **credentials tag** and copy the `client id` and `secret` because we are going to need them to configure Nifi later.
 
-<img src="images/installation/nifi-credentials.png" alt="Keycloak get Grafana credentials"/>
+<img src="images/installation/nifi-credentials.png" alt="Keycloak get Nifi credentials"/>
 
 ## Create user
 
