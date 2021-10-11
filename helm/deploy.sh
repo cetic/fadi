@@ -18,7 +18,7 @@ kubectl get namespace ${NAMESPACE}  2> /dev/null || kubectl create namespace ${N
 printf "\n\nHelm all the things!...\n"
 
 # add cetic helm repo
-helm repo add cetic https://cetic.github.io/helm-charts/
+helm repo add cetic https://cetic.github.io/helm-charts/ --force-update
 helm repo update
 
 # install/upgrade FADI
