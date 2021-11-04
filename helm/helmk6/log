@@ -1,0 +1,133 @@
+
+          /\      |‾‾| /‾‾/   /‾‾/   
+     /\  /  \     |  |/  /   /  /    
+    /  \/    \    |     (   /   ‾‾\  
+   /          \   |  |\  \ |  (‾)  | 
+  / __________ \  |__| \__\ \_____/ .io
+
+  execution: local
+     script: /scripts/nginx-test.js
+     output: InfluxDBv1 (http://k6test-influxdb:8086)
+
+  scenarios: (100.00%) 1 scenario, 1500 max VUs, 1m0s max duration (incl. graceful stop):
+           * default: Up to 1500 looping VUs for 30s over 1 stages (gracefulRampDown: 30s, gracefulStop: 30s)
+
+
+Init      [  69% ] 1028/1500 VUs initialized
+default   [   0% ]
+
+running (0m00.5s), 0024/1500 VUs, 2631 complete and 0 interrupted iterations
+default   [   2% ] 0024/1500 VUs  00.5s/30.0s
+
+running (0m01.5s), 0073/1500 VUs, 7524 complete and 0 interrupted iterations
+default   [   5% ] 0073/1500 VUs  01.5s/30.0s
+
+running (0m02.5s), 0124/1500 VUs, 13808 complete and 0 interrupted iterations
+default   [   8% ] 0124/1500 VUs  02.5s/30.0s
+
+running (0m03.5s), 0174/1500 VUs, 21917 complete and 0 interrupted iterations
+default   [  12% ] 0174/1500 VUs  03.5s/30.0s
+
+running (0m04.5s), 0224/1500 VUs, 26375 complete and 0 interrupted iterations
+default   [  15% ] 0224/1500 VUs  04.5s/30.0s
+
+running (0m05.5s), 0273/1500 VUs, 34391 complete and 0 interrupted iterations
+default   [  18% ] 0273/1500 VUs  05.5s/30.0s
+
+running (0m06.5s), 0324/1500 VUs, 42116 complete and 0 interrupted iterations
+default   [  22% ] 0324/1500 VUs  06.5s/30.0s
+
+running (0m07.5s), 0367/1500 VUs, 46140 complete and 0 interrupted iterations
+default   [  25% ] 0367/1500 VUs  07.5s/30.0s
+
+running (0m08.5s), 0423/1500 VUs, 54244 complete and 0 interrupted iterations
+default   [  28% ] 0423/1500 VUs  08.5s/30.0s
+
+running (0m09.5s), 0474/1500 VUs, 62601 complete and 0 interrupted iterations
+default   [  32% ] 0474/1500 VUs  09.5s/30.0s
+
+running (0m10.5s), 0524/1500 VUs, 69113 complete and 0 interrupted iterations
+default   [  35% ] 0524/1500 VUs  10.5s/30.0s
+
+running (0m11.5s), 0572/1500 VUs, 73533 complete and 0 interrupted iterations
+default   [  38% ] 0572/1500 VUs  11.5s/30.0s
+
+running (0m12.5s), 0623/1500 VUs, 81123 complete and 0 interrupted iterations
+default   [  42% ] 0623/1500 VUs  12.5s/30.0s
+
+running (0m13.5s), 0673/1500 VUs, 91178 complete and 0 interrupted iterations
+default   [  45% ] 0673/1500 VUs  13.5s/30.0s
+
+running (0m14.5s), 0723/1500 VUs, 97358 complete and 0 interrupted iterations
+default   [  48% ] 0723/1500 VUs  14.5s/30.0s
+
+running (0m15.5s), 0773/1500 VUs, 101906 complete and 0 interrupted iterations
+default   [  52% ] 0773/1500 VUs  15.5s/30.0s
+
+running (0m16.5s), 0823/1500 VUs, 110241 complete and 0 interrupted iterations
+default   [  55% ] 0823/1500 VUs  16.5s/30.0s
+
+running (0m17.5s), 0872/1500 VUs, 119695 complete and 0 interrupted iterations
+default   [  58% ] 0872/1500 VUs  17.5s/30.0s
+
+running (0m18.5s), 0919/1500 VUs, 128156 complete and 0 interrupted iterations
+default   [  62% ] 0919/1500 VUs  18.5s/30.0s
+
+running (0m19.5s), 0973/1500 VUs, 131495 complete and 0 interrupted iterations
+default   [  65% ] 0973/1500 VUs  19.5s/30.0s
+
+running (0m20.5s), 1024/1500 VUs, 136148 complete and 0 interrupted iterations
+default   [  68% ] 1024/1500 VUs  20.5s/30.0s
+
+running (0m21.5s), 1073/1500 VUs, 144839 complete and 0 interrupted iterations
+default   [  72% ] 1073/1500 VUs  21.5s/30.0s
+
+running (0m22.5s), 1122/1500 VUs, 153316 complete and 0 interrupted iterations
+default   [  75% ] 1122/1500 VUs  22.5s/30.0s
+
+running (0m23.5s), 1173/1500 VUs, 161998 complete and 0 interrupted iterations
+default   [  78% ] 1173/1500 VUs  23.5s/30.0s
+
+running (0m24.5s), 1211/1500 VUs, 167597 complete and 0 interrupted iterations
+default   [  82% ] 1211/1500 VUs  24.5s/30.0s
+
+running (0m25.5s), 1273/1500 VUs, 172214 complete and 0 interrupted iterations
+default   [  85% ] 1273/1500 VUs  25.5s/30.0s
+
+running (0m26.5s), 1320/1500 VUs, 175699 complete and 0 interrupted iterations
+default   [  88% ] 1320/1500 VUs  26.5s/30.0s
+
+running (0m27.5s), 1373/1500 VUs, 184555 complete and 0 interrupted iterations
+default   [  92% ] 1373/1500 VUs  27.5s/30.0s
+
+running (0m28.5s), 1423/1500 VUs, 194160 complete and 0 interrupted iterations
+default   [  95% ] 1423/1500 VUs  28.5s/30.0s
+
+running (0m29.5s), 1473/1500 VUs, 202657 complete and 0 interrupted iterations
+default   [  98% ] 1473/1500 VUs  29.5s/30.0s
+
+running (0m30.2s), 0000/1500 VUs, 209214 complete and 0 interrupted iterations
+default ✓ [ 100% ] 0000/1500 VUs  30s
+
+     ✓ http response status code is 200
+
+     checks.........................: 100.00% ✓ 209214      ✗ 0     
+     data_received..................: 290 MB  9.6 MB/s
+     data_sent......................: 18 MB   596 kB/s
+     http_req_blocked...............: avg=520.5µs  min=735ns    med=2.34µs  max=609.54ms p(90)=8.27µs   p(95)=11.65µs 
+     http_req_connecting............: avg=482.88µs min=0s       med=0s      max=434.72ms p(90)=0s       p(95)=0s      
+     http_req_duration..............: avg=78.36ms  min=92.18µs  med=70.23ms max=886.03ms p(90)=146.7ms  p(95)=195.26ms
+       { expected_response:true }...: avg=78.36ms  min=92.18µs  med=70.23ms max=886.03ms p(90)=146.7ms  p(95)=195.26ms
+     http_req_failed................: 0.00%   ✓ 0           ✗ 209214
+     http_req_receiving.............: avg=1.02ms   min=7.37µs   med=31.99µs max=616ms    p(90)=171.27µs p(95)=458.79µs
+     http_req_sending...............: avg=445.39µs min=3.48µs   med=10.74µs max=570.64ms p(90)=46.31µs  p(95)=126.28µs
+     http_req_tls_handshaking.......: avg=0s       min=0s       med=0s      max=0s       p(90)=0s       p(95)=0s      
+     http_req_waiting...............: avg=76.89ms  min=65.24µs  med=69.07ms max=883.9ms  p(90)=143.83ms p(95)=190.26ms
+     http_reqs......................: 209214  6934.205847/s
+     iteration_duration.............: avg=106.29ms min=147.89µs med=92.65ms max=1.24s    p(90)=224.29ms p(95)=270.21ms
+     iterations.....................: 209214  6934.205847/s
+     vus............................: 1500    min=50        max=1500
+     vus_max........................: 1500    min=1500      max=1500
+
+time="2021-09-22T07:51:48Z" level=error msg="Couldn't write stats" error="{\"error\":\"Request Entity Too Large\"}\n" output=InfluxDBv1
+time="2021-09-22T07:52:03Z" level=error msg="Couldn't write stats" error="{\"error\":\"Request Entity Too Large\"}\n" output=InfluxDBv1

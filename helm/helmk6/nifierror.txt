@@ -1,0 +1,29 @@
+503 Service Unavailable
+Le code de réponse HTTP d'erreur serveur 503 Service Unavailable indique que le serveur n'est pas prêt à traiter la requête.
+
+Généralement, cela se produit car le serveur est éteint ou inaccessible pour cause de maintenance ou de surcharge. 
+Notez qu'avec cette erreur,il est préférable d'envoyer une page compréhensible pour l'utilisateur qui explique le problème.
+
+Les en-têtes relatifs au cache qui sont envoyés avec cette réponse doivent être pris en compte car un code de statut 503 indique un état temporaire et cette réponse ne doit généralement pas être mise en cache.
+
+Statut
+503 Service Unavailable
+
+##############################
+
+500 Internal Server Error
+Le code de réponse HyperText Transfer Protocol (HTTP) d'erreur serveur 500 Internal Server Error indique que le serveur a rencontré un problème inattendu qui l'empêche de répondre à la requête.
+
+Cette réponse d'erreur est une réponse générique « fourre-tout ». Souvent, les administrateurs des serveurs enregistreront les erreurs qui entraînent un code 500 avec d'autres informations à propos de la requête afin d'empêcher que l'erreur ne se reproduise à nouveau.
+
+Statut
+500 Internal Server Error
+
+##########################
+429 Too Many Requests
+Le code de statut de réponse HTTP 429 Too Many Requests indique que l'utilisateur a envoyé trop de requêtes en un temps donné.
+
+Un en-tête Retry-After (en-US) peut être inclus dans cette réponse afin d'indiquer le temps à attendre pour effectuer une nouvelle requête.
+
+Statut
+429 Too Many Requests
