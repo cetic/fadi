@@ -348,7 +348,9 @@ Choose `Minimal environment` and click on `Spawn`.
 
 ![Jupyter processing](examples/basic/images/spark_results.png)
 
-For more information on how to use Superset, see the [official Jupyter documentation](https://jupyter.readthedocs.io/en/latest/)
+
+For more information on how to use Jupyter, see the [official Jupyter documentation](https://jupyter.readthedocs.io/en/latest/)
+
 
 ## 7. Summary
 

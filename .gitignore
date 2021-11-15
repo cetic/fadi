@@ -49,3 +49,5 @@ teardown.log
 
 # https://github.com/ekalinin/github-markdown-toc
 gh-md-toc
+
+.vscode

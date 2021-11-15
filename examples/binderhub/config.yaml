@@ -1,0 +1,29 @@
+config:
+  BinderHub:
+    use_registry: true
+    image_prefix: <DOCKER_ID>/<PROJECT_NAME>-
+registry:
+  username: <DOCKER_ID>
+  password: <DOCKER_PASSWORD>
+
+
+dind:
+  enabled: true
+  daemonset:
+    image:
+      name: docker
+      tag: 18.09.2-dind
+
+jupyterhub:
+  hub:
+    services:
+      binder:
+        apiToken: 8675d9b1ff09ff2502886dfd4f0f36fd45c916372536aa09613cc9c5563d8d1d
+  proxy:
+    secretToken: 613e0ace7628f92bab45478873451f00e65977ca6a61d2f9255667b7bbd71d0e
+    db:
+      type: sqlite-memory
+    service:
+      type: NodePort
+      nodePorts:
+        http: 30902
