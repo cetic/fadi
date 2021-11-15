@@ -1,4 +1,4 @@
-Montoring
+Monitoring
 ==========
 
 <p align="left";>
