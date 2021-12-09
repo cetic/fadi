@@ -10,13 +10,13 @@ Reverse Proxy
 * [1. Create the Traefik reverse proxy](#1-enable-the-traefik-reverse-proxy)
 * [2. Configure the various services to use Traefik](#2-configure-the-various-services-to-use-traefik)
 
-This page provides information on how to configure FADI with the [Traefik](https://traefik.io/) Reverse Proxy.
+This page provides information on how to configure FADI with the [Traefik](https://traefik.io/) reverse proxy.
 
 > Traefik is an open-source reverse proxy and load balancer for HTTP and TCP-based applications that is easy, dynamic, automatic, fast, full-featured, production proven, provides metrics, and integrates with every major cluster technology... No wonder it's so popular!
 
-Note: other Reverse Proxy than Traefik that could be used with FADI, check the list [here](https://kubernetes.io/docs/concepts/services-networking/ingress-controllers/).
+Note: other reverse Proxies than Traefik could be used with FADI, check the list [here](https://kubernetes.io/docs/concepts/services-networking/ingress-controllers/).
 
-You can find information about the Helm chart [here](https://github.com/traefik/traefik-helm-chart/tree/master/traefik) as the Traefik Helm chart is hosted in the traefik helm repository.
+You can find information about the Traefik Helm chart [in Traefik Helm repository](https://github.com/traefik/traefik-helm-chart/tree/master/traefik).
 
 ## 1. Enable the Traefik reverse proxy
 
@@ -26,6 +26,7 @@ To enable the Traefik reverse proxy, you will need to set the `values.yaml`. Cre
 traefik:
   enabled: true
 ```
+
 You can enable the dashboard by adding these lines in the `example.yaml` file:
 
 ```
@@ -43,11 +44,9 @@ See the [default values file](https://github.com/traefik/traefik-helm-chart/blob
 
 ## 2. Configure the various services to use Traefik
 
-You will need to update ingressroutes definitions for each service you want to expose, behind your domain name.
+You will need to update `IngressRoute` definitions for each service you want to expose behind your domain name. See https://doc.traefik.io/traefik/routing/providers/kubernetes-crd/ for the documentation.
 
-See https://doc.traefik.io/traefik/routing/providers/kubernetes-crd/ for the documentation.
-
-Update the FADI `values.yaml` file. You can set all the service types to `ClusterIP` as all services are now exposed through an Ingressroute. 
+Update the FADI `values.yaml` file. You can set all the service types to `ClusterIP` as all services are now exposed through an `IngressRoute`. 
 
 For instance, for Grafana:
 ```
@@ -63,7 +62,7 @@ grafana:
 
 You should now be able to access Grafana through the domain name you have chosen: `http(s)://grafana.yourdomain.com`
 
-There are three services (Grafana, Nifi Jupyterhub) and the traefik dashboard which have already been built with an ingressroute. You just have to activate them. If you want to build ingressroutes for other services, you must add them in the `ingressroutes.yaml` file. E.g. for grafana:
+There are three services (Grafana, Nifi JupyterHub) and the Traefik dashboard which have already been built with an `IngressRoute`. You just have to activate them. If you want to build `IngressRoutes` for other services, you must add them in the `ingressroutes.yaml` file. E.g. for Grafana:
 
 ```
 {{- if .Values.grafana.traefikIngress.enabled -}}
@@ -83,4 +82,4 @@ spec:
 {{- end }}
 ```
 
-Next you will also want to configure SSL access to your services. For that, have a look at the [security documentation](/doc/SECURITY.md). 
+Next you will also want to configure SSL access to your services. For that, have a look at the [security documentation](/doc/SECURITY.md).
