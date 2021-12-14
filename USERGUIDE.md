@@ -31,6 +31,12 @@ Those components are configured in the following [sample config file](helm/value
 
 The following instructions assume that you deployed FADI on your workstation inside minikube.
 
+To access services through domain names, open a new terminal and enter this command to give `traefik` an external IP address:
+```
+minikube tunnel
+```
+Don't forget to update your `hosts` file with the `traefik` external IP address. You can find [here](https://phoenixnap.com/kb/how-to-edit-hosts-file-in-windows-mac-or-linux) a user gide for Linux, Mac and Windows.
+
 Unless specified otherwise, all services can be accessed using the username and password pair: `admin` / `password1` , see the [user management documentation](doc/USERMANAGEMENT.md) for detailed information on how to configure user identification and authorization (LDAP, RBAC, ...).
 
 See the [logs management documentation](doc/LOGGING.md) for information on how to configure the management of the various service logs.
@@ -43,10 +49,14 @@ First, setup the datalake by creating a table in the postgresql database.
 
 To achieve this you need to: 
 
-* Head to the adminer interface, if you are using **minikube**, you can use the following command :
+* Head to the adminer interface
+
+  * if you want to create a **traefik ingress**, you can follow this [guide](doc/REVERSEPROXY.md#2-configure-the-various-services-to-use-traefik)
+  * else, you can use a port-forwarding to access the interface:
 ```
-minikube service -n fadi fadi-adminer 
+kubectl port-forward service/fadi-adminer 8080:80
 ```
+   Now you can access `adminer` from your browser by taping: `localhost:8080`
 
 * Access to the adminer service and to the postgreSQL database using the following credentials:
 
@@ -99,9 +109,9 @@ measure_ts,temperature
 (...)
 ```
 
-To start, head to the Nifi web interface, if you are using **minikube**, you can use the following command :
+To start, head to the Nifi web interface, tape in your browser the `nifi.traefikIngress.host`. E.g. :
 ```
-minikube service -n fadi fadi-nifi
+http(s)://nifi.test.local
 ```
 
 ![Nifi web interface](examples/basic/images/nifi_interface.png)
@@ -189,9 +199,9 @@ Once the measurements are stored in the database, we will want to display the re
 
 [Grafana](http://grafana.com/) provides a dashboard and alerting interface.
 
-Head to the Grafana interface, if you are using **minikube**, you can use the following command :
+Head to the Grafana web interface by taping in your browser the `grafana.traefikIngress.host`. E.g. :
 ```
-minikube service -n fadi fadi-grafana
+http(s)://grafana.test.local
 ``` 
 (the default credentials are `admin`/`password1`)
 
@@ -244,9 +254,9 @@ For more information on how to use Grafana, see the [official Grafana user guide
 
 [Apache Superset](https://superset.incubator.apache.org) provides some interesting features to explore your data and build basic dashboards.
 
-Head to the Superset interface, if you are using **minikube**, you can use the following command :
+Head to the Superset web interface by taping in your browser the `superset.traefikIngress.host`. E.g. :
 ```
-minikube service -n fadi fadi-superset
+http(s)://superset.test.local
 ``` 
 (the default credentials are `admin`/`password1`): 
 
@@ -312,10 +322,15 @@ For more information on how to use Superset, see the [official Superset user gui
 
 In this simple use case, we will try to access the data that is stored in the data lake.
 
-Head to the Jupyter notebook interface,  if you are using **minikube**, you can use the following command : 
+* Head to the Jupyter notebook interface
+
+  * if you want to create a **traefik ingress**, you can follow this [guide](doc/REVERSEPROXY.md#2-configure-the-various-services-to-use-traefik)
+  * else, you can use a port-forwarding to access the interface:
 ```
-minikube service -n fadi proxy-public
-```  
+kubectl port-forward service/proxy-public 8081:80
+```
+ Now you can access `adminer` from your browser by taping: `localhost:8081`
+
 Then, you can login using the default credentials `admin`/`password1`.
 
 A Jupyter dashboard is shown. 
