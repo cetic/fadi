@@ -215,7 +215,7 @@ In order to use [phpLDAPadmin](http://phpldapadmin.sourceforge.net/wiki/index.ph
 kubectl port-forward service/fadi-phpldapadmin 8080:80
 ```
 
-Now, tape `loaclhost:8080` in your browser to access the main page of phpLDAPadmin where you can connect to your LDAP server and manage it.
+Now, type `loaclhost:8080` in your browser to access the main page of phpLDAPadmin where you can connect to your LDAP server and manage it.
 
 <img src="images/installation/phpldapadmin.gif" alt="phpdapadmin" />
 
