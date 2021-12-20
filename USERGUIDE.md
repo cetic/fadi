@@ -19,6 +19,7 @@ In this simple example, we will ingest temperature measurements from sensors, st
 
 To install the FADI framework on your workstation or on a cloud, see the [installation instructions](INSTALL.md). 
 
+
 The components needed for this use case are the following:
 
 * Apache Nifi as a integration tool to ingest the sensor data from the data source (a csv file in this case) and store it in the database
@@ -109,7 +110,7 @@ measure_ts,temperature
 (...)
 ```
 
-To start, head to the Nifi web interface, tape in your browser the `nifi.traefikIngress.host`. E.g. :
+To start, head to the Nifi web interface, type in your browser the `nifi.traefikIngress.host`. E.g. :
 ```
 http(s)://nifi.test.local
 ```
