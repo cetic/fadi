@@ -31,7 +31,7 @@ You can enable the dashboard by adding these lines in the `example.yaml` file:
 
 ```
 traefik:
-  enabled: false
+  enabled: true
   dashboardIngress:
     enabled: true
   dashboardHost: dashboard.example.local
