@@ -19,7 +19,6 @@ In this simple example, we will ingest temperature measurements from sensors, st
 
 To install the FADI framework on your workstation or on a cloud, see the [installation instructions](INSTALL.md). 
 
-
 The components needed for this use case are the following:
 
 * Apache Nifi as a integration tool to ingest the sensor data from the data source (a csv file in this case) and store it in the database
@@ -32,7 +31,7 @@ Those components are configured in the following [sample config file](helm/value
 
 The following instructions assume that you deployed FADI on your workstation inside minikube.
 
-To access services through domain names, open a new terminal and enter this command to give `traefik` an external IP address:
+To access services through domain names, open a new terminal and enter this command to give `Traefik` an external IP address:
 ```
 minikube tunnel
 ```
@@ -55,9 +54,9 @@ To achieve this you need to:
   * if you want to create a **traefik ingress**, you can follow this [guide](doc/REVERSEPROXY.md#2-configure-the-various-services-to-use-traefik)
   * else, you can use a port-forwarding to access the interface:
 ```
-kubectl port-forward service/fadi-adminer 8080:80
+kubectl port-forward service/fadi-adminer 8081:80
 ```
-   Now you can access `adminer` from your browser by taping: `localhost:8080`
+   Now you can access `Adminer` from your browser by typing: [localhost:8081](http://localhost:8081)
 
 * Access to the adminer service and to the postgreSQL database using the following credentials:
 
@@ -111,9 +110,8 @@ measure_ts,temperature
 ```
 
 To start, head to the Nifi web interface, type in your browser the `nifi.traefikIngress.host`. E.g. :
-```
-http(s)://nifi.test.local
-```
+
+[http://nifi.test.local](http://nifi.test.local)
 
 ![Nifi web interface](examples/basic/images/nifi_interface.png)
 
@@ -200,10 +198,10 @@ Once the measurements are stored in the database, we will want to display the re
 
 [Grafana](http://grafana.com/) provides a dashboard and alerting interface.
 
-Head to the Grafana web interface by taping in your browser the `grafana.traefikIngress.host`. E.g. :
-```
-http(s)://grafana.test.local
-``` 
+Head to the Grafana web interface by typing in your browser the `grafana.traefikIngress.host`. E.g. :
+
+[http://grafana.test.local](http://grafana.test.local)
+
 (the default credentials are `admin`/`password1`)
 
 ![Grafana web interface](examples/basic/images/grafana_interface.png)
@@ -255,10 +253,10 @@ For more information on how to use Grafana, see the [official Grafana user guide
 
 [Apache Superset](https://superset.incubator.apache.org) provides some interesting features to explore your data and build basic dashboards.
 
-Head to the Superset web interface by taping in your browser the `superset.traefikIngress.host`. E.g. :
-```
-http(s)://superset.test.local
-``` 
+Head to the Superset web interface by typing in your browser the `superset.traefikIngress.host`. E.g. :
+
+[http://superset.test.local](http://superset.test.local)
+
 (the default credentials are `admin`/`password1`): 
 
 First we will define the datasource:
@@ -330,7 +328,7 @@ In this simple use case, we will try to access the data that is stored in the da
 ```
 kubectl port-forward service/proxy-public 8081:80
 ```
- Now you can access `adminer` from your browser by taping: `localhost:8081`
+ Now you can access `Adminer` from your browser by typing: [localhost:8081](http://localhost:8081)
 
 Then, you can login using the default credentials `admin`/`password1`.
 
