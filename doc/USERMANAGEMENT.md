@@ -123,12 +123,12 @@ auth:
       userIdentityAttribute: cn
 ```
 
-Then we make sure to pre-set the `traefikIngress`, let's say we want the domain name `nifi.example.cetic.be`, our `traefikIngress` configuration should look like this :
+Then we make sure to pre-set the `traefikIngress`, let's say we want the domain name `nifi.test.local`, our `traefikIngress` configuration should look like this :
 
 ```yaml
 traefikIngress:
     enabled: true
-    host: nifi.example.cetic.be
+    host: nifi.test.local
 ```
 
 And then we set the properties as follows, the `nifi.properties.webProxyHost` variable should have the exact url that we are going to use to access NIFI later, if our dns is nifi.example.cetic.be, our configuration should look like this:
@@ -212,10 +212,10 @@ We can no longer see the name of the group, and we now have a more restrictive c
 In order to use [phpLDAPadmin](http://phpldapadmin.sourceforge.net/wiki/index.php/Main_Page), pass the configuration for the LDAP server through the environmental variable `_PHPLDAPADMIN_LDAP_HOSTS_`. To connect this service with the OpenLDAP server, pass **the name of the service** (`fadi-openldap`). To connect to the web application, run the following command in a separate shell:
 
 ```bash
-kubectl port-forward service/fadi-phpldapadmin 8080:80
+kubectl port-forward service/fadi-phpldapadmin 8082:80
 ```
 
-Now, type `loaclhost:8080` in your browser to access the main page of phpLDAPadmin where you can connect to your LDAP server and manage it.
+Now, type [localhost:8082](http://localhost:8082) in your browser to access the main page of phpLDAPadmin where you can connect to your LDAP server and manage it.
 
 <img src="images/installation/phpldapadmin.gif" alt="phpdapadmin" />
 
