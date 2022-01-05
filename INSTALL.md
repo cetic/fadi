@@ -89,8 +89,6 @@ Launch the Helm script, this will deploy all the FADI services on the Minikube c
 cd helm
 # you can edit values.yaml file to customise the stack
 ./deploy.sh
-# specify the fadi namespace to see the different pods
-kubectl get pods --namespace fadi
 ```
 
 You can check everything is deploying/-ed in the Kubernetes dashboard:
@@ -117,8 +115,7 @@ To access a service in your browser, type for instance:
 ```
 kubectl port-forward service/fadi-grafana 8080:80
 ```
-Then, you can access the service by typing in your browser `localhost:8080
-`
+Then, you can access the service by typing in your browser [localhost:8080](http://loacalhost:8080)
 
 You can list all the addresses by typing:
 
