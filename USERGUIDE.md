@@ -52,11 +52,7 @@ To achieve this you need to:
 * Head to the adminer interface
 
   * if you want to create a **Traefik ingress**, you can follow this [guide](doc/REVERSEPROXY.md#2-configure-the-various-services-to-use-traefik)
-  * else, you can use a port-forwarding to access the interface:
-```
-kubectl port-forward service/fadi-adminer 8081:80
-```
-   Now you can access Adminer from your browser at [localhost:8081](http://localhost:8081)
+  * else, you can use a port-forwarding to access the interface: `kubectl port-forward service/fadi-adminer 8081:80` and can access Adminer from your browser at [localhost:8081](http://localhost:8081)
 
 * Access to the Adminer service and to the PostgreSQL database using the following credentials:
 
@@ -171,7 +167,7 @@ So, create the following components :
         
 ![Nifi Ingest CSV and store in PostgreSQL](examples/basic/images/nifi_csv_to_sql_2.png)
 
-See also [the nifi template](/examples/basic/basic_example_final_template.xml) that corresponds to this example. 
+See also [the NiFi template](/examples/basic/basic_example_final_template.xml) that corresponds to this example. 
 * To reuse the provided template (instead of designing our own template), you can:
     * Click `Upload template` in the **Operate** frame, select the template, and upload it.
     * From the Nifi menu, drag and drop the **Template** menu.
@@ -323,12 +319,8 @@ In this simple use case, we will try to access the data that is stored in the da
 
 * Head to the Jupyter notebook interface
 
-  * if you want to create a **traefik ingress**, you can follow this [guide](doc/REVERSEPROXY.md#2-configure-the-various-services-to-use-traefik)
-  * else, you can use a port-forwarding to access the interface:
-```
-kubectl port-forward service/proxy-public 8081:80
-```
- Now you can access `Adminer` from your browser by typing: [localhost:8081](http://localhost:8081)
+  * if you want to create a **Traefik ingress**, you can follow this [guide](doc/REVERSEPROXY.md#2-configure-the-various-services-to-use-traefik)
+  * you can also use a port-forwarding to access the interface `kubectl port-forward service/proxy-public 8081:80` and access the Jupyter dashboard from your browser at [localhost:8081](http://localhost:8081).
 
 Then, you can login using the default credentials `admin`/`password1`.
 
