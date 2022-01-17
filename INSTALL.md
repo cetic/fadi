@@ -115,7 +115,7 @@ To access a service in your browser, type for instance:
 ```
 kubectl port-forward service/fadi-grafana 8080:80
 ```
-Then, you can access the service by typing in your browser [localhost:8080](http://loacalhost:8080)
+Then, you can access the service by typing in your browser [localhost:8080](http://localhost:8080)
 
 You can list all the addresses by typing:
 
