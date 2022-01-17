@@ -31,11 +31,11 @@ Those components are configured in the following [sample config file](helm/value
 
 The following instructions assume that you deployed FADI on your workstation inside minikube.
 
-To access services through domain names, open a new terminal and enter this command to give `Traefik` an external IP address:
+To access services through domain names, open a new terminal and enter this command to give Traefik an external IP address:
 ```
 minikube tunnel
 ```
-Don't forget to update your `hosts` file with the `traefik` external IP address. You can find [here](https://phoenixnap.com/kb/how-to-edit-hosts-file-in-windows-mac-or-linux) a user gide for Linux, Mac and Windows.
+Don't forget to update your `hosts` file with Traefik's external IP address. You can find [here](https://phoenixnap.com/kb/how-to-edit-hosts-file-in-windows-mac-or-linux) a user guide for Linux, Mac and Windows.
 
 Unless specified otherwise, all services can be accessed using the username and password pair: `admin` / `password1` , see the [user management documentation](doc/USERMANAGEMENT.md) for detailed information on how to configure user identification and authorization (LDAP, RBAC, ...).
 
@@ -51,14 +51,14 @@ To achieve this you need to:
 
 * Head to the adminer interface
 
-  * if you want to create a **traefik ingress**, you can follow this [guide](doc/REVERSEPROXY.md#2-configure-the-various-services-to-use-traefik)
+  * if you want to create a **Traefik ingress**, you can follow this [guide](doc/REVERSEPROXY.md#2-configure-the-various-services-to-use-traefik)
   * else, you can use a port-forwarding to access the interface:
 ```
 kubectl port-forward service/fadi-adminer 8081:80
 ```
-   Now you can access `Adminer` from your browser by typing: [localhost:8081](http://localhost:8081)
+   Now you can access Adminer from your browser at [localhost:8081](http://localhost:8081)
 
-* Access to the adminer service and to the postgreSQL database using the following credentials:
+* Access to the Adminer service and to the PostgreSQL database using the following credentials:
 
     * System: `PostgreSQL`
     * Server: `fadi-postgresql`
@@ -66,7 +66,7 @@ kubectl port-forward service/fadi-adminer 8081:80
     * Password: `password1`
     * Database: `postgres`
 
-* In the adminer Browser, launch the Query tool by clicking "SQL command".
+* In the Adminer Browser, launch the Query tool by clicking "SQL command".
 
 * Copy/Paste the [table creation script](examples/basic/create_datalake_tables.sql) in the Query Editor. 
 ![Postgres Server](examples/basic/images/adminer_create_table.png)
