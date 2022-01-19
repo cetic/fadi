@@ -107,7 +107,7 @@ measure_ts,temperature
 
 To start, head to the Nifi web interface, type in your browser the `nifi.traefikIngress.host`. E.g. :
 
-[http://nifi.test.local](http://nifi.test.local)
+[http://nifi.fadi.cetic.be](http://nifi.fadi.cetic.be)
 
 ![Nifi web interface](examples/basic/images/nifi_interface.png)
 
@@ -196,7 +196,7 @@ Once the measurements are stored in the database, we will want to display the re
 
 Head to the Grafana web interface by typing in your browser the `grafana.traefikIngress.host`. E.g. :
 
-[http://grafana.test.local](http://grafana.test.local)
+[http://grafana.fadi.cetic.be](http://grafana.fadi.cetic.be)
 
 (the default credentials are `admin`/`password1`)
 
@@ -251,7 +251,7 @@ For more information on how to use Grafana, see the [official Grafana user guide
 
 Head to the Superset web interface by typing in your browser the `superset.traefikIngress.host`. E.g. :
 
-[http://superset.test.local](http://superset.test.local)
+[http://superset.fadi.cetic.be](http://superset.fadi.cetic.be)
 
 (the default credentials are `admin`/`password1`): 
 
@@ -317,10 +317,9 @@ For more information on how to use Superset, see the [official Superset user gui
 
 In this simple use case, we will try to access the data that is stored in the data lake.
 
-* Head to the Jupyter notebook interface
+Head to the Jupyter notebook interface by typing in your browser the `jupyter.traefikIngress.host`. E.g. :
 
-  * if you want to create a **Traefik ingress**, you can follow this [guide](doc/REVERSEPROXY.md#2-configure-the-various-services-to-use-traefik)
-  * you can also use a port-forwarding to access the interface `kubectl port-forward service/proxy-public 8081:80` and access the Jupyter dashboard from your browser at [localhost:8081](http://localhost:8081).
+[http://jupyter.fadi.cetic.be](http://jupyter.fadi.cetic.be)
 
 Then, you can login using the default credentials `admin`/`password1`.
 
