@@ -20,26 +20,28 @@ You can find information about the Traefik Helm chart [in Traefik Helm repositor
 
 ## 1. Enable the Traefik reverse proxy
 
-To enable the Traefik reverse proxy, you will need to set the `values.yaml`. Create a `example.yaml` file and add these lines:
+To enable the Traefik reverse proxy, you will need to set the `values.yaml`. Create a `values.yaml` file and add these lines:
 
 ```
 traefik:
   enabled: true
 ```
 
-You can enable the dashboard by adding these lines in the `example.yaml` file:
+You can enable the dashboard by adding these lines in the `values.yaml` file:
 
 ```
 traefik:
   enabled: true
   dashboardIngress:
     enabled: true
-  dashboardHost: dashboard.example.local
+  dashboardHost: dashboard.traefik.fadi.cetic.be
   globalArguments:
     - "--api.insecure=true"
 ```
 
 See the [default values file](https://github.com/traefik/traefik-helm-chart/blob/master/traefik/values.yaml) from the official repository for more configuration options.
+
+Note that this configuration is not suitable for a production environment because access to the API is not secure. If you are deploying Traefik in a production environment, you must define security features through middleware. Please refer to [doc](https://doc.traefik.io/traefik/v2.0/operations/dashboard/).
 
 
 ## 2. Configure the various services to use Traefik
@@ -57,12 +59,12 @@ grafana:
 .............
   traefikIngress:
     enabled: true
-    host: grafana.yourdomain.com
+    host: grafana.fadi.cetic.be
 ```
 
-You should now be able to access Grafana through the domain name you have chosen: `http(s)://grafana.yourdomain.com`
+You should now be able to access Grafana through the domain name you have chosen: `http(s)://grafana.fadi.cetic.be`
 
-There are three services (Grafana, Nifi JupyterHub) and the Traefik dashboard which have already been built with an `IngressRoute`. You just have to activate them. If you want to build `IngressRoutes` for other services, you must add them in the `ingressroutes.yaml` file. E.g. for Grafana:
+There are three services (Grafana, Nifi and JupyterHub) and the Traefik dashboard which have already been built with an `IngressRoute`. You just have to activate them. If you want to build `IngressRoutes` for other services, you must add them in the [ingressroutes.yaml](https://github.com/cetic/helm-fadi/blob/master/templates/ingressroutes.yaml) file. E.g. for Grafana:
 
 ```
 {{- if .Values.grafana.traefikIngress.enabled -}}
