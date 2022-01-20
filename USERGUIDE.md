@@ -31,6 +31,12 @@ Those components are configured in the following [sample config file](helm/value
 
 The following instructions assume that you deployed FADI on your workstation inside minikube.
 
+To access services through domain names, open a new terminal and enter this command to give Traefik an external IP address:
+```
+minikube tunnel
+```
+Don't forget to update your `hosts` file with Traefik's external IP address. You can find [here](https://phoenixnap.com/kb/how-to-edit-hosts-file-in-windows-mac-or-linux) a user guide for Linux, Mac and Windows.
+
 Unless specified otherwise, all services can be accessed using the username and password pair: `admin` / `password1` , see the [user management documentation](doc/USERMANAGEMENT.md) for detailed information on how to configure user identification and authorization (LDAP, RBAC, ...).
 
 See the [logs management documentation](doc/LOGGING.md) for information on how to configure the management of the various service logs.
@@ -43,12 +49,12 @@ First, setup the datalake by creating a table in the postgresql database.
 
 To achieve this you need to: 
 
-* Head to the adminer interface, if you are using **minikube**, you can use the following command :
-```
-minikube service -n fadi fadi-adminer 
-```
+* Head to the adminer interface
 
-* Access to the adminer service and to the postgreSQL database using the following credentials:
+  * if you want to create a **Traefik ingress**, you can follow this [guide](doc/REVERSEPROXY.md#2-configure-the-various-services-to-use-traefik)
+  * else, you can use a port-forwarding to access the interface: `kubectl port-forward service/fadi-adminer 8081:80` and can access Adminer from your browser at [localhost:8081](http://localhost:8081)
+
+* Access to the Adminer service and to the PostgreSQL database using the following credentials:
 
     * System: `PostgreSQL`
     * Server: `fadi-postgresql`
@@ -56,7 +62,7 @@ minikube service -n fadi fadi-adminer
     * Password: `password1`
     * Database: `postgres`
 
-* In the adminer Browser, launch the Query tool by clicking "SQL command".
+* In the Adminer Browser, launch the Query tool by clicking "SQL command".
 
 * Copy/Paste the [table creation script](examples/basic/create_datalake_tables.sql) in the Query Editor. 
 ![Postgres Server](examples/basic/images/adminer_create_table.png)
@@ -99,10 +105,9 @@ measure_ts,temperature
 (...)
 ```
 
-To start, head to the Nifi web interface, if you are using **minikube**, you can use the following command :
-```
-minikube service -n fadi fadi-nifi
-```
+To start, head to the Nifi web interface, type in your browser the `nifi.traefikIngress.host`. E.g. :
+
+[http://nifi.fadi.cetic.be](http://nifi.fadi.cetic.be)
 
 ![Nifi web interface](examples/basic/images/nifi_interface.png)
 
@@ -162,7 +167,7 @@ So, create the following components :
         
 ![Nifi Ingest CSV and store in PostgreSQL](examples/basic/images/nifi_csv_to_sql_2.png)
 
-See also [the nifi template](/examples/basic/basic_example_final_template.xml) that corresponds to this example. 
+See also [the NiFi template](/examples/basic/basic_example_final_template.xml) that corresponds to this example. 
 * To reuse the provided template (instead of designing our own template), you can:
     * Click `Upload template` in the **Operate** frame, select the template, and upload it.
     * From the Nifi menu, drag and drop the **Template** menu.
@@ -189,10 +194,10 @@ Once the measurements are stored in the database, we will want to display the re
 
 [Grafana](http://grafana.com/) provides a dashboard and alerting interface.
 
-Head to the Grafana interface, if you are using **minikube**, you can use the following command :
-```
-minikube service -n fadi fadi-grafana
-``` 
+Head to the Grafana web interface by typing in your browser the `grafana.traefikIngress.host`. E.g. :
+
+[http://grafana.fadi.cetic.be](http://grafana.fadi.cetic.be)
+
 (the default credentials are `admin`/`password1`)
 
 ![Grafana web interface](examples/basic/images/grafana_interface.png)
@@ -244,10 +249,10 @@ For more information on how to use Grafana, see the [official Grafana user guide
 
 [Apache Superset](https://superset.incubator.apache.org) provides some interesting features to explore your data and build basic dashboards.
 
-Head to the Superset interface, if you are using **minikube**, you can use the following command :
-```
-minikube service -n fadi fadi-superset
-``` 
+Head to the Superset web interface by typing in your browser the `superset.traefikIngress.host`. E.g. :
+
+[http://superset.fadi.cetic.be](http://superset.fadi.cetic.be)
+
 (the default credentials are `admin`/`password1`): 
 
 First we will define the datasource:
@@ -312,10 +317,10 @@ For more information on how to use Superset, see the [official Superset user gui
 
 In this simple use case, we will try to access the data that is stored in the data lake.
 
-Head to the Jupyter notebook interface,  if you are using **minikube**, you can use the following command : 
-```
-minikube service -n fadi proxy-public
-```  
+Head to the Jupyter notebook interface by typing in your browser the `jupyter.traefikIngress.host`. E.g. :
+
+[http://jupyter.fadi.cetic.be](http://jupyter.fadi.cetic.be)
+
 Then, you can login using the default credentials `admin`/`password1`.
 
 A Jupyter dashboard is shown. 

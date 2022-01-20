@@ -86,13 +86,9 @@ cd fadi
 Launch the Helm script, this will deploy all the FADI services on the Minikube cluster (and may take some time).
 
 ```bash
-kubectl config set-context minikube
-minikube addons enable ingress
 cd helm
 # you can edit values.yaml file to customise the stack
 ./deploy.sh
-# specify the fadi namespace to see the different pods
-kubectl config set-context minikube --namespace fadi
 ```
 
 You can check everything is deploying/-ed in the Kubernetes dashboard:
@@ -117,13 +113,14 @@ kubectl get pods
 To access a service in your browser, type for instance:
 
 ```
-minikube service -n fadi fadi-nifi
+kubectl port-forward service/fadi-grafana 8080:80
 ```
+Then, you can access the service by typing in your browser [localhost:8080](http://localhost:8080)
 
 You can list all the addresses by typing:
 
 ```
-kubectl get ingress -n fadi
+kubectl get ingressroute -n fadi
 ```
 
 To update the FADI stack, re-type:
