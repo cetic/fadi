@@ -22,7 +22,6 @@ helm repo add cetic https://cetic.github.io/helm-charts/ --force-update
 helm repo update
 
 # install/upgrade FADI
-helm dep up
 helm upgrade --install ${NAMESPACE} cetic/fadi -f ./values.yaml --namespace ${NAMESPACE}
 
 printf "\n\nInstallation successful!\n"
