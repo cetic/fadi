@@ -57,7 +57,7 @@ Before upgrading your FADI deployment, you must choose the services on which you
 traefikIngress:
     enabled: true
     tls: true
-    host: grafana.test.local
+    host: grafana.flaracc.cetic.be
 ```
 Then, type the following command to upgrade FADI:
 ```
@@ -75,7 +75,7 @@ That is because the default enabled Let' Encrypt service is a staging service. S
 Once you’ve successfully acquired a staging certificate, you can migrate to the Let’s Encrypt production servers. (All this third part of documentation has been copied from [this site](https://www.cloudsavvyit.com/14069/how-to-install-kubernetes-cert-manager-and-configure-lets-encrypt/)).
 
 ## 4. Migrate to the Production Environment
-First, you have to delete the old ClusterIssuer, Certificates and Secrete. To get them, type:
+First, you have to delete the old ClusterIssuer, Certificates and Secrets. To get them, type:
 ```
 $ kubectl get clusterissuer
 NAME               READY   AGE
@@ -84,12 +84,12 @@ fadi-letsencrypt   True    83m
 ```
 $ kubectl get certificate
 NAME                    READY   SECRET                  AGE
-nifi.flaracc.cetic.be   True    nifi.flaracc.cetic.be   83m
+grafana.flaracc.cetic.be   True    grafana.flaracc.cetic.be   83m
 ```
 ```
 $ kubectl get secret
 NAME                                       TYPE                                  DATA   AGE
-nifi.flaracc.cetic.be                      kubernetes.io/tls                     2      83m
+grafana.flaracc.cetic.be                      kubernetes.io/tls                     2      83m
 ```
 To delete them, type
 ```
@@ -101,4 +101,4 @@ clusterIssuer:
   enabled: true
   prod: true
 ```
-Finaly, upgrade you FADI deployment.
+Finaly, upgrade your FADI deployment.
