@@ -64,7 +64,7 @@ grafana:
 
 You should now be able to access Grafana through the domain name you have chosen: `http(s)://grafana.fadi.cetic.be`
 
-There are four services (Grafana, Nifi, JupyterHub and superset) and the Traefik dashboard which have already been built with an `IngressRoute`. You just have to activate them. If you want to build `IngressRoutes` for other services, you must add them in the [ingressroutes.yaml](https://github.com/cetic/helm-fadi/blob/master/templates/ingressroutes.yaml) file. E.g. for Grafana:
+There are four services (Grafana, Nifi, JupyterHub and superset) and the Traefik dashboard which have already been built with an [IngressRoute](https://doc.traefik.io/traefik/v2.2/routing/providers/kubernetes-crd/#kind-ingressroute). You just have to activate them. If you want to build `IngressRoutes` for other services, you must add them in the [ingressroutes.yaml](https://github.com/cetic/helm-fadi/blob/master/templates/ingressroutes.yaml) file. E.g. for Grafana:
 
 ```
 {{- if .Values.grafana.traefikIngress.enabled -}}
