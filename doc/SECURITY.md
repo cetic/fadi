@@ -8,14 +8,14 @@ TLS is a protocol for the secure transmission of data based on SSLv3. It offers 
 Here we will explain how to enable TLS on FADI's services.
 
 ### Let's Encrypt
-Let's Encrypt is a non-profit certificate authority run by Internet Security Research Group (ISRG) that provides X.509 certificates for Transport Layer Security (TLS) encryption at no charge([wikipedia](https://en.wikipedia.org/wiki/Let%27s_Encrypt)).
+[Let's Encrypt](https://letsencrypt.org/about/) is a non-profit certificate authority run by [Internet Security Research Group (ISRG)](https://www.abetterinternet.org/about/) that provides X.509 certificates for Transport Layer Security (TLS) encryption at no charge ([wikipedia](https://en.wikipedia.org/wiki/Let%27s_Encrypt)).
 
-We will use it to get certificates from e known certificate authority.
+We will use it to get certificates from a known certificate authority.
 
 ### Cert-manager
 cert-manager adds certificates and certificate issuers as resource types in Kubernetes clusters, and simplifies the process of obtaining, renewing and using those certificates ([cert-manager](https://cert-manager.io/docs/)).
 
-It will be used to provide certificates to FADIS's services.
+It will be used to provide certificates to FADI's services.
 
 ## 2. Enable TLS
 
@@ -29,7 +29,7 @@ cert-manager:
   enabled: true
   installCRDs: true
 ```
-If FADI is already deployed, type:
+If FADI is already deployed (refer [here](/INSTALL.md#122-install-fadi-services-on-the-local-cluster) for the installation), type:
 
 ```
 helm upgrade fadi <fadi_folder>
@@ -57,14 +57,14 @@ Before upgrading your FADI deployment, you must choose the services on which you
 traefikIngress:
     enabled: true
     tls: true
-    host: grafana.flaracc.cetic.be
+    host: grafana.test.local
 ```
 Then, type the following command to upgrade FADI:
 ```
 helm upgrade fadi <fadi_folder>
 ```
-Let's suppose that you have created TLS for Grafana, if you type in your browser "http://grafana.flaracc.cetic.be", your will get an error.
-You have to type "https://grafana.flaracc.cetic.be" to access Grafana in the secure mode.
+Let's suppose that you have created TLS for Grafana, if you type in your browser "http://grafana.test.local", your will get an error.
+You have to type [https://grafana.test.local](https://grafana.test.local) to access Grafana in the secure mode.
 
 ## 3. Production Environment
 
@@ -84,12 +84,12 @@ fadi-letsencrypt   True    83m
 ```
 $ kubectl get certificate
 NAME                    READY   SECRET                  AGE
-grafana.flaracc.cetic.be   True    grafana.flaracc.cetic.be   83m
+grafana.test.local   True    grafana.test.local   83m
 ```
 ```
 $ kubectl get secret
 NAME                                       TYPE                                  DATA   AGE
-grafana.flaracc.cetic.be                      kubernetes.io/tls                     2      83m
+grafana.test.local                      kubernetes.io/tls                     2      83m
 ```
 To delete them, type
 ```
@@ -101,4 +101,7 @@ clusterIssuer:
   enabled: true
   prod: true
 ```
-Finaly, upgrade your FADI deployment.
+Finaly, upgrade your FADI deployment :
+```
+helm upgrade fadi <fadi_folder>
+```
