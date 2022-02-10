@@ -29,7 +29,7 @@ cert-manager:
   enabled: true
   installCRDs: true
 ```
-If FADI is already deployed (refer [here](/INSTALL.md#122-install-fadi-services-on-the-local-cluster) for the installation), type:
+If FADI is already deployed (refer [here](../INSTALL.md#122-install-fadi-services-on-the-local-cluster) for the installation), type:
 
 ```
 helm upgrade fadi <fadi_folder>
