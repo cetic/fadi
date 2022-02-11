@@ -58,7 +58,7 @@ https://<your_grafana_domain_name>/login/azuread
 
 Type the Grafana domain name in your browser (don't forget the 's' in 'https') and you will see a new field to sign in with Microsoft:
 
-![grafan_sign_in](/doc/images/AzureAD/grafana_sign_in.png)
+<img src="images/AzureAD/grafana_sign_in.png" alt="Grafana Sign In"/>
 
 Click on this field and you will be redirect to the Azure AD sign in page or to Grafana if you already are connected.
 
@@ -98,7 +98,7 @@ https://<your_jupyterhub_domain_name>/hub/oauth_callback
 
 Type the Jupyterhub domain name in your browser (don't forget the 's' in 'https') and you will see this field:
 
-![jupyterhub_sign_in](/doc/images/AzureAD/jupyterhub_sign_in.png)
+<img src="images/AzureAD/jupyterhub_sign_in.png" alt="Jupyterhub Sign In"/>
 
 Click on this field and you will be redirect to the Azure AD sign in page or to Jupyterhub if you already are connected.
 
