@@ -5,8 +5,8 @@ This page provides documentation on how to connect InfluxDB (version 2.X)
 with Nifi. 
 
 * [1. Problematic](#Problematic)
-* [2. Installing Fadi](#Installing Fadi)
-* [3. Running the use-case](#Running the use-case)
+* [2. Installing Fadi](#Installing-Fadi)
+* [3. Running the use-case](#Running-the-use-case)
 
 In this example, Nifi will query InfluxDB data from a bucket A, processes it and insert it on a bucket B.
 
@@ -77,7 +77,7 @@ if you are using minikube on a local cluster:
 3. connect yourself to http://nifi.test.local/nifi/ to reach nifi
 4. forward the port of influxDB 
 
-Running the use-case
+Running the use case
 --
 
 At this point your must be able to connect yourself to Nifi and InfluxDB.
