@@ -12,83 +12,9 @@ superset:
 
 minio:
   enabled: false
-  persistence:
-    enabled: true
-    size: 50Gi
-
 
 grafana:
   enabled: false
-  service:
-    type: ClusterIP
-    ports:
-      - port: 3000
-      #  nodePort: 31001
-  grafana.ini:
-    paths:
-      data: /var/lib/grafana/data
-      logs: /var/log/grafana
-      plugins: /var/lib/grafana/plugins
-      provisioning: /etc/grafana/provisioning
-    analytics:
-      check_for_updates: true
-    log:
-      mode: console
-    grafana_net:
-      url: https://grafana.net
-    ## LDAP Authentication can be enabled with the following values on grafana.ini
-    ## NOTE: Grafana will fail to start if the value for ldap.toml is invalid
-    # ----- auth -------
-    auth.ldap:
-      enabled: true
-      allow_sign_up: true
-      config_file: /etc/grafana/ldap.toml
-  # Enable persistence
-  persistence:
-    enabled: true
-  # Administrator credentials when not using an existing secret (see below)
-  adminUser: admin
-
-  ## Grafana's LDAP configuration
-  ## Templated by the template in _helpers.tpl
-  ## NOTE: To enable the grafana.ini must be configured with auth.ldap.enabled
-  ## ref: http://docs.grafana.org/installation/configuration/#auth-ldap
-  ## ref: http://docs.grafana.org/installation/ldap/#configuration
-  ldap:
-    enabled: false
-    # `existingSecret` is a reference to an existing secret containing the ldap configuration
-    # for Grafana in a key `ldap-toml`.
-    existingSecret: ""
-    # `config` is the content of `ldap.toml` that will be stored in the created secret
-    config: |-
-      verbose_logging = true
-      [[servers]]
-      host = "fadi-openldap"
-      port = 389
-      use_ssl = false
-      start_tls = false
-      ssl_skip_verify = false
-      bind_dn = "cn=admin,DC=ldap,DC=cetic,DC=be"
-      bind_password = 'password1'
-      search_filter = "(|(cn=%s)(&(cn=%s)(memberOf=cn=admin,DC=ldap,DC=cetic,DC=be)))"
-      search_base_dns = ["cn=admin,dc=ldap,dc=cetic,dc=be"]
-      group_search_base_dns = ["ou=Groups,dc=ldap,dc=cetic,dc=be"]
-      [[servers.group_mappings]]
-      group_dn = "*"
-      org_role = "Admin"
-      ##grafana_admin = true
-      #group_dn = "cn=amen,DC=ldap,DC=cetic,DC=be"
-      #org_role = "Viewer"
-      [servers.attributes]
-      name = "givenName"
-      surname = "sn"
-      username = "cn"
-      member_of = "memberOf"
-      email =  "email"
-  # ---- ingress ----
-  traefikIngress:
-    enabled: true
-    host: grafana.test.local
 
 jupyterhub:
   enabled: false
@@ -157,22 +83,6 @@ kibana:
 
 nginx_ldapauth_proxy:
   enabled: false
-  service:
-    type: ClusterIP
-    externalPort: 5601
-  proxy:
-    port: 443
-    host: "fadi-kibana"
-    authName: "admin"
-    ldapHost: "fadi-openldap"
-    ldapDN: "dc=ldap,dc=cetic,dc=be"
-    ldapFilter: "objectClass=organizationalPerson"
-    ldapBindDN: "cn=admin,dc=ldap,dc=cetic,dc=be"
-    requires:
-      - name: "admin"
-        filter: "cn=admin,dc=ldap,dc=cetic,dc=be"
-  secrets:
-    ldapBindPassword: "password1"
 
 logstash:
   enabled: false
@@ -181,32 +91,15 @@ logstash:
 
 filebeat:
   enabled: false
-  config:
-    output.file.enabled: false
-    output.logstash:
-      hosts: ["fadi-logstash:5044"]
-  indexTemplateLoad:
-    - fadi-elasticsearch-client:9200
 
 tsaas:
   enabled: false
 
 swaggerui:
   enabled: false
-  swaggerui :
-    jsonPath : ""
-    jsonUrl : https://raw.githubusercontent.com/cetic/tsimulus-saas/master/oas/api-doc/openapi.json
-    server :
-      url: http://api-tsimulus.fadi.minikube
-      description: "TSIMULUS API"
 
 adminer:
   enabled: false
-  config:
-    design: "pepa-linha"
-  service:
-    type: ClusterIP
-
 
 influxdb:
   enabled: true
