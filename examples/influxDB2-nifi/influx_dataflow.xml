@@ -2,7 +2,7 @@
 <template encoding-version="1.3">
     <description></description>
     <groupId>9c2c6c23-7178-4b17-adaf-977c32fb801f</groupId>
-    <name>influx_dataflow_v1.1</name>
+    <name>influx_dataflow_24_02</name>
     <snippet>
         <connections>
             <id>01601287-bc56-3b17-0000-000000000000</id>
@@ -578,8 +578,8 @@
             <id>609c3b4d-49eb-3b5c-0000-000000000000</id>
             <parentGroupId>3a0a0995-b752-3a60-0000-000000000000</parentGroupId>
             <position>
-                <x>1800.0</x>
-                <y>512.0</y>
+                <x>1752.0</x>
+                <y>440.0</y>
             </position>
             <bundle>
                 <artifact>nifi-standard-nar</artifact>
@@ -644,8 +644,8 @@
             <id>6ae377e2-066c-3ec4-0000-000000000000</id>
             <parentGroupId>3a0a0995-b752-3a60-0000-000000000000</parentGroupId>
             <position>
-                <x>1240.0</x>
-                <y>72.0</y>
+                <x>1192.0</x>
+                <y>0.0</y>
             </position>
             <bundle>
                 <artifact>nifi-influx-database-nar</artifact>
@@ -717,7 +717,7 @@
                     </entry>
                     <entry>
                         <key>influxdb-bucket</key>
-                        <value>updateddata</value>
+                        <value>output</value>
                     </entry>
                     <entry>
                         <key>influxdb-org</key>
@@ -775,8 +775,8 @@
             <id>98195b85-1ffe-38e2-0000-000000000000</id>
             <parentGroupId>3a0a0995-b752-3a60-0000-000000000000</parentGroupId>
             <position>
-                <x>1240.0</x>
-                <y>560.0</y>
+                <x>1192.0</x>
+                <y>488.0</y>
             </position>
             <bundle>
                 <artifact>nifi-update-attribute-nar</artifact>
@@ -891,8 +891,8 @@
             <id>99e34f7b-b35b-3a01-0000-000000000000</id>
             <parentGroupId>3a0a0995-b752-3a60-0000-000000000000</parentGroupId>
             <position>
-                <x>16.0</x>
-                <y>384.0</y>
+                <x>0.0</x>
+                <y>336.0</y>
             </position>
             <bundle>
                 <artifact>nifi-influx-database-nar</artifact>
@@ -973,10 +973,10 @@
                     </entry>
                     <entry>
                         <key>influxdb-flux</key>
-                        <value>from(bucket: "testfs")
-  |&gt; range(start: -30d, stop: -1h)
-  |&gt; filter(fn: (r) =&gt; r["_measurement"] == "earthquake")
-  |&gt; filter(fn: (r) =&gt; r["_field"] == "alert")</value>
+                        <value>from(bucket: "input")
+                            |&gt; range(start: -30d, stop: -1h)
+                            |&gt; filter(fn: (r) =&gt; r["_measurement"] == "earthquake")
+                            |&gt; filter(fn: (r) =&gt; r["_field"] == "alert")</value>
                     </entry>
                     <entry>
                         <key>influxdb-dialect-dateTimeFormat</key>
@@ -1021,8 +1021,8 @@
             <id>9ff8be73-14b4-321b-0000-000000000000</id>
             <parentGroupId>3a0a0995-b752-3a60-0000-000000000000</parentGroupId>
             <position>
-                <x>1240.0</x>
-                <y>784.0</y>
+                <x>1192.0</x>
+                <y>712.0</y>
             </position>
             <bundle>
                 <artifact>nifi-standard-nar</artifact>
@@ -1157,8 +1157,8 @@
             <id>a4687756-7713-36f0-0000-000000000000</id>
             <parentGroupId>3a0a0995-b752-3a60-0000-000000000000</parentGroupId>
             <position>
-                <x>552.0</x>
-                <y>168.0</y>
+                <x>544.0</x>
+                <y>208.0</y>
             </position>
             <bundle>
                 <artifact>nifi-standard-nar</artifact>
@@ -1223,8 +1223,8 @@
             <id>a7938ef8-b328-38f3-0000-000000000000</id>
             <parentGroupId>3a0a0995-b752-3a60-0000-000000000000</parentGroupId>
             <position>
-                <x>1240.0</x>
-                <y>296.0</y>
+                <x>1192.0</x>
+                <y>224.0</y>
             </position>
             <bundle>
                 <artifact>nifi-standard-nar</artifact>
@@ -1335,8 +1335,8 @@
             <id>bd5d7f19-cc1d-392a-0000-000000000000</id>
             <parentGroupId>3a0a0995-b752-3a60-0000-000000000000</parentGroupId>
             <position>
-                <x>504.0</x>
-                <y>776.0</y>
+                <x>0.0</x>
+                <y>712.0</y>
             </position>
             <bundle>
                 <artifact>nifi-standard-nar</artifact>
@@ -1398,5 +1398,5 @@
             <type>org.apache.nifi.processors.standard.SplitJson</type>
         </processors>
     </snippet>
-    <timestamp>02/15/2022 16:28:05 UTC</timestamp>
+    <timestamp>02/24/2022 09:49:44 UTC</timestamp>
 </template>
