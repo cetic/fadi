@@ -34,7 +34,7 @@ traefik:
   enabled: true
   dashboardIngress:
     enabled: true
-  dashboardHost: dashboard.traefik.fadi.cetic.be
+  dashboardHost: dashboard.example.cetic.be
   globalArguments:
     - "--api.insecure=true"
 ```
@@ -59,19 +59,37 @@ grafana:
 .............
   traefikIngress:
     enabled: true
-    host: grafana.fadi.cetic.be
+    host: grafana.example.cetic.be
 ```
 
-You should now be able to access Grafana through the domain name you have chosen: `http(s)://grafana.fadi.cetic.be`
+You should now be able to access Grafana through the domain name you have chosen: `http(s)://grafana.example.cetic.be`
 
 There are four services (Grafana, Nifi, JupyterHub and superset) and the Traefik dashboard which have already been built with an [IngressRoute](https://doc.traefik.io/traefik/v2.2/routing/providers/kubernetes-crd/#kind-ingressroute). You just have to activate them. If you want to build `IngressRoutes` for other services, you must add them in the [ingressroutes.yaml](https://github.com/cetic/helm-fadi/blob/master/templates/ingressroutes.yaml) file. E.g. for Grafana:
 
 ```
-{{- if .Values.grafana.traefikIngress.enabled -}}
+{{- if and (.Values.grafana.enabled) (.Values.grafana.traefikIngress.enabled) -}}
+{{- if .Values.grafana.traefikIngress.tls }}
 apiVersion: traefik.containo.us/v1alpha1
 kind: IngressRoute
 metadata:
   name: grafana
+spec:
+  entryPoints:
+    - websecure
+  routes:
+  - kind: Rule
+    match: Host(`{{ .Values.grafana.traefikIngress.host }}`) && PathPrefix(`/`)
+    services:
+      - name: {{ .Release.Name }}-grafana
+        port: 80
+  tls:
+    secretName: {{ .Values.grafana.traefikIngress.host }}  
+---
+{{- end }}
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: grafana-http
 spec:
   entryPoints:
     - web
@@ -81,7 +99,14 @@ spec:
     services:
     - name: {{ .Release.Name }}-grafana
       port: 80
+    {{- if .Values.grafana.traefikIngress.tls }}
+    middlewares:
+      - name: https-redirect
+    {{- end }}
+---
 {{- end }}
 ```
+
+> Note : there is also a `middleware` oject in the `ingressroute.yaml` file. It provides a https redirect when the TLS is ensabled.
 
 Next you will also want to configure TLS access to your services. For that, have a look at the [security documentation](/doc/SECURITY.md).
