@@ -111,6 +111,8 @@ To start, head to the Nifi web interface, type in your browser the `nifi.traefik
 
 Then, you can login using the default credentials `username`/`changemechangeme`.
 
+A Nifi dashboard is shown.
+
 ![Nifi web interface](examples/basic/images/nifi_interface.png)
 
 Now we need to tell Nifi to read the csv file and store the measurements in the data lake. 
