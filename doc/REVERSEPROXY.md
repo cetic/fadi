@@ -39,6 +39,21 @@ traefik:
     - "--api.insecure=true"
 ```
 
+I you have your own public IP address and you want to use it, navigate to the service part of Traefik section and set the `LoadBalancerIP` field by your public IP :
+
+```
+traefik:
+  service:
+    spec:
+      loadBalancerIP: "<your_public_IP>"
+```
+
+To provide an IP address to your Traefik `LoadBalancer` service, you must have a loadbalancer like [Metallb](https://metallb.universe.tf/) for a bare metal deployment. If you are in the Cloud, cloud providers have theyr own loadbalancers. For a `Minikube` deployment, you can just type the following command:
+
+```
+minikube tunnel
+```
+
 See the [default values file](https://github.com/traefik/traefik-helm-chart/blob/master/traefik/values.yaml) from the official repository for more configuration options.
 
 Note that this configuration is not suitable for a production environment because access to the API is not secure. If you are deploying Traefik in a production environment, you must define security features through middleware. Please refer to [doc](https://doc.traefik.io/traefik/v2.0/operations/dashboard/).
