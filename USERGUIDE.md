@@ -52,7 +52,7 @@ To achieve this you need to:
 * Head to the adminer interface
 
   * if you want to create a **Traefik ingress**, you can follow this [guide](doc/REVERSEPROXY.md#2-configure-the-various-services-to-use-traefik)
-  * else, you can use a port-forwarding to access the interface: `kubectl port-forward service/fadi-adminer 8081:80` and can access Adminer from your browser at [localhost:8081](http://localhost:8081)
+  * else, you can use a port-forwarding to access the interface: `kubectl port-forward service/fadi-adminer 8081:80` and can access Adminer from your browser at [http://localhost:8081](http://localhost:8081)
 
 * Access to the Adminer service and to the PostgreSQL database using the following credentials:
 
@@ -107,7 +107,9 @@ measure_ts,temperature
 
 To start, head to the Nifi web interface, type in your browser the `nifi.traefikIngress.host`. E.g. :
 
-[http://nifi.fadi.cetic.be](http://nifi.fadi.cetic.be)
+[https://nifi.fadi.cetic.be](https://nifi.fadi.cetic.be)
+
+Then, you can login using the default credentials `username`/`changemechangeme`.
 
 ![Nifi web interface](examples/basic/images/nifi_interface.png)
 
@@ -319,7 +321,7 @@ In this simple use case, we will try to access the data that is stored in the da
 
 Head to the Jupyter notebook interface by typing in your browser the `jupyter.traefikIngress.host`. E.g. :
 
-[http://jupyter.fadi.cetic.be](http://jupyter.fadi.cetic.be)
+[http://jupyterhub.fadi.cetic.be](http://jupyterhub.fadi.cetic.be)
 
 Then, you can login using the default credentials `admin`/`password1`.
 
