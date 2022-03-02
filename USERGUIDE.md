@@ -107,7 +107,7 @@ measure_ts,temperature
 
 To start, head to the Nifi web interface, type in your browser the `nifi.traefikIngress.host`. E.g. :
 
-[https://nifi.fadi.cetic.be](https://nifi.fadi.cetic.be)
+[https://nifi.example.cetic.be](https://nifi.example.cetic.be)
 
 Then, you can login using the default credentials `username`/`changemechangeme`.
 
@@ -200,7 +200,7 @@ Once the measurements are stored in the database, we will want to display the re
 
 Head to the Grafana web interface by typing in your browser the `grafana.traefikIngress.host`. E.g. :
 
-[http://grafana.fadi.cetic.be](http://grafana.fadi.cetic.be)
+[http://grafana.example.cetic.be](http://grafana.example.cetic.be)
 
 (the default credentials are `admin`/`password1`)
 
@@ -255,7 +255,7 @@ For more information on how to use Grafana, see the [official Grafana user guide
 
 Head to the Superset web interface by typing in your browser the `superset.traefikIngress.host`. E.g. :
 
-[http://superset.fadi.cetic.be](http://superset.fadi.cetic.be)
+[http://superset.example.cetic.be](http://superset.example.cetic.be)
 
 (the default credentials are `admin`/`password1`): 
 
@@ -323,7 +323,7 @@ In this simple use case, we will try to access the data that is stored in the da
 
 Head to the Jupyter notebook interface by typing in your browser the `jupyter.traefikIngress.host`. E.g. :
 
-[http://jupyterhub.fadi.cetic.be](http://jupyterhub.fadi.cetic.be)
+[http://jupyterhub.example.cetic.be](http://jupyterhub.example.cetic.be)
 
 Then, you can login using the default credentials `admin`/`password1`.
 
