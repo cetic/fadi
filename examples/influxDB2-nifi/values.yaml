@@ -1,4 +1,6 @@
 ---
+# This values.yaml file provides a sample environment for setting up InfluxDB2 and NiFi
+# It corresponds to the FADI example at https://github.com/cetic/fadi/tree/master/examples/influxDB2-nifi/README.md
 # Default values for FADI are defined here: https://github.com/cetic/helm-fadi.
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
@@ -34,7 +36,7 @@ nifi:
   extraVolumes: # this will create the volume from the directory
     - name: mycustomlibs
       hostPath:
-        path: "/Users/<YOUR_PATH>/nifi-influx-nar"
+        path: "<YOUR_HOST_PATH>/nifi-influx-nar"
   properties:
     customLibPath: "/opt/configuration_resources/custom_lib"
     externalSecure: false
@@ -131,6 +133,6 @@ traefik:
   dashboardIngress:
     enabled: true
   dashboardHost: dashboard.test.local
-  # Uncomment these 2 lines below to access the dashboard through the ingness
+  # Uncomment these 2 lines below to access the dashboard through the ingress
   # globalArguments:
   #   - "--api.insecure=true"

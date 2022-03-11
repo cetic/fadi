@@ -16,11 +16,11 @@ The problem
 
 This section explains why adaptations are needed to make run InfluxDB (version 2.X) with NiFi.
 
-### Problem with existing InfluxDB connectors
+### Problem with existing InfluxDB processors
 
 [NiFi](https://nifi.apache.org) already embeds [processors](https://nifi.apache.org/docs.html) to query and insert data (e.g. 'ExecuteInfluxDBQuery').
-Currently, those processors run with a version 1.X of [InfluxDB](https://www.influxdata.com)   
-Using those embedded connectors will raise authentification error if they are used with InfluxDB version 2.X.
+Currently, those processors support version 1.X of [InfluxDB](https://www.influxdata.com)   
+Using those embedded processors will raise authentification error if they are used with InfluxDB version 2.X:
 
 ```
 influxdb.error.message
@@ -29,11 +29,11 @@ influxdb.error.message
 
 ### Looking for solutions
 
-It exists other connectors to communicate with InfuxDB version 2.X but, at this time,
+It exists other processors to communicate with InfuxDB version 2.X but, at this time,
 they are not built with NiFi ([see bundle NiFi](https://github.com/influxdata/nifi-influxdb-bundle#about-this-project)).
 This error is also defined on [stackoverflow](https://stackoverflow.com/questions/70706387/send-data-from-sql-server-to-influxdb-via-apache-nifis-putinfluxdb-processor)
 
-It also seems that changing the version of [NiFi](https://nifi.apache.org/docs/nifi-docs/html/getting-started.html#downloading-and-installing-nifi) (1.12.1 and 1.15.2 tested) doesn't have impact on the InfluxDB connectors.
+It also seems that changing the version of [NiFi](https://nifi.apache.org/docs/nifi-docs/html/getting-started.html#downloading-and-installing-nifi) (1.12.1 and 1.15.2 tested) doesn't have impact on the InfluxDB processors.
 Only the version 1.X of influxDB is taken into account.
 
 The only solution found is adding the new processor by [updating the NiFi chart](https://github.com/cetic/helm-nifi#use-custom-processors).
@@ -50,13 +50,13 @@ If you don't use NiFi v1.12.1 (Fadi currently uses this version),
 [download](https://github.com/influxdata/nifi-influxdb-bundle#installation) and update the library that fits your needs 
 in the `nifi-influx-nar` folder.
 
-The file [value.yaml](values.yaml) will install Fadi with NiFi, Traefik and InfluxDB. It will also 
+This example's [value.yaml](values.yaml) file will install Fadi with NiFi, Traefik and InfluxDB. It will also 
 customize the NiFi chart with the downloaded libraries.
 
 ### Running the installer
 
 1. in [value.yaml](values.yaml) file, 
-   1. update the NiFi field `path: "/Users/<YOUR_PATH>/nifi-influx-nar"`
+   1. update the NiFi field `path: "<PATH_ON_THE_HOST>/nifi-influx-nar"`
    2. update the InfluxDB password 
    ```
       password: "<YOUR_PASSWORD>"
@@ -67,10 +67,10 @@ customize the NiFi chart with the downloaded libraries.
 ### Testing
 
 The current NiFi version (v 1.12.1) cannot be reached by a port-forwarding.
-Traefik must be used. To run Traefik, an ip must be provided.
+Traefik must be used. To run Traefik, an IP address must be provided.
 
 If you are using minikube on a local cluster:
-1. run `minikube tunnel` to associate an ip to your cluster (LB to Traefik)
+1. run `minikube tunnel` to associate an IP address to your cluster (LB to Traefik)
 2. configure your `/etc/hosts` file
 ```
 <IP_TUNNEL> nifi.test.local
@@ -107,7 +107,7 @@ from(bucket: "input")
 ![influxDB-runningQuery.png](./images/influxDB-runningQuery.png)
 You also need another bucket to put data. Create an empty bucket with this name (`output`) 
 
-### Getting InfluxDB data with NiFi
+### Reading InfluxDB data with NiFi
 
 Take care to always using a NiFi plugin compatible with influxDB 2.
 
@@ -127,7 +127,7 @@ e.g.
 ...]
 ```
 
-### Writing data to influxDB 2
+### Writing data to InfluxDB 2
 
 Data could be written to InfluxDB 2 with 2 kind of processors:
 * [PutInfluxDatabaseRecord_2](https://github.com/influxdata/nifi-influxdb-bundle#putinfluxdatabaserecord_2) which writes data based on Json data. Json data must follow a specific schema
@@ -135,7 +135,7 @@ Data could be written to InfluxDB 2 with 2 kind of processors:
 
 For this example we used the `PutInfluxDataDase_2`. 
 
-### Running the scenerio
+### Running the scenario
 
 The [XML dataflow file](influx_dataflow.xml) describes a NiFi scenario.
 
@@ -146,8 +146,3 @@ Here is the scenario:
 2. The Json array is split to process each database record separately.
 3. Each Json object is analysed (processor `EvaluateJsonPath`)
 4. The new insert is created (processor `UpdateAttribute`)
-
-
-
-
-
