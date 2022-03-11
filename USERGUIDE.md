@@ -17,25 +17,40 @@ In this simple example, we will ingest temperature measurements from sensors, st
 
 ## 1. Install FADI
 
-To install the FADI framework on your workstation or on a cloud, see the [installation instructions](INSTALL.md). 
+To install the FADI framework on your workstation or on a cloud, see the [installation instructions](INSTALL.md). The following instructions assume that you deployed FADI on your workstation inside minikube.
 
 The components needed for this use case are the following:
 
-* Apache Nifi as a integration tool to ingest the sensor data from the data source (a csv file in this case) and store it in the database
-* PostgreSQL as both a datawarehouse and datalake
-* Gafana as a dashboard tool to display graphs from the data ingested and stored in the datalake
-* Superset as a exploration dashboard tool
-* Jupyter as a web interface to explore the data using notebooks
+* [Apache Nifi](http://nifi.apache.org/) as a integration tool to ingest the sensor data from the data source (a csv file in this case) and store it in the database
+* [PostgreSQL](https://www.postgresql.org/) as both a datawarehouse and datalake, with [Adminer](https://www.adminer.org) as a management web interface
+* [Grafana](https://grafana.com/) as a dashboard tool to display graphs from the data ingested and stored in the datalake
+* [Apache Superset](https://superset.apache.org/) as a exploration dashboard tool
+* [JupyterHub](https://jupyter.org/hub) as a web interface to explore the data using notebooks
+* [Traefik](https://traefik.io/) as ingress controller
 
-Those components are configured in the following [sample config file](helm/values.yaml), once the platform is ready, you can start working with it. 
-
-The following instructions assume that you deployed FADI on your workstation inside minikube.
+Those components are configured in the following [sample config file](helm/values.yaml), once the platform is ready you can start working with it. 
 
 To access services through domain names, open a new terminal and enter this command to give Traefik an external IP address:
-```
+```bash
 minikube tunnel
 ```
-Don't forget to update your `hosts` file with Traefik's external IP address. You can find [here](https://phoenixnap.com/kb/how-to-edit-hosts-file-in-windows-mac-or-linux) a user guide for Linux, Mac and Windows.
+
+Update your `hosts` file with Traefik's external IP address:
+
+```
+$ kubectl get svc -n fadi
+NAME                      TYPE           CLUSTER-IP       EXTERNAL-IP     PORT(S)                      AGE
+fadi-traefik              LoadBalancer   10.104.68.59     10.104.68.59    80:31633/TCP,443:30041/TCP   59m
+```
+
+You can find [here](https://phoenixnap.com/kb/how-to-edit-hosts-file-in-windows-mac-or-linux) a user guide for Linux, Mac and Windows.
+Your host file should look like this:
+
+```
+127.0.0.1   localhost
+...
+10.104.68.59 grafana.example.cetic.be adminer.example.cetic.be superset.example.cetic.be nifi.example.cetic.be
+```
 
 Unless specified otherwise, all services can be accessed using the username and password pair: `admin` / `password1` , see the [user management documentation](doc/USERMANAGEMENT.md) for detailed information on how to configure user identification and authorization (LDAP, RBAC, ...).
 
@@ -45,11 +60,11 @@ See the [logs management documentation](doc/LOGGING.md) for information on how t
 
 <a href="https://www.adminer.org/" alt="adminer"><img src="doc/images/logos/adminer.png" width="200px" /></a>
 
-First, setup the datalake by creating a table in the postgresql database. 
+First, setup the datalake by creating a table in the PostgreSQL database. 
 
 To achieve this you need to: 
 
-* Head to the adminer interface
+* Head to the Adminer interface
 
   * if you want to create a **Traefik ingress**, you can follow this [guide](doc/REVERSEPROXY.md#2-configure-the-various-services-to-use-traefik)
   * else, you can use a port-forwarding to access the interface: `kubectl port-forward service/fadi-adminer 8081:80` and can access Adminer from your browser at [http://localhost:8081](http://localhost:8081)
