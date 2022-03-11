@@ -98,7 +98,7 @@ Do not forget to specify the namespace to `fadi`
 ![Kubernetes FADI dashboard](doc/images/installation/minikube_fadi_dashboard.png)
 
 
-To list the different services of fadi framework:
+To list the different services of the fadi framework:
 
 ```
 minikube service list
@@ -107,14 +107,15 @@ minikube service list
 To list the different fadi pods and their status:
 
 ```
-kubectl get pods
+kubectl get pods -n fadi
 ```
 
-To access a service in your browser, type for instance:
+To access a service in your browser, run the following command in your shell (for Grafana here):
 
 ```
-kubectl port-forward service/fadi-grafana 8080:80
+kubectl port-forward service/fadi-grafana 8080:80 -n fadi
 ```
+
 Then, you can access the service by typing in your browser [localhost:8080](http://localhost:8080)
 
 You can list all the addresses by typing:
