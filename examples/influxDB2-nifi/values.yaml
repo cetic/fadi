@@ -1,0 +1,138 @@
+---
+# This values.yaml file provides a sample environment for setting up InfluxDB2 and NiFi
+# It corresponds to the FADI example at https://github.com/cetic/fadi/tree/master/examples/influxDB2-nifi/README.md
+# Default values for FADI are defined here: https://github.com/cetic/helm-fadi.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+# Values you define here will overwrite default values from helm-fadi.
+
+spark:
+  enabled: false
+
+superset:
+  enabled: false
+
+minio:
+  enabled: false
+
+grafana:
+  enabled: false
+
+jupyterhub:
+  enabled: false
+
+nifi:
+  enabled: true
+  service:
+    type: ClusterIP
+    nodePort: ""
+  postStart: /opt/nifi/psql; wget -P /opt/nifi/psql https://jdbc.postgresql.org/download/postgresql-42.2.6.jar
+  persistence:
+    enabled: true
+  # custom plugins volume
+  extraVolumeMounts:
+    - name: mycustomlibs
+      mountPath: /opt/configuration_resources/custom_lib
+  extraVolumes: # this will create the volume from the directory
+    - name: mycustomlibs
+      hostPath:
+        path: "<YOUR_HOST_PATH>/nifi-influx-nar"
+  properties:
+    customLibPath: "/opt/configuration_resources/custom_lib"
+    externalSecure: false
+    isNode: true
+    httpPort: 8080
+    httpsPort: null
+    webProxyHost: nifi.test.local #0.0.0.0:8080 # set it by the same host than nifi.traefikIngress.host if traefik ingress is enabled
+    clusterPort: 6007
+    clusterSecure: false
+  auth:
+    ldap:
+      enabled: false
+      host: ldap://fadi-openldap:389
+      searchBase: CN=admin,DC=ldap,DC=example,DC=be
+      admin: cn=admin,dc=ldap,dc=example,dc=be
+      pass: password1
+      searchFilter: (objectClass=*)
+      userIdentityAttribute: cn
+  # ---- ingress ----
+  traefikIngress:
+    enabled: true
+    host: nifi.test.local
+
+openldap:
+  enabled: false
+  persistence:
+    enabled: true
+
+phpldapadmin:
+  enabled: false
+
+kafka:
+  enabled: false
+
+cassandra:
+  enabled: false
+
+
+elasticsearch:
+  enabled: false
+
+kibana:
+  enabled: false
+  env:
+    ELASTICSEARCH_HOSTS: http://{{ .Release.Name }}-elasticsearch-client:9200
+
+nginx_ldapauth_proxy:
+  enabled: false
+
+logstash:
+  enabled: false
+  elasticsearch:
+    host: fadi-elasticsearch-client
+
+filebeat:
+  enabled: false
+
+tsaas:
+  enabled: false
+
+swaggerui:
+  enabled: false
+
+adminer:
+  enabled: false
+
+influxdb:
+  enabled: true
+  auth:
+    admin:
+      username: admin
+      password: "<YOUR_PASSWORD>"
+      token: "<YOUR_PASSWORD>"
+    user:
+      username: ""
+      password: ""
+      bucket: ""
+  influxdb:
+    replicaCount: 1
+    service:
+      type: ClusterIP
+      port: 8086
+      rpcPort: 8088
+  persistence:
+    enabled: true
+    storageClass: ""
+    size: 8Gi
+  ingress:
+    enabled: false
+    hostname:
+
+traefik:
+  enabled: true
+  dashboardIngress:
+    enabled: true
+  dashboardHost: dashboard.test.local
+  # Uncomment these 2 lines below to access the dashboard through the ingress
+  # globalArguments:
+  #   - "--api.insecure=true"
