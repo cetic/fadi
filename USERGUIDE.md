@@ -59,7 +59,7 @@ To achieve this you need to:
     * System: `PostgreSQL`
     * Server: `fadi-postgresql`
     * Username: `admin`
-    * Password: `password1`
+    * Password: `Z2JHHezi4aAA`
     * Database: `postgres`
 
 * In the Adminer Browser, launch the Query tool by clicking "SQL command".
