@@ -17,25 +17,31 @@ In this simple example, we will ingest temperature measurements from sensors, st
 
 ## 1. Install FADI
 
-To install the FADI framework on your workstation or on a cloud, see the [installation instructions](INSTALL.md). 
+To install the FADI framework on your workstation or on a cloud, see the [installation instructions](INSTALL.md). The following instructions assume that you deployed FADI on your workstation inside minikube.
 
 The components needed for this use case are the following:
 
-* Apache Nifi as a integration tool to ingest the sensor data from the data source (a csv file in this case) and store it in the database
-* PostgreSQL as both a datawarehouse and datalake
-* Gafana as a dashboard tool to display graphs from the data ingested and stored in the datalake
-* Superset as a exploration dashboard tool
-* Jupyter as a web interface to explore the data using notebooks
+* [Apache Nifi](http://nifi.apache.org/) as a integration tool to ingest the sensor data from the data source (a csv file in this case) and store it in the database
+* [PostgreSQL](https://www.postgresql.org/) as both a datawarehouse and datalake, with [Adminer](https://www.adminer.org) as a management web interface
+* [Grafana](https://grafana.com/) as a dashboard tool to display graphs from the data ingested and stored in the datalake
+* [Apache Superset](https://superset.apache.org/) as a exploration dashboard tool
+* [JupyterHub](https://jupyter.org/hub) as a web interface to explore the data using notebooks
+* [Traefik](https://traefik.io/) as ingress controller
 
-Those components are configured in the following [sample config file](helm/values.yaml), once the platform is ready, you can start working with it. 
-
-The following instructions assume that you deployed FADI on your workstation inside minikube.
+Those components are configured in the following [sample config file](helm/values.yaml), once the platform is ready you can start working with it. 
 
 To access services through domain names, open a new terminal and enter this command to give Traefik an external IP address:
-```
+```bash
 minikube tunnel
 ```
-Don't forget to update your `hosts` file with Traefik's external IP address. You can find [here](https://phoenixnap.com/kb/how-to-edit-hosts-file-in-windows-mac-or-linux) a user guide for Linux, Mac and Windows.
+
+Update your `hosts` file with Traefik's external IP address. You can find [here](https://phoenixnap.com/kb/how-to-edit-hosts-file-in-windows-mac-or-linux) a user guide for Linux, Mac and Windows.
+
+```
+127.0.0.1   localhost
+
+```
+
 
 Unless specified otherwise, all services can be accessed using the username and password pair: `admin` / `Z2JHHezi4aAA` , see the [user management documentation](doc/USERMANAGEMENT.md) for detailed information on how to configure user identification and authorization (LDAP, RBAC, ...).
 
@@ -135,7 +141,7 @@ So, create the following components :
             * Database Driver Class Name: `org.postgresql.Driver`
             * Database Driver Location(s): `/opt/nifi/psql/postgresql-42.2.6.jar`
             * Database User: `admin`
-            * Password: `password1`
+            * Password: `Z2JHHezi4aAA`
             * Enable service by clicking on the lightning icon.
     * right-click > `Configure` > `Properties` tab  > Schema Name > `public`
     * right-click > `Configure` > `Properties` tab  > Table Name > `example_basic`
@@ -179,7 +185,7 @@ See also [the NiFi template](/examples/basic/basic_example_final_template.xml) t
     * In the **Operate** frame of Nifi:
         * right-click on `Configuration`
         * Click on `View configuration` of `DBCPConnectionPool` controller service. 
-        * In the `Properties` tab, complete the `password` field with `password1`
+        * In the `Properties` tab, complete the `password` field with `Z2JHHezi4aAA`
         * Enable both `CSVReader` and `DBCPConnectionPool` controller services.
     * Select both processors and both output ports
         * right-click, and select `Start`. 
@@ -202,7 +208,7 @@ Head to the Grafana web interface by typing in your browser the `grafana.traefik
 
 [http://grafana.example.cetic.be](http://grafana.example.cetic.be)
 
-(the default credentials are `admin`/`password1`)
+(the default credentials are `admin`/`Z2JHHezi4aAA`)
 
 ![Grafana web interface](examples/basic/images/grafana_interface.png)
 
@@ -214,7 +220,7 @@ First we will define the PostgreSQL datasource. To do that, in the Grafana Home 
     * Host: `fadi-postgresql:5432`
     * database: `postgres`
     * user: `admin`
-    * password: `password1`
+    * password: `Z2JHHezi4aAA`
     * SSL Mode: `disable`
     * Version: `10`
 
@@ -257,7 +263,7 @@ Head to the Superset web interface by typing in your browser the `superset.traef
 
 [http://superset.example.cetic.be](http://superset.example.cetic.be)
 
-(the default credentials are `admin`/`password1`): 
+(the default credentials are `admin`/`Z2JHHezi4aAA`): 
 
 First we will define the datasource:
 
@@ -265,7 +271,7 @@ First we will define the datasource:
 
 * Then, on the right, click on (+) (`add a new record` button).
     * Database: `example_basic`
-    * SQLAlchemy URI: `postgresql://admin:password1@fadi-postgresql:5432/postgres`
+    * SQLAlchemy URI: `postgresql://admin:Z2JHHezi4aAA@fadi-postgresql:5432/postgres`
 
 * Finally, you can click on `Test Connection` to check to connection to the database.
 
@@ -325,7 +331,7 @@ Head to the Jupyter notebook interface by typing in your browser the `jupyter.tr
 
 [http://jupyterhub.example.cetic.be](http://jupyterhub.example.cetic.be)
 
-Then, you can login using the default credentials `admin`/`password1`.
+Then, you can login using the default credentials `admin`/`Z2JHHezi4aAA`.
 
 A Jupyter dashboard is shown. 
 
