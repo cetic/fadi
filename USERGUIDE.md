@@ -37,7 +37,7 @@ minikube tunnel
 ```
 Don't forget to update your `hosts` file with Traefik's external IP address. You can find [here](https://phoenixnap.com/kb/how-to-edit-hosts-file-in-windows-mac-or-linux) a user guide for Linux, Mac and Windows.
 
-Unless specified otherwise, all services can be accessed using the username and password pair: `admin` / `password1` , see the [user management documentation](doc/USERMANAGEMENT.md) for detailed information on how to configure user identification and authorization (LDAP, RBAC, ...).
+Unless specified otherwise, all services can be accessed using the username and password pair: `admin` / `Z2JHHezi4aAA` , see the [user management documentation](doc/USERMANAGEMENT.md) for detailed information on how to configure user identification and authorization (LDAP, RBAC, ...).
 
 See the [logs management documentation](doc/LOGGING.md) for information on how to configure the management of the various service logs.
 
