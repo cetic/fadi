@@ -118,7 +118,18 @@
       "contributions": [
         "review"
       ]
-    }
+    },
+    {
+      "login": "zakaria2905",
+      "name": "zakaria.hajja",
+      "avatar_url": "https://avatars.githubusercontent.com/u/48456087?v=4",
+      "profile": "https://github.com/zakaria2905",
+      "contributions": [
+        "code",
+        "doc"
+      ]
+    },
+    
   ],
   "contributorsPerLine": 6,
   "projectName": "fadi",
