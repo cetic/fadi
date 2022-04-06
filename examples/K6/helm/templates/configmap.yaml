@@ -1,0 +1,31 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: k6-scripts
+data:
+  nginx-test.js: |
+    import http, { FileData } from 'k6/http'; 
+    import { check } from 'k6';
+    import { FormData } from 'https://jslib.k6.io/formdata/0.0.2/index.js';
+
+      export const options = {
+      discardResponseBodies: true,
+      scenarios: {
+        contacts: {
+          executor: 'per-vu-iterations',
+          vus: {{ .Values.target.virtualuser }},
+          iterations: {{ .Values.target.iterations }},
+          maxDuration: {{ .Values.target.duration }},
+        },
+      },
+    };
+
+    const binFile = open({{ .Values.target.fileUpload | quote }},'b');
+    
+    export default function () {
+      const responses = http.post('{{ .Values.target.host }}:{{ .Values.target.port }}/contentListener', binFile 
+        );
+
+      check(responses, { 'is status 200': (r) => r.status === 200, });
+
+    }
