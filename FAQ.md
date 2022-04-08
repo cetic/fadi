@@ -10,9 +10,13 @@ FAQ - Frequently asked questions
 
 In case you encounter an issue with FADI, have a feature request or any other question, feel free to [open an issue](https://github.com/cetic/fadi/issues/new/choose).
 
+## How can I extend FADI
+
+FADI relies on Helm to integrate the various service together. To add another service to the stack, you can package it inside a [Helm chart](https://helm.sh/docs/howto/) and [add it to your own FADI chart](helm/README.md).
+
 ## Why "FADI"?
 
-FADI is the acronym for "Framework d'Analyse de Données Industrielles" ("A Framework for Industrial Data Analysis")
+FADI is the acronym for "Framework for Automating the Deployment and orchestration of container-based Infrastructures"
 
 ## FADI is not working
 
@@ -22,7 +26,15 @@ Please make sure the following steps have been taken beforehand:
 
 * update Minikube to the latest version
 * update Helm to the latest version
-* check the logs (`minikube logs`) for any suspicious error message
+* check the logs for any suspicious error message:
+
+```bash
+minikube logs
+kubectl get events --all-namespaces
+kubectl get events -n fadi
+kubectl get pods -n fadi
+kubectl logs fadi-nifi
+```
 
 ## OSx - slow installation
 
@@ -30,7 +42,7 @@ Please make sure the following steps have been taken beforehand:
 
 ## Windows Installation
 
-This is still not totally supported, some guidelines here #55
+Windows support for the Minikube installation should work but is not tested frequently. 
 
 ## How to configure external access to the deployed services?
 
@@ -38,7 +50,7 @@ When deploying on a generic Kubernetes cluster, you will want to make the servic
 
 See
 
-* https://github.com/cetic/fadi/blob/feature/documentation/doc/REVERSEPROXY.md for the reverse proxy configuration guide 
+* [doc/REVERSEPROXY.md](doc/REVERSEPROXY.md) for the reverse proxy configuration guide 
 * https://github.com/cetic/fadi/issues/81 for port forwarding instructions
 
 In a Minikube setting, make sure the ingress plugin is enabled (`minikube addons enable ingress`), and populate your `/etc/hosts` file accordingly.

@@ -1,9 +1,9 @@
-Montoring
-==========
+Monitoring
+=======
 
 <p align="left";>
 	<a href="https://www.elastic.co" alt="elk">
-	    <img src="images/logos/zabbix_logo.png" align="center" alt="ELK logo" width="200px" />
+	    <img src="images/logos/zabbix_logo.png" align="center" alt="Zabbix logo" width="200px" />
     </a>
 </p>
 

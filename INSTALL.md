@@ -26,8 +26,6 @@ The deployment of the FADI stack is achieved with:
 * [Helm v3](https://helm.sh/).
 * [Kubernetes](https://kubernetes.io/).
 
-![](doc/images/architecture/helm-architecture.png)
-
 ## 1. Local installation
 
 This type of installation provides a quick way to test the platform, and also to adapt it to your needs.
@@ -70,7 +68,7 @@ To get the Kubernetes dashboard, type:
 minikube dashboard
 ```
 
-This will open a browser window with the [Kubernetes Dashboard](http://127.0.0.1:40053/api/v1/namespaces/kube-system/services/http:kubernetes-dashboard:/proxy/), it should look like this:
+This will open a browser window with the Kubernetes Dashboard:
 
 ![Minikube initial dashboard](doc/images/installation/minikube_dashboard.png)
 
@@ -88,13 +86,9 @@ cd fadi
 Launch the Helm script, this will deploy all the FADI services on the Minikube cluster (and may take some time).
 
 ```bash
-kubectl config set-context minikube
-minikube addons enable ingress
 cd helm
 # you can edit values.yaml file to customise the stack
 ./deploy.sh
-# specify the fadi namespace to see the different pods
-kubectl config set-context minikube --namespace fadi
 ```
 
 You can check everything is deploying/-ed in the Kubernetes dashboard:
@@ -119,13 +113,14 @@ kubectl get pods
 To access a service in your browser, type for instance:
 
 ```
-minikube service -n fadi fadi-nifi
+kubectl port-forward service/fadi-grafana 8080:80
 ```
+Then, you can access the service by typing in your browser [localhost:8080](http://localhost:8080)
 
 You can list all the addresses by typing:
 
 ```
-kubectl get ingress -n fadi
+kubectl get ingressroute -n fadi
 ```
 
 To update the FADI stack, re-type:
@@ -195,7 +190,16 @@ It is also possible to create the Kubernetes cluster in command line, see: https
 ## 4. Troubleshooting
 
 * Installation logs are located in the `helm/deploy.log` file.
-* Enable local monitoring in minikube: `minikube addons enable metrics-server`
+* Check the Minikube and Kubernetes logs:
+```bash
+minikube logs
+kubectl get events --all-namespaces
+kubectl get events -n fadi
+kubectl get pods -n fadi
+kubectl logs fadi-nifi-xxxxx -n fadi
+```
+* Enable [metrics server](https://kubernetes.io/docs/tasks/debug-application-cluster/resource-metrics-pipeline/#metrics-server) in minikube: `minikube addons enable metrics-server`
+* The [FAQ](FAQ.md) provides some guidance on common issues
 * For Windows users, please refer to the following [issue](https://github.com/cetic/fadi/issues/55).
 
 ## 5. Continuous integration (CI) and deployment (CD)
