@@ -76,3 +76,5 @@ To start the load test, you can adapt this command :
 ./k6 run --vus 1 --duration 10s --iterations 10  script.js
 ```
 That will send 10 copies of each event in a period of 10s.
+
+You can now see the results of the load test directly on your CLI.
