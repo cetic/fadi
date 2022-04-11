@@ -59,7 +59,7 @@ Now, you have K6 and kafka plugin installed.
 
 Once all the requirements installed, we can process a load test.
 
-First, copy the content of the "script.js" file. Create a "*kafka-test.js" file in the directory where K6 is installed in the Ubuntu pod and paste the content.
+First, copy the content of the ["script.js"](./script.js) file. Create a "*kafka-test.js" file in the directory where K6 is installed in the Ubuntu pod and paste the content.
 
 Replace the "bootstrapServers" IP adress by the Kafka service IP address.
 
