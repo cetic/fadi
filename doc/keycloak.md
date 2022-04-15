@@ -2,7 +2,7 @@ KeyCloak
 =============
 
 ```
-git clone -b feature/keycloak git@github.com:cetic/helm-fadi.git
+git clone -b feature/keycloak https://github.com/cetic/helm-fadi.git
 cd helm-fadi
 helm dep up
 helm install fadi .
@@ -55,16 +55,16 @@ When we click `Create`, the main admin console page opens with realm set to devo
 
 To create clients we first click **Clients** in the **left side menu** to open the Clients page.
 
-<img src="images/installation/keycloak-clients.png" alt="Keucloak create client"/>
+<img src="images/installation/keycloak-clients.png" alt="Keycloak create client"/>
 
 On the right side, we click `Create` and then on the `Add Client` dialog, we create a client called `Grafana` by filling the fields as follows:
 
-* Client ID: `Grafana`
-* Root URL: `\<your-grafana-address>`, for this example our grafana adress is http://10.10.10.10:30300
+* Client ID: `grafana`
+* Root URL: `\<your-grafana-address>`, for this example our grafana adress is http://grafana.example.cetic.be
 
 <img src="images/installation/grafana-client.png" alt="Keycloak create client"/>
 
-Once the client is created, we open the client configuration and change the **access type** to **confidential** from public, and complete the rest of the fields as shown below assuming our Grafana address is http://10.10.10.10:30300, then we **Save the config**.
+Once the client is created, we open the client configuration and change the **access type** to **confidential** from public, and complete the rest of the fields as shown below assuming our Grafana address is http://grafana.example.cetic.be, then we **Save the config**.
 
 
 <img src="images/installation/grafana-client-created.png" alt="Keycloak Grafana client created"/>
@@ -77,31 +77,21 @@ Now we open the client Grafana again, go to **credentials tag** and copy the `cl
 
 ## Create Nifi client
 
-To create a client for Nifi, we select `Clients` from the menu on the left, and then click the `Create` button to add a new client. Enter the Client ID `org:apache:nifi:saml:sp`, select `SAML` as the Client Protocol, and click `Save`.
+Repeat the same steps as Grafana and replace the appropriate fields as follows :
 
-<img src="images/installation/client-nifi.png" alt="Keycloak - nifi client creation"/>
+* Client ID: `nifi`
+* Root URL: `\<your-nifi-address>`, for this example our grafana adress is https://nifi.example.cetic.be (for Nifi, don't forget the "s" in https)
 
-Once created we need to configure **Root URL**, **Valid Redirect URIs**, **Base URL**, and **Master SAML Processing URL** as follows where `https://192.168.64.57:30236` is Nifi address:
+## Create jupyterhub client
 
-* Root URL: `https://192.168.64.57:30236`
-* Valid Redirect URIs: `/nifi-api/access/saml/*`
-* Base URL: `/nifi`
-* Master SAML Processing URL: `https://192.168.64.57:30236/nifi-api/access/saml/metadata`
+Repeat the same steps as Grafana and replace the appropriate fields as follows :
 
-Since NiFi’s SAML implementation doesn’t use a single processing URL, we also need to configure the fine-grained SAML URLs. The values for the URLs should look like the following:
-
-<img src="images/installation/fine-grain-saml.png" alt="Create user"/>
-
-The last step is to add the certificates container `keystore.jks` **that we're going to use to secure the NiFi cluster**, to do so we click on the **SAML Keys** tab, and then click Import. We are going to import the `keystore.jks` that is used in `nifi.properties`.
-
-<img src="images/installation/import-keystore.png" alt="Create user"/>
-
-Now all that is left is to configure NiFi accordingly.
+* Client ID: `jupyterhub`
+* Root URL: `\<your-jupyterhub-address>`, for this example our grafana adress is https://jupyterhub.example.cetic.be
 
 ## Create user
 
-
-In the devops realm, we need to create a new user and a temporary password for that new user, we head to the left menu, click Users to open the user list page.
+In the devops realm, we need to create a new user and a password for that new user, we head to the left menu, click Users to open the user list page.
 
 <img src="images/installation/users-page.png" alt="Create user"/>
 
@@ -111,107 +101,72 @@ On the right side of the empty user list, click Add User to open the Add user pa
 <img src="images/installation/add-user.png" alt="Create user"/>
 
 
-we enter a name in the Username field (this is the only required field), then we flip the Email Verified switch to On and click Save.
+We enter a name in the Username field (this is the only required field), then we flip the Email Verified switch to On and click Save.
 
 <img src="images/installation/john-doe.png" alt="Create user"/>
 
 
 
-The management page for the new user opens, we Click the **Credentials tab** to set a temporary password for the new user, we type a new password and confirm it.
+The management page for the new user opens, we Click the **Credentials tab** to set a password for the new user, we type a new password and confirm it. For this example, we desactivate the temporary option.
 
 <img src="images/installation/change-pass.png" alt="Create user"/>
 
 
-the we Click **Set Password** to set the user password to the new one we specified.
+Then we Click **Set Password** to set the user password to the new one we specified.
 
 ## Role mapping
 
 After creating the user we need to map this user to the grafana client we created earlier.
 
-first we head to the clients page and choose grafana, then  we Click the **Roles tab** and then click add Role:
+First we head to the clients page and choose grafana, then  we Click the **Roles tab** and then click add Role:
 
 <img src="images/installation/create-role.png" alt="Create user"/>
 
-we fill in the role name and description then click save.
+We fill in the role name and description then click save.
 
 <img src="images/installation/admin-role.png" alt="Create user"/>
 
-now that we have at least one role for grafana we map this new role to the user we created earlier so we can log in using the new user.
+Now that we have at least one role for grafana we map this new role to the user we created earlier so we can log in using the new user.
 
-now we head back to the Users page and chose john, then we click the **Role mappings** tab, in **client role** dropdown menu we choose grafana.
+Now we head back to the Users page and chose john, then we click the **Role mappings** tab, in **client role** dropdown menu we choose grafana.
 
 
 <img src="images/installation/role-mapping.png" alt="Create user"/>
 
 
-then we can find the role admin that we created, we **select admin** and then click **add selected**.
+Then we can find the role admin that we created, we **select admin** and then click **add selected**.
 
 ## 2. Integrate Keycloak
 
 ### Integrate with Grafana
 
-After creating the client in Keycloak we have to configure Grafana to use Oauth and connect it to Keycloak, we do so in Grafana's **grafana.ini** file that we can configure in the **helm chart's configmap** [keycloak.yaml](https://github.com/cetic/helm-fadi/blob/feature/keycloak/templates/keycloak.yaml).
+After creating the client in Keycloak we have to configure Grafana to use openid connect and connect it to Keycloak, we do so in Grafana's **grafana.ini** file that we can configure in the **helm chart's values file** [values.yaml](https://github.com/cetic/helm-fadi/blob/master/values.yaml).
 
 Now to configure Grafana we edit as below: 
 
-* `devops` is the realm name, client id is the client name and client secret the **previously copied code**, in this example **Keycloak's NodePort** is **30330** which makes **keycloak's address** **http://10.10.10.10:30330** ( we can find the Generic OAuth [keycloak.yaml](https://github.com/cetic/helm-fadi/blob/feature/keycloak/templates/keycloak.yaml#L469-L492). 
+* `devops` is the realm name, client id is the client name and client secret the **previously copied code**, in this example **keycloak's address** is **http://keycloak.example.cetic.be**. 
 * `client_secret` with Keycloak > Clients > Grafana > Credentials > Secret
 
 ```
-    #################################### Generic OAuth #######################
-    [auth.generic_oauth]
-    name = OAuth
-    enabled = true
-    allow_sign_up = true
-    client_id = Grafana
-    client_secret = ad35e16d-96d1-46ab-88d8-7cdb1512b608
-    scopes = openid profile email
-    email_attribute_name = email:primary
-    email_attribute_path =
-    login_attribute_path =
-    name_attribute_path =
-    role_attribute_path =
-    id_token_attribute_name =
-    auth_url = http://10.10.10.10:30330/auth/realms/devops/protocol/openid-connect/auth
-    token_url = http://10.10.10.10:30330/auth/realms/devops/protocol/openid-connect/token
-    api_url = http://10.10.10.10:30330/auth/realms/devops/protocol/openid-connect/userinfo
-    allowed_domains =
-    team_ids =
-    allowed_organizations =
-    tls_skip_verify_insecure = false
-    tls_client_cert =
-    tls_client_key =
-    tls_client_ca =
+grafana:
+---
+  grafana.ini:
+---
+    auth.generic_oauth:
+      enabled: true
+      scopes: openid email profile
+      name: keycloak
+      tls_skip_verify_insecure: false
+      allow_sign_up: true
+      client_id: grafana
+      client_secret: cfcb88cb-78c5-4301-9ffd-e9779d7d8c5e
+      auth_url: http://keycloak.example.cetic.be/auth/realms/devops/protocol/openid-connect/auth
+      token_url: http://keycloak.example.cetic.be/auth/realms/devopsr/protocol/openid-connect/token
+      api_url: http://keycloak.example.cetic.be/auth/realms/devops/protocol/openid-connect/userinfo
+      ---
+    server:
+      root_url: http://grafana.example.cetic.be  # change to your grafana domainname
 ```
-
-Then back to the [server configuration](https://github.com/cetic/helm-fadi/blob/feature/keycloak/templates/keycloak.yaml#L55), we configure `root_url` and `domain` as shown below where **http://10.10.10.10:30300** is the **Grafana address**.
-
-```
- #################################### Server ##############################
-    [server]
-    # Protocol (http, https, h2, socket)
-    protocol = http
-
-    # The ip address to bind to, empty will bind to all interfaces
-    http_addr =
-
-    # The http port to use
-    http_port = 3000
-
-    # The public facing domain name used to access grafana from a browser
-    domain = 10.10.10.10
-
-    # Redirect to correct domain if host header does not match domain
-    # Prevents DNS rebinding attacks
-    enforce_domain = false
-
-    # The full public facing url
-    # root_url = %(protocol)s://%(domain)s:%(http_port)s/
-    root_url = http://10.10.10.10:30300
-
-```
-
-> PS: this is a temporary and not the final format of the document as it will be completed as we progress with adding Keycloak to FADI.
 
 Now after configuring Grafana we need to apply these modifications, to do so we can use the command:
 
@@ -219,121 +174,95 @@ Now after configuring Grafana we need to apply these modifications, to do so we 
 helm upgrade --install fadi .
 ```
 
-Once FADI upgrades, Grafana will restart with our new configuration, now we can head to our Grafana and we should notice that we have the option **Sign in with OAuth** which is the option we are going to choose.
+Once FADI upgrades, Grafana will restart with our new configuration, now we can head to our Grafana and we should notice that we have the option **Sign in with keycloak** which is the option we are going to choose.
 
-<img src="images/installation/sign-in-with-oauth.png" alt="Create user" />
+<img src="images/installation/sign-in-with-keycloak.png" alt="Create user" />
 
-that will take us to a keycloak themed authentification screen, that's where we can authenticate using the **user** that we created earlier in keycloak and mapped to the Grafana client.
+That will take us to a keycloak themed authentification screen, that's where we can authenticate using the **user** that we created earlier in keycloak and mapped to the Grafana client.
 
 <img src="images/installation/grafana-keycloak-auth.png" alt="Create user"/>
 
-here we can authenticate using the user john and the temporary password we set up earlier, before logging in to grafana we will be asked to **update the password** like shown below:
-
-
-<img src="images/installation/update-password.png" alt="Create user"/>
-
-
-We set a new password for ou user and then click **submit**, after we submit we will receive a grafana server error that's fine all we have to do is to try to log in to grafana again and this time we will be logged in automatically.
-
+Here we can authenticate using the user emal john@mail.com and the password we set up earlier.
 
 This document is inspired by keycloak's [getting started](https://www.keycloak.org/docs/latest/getting_started/) and this [tutorial](https://www.techrunnr.com/how-to-setup-oauth-for-grafana-using-keycloak/).
 
 ### Integrate with Nifi
 
-To perform any type of authentication, we need a secured NiFi instance with a keystore, truststore, and https host/port. in the [nifi's helm chart](https://github.com/cetic/helm-nifi) we generate self signed certificates by enabling the built-in [nifi-toolkit](https://nifi.apache.org/docs/nifi-docs/html/toolkit-guide.html) container by setting `auth.secure.enabled` to true.
+To configure Nifi, we edit [values.yaml](https://github.com/cetic/helm-fadi/blob/master/values.yaml) as below: 
 
 
-Now to configure nifi, the main configuration is in the `nifi.properties` file, it should look something like this :
-
-~~PS: This configuration can be set through the `values.yaml` file in the helm chart by setting `auth.secure.enabled` and `properties.clusterSecure` to true, `properties.httpPort` to null and `properties.httpsPort` to 9443.~~
+* `client_secret` with Keycloak > Clients > Nifi > Credentials > Secret
 
 ```
-cd charts
-git clone -b feature/keycloak git@github.com:cetic/helm-nifi.git
-cd helm-nifi
-vim values.yaml
-# edit the following:
-webProxyHost:<minikube_ip>:30236
-webHttpsHost:
-auth.keycloak.address: <minikube_ip>
-auth.keycloak.port: minikube service list -> fadi-keycloak port 
-auth.oidc.enabled: true
-auth.oidc.discovery.url: http://{{.Values.auth.keycloak.address}}:{{.Values.auth.keycloak.port}}/auth/realms/{{.Values.auth.keycloak.realm}}/.well-known/openid-configuration
-auth.oidc.di: true
-
+nifi:
+  enabled: true
+  ---
+  auth:
+    ---
+    oidc:
+      enabled: true
+      discoveryUrl: http://keycloak.example.cetic.be/auth/realms/devops/.well-known/openid-configuration
+      clientId: nifi
+      clientSecret: 49342125-4715-4b1f-8d84-57e20c92db2c
+      claimIdentifyingUser: email
+      admin: john@mail.com
+      ## Request additional scopes, for example profile
+      additionalScopes: 
 ```
 
-Edit `nifi.properties`:
+Now after configuring Nifi we need to apply these modifications, to do so we can use the command:
 
-```
-nifi.remote.input.secure=true
-
-nifi.web.http.host=
-nifi.web.http.port=
-
-nifi.web.https.host=
-nifi.web.https.port=9443
-
-nifi.security.keystore=/path/to/keystore.jks
-nifi.security.keystoreType=JKS
-nifi.security.keystorePasswd=changeit
-nifi.security.keyPasswd=changeit
-
-nifi.security.truststore=/path/to/truststore.jks
-nifi.security.truststoreType=JKS
-nifi.security.truststorePasswd=changeit
-
+```bash
+helm upgrade --install fadi .
 ```
 
-then we need to add the **SAML** configuration since it's the protocol used here, mainly we need to set `nifi.security.user.saml.idp.metadata.url` to `http://<link-to-keycloak>/auth/realms/devops/protocol/saml/descriptor` and `nifi.security.user.saml.sp.entity.id` to the previously created nifi client `org:apache:nifi:saml:sp` so the configuration should look something like this :
+Once FADI upgrades, Nifi will restart with our new configuration. Now we can head to our Nifi and we will autimatically redirect to Keycloak for the authentication.
 
->This configuration can also be set through the `values.yaml` file in the helm chart by the variables `auth.keycloak.*` .
+<img src="images/installation/grafana-keycloak-auth.png" alt="Create user"/>
+
+Here we can authenticate using the user emal john@mail.com and the password we set up earlier.
+
+### Integrate with Jupyterhub
+
+To configure Nifi, we edit [values.yaml](https://github.com/cetic/helm-fadi/blob/master/values.yaml) as below: 
 
 
-```
-# SAML Properties #
-nifi.security.user.saml.idp.metadata.url=http://192.168.64.57:32766/auth/realms/devops/protocol/saml/descriptor
-nifi.security.user.saml.sp.entity.id=org:apache:nifi:saml:sp
-nifi.security.user.saml.identity.attribute.name=
-nifi.security.user.saml.group.attribute.name=
-nifi.security.user.saml.metadata.signing.enabled=false
-nifi.security.user.saml.request.signing.enabled=false
-nifi.security.user.saml.want.assertions.signed=true
-nifi.security.user.saml.signature.algorithm=http://www.w3.org/2001/04/xmldsig-more#rsa-sha256
-nifi.security.user.saml.signature.digest.algorithm=http://www.w3.org/2001/04/xmlenc#sha256
-nifi.security.user.saml.message.logging.enabled=false
-nifi.security.user.saml.authentication.expiration=12 hours
-nifi.security.user.saml.single.logout.enabled=false
-nifi.security.user.saml.http.client.truststore.strategy=JDK
-nifi.security.user.saml.http.client.connect.timeout=30 secs
-nifi.security.user.saml.http.client.read.timeout=30 secs
+* `client_secret` with Keycloak > Clients > Nifi > Credentials > Secret
 
 ```
-
-The last thing we need to do is configure NiFi’s authorizers.xml. We will use the file-based providers, so we need to setup an initial user and initial admin that corresponds to one of the users we added to Keycloak. We’ll use the user john.
-
-
+jupyterhub:
+  enabled: true
+  ---
+  hub:
+    config:
+    ---
+      GenericOAuthenticator:
+        client_id: jupyterhub
+        client_secret: 5677bb90-794e-4cff-a8ef-0586c2df73cf
+        oauth_callback_url: http://jupyterhub.example.cetic.be/hub/oauth_callback
+        authorize_url: http://keycloak.example.cetic.be/auth/realms/devops/protocol/openid-connect/auth
+        token_url: http://keycloak.example.cetic.be/auth/realms/devops/protocol/openid-connect/token
+        userdata_url: http://keycloak.example.cetic.be/auth/realms/devops/protocol/openid-connect/userinfo
+        login_service: keycloak
+        username_key: email
+        userdata_params:
+          state: state
+      JupyterHub:
+        authenticator_class: generic-oauth
 ```
-<userGroupProvider>
-    <identifier>file-user-group-provider</identifier>
-    <class>org.apache.nifi.authorization.FileUserGroupProvider</class>
-    <property name="Users File">./conf/users.xml</property>
-    <property name="Legacy Authorized Users File"></property>
-    <property name="Initial User Identity 1">john</property>
-</userGroupProvider>
 
-<accessPolicyProvider>
-    <identifier>file-access-policy-provider</identifier>
-    <class>org.apache.nifi.authorization.FileAccessPolicyProvider</class>
-    <property name="User Group Provider">file-user-group-provider</property>
-    <property name="Authorizations File">./conf/authorizations.xml</property>
-    <property name="Initial Admin Identity">john</property>
-    <property name="Legacy Authorized Users File"></property>
-    <property name="Node Identity 1"></property>
-    <property name="Node Group"></property>
-</accessPolicyProvider>
+Now after configuring Jupyterhub we need to apply these modifications, to do so we can use the command:
 
+```bash
+helm upgrade --install fadi .
 ```
-We need to pre-configure all of this in the [helm chart](https://github.com/cetic/helm-nifi) before deploying it for it to work in a kubernetes cluser, here's an **already configured** [branch](https://github.com/cetic/helm-nifi/blob/feature/keycloak/configs/nifi.properties).
 
-> PS: the current configuration restults in a ERR_BAD_SSL_CLIENT_AUTH_CERT error because we're using self-signed certs auto-generated by the tls-toolkit, we're currently working to replace them with valid certs.
+Once FADI upgrades, Jupyterhub will restart with our new configuration, now we can head to our Jupyterhub and we should notice that we have the option **Sign in with keycloak** which is the option we are going to choose.
+
+<img src="images/installation/hub-sign-in-with-keycloak.png" alt="Create user" />
+
+That will take us to a keycloak themed authentification screen, that's where we can authenticate using the **user** that we created earlier in keycloak.
+
+<img src="images/installation/grafana-keycloak-auth.png" alt="Create user"/>
+
+Here we can authenticate using the user emal john@mail.com and the password we set up earlier.
