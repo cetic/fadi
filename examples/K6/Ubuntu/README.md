@@ -78,3 +78,31 @@ To start the load test, you can adapt this command :
 That will send 10 copies of each event in a period of 10s.
 
 You can now see the results of the load test directly on your CLI.
+
+## Some results
+
+### a. Per iteration
+100 iterations
+<a> <img src="images/100.PNG"/></a>
+
+1000 iterations
+<a> <img src="images/1000.PNG"/></a>
+
+10000 iterations
+<a> <img src="images/10000.PNG"/></a>
+
+### b. Per time
+
+1 second
+<a> <img src="images/1s.PNG"/></a>
+
+10 seconds
+<a> <img src="images/10s.PNG"/></a>
+
+### c. Per virtual user (10000)
+
+50 VUs
+<a> <img src="images/10000-50vus.PNG"/></a>
+
+100 VUs
+<a> <img src="images/10000-100vus.PNG"/></a>
