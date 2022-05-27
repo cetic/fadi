@@ -34,14 +34,29 @@ traefik:
   enabled: true
   dashboardIngress:
     enabled: true
-  dashboardHost: dashboard.traefik.fadi.cetic.be
+  dashboardHost: dashboard.example.cetic.be
   globalArguments:
     - "--api.insecure=true"
 ```
 
+If you have your own public IP address and you want to use it, navigate to the `service` part of `traefik` section and set the `LoadBalancerIP` field to your public IP :
+
+```
+traefik:
+  service:
+    spec:
+      loadBalancerIP: "<your_public_IP>"
+```
+
+To provide an IP address to your Traefik `LoadBalancer` service, you must have a loadbalancer like [Metallb](https://metallb.universe.tf/) for a bare metal deployment. If you are in the Cloud, cloud providers have their own load balancers. For a `Minikube` deployment, you can just type the following command:
+
+```
+minikube tunnel
+```
+
 See the [default values file](https://github.com/traefik/traefik-helm-chart/blob/master/traefik/values.yaml) from the official repository for more configuration options.
 
-Note that this configuration is not suitable for a production environment because access to the API is not secure. If you are deploying Traefik in a production environment, you must define security features through middleware. Please refer to [doc](https://doc.traefik.io/traefik/v2.0/operations/dashboard/).
+Note that this configuration is not suitable for a production environment because access to the API is not secure. If you are deploying Traefik in a production environment, you must define security features through middleware. Please refer to [Traefik documentation](https://doc.traefik.io/traefik/v2.0/operations/dashboard/).
 
 
 ## 2. Configure the various services to use Traefik
@@ -59,19 +74,37 @@ grafana:
 .............
   traefikIngress:
     enabled: true
-    host: grafana.fadi.cetic.be
+    host: grafana.example.cetic.be
 ```
 
-You should now be able to access Grafana through the domain name you have chosen: `http(s)://grafana.fadi.cetic.be`
+You should now be able to access Grafana through the domain name you have chosen: `http(s)://grafana.example.cetic.be`
 
-There are three services (Grafana, Nifi and JupyterHub) and the Traefik dashboard which have already been built with an `IngressRoute`. You just have to activate them. If you want to build `IngressRoutes` for other services, you must add them in the [ingressroutes.yaml](https://github.com/cetic/helm-fadi/blob/master/templates/ingressroutes.yaml) file. E.g. for Grafana:
+There are four services (Grafana, Nifi, JupyterHub and superset) and the Traefik dashboard which have already been built with an [IngressRoute](https://doc.traefik.io/traefik/v2.2/routing/providers/kubernetes-crd/#kind-ingressroute). You just have to activate them. If you want to build `IngressRoutes` for other services, you must add them in the [ingressroutes.yaml](https://github.com/cetic/helm-fadi/blob/master/templates/ingressroutes.yaml) file. E.g. for Grafana:
 
 ```
-{{- if .Values.grafana.traefikIngress.enabled -}}
+{{- if and (.Values.grafana.enabled) (.Values.grafana.traefikIngress.enabled) -}}
+{{- if .Values.grafana.traefikIngress.tls }}
 apiVersion: traefik.containo.us/v1alpha1
 kind: IngressRoute
 metadata:
   name: grafana
+spec:
+  entryPoints:
+    - websecure
+  routes:
+  - kind: Rule
+    match: Host(`{{ .Values.grafana.traefikIngress.host }}`) && PathPrefix(`/`)
+    services:
+      - name: {{ .Release.Name }}-grafana
+        port: 80
+  tls:
+    secretName: {{ .Values.grafana.traefikIngress.host }}  
+---
+{{- end }}
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: grafana-http
 spec:
   entryPoints:
     - web
@@ -81,7 +114,14 @@ spec:
     services:
     - name: {{ .Release.Name }}-grafana
       port: 80
+    {{- if .Values.grafana.traefikIngress.tls }}
+    middlewares:
+      - name: https-redirect
+    {{- end }}
+---
 {{- end }}
 ```
 
-Next you will also want to configure SSL access to your services. For that, have a look at the [security documentation](/doc/SECURITY.md).
+> Note : there is also a `middleware` object in the `ingressroute.yaml` file. It provides a https redirect when TLS is enabled.
+
+Next you will also want to configure TLS access to your services. For that, have a look at the [security documentation](/doc/SECURITY.md).

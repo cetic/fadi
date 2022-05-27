@@ -4,7 +4,7 @@ FADI Documentation
 * [Services logs management](LOGGING.md) - configure and setup a centralised logging system
 * [Users management](USERMANAGEMENT.md) - user identification and authorization (LDAP, RBAC, ...)
 * [Reverse proxy](REVERSEPROXY.md) - Traefik reverse proxy configuration
-* [Security](SECURITY.md) - SSL setup
+* [Security](SECURITY.md) - TLS setup
 * [Testing](/tests/README.md) - tests for the FADI framework
 * [Performance](PERFORMANCE.md) - performance tests
 * [TSimulus](TSIMULUS.md) - how to simulate sensors and generate realistic data with [TSimulus](https://github.com/cetic/TSimulus)
