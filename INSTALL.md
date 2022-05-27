@@ -98,7 +98,7 @@ Do not forget to specify the namespace to `fadi`
 ![Kubernetes FADI dashboard](doc/images/installation/minikube_fadi_dashboard.png)
 
 
-To list the different services of the fadi framework:
+To list the different services of the FADI framework:
 
 ```
 minikube service list
