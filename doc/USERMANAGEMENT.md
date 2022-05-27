@@ -106,8 +106,6 @@ For more information about pg-ldap-sync: [Use LDAP permissions in PostgreSQL](ht
 
 #### Configuration
 
-To secure NiFi with LDAP we need to enable SSL for NiFi. As part of enabling SSL, NiFi will also automatically enable authentication requiring an additional authentication method which in our case will be LDAP, to get detailed description of the whole process: [Apache NiFi - Authorization and Multi-Tenancy](https://bryanbende.com/development/2016/08/17/apache-nifi-1-0-0-authorization-and-multi-tenancy)
-
 To configure LDAP in a Helm chart, we need to first enable it by setting the variable `auth.ldap.enabled` to `true` then configure the rest of the variables. Here is an example for the default FADI LDAP:
 
 
@@ -123,12 +121,12 @@ auth:
       userIdentityAttribute: cn
 ```
 
-Then we make sure to pre-set the `traefikIngress`, let's say we want the domain name `nifi.test.local`, our `traefikIngress` configuration should look like this :
+Then we make sure to pre-set the `traefikIngress`, let's say we want the domain name `nifi.example.cetic.be`, our `traefikIngress` configuration should look like this :
 
 ```yaml
 traefikIngress:
     enabled: true
-    host: nifi.test.local
+    host: nifi.example.cetic.be
 ```
 
 And then we set the properties as follows, the `nifi.properties.webProxyHost` variable should have the exact url that we are going to use to access NIFI later, if our dns is nifi.example.cetic.be, our configuration should look like this:
@@ -138,11 +136,9 @@ And then we set the properties as follows, the `nifi.properties.webProxyHost` va
   properties:
     externalSecure: false
     isNode: false
-    httpPort: null
-    httpsPort: 9443
+    httpsPort: 8443
     webProxyHost: nifi.example.cetic.be
     clusterPort: 6007
-    clusterSecure: true
 ```
 
 #### Sign in 
@@ -453,13 +449,12 @@ If we want to add the **group devs** and give them access, we add this line `cn=
 Here we are not adding `cn={username},cn=admins,dc=ldap,dc=cetic,dc=be` so the group **admins** will not have access, the list should look like this:
 
 ```yaml
-   auth:
-    type: ldap
-    ldap:
-      server:
-        address: fadi-openldap
-      dn:
-        templates:
+   hub:
+    config:
+      JupyterHub:
+        authenticator_class: ldapauthenticator.LDAPAuthenticator
+      LDAPAuthenticator:
+        bind_dn_template:
           - 'cn={username},cn=admin,dc=ldap,dc=cetic,dc=be'
           - 'uid={username},cn=admins,ou=people,dc=ldap,dc=cetic,dc=be'
           - 'cn={username},dc=ldap,dc=cetic,dc=be'
