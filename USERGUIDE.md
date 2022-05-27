@@ -52,7 +52,8 @@ Your host file should look like this:
 10.104.68.59 grafana.example.cetic.be adminer.example.cetic.be superset.example.cetic.be nifi.example.cetic.be
 ```
 
-Unless specified otherwise, all services can be accessed using the username and password pair: `admin` / `password1` , see the [user management documentation](doc/USERMANAGEMENT.md) for detailed information on how to configure user identification and authorization (LDAP, RBAC, ...).
+
+Unless specified otherwise, all services can be accessed using the username and password pair: `admin` / `Z2JHHezi4aAA` , see the [user management documentation](doc/USERMANAGEMENT.md) for detailed information on how to configure user identification and authorization (LDAP, RBAC, ...).
 
 See the [logs management documentation](doc/LOGGING.md) for information on how to configure the management of the various service logs.
 
@@ -74,7 +75,7 @@ To achieve this you need to:
     * System: `PostgreSQL`
     * Server: `fadi-postgresql`
     * Username: `admin`
-    * Password: `password1`
+    * Password: `Z2JHHezi4aAA`
     * Database: `postgres`
 
 * In the Adminer Browser, launch the Query tool by clicking "SQL command".
@@ -150,7 +151,7 @@ So, create the following components :
             * Database Driver Class Name: `org.postgresql.Driver`
             * Database Driver Location(s): `/opt/nifi/psql/postgresql-42.2.6.jar`
             * Database User: `admin`
-            * Password: `password1`
+            * Password: `Z2JHHezi4aAA`
             * Enable service by clicking on the lightning icon.
     * right-click > `Configure` > `Properties` tab  > Schema Name > `public`
     * right-click > `Configure` > `Properties` tab  > Table Name > `example_basic`
@@ -194,7 +195,7 @@ See also [the NiFi template](/examples/basic/basic_example_final_template.xml) t
     * In the **Operate** frame of Nifi:
         * right-click on `Configuration`
         * Click on `View configuration` of `DBCPConnectionPool` controller service. 
-        * In the `Properties` tab, complete the `password` field with `password1`
+        * In the `Properties` tab, complete the `password` field with `Z2JHHezi4aAA`
         * Enable both `CSVReader` and `DBCPConnectionPool` controller services.
     * Select both processors and both output ports
         * right-click, and select `Start`. 
@@ -217,7 +218,7 @@ Head to the Grafana web interface by typing in your browser the `grafana.traefik
 
 [http://grafana.example.cetic.be](http://grafana.example.cetic.be)
 
-(the default credentials are `admin`/`password1`)
+(the default credentials are `admin`/`Z2JHHezi4aAA`)
 
 ![Grafana web interface](examples/basic/images/grafana_interface.png)
 
@@ -229,7 +230,7 @@ First we will define the PostgreSQL datasource. To do that, in the Grafana Home 
     * Host: `fadi-postgresql:5432`
     * database: `postgres`
     * user: `admin`
-    * password: `password1`
+    * password: `Z2JHHezi4aAA`
     * SSL Mode: `disable`
     * Version: `10`
 
@@ -272,7 +273,7 @@ Head to the Superset web interface by typing in your browser the `superset.traef
 
 [http://superset.example.cetic.be](http://superset.example.cetic.be)
 
-(the default credentials are `admin`/`password1`): 
+(the default credentials are `admin`/`Z2JHHezi4aAA`): 
 
 First we will define the datasource:
 
@@ -280,7 +281,7 @@ First we will define the datasource:
 
 * Then, on the right, click on (+) (`add a new record` button).
     * Database: `example_basic`
-    * SQLAlchemy URI: `postgresql://admin:password1@fadi-postgresql:5432/postgres`
+    * SQLAlchemy URI: `postgresql://admin:Z2JHHezi4aAA@fadi-postgresql:5432/postgres`
 
 * Finally, you can click on `Test Connection` to check to connection to the database.
 
@@ -340,7 +341,7 @@ Head to the Jupyter notebook interface by typing in your browser the `jupyter.tr
 
 [http://jupyterhub.example.cetic.be](http://jupyterhub.example.cetic.be)
 
-Then, you can login using the default credentials `admin`/`password1`.
+Then, you can login using the default credentials `admin`/`Z2JHHezi4aAA`.
 
 A Jupyter dashboard is shown. 
 
