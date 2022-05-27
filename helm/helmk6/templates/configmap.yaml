@@ -1,0 +1,42 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: k6-scripts
+data:
+  nginx-test.js: |
+    import http from 'k6/http';
+    import { check , sleep} from 'k6';
+    export let options = { 
+        stages: [
+          { target: {{ .Values.target.virtualuser }}, duration: {{ .Values.target.duration | quote }} }
+          
+            ],insecureSkipTLSVerify: true
+           };
+    
+     //const data = JSON.parse(open("/input/uploadfile/dashboard.json"));
+
+
+    export default function () {
+   
+    {{if .Values.target.fileUpload.enabled}}
+    const  res = http.post('http://{{ .Values.target.host }}:{{ .Values.target.port }}/api/dashboards/db',JSON.stringify(data),
+     { headers: {  'Accept': 'application/json',
+                   'Authorization': 'Bearer {{ .Values.target.fileUpload.token }}',
+                   'Content-Type': 'application/json'  
+                }
+      });
+      
+    check(res, { 'is status 200': (r) => r.status === 200, });
+
+    {{else if .Values.target.nifirunflow.enabled}}
+     const API_TOKEN = "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VybmFtZSIsImlzcyI6IlNpbmdsZVVzZXJMb2dpbklkZW50aXR5UHJvdmlkZXIiLCJhdWQiOiJTaW5nbGVVc2VyTG9naW5JZGVudGl0eVByb3ZpZGVyIiwicHJlZmVycmVkX3VzZXJuYW1lIjoidXNlcm5hbWUiLCJraWQiOjEsImV4cCI6MTYzNjA0Njg1MiwiaWF0IjoxNjM2MDE4MDUyfQ.R14PAaB9FuDRE-OcUvoQMjqLta2Z0cBN3PDvt2s4WJY";
+     const responses = http.put('https://{{ .Values.target.host }}:{{ .Values.target.port }}/nifi-api/flow/process-groups/{{ .Values.target.nifirunflow.idprocessgroup  }}',JSON.stringify({"id":{{ .Values.target.nifirunflow.idprocessgroup | quote }},"state":{{ .Values.target.nifirunflow.status | quote }}}),{headers: { 'Content-Type': 'application/json', "Authorization": `Bearer ${API_TOKEN}` } });
+
+     check(responses, { 'is status 200': (r) => r.status === 200, });
+
+    {{else}}
+    
+    const result = http.get('http://{{ .Values.target.host }}:{{ .Values.target.port }}');  
+    check(result, { 'http response status code is 200': result.status === 200, });
+    {{end}}
+    }

@@ -39,9 +39,24 @@ traefik:
     - "--api.insecure=true"
 ```
 
+If you have your own public IP address and you want to use it, navigate to the `service` part of `traefik` section and set the `LoadBalancerIP` field to your public IP :
+
+```
+traefik:
+  service:
+    spec:
+      loadBalancerIP: "<your_public_IP>"
+```
+
+To provide an IP address to your Traefik `LoadBalancer` service, you must have a loadbalancer like [Metallb](https://metallb.universe.tf/) for a bare metal deployment. If you are in the Cloud, cloud providers have their own load balancers. For a `Minikube` deployment, you can just type the following command:
+
+```
+minikube tunnel
+```
+
 See the [default values file](https://github.com/traefik/traefik-helm-chart/blob/master/traefik/values.yaml) from the official repository for more configuration options.
 
-Note that this configuration is not suitable for a production environment because access to the API is not secure. If you are deploying Traefik in a production environment, you must define security features through middleware. Please refer to [doc](https://doc.traefik.io/traefik/v2.0/operations/dashboard/).
+Note that this configuration is not suitable for a production environment because access to the API is not secure. If you are deploying Traefik in a production environment, you must define security features through middleware. Please refer to [Traefik documentation](https://doc.traefik.io/traefik/v2.0/operations/dashboard/).
 
 
 ## 2. Configure the various services to use Traefik
@@ -107,6 +122,6 @@ spec:
 {{- end }}
 ```
 
-> Note : there is also a `middleware` oject in the `ingressroute.yaml` file. It provides a https redirect when the TLS is ensabled.
+> Note : there is also a `middleware` object in the `ingressroute.yaml` file. It provides a https redirect when TLS is enabled.
 
 Next you will also want to configure TLS access to your services. For that, have a look at the [security documentation](/doc/SECURITY.md).

@@ -35,11 +35,21 @@ To access services through domain names, open a new terminal and enter this comm
 minikube tunnel
 ```
 
-Update your `hosts` file with Traefik's external IP address. You can find [here](https://phoenixnap.com/kb/how-to-edit-hosts-file-in-windows-mac-or-linux) a user guide for Linux, Mac and Windows.
+Update your `hosts` file with Traefik's external IP address:
+
+```
+$ kubectl get svc -n fadi
+NAME                      TYPE           CLUSTER-IP       EXTERNAL-IP     PORT(S)                      AGE
+fadi-traefik              LoadBalancer   10.104.68.59     10.104.68.59    80:31633/TCP,443:30041/TCP   59m
+```
+
+You can find [here](https://phoenixnap.com/kb/how-to-edit-hosts-file-in-windows-mac-or-linux) a user guide for Linux, Mac and Windows.
+Your host file should look like this:
 
 ```
 127.0.0.1   localhost
-
+...
+10.104.68.59 grafana.example.cetic.be adminer.example.cetic.be superset.example.cetic.be nifi.example.cetic.be
 ```
 
 
@@ -51,11 +61,11 @@ See the [logs management documentation](doc/LOGGING.md) for information on how t
 
 <a href="https://www.adminer.org/" alt="adminer"><img src="doc/images/logos/adminer.png" width="200px" /></a>
 
-First, setup the datalake by creating a table in the postgresql database. 
+First, setup the datalake by creating a table in the PostgreSQL database. 
 
 To achieve this you need to: 
 
-* Head to the adminer interface
+* Head to the Adminer interface
 
   * if you want to create a **Traefik ingress**, you can follow this [guide](doc/REVERSEPROXY.md#2-configure-the-various-services-to-use-traefik)
   * else, you can use a port-forwarding to access the interface: `kubectl port-forward service/fadi-adminer 8081:80` and can access Adminer from your browser at [http://localhost:8081](http://localhost:8081)
