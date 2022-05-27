@@ -5,6 +5,7 @@ FADI Documentation
 * [Users management](USERMANAGEMENT.md) - user identification and authorization (LDAP, RBAC, ...)
 * [Reverse proxy](REVERSEPROXY.md) - Traefik reverse proxy configuration
 * [Security](SECURITY.md) - TLS setup
+* [IAM](IAM.md) - Identity and Access Management using Keycloak
 * [Testing](/tests/README.md) - tests for the FADI framework
 * [Performance](PERFORMANCE.md) - performance tests
 * [TSimulus](TSIMULUS.md) - how to simulate sensors and generate realistic data with [TSimulus](https://github.com/cetic/TSimulus)
