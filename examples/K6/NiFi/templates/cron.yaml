@@ -1,0 +1,36 @@
+apiVersion: batch/v1beta1
+kind: CronJob
+metadata:
+  name: k6-test
+spec:
+  schedule: {{ .Values.conf.schedule | quote }}
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+            - name: k6
+              image: {{ .Values.image.repository }}:{{ .Values.image.tag }}
+              env:
+                - name: K6_OUT
+                  value: influxdb=http://{{ .Release.Name }}-influxdb:8086/k6
+                - name: TARGET_HOSTNAME
+                  value: nginx-service.default.svc.cluster.local
+              args:
+                - run
+                - /scripts/nginx-test.js
+              volumeMounts:
+                - name: scripts-vol
+                  mountPath: /scripts
+                - name: data
+                  mountPath: /data
+
+          restartPolicy: Never
+          volumes:
+            - name: scripts-vol
+              configMap:
+                name: k6-scripts
+            - name: data
+              hostPath:
+                path: /home/docker
+                type: Directory
