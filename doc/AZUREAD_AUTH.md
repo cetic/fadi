@@ -1,28 +1,29 @@
 Azure AD authentication and authorization
 ==========
 
-[Azure AD](https://docs.microsoft.com/en-us/azure/active-directory/fundamentals/active-directory-whatis) provides through the Azure Cloud a service to manage access and identities.
+[Azure AD](https://docs.microsoft.com/en-us/azure/active-directory/fundamentals/active-directory-whatis) provides a service to manage access and identities through the Azure Cloud.
 
-In this document, I will explain how to access three FADI's applications (Grafana, Jupyterhub and Nifi) by using Azure AD as an ID Provider.
+In this document, we will explain how to access three of FADI applications (Grafana, Jupyterhub and Nifi) by using Azure AD as an ID Provider.
 
-This guide assumes that you know how to [install](../INSTALL.md) FADI and enable [Traefik ingress](REVERSEPROXY.md). It also assume that you know how to enable the [TLS](SECURITY.md) because it is needed .
+This guide assumes that you know how to [install](/INSTALL.md) FADI and enable [Traefik ingress](REVERSEPROXY.md). It also assume that you know how to enable [TLS](SECURITY.md) because it is needed.
 
 ## 1. App registrations
+
 Before setting up FADI's app, we need to use an Azure service called [Application Registrations](https://docs.microsoft.com/en-us/azure/active-directory/develop/quickstart-register-app). The purpose of this registration is to establish a trust relationship between your application and Azure AD.
 
 In our case, we will only use one "application registration" which will be used for all three applications (Grafana, Jupyterhub and Nifi).
 
-To do this, you can follow this [official tutorial](https://docs.microsoft.com/en-us/azure/active-directory/develop/quickstart-register-app). Choose a descriptive name for the app registration like "FADI" and save. Add a Web platform, you will add the redirect URIs later. Finalaly, add a "client secret" credential type and set it a name and an expiration date.
+To do this, you can follow this [official tutorial](https://docs.microsoft.com/en-us/azure/active-directory/develop/quickstart-register-app). Choose a descriptive name for the app registration like "FADI" and save. Add a Web platform, you will add the redirect URIs later. Finally, add a "client secret" credential type and set a name and an expiration date.
 
-Once the application is registered, write down the `Application ID`, `Tenant ID` and `Client Secret` value. These will be used for FADI application configurations.
+Once the application is registered, write down the `Application ID`, `Tenant ID` and `Client Secret` values. These will be used for FADI application configurations.
 
 ## 2. App configurartions
 
-* ### 2.1. Grafana
+### 2.1. Grafana
 
-In the FADI helm chart values.yaml file, navigate to the “auth.azuread” part of the grafana section. Next, set the following configuration:
+In the FADI Helm chart `values.yaml` file, navigate to the `auth.azuread` part of the `grafana` section. Next, set the following configuration:
 
-```
+```yaml
 auth.azuread:
     name: Azure AD
     enabled: true
@@ -37,20 +38,22 @@ auth.azuread:
 server:
     root_url: <your_grafana_domain_name>
 ```
-> Note that the root_url must be the same that the domain name setted in the [IngressRoute](REVERSPROXY.md).
+
+> Note that the `root_url` must be the same that the domain name set in the [IngressRoute](REVERSEPROXY.md).
 
 If Grafana is already deployed (refer [here](../INSTALL.md#122-install-fadi-services-on-the-local-cluster) for the installation), type:
 
 ```
 helm upgrade fadi <fadi_folder>
 ```
+
 else:
 
 ```
 helm install fadi <fadi_folder>
 ```
 
-Now, you can add a redirect URI in the "platform" of your "app registration":
+Now, you can add a redirect URI in the `platform` of your `app registration`:
 
 ```
 https://<your_grafana_domain_name>/login/azuread
@@ -62,11 +65,11 @@ Type the Grafana domain name in your browser and you will see a new field to sig
 
 Click on this field and you will be redirect to the Azure AD sign in page or to Grafana if you already are connected.
 
-You can find [here](https://grafana.com/docs/grafana/latest/auth/azuread/) the Grafana official tuto to set Azure AD authentication or you can also follow [this one](https://martinjt.me/2021/04/10/grafana-on-azure-azuread-authentication/).
+You can find [here](https://grafana.com/docs/grafana/latest/auth/azuread/) the Grafana official instructions to set Azure AD authentication or you can also follow [this tutorial](https://martinjt.me/2021/04/10/grafana-on-azure-azuread-authentication/).
 
-* ### 2.2. Jupyterhub
+### 2.2. JupyterHub
 
-In the FADI helm chart values.yaml file, navigate to the “hub.config” part of the Jupyterhub section. Next, uncomment the block of Azure AD authentication and set the following configuration:
+In the FADI Helm chart `values.yaml` file, navigate to the `hub.config` part of the `Jupyterhub` section. Next, uncomment the block of Azure AD authentication and set the following configuration:
 
 ```
 AzureAdOAuthenticator:
@@ -77,36 +80,38 @@ AzureAdOAuthenticator:
 JupyterHub:
     authenticator_class: azuread
 ```
-> Note that the domain name must be the same that the domain name setted in the [IngressRoute](REVERSPROXY.md).
 
-If Jupyterhub is already deployed (refer [here](../INSTALL.md#122-install-fadi-services-on-the-local-cluster) for the installation), type:
+> Note that the domain name must be the same that the domain name set in the [IngressRoute](REVERSPROXY.md).
+
+If JupyterHub is already deployed (refer [here](../INSTALL.md#122-install-fadi-services-on-the-local-cluster) for the installation), type:
 
 ```
 helm upgrade fadi <fadi_folder>
 ```
+
 else:
 
 ```
 helm install fadi <fadi_folder>
 ```
 
-Now, you can add a redirect URI in the "platform" of your "app registration":
+Now, you can add a redirect URI in the `platform` of your `app registration`:
 
 ```
 https://<your_jupyterhub_domain_name>/hub/oauth_callback
 ```
 
-Type the Jupyterhub domain name in your browser and you will see this field:
+Type the JupyterHub domain name in your browser and you will see this field:
 
 <img src="images/AzureAD/jupyterhub_sign_in.PNG" alt="Jupyterhub Sign In"/>
 
-Click on this field and you will be redirect to the Azure AD sign in page or to Jupyterhub if you already are connected.
+Click on this field and you will be redirect to the Azure AD sign in page or to JupyterHub if you already are connected.
 
-You can find [here](https://zero-to-jupyterhub.readthedocs.io/en/latest/administrator/authentication.html#azure-active-directory) the Jupyterhub official tuto to set Azure AD authentication or you can also follow [this one](https://martinjt.me/2021/04/10/grafana-on-azure-azuread-authentication/).
+You can find [here](https://zero-to-jupyterhub.readthedocs.io/en/latest/administrator/authentication.html#azure-active-directory) the JupyterHub official instructions to set Azure AD authentication or you can also follow [this tutorial](https://martinjt.me/2021/04/10/grafana-on-azure-azuread-authentication/).
 
-* ### 2.3. Nifi
+### 2.3. NiFi
 
-In the FADI helm chart values.yaml file, navigate to the “auth.oidc” part of the Nifi section. Next, set the following configuration:
+In the FADI Helm chart `values.yaml` file, navigate to the `auth.oidc` part of the `nifi` section. Next, set the following configuration:
 
 ```
 auth.oidc:
@@ -118,25 +123,26 @@ auth.oidc:
     admin: <your_admin_email>
 ```
 
-If Nifi is already deployed (refer [here](../INSTALL.md#122-install-fadi-services-on-the-local-cluster) for the installation), type:
+If NiFi is already deployed (refer [here](../INSTALL.md#122-install-fadi-services-on-the-local-cluster) for the installation), type:
 
 ```
 helm upgrade fadi <fadi_folder>
 ```
+
 else:
 
 ```
 helm install fadi <fadi_folder>
 ```
 
-Now, you can add a redirect URI in the "platform" of your "app registration":
+Now, you can add a redirect URI in the `platform` of your `app registration`:
 
 ```
 https://<your_nifi_domain_name>/nifi-api/access/oidc/callback
 ```
 
-Type the Nifi domain name in your browser and if you are not yet connect to your Azure AD account, you will automaticaly redirect to the Microsoft sign_in page:
+Type the NiFi domain name in your browser and if you are not yet connect to your Azure AD account, you will automaticaly redirect to the Microsoft sign in page:
 
 <img src="images/AzureAD/nifi_sign_in.PNG" alt="Grafana Sign In"/>
 
-Enter your AzureAD credentials and you will be redirect to the Nifi home page.
+Enter your AzureAD credentials and you will be redirect to the NiFi home page.
