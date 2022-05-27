@@ -1,8 +1,8 @@
-# Helm Chart for Fadi Loadtest
+# Helm Chart for k6 load testing
 
 ## Introduction
 
-This [Helm](https://helm.sh/) chart installs [k6 ](https://k6.io/) and differents tools to load test ,monitoring ,troubleshoot  fadi services  in a [Kubernetes](https://kubernetes.io/) cluster.
+This [Helm](https://helm.sh/) chart installs [k6](https://k6.io/) and differents tools to load test, monitor and troubleshoot FADI services in a [Kubernetes](https://kubernetes.io/) cluster.
 
 ## Prerequisites
 
@@ -15,8 +15,8 @@ This [Helm](https://helm.sh/) chart installs [k6 ](https://k6.io/) and different
 ### Install from local clone
 
 ```bash
-git clone git@git.cetic.be:h.belkiria/loadtest.git
-cd helmk6
+git clone https://github.com/cetic/fadi.git
+cd helm/helmk6
 helm dep up
 helm install k6loadtest .
 
@@ -31,7 +31,6 @@ NOTES:
   export CONTAINER_PORT=$(kubectl get pod --namespace default $POD_NAME -o jsonpath="{.spec.containers[0].ports[0].containerPort}")
   echo "Visit http://127.0.0.1:8080 to use your application"
   kubectl --namespace default port-forward $POD_NAME 8080:$CONTAINER_PORT
-
 ```
 
 ## Uninstallation
@@ -41,7 +40,6 @@ To uninstall/delete the `k6loadtest` deployment:
 ```bash
 helm delete  k6loadtest
 release "k6loadtest" uninstalled
-
 ```
 
 ## Configuration
@@ -58,7 +56,7 @@ The following table lists the configurable parameters of the  chart and the defa
 | `image.pullPolicy`                                                          | k6 Image pull policy                                                                                             | `IfNotPresent`                  |
 | `image.pullSecret`                                                          | k6 Image pull secret                                                                                             | `nil`                           |
 | **cronJob**                                                |
-| `conf.schedule`                                                                | confugiration cronJob schedule                                                                                             | ` */10 * * * * `            |
+| `conf.schedule`                                                                | configuration cronJob schedule                                                                                             | ` */10 * * * * `            |
 | **grafana**                                                               |
 | `grafana.enabled`                                                                 | Enable grafana                            | `true`                           |
 | `grafana.env`                                                                 | environment variable                                | `{GF_AUTH_ANONYMOUS_ORG_ROLE: "Admin",GF_AUTHNONYMOUS_ENABLED: "true",GF_AUTH_BASIC_ENABLED: "false"}`                           |
@@ -67,12 +65,12 @@ The following table lists the configurable parameters of the  chart and the defa
 | `grafana.datasources`                                                                 | datasources config .yaml                                  | ` datasources.yaml`                           |
 | **influxdb**                                                        |
 | `influxdb.authEnabled`                                                             | authEnabled influxdb                                                                              | `false`                     |
-| `influxdb.adminUser.name`                                                      | admin  name                                                                                       | `hamza`|
+| `influxdb.adminUser.name`                                                      | admin  name                                                                                       | `CHANGEME`|
 | `influxdb.adminUser.pwd`                                                              |admin  password                                                                                     | ``                  |
 | `influxdb.architecture`                                                          | Architecture deployment                                                                                             | `standalone`                            |
-| `influxdb.database`                                                         | name of database influxdb to be create| `k6`     |                      |      |
+| `influxdb.database`                                                         | name of the influxdb database to be created| `k6`     |                      |      |
 | **Load test conf**                                                             |
-| `target.virtualuser`                                                       | number of virtual user to be semulate                                                                               | ``                         |
+| `target.virtualuser`                                                       | number of virtual users to simulate                                                                               | ``                         |
 | `target.duration`                                                  | test duration                                                        |                 |
 | `target.host`                                                    | host service  address to be tested                                                                                       |                |
 | `target.port`                                            | service port                                                                                  | 
@@ -92,11 +90,8 @@ k6loadtest-grafana-5589f69c96-wdlt2    1/1     Running     0          10m
 k6loadtest-influxdb-85c844958f-6nfzx   1/1     Running     0          10m
 nifi-0                                 4/4     Running     25         10d
 
-```
 
-* check if a pod is in error: 
-```bash
- kubectl logs k6-test-1628944200-dg8pr 
+kubectl logs k6-test-1628944200-dg8pr 
 
           /\      |‾‾| /‾‾/   /‾‾/   
      /\  /  \     |  |/  /   /  /    
