@@ -2,6 +2,8 @@
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0) ![version](https://img.shields.io/github/tag/cetic/fadi.svg?label=release) 
 [![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fcetic%2Ffadi.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2Fcetic%2Ffadi?ref=badge_shield)
 
+## $${\color{red}This \space project \space is \space not \space maintained \space anymore.}$$
+
 <p align="center" style="width: 50%; height: 200px;">
   <a href="https://fadi.cetic.be"><img src="doc/images/logo.png" height="200"/></a>
 </p>
